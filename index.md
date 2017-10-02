@@ -2,20 +2,6 @@
 layout: cme195
 ---
 
-
-This short course runs for four weeks beginning in the second week of the
-quarter. It is recommended for students who want to use R in statistics,
-science, or engineering courses and for students who want to learn the basics of
-R programming. The goal of the short course is to familiarize students with R's
-tools for scientific computing.
-
-The goal of the short course is to familiarize students with R's tools for
-scientific computing. Class lectures will have interactive elements, and
-assignments will be application-driven.
-
-Topics covered include basic data structures, file I/O, control structures,
-functions, visualizations, statistics packages.
-
 ## [](#announcements) Announcements
 
 * To get a head start, please install R (version >= 3.4.0) and RStudio IDE
@@ -37,6 +23,21 @@ functions, visualizations, statistics packages.
 
 **Communication:** Please direct your questions on class materials and
 assignments to: [canvas](canvas.stanford.edu/).
+
+## [](#course) Course Description
+
+This short course runs for four weeks beginning in the second week of the
+quarter. It is recommended for students who want to use R in statistics,
+science, or engineering courses and for students who want to learn the basics of
+R programming. The goal of the short course is to familiarize students with R's
+tools for scientific computing.
+
+The goal of the short course is to familiarize students with R's tools for
+scientific computing. Class lectures will have interactive elements, and
+assignments will be application-driven.
+
+Topics covered include basic data structures, file I/O, control structures,
+functions, visualizations, statistics packages.
 
 
 ## [](#logistics) Course prerequisites
