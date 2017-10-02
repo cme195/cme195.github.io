@@ -2,7 +2,7 @@
 layout: cme195
 ---
 
-# [](#title) CME 195/STATS 195: Introduction to R
+# [](#title) External Resources
 
 ## [](#books) Recommended statistics and R books:
 
