@@ -34,24 +34,18 @@ science, or engineering courses and for students who want to learn the basics of
 R programming. The goal of the short course is to familiarize students with R's
 tools for scientific computing.
 
-The goal of the short course is to *familiarize students with R's tools for
-scientific computing*. Class lectures will be interactive with a focus on
-learning by example, and assignments will be application-driven.
+The goal of the short course is to familiarize students with R's tools for
+scientific computing. Class lectures will have interactive elements, and
+assignments will be application-driven.
 
 Topics covered include:
 
-- basic data structures,
-- file I/O,
-- control structures,
-- functions
-- visualizations,
-- statistics packages.
-
-
-The course consists of 8 *classes*, which sometime will include hands-on,
-in-class exercises. Laptops will be needed for every class. *Questions are
-encouraged* at any time as long as they do not disturb other students
-or the lecture flow.
+* basic data structures,
+* file I/O,
+* control structures,
+* functions
+* visualizations,
+* statistics packages.
 
 
 ## [](#logistics) Course prerequisites
