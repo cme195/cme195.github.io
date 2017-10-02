@@ -2,7 +2,7 @@
 layout: cme195
 ---
 
-# [](#welcome) Welcome to CME 195!
+# [](#welcome) Welcome to CME/STATS 195!
 
 
 ## [](#announcements) Announcements
