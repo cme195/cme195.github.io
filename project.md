@@ -61,7 +61,7 @@ done for yelp data as for twitter data, as done
     the city put a park, or
     - predict when/where crimes will occur
 
- - **Biological data**. Projects could involve e.g. differential expression,
+ - Biological data. Projects could involve e.g. differential expression,
  flow cytometry, mass spectronomy, image analysis, or phylogeny estimation,
  clustering of single cells, data visualization multivariate analyses. There
  are many packages on Bioconductor or CRAN that are specifically developed
