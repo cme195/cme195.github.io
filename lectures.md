@@ -6,8 +6,8 @@ layout: cme195
 
 ## [](#slides) Slides
 
-1.<a href="./assets/lectures/Lecture1_Intro.html">Introduction and R Basics</a>
-<a href="./assets/lectures/Lecture1_Intro.pdf">[pdf]</a>
+1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro/Lecture1_Intro.html).
+[(pdf)](./assets/lectures/Lecture1_Intro/Lecture1_Intro.pdf)
 2. Functions and apply functions
 3. Data pre-processing
 4. 2D plotting with ggplot2
