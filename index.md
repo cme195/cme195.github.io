@@ -22,25 +22,24 @@ layout: cme195
 
 **Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
 
-**Office hours:** 3:00 - 4:00 PM, [Huang 304](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang%20304)
+**Office hours:** Thu 3:00 - 4:00 PM, [Huang 304](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang%20304)
 
 **Communication:** Please direct your questions on class materials and
-assignments to: [canvas](canvas.stanford.edu/).
+assignments to: [canvas](https://canvas.stanford.edu).
 
 ## [](#course) Course Description
 
 This short course runs for four weeks beginning in the second week of the
 quarter. It is recommended for students who want to use R in statistics,
 science, or engineering courses and for students who want to learn the basics of
-R programming. The goal of the short course is to familiarize students with R's
-tools for scientific computing.
+R programming.
 
-The goal of the short course is to familiarize students with R's tools for
+The goal of this short course is to familiarize students with R's tools for
 scientific computing. Class lectures will have interactive elements, and
 assignments will be application-driven.
 
 Topics covered include basic data structures, file I/O, control structures,
-functions, visualizations, statistics packages.
+functions, visualizations, packages for statistical analysis.
 
 
 ## [](#logistics) Course prerequisites
@@ -49,9 +48,7 @@ There are no formal prerequisites. However, some statistics knowledge and prior
 programming experience in some language is strongly encouraged. The class
 focuses on familiarizing students with the R language, and some of its
 statistics and visualization packages. We will not have time to go over the
-technical details or the mathematics of the methods presented. Optional reading
-will be assigned before or after class, for students who want to learn more
-about the techniques presented.
+technical details or the mathematics of the methods presented.
 
 ## [](#logistics) Course Policy
 
@@ -59,7 +56,7 @@ There will be two homework sets, assigned the second and third week of class
 (due the following week). You are also expected to submit a final project (in
 groups up to 3 students). You are free to choose a topic for your final projects
 yourself. Please submit a title and a one-paragraph summary/abstract for your
-intended project by the third week of class.
+intended project by the end of the third week of class.
 
 You are encouraged to take the class for credit, as it forces you to get more
 practice with R. However, anyone is also welcome to audit the class, but

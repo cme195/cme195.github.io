@@ -1123,18 +1123,18 @@ matrix.names))) </code></pre></div>
 <pre><code>## , , Matrix1
 ## 
 ##      COL1 COL2 COL3
-## ROW1 6138 3832 6608
-## ROW2 2367  816 5256
-## ROW3 8231  227  186
-## ROW4 8256 8992 4288
+## ROW1 9830 8750 6723
+## ROW2 2331 3775 7298
+## ROW3 6425 4537 1006
+## ROW4 4197 9687 9223
 ## 
 ## , , Matrix2
 ## 
 ##      COL1 COL2 COL3
-## ROW1 8311 8673 4073
-## ROW2 8205  789 4502
-## ROW3 6753 9652 2760
-## ROW4 1749 9804  758</code></pre>
+## ROW1 1153 8622 5789
+## ROW2 3596 2433 1433
+## ROW3 1223 7213 3986
+## ROW4  867 4288 2957</code></pre>
 </div>
 </section><section id="lists" class="slide level2">
 <h1>Lists</h1>
@@ -1391,15 +1391,15 @@ new.employees &lt;-<span class="st"> </span>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">months &lt;-<span class="st"> </span><span class="kw">sample</span>(month.name, <span class="dv">6</span>)
 months</code></pre></div>
-<pre><code>## [1] &quot;April&quot;    &quot;July&quot;     &quot;January&quot;  &quot;October&quot;  &quot;February&quot; &quot;March&quot;</code></pre>
+<pre><code>## [1] &quot;July&quot;     &quot;October&quot;  &quot;February&quot; &quot;May&quot;      &quot;June&quot;     &quot;August&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name)) </code></pre></div>
-<pre><code>## [1] April    July     January  October  February March   
+<pre><code>## [1] July     October  February May      June     August  
 ## Levels: January February March April May June July August September October November December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] April    July     January  October  February March   
+<pre><code>## [1] July     October  February May      June     August  
 ## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">labels =</span> month.abb)) </code></pre></div>
-<pre><code>## [1] Apr Jul Jan Oct Feb Mar
+<pre><code>## [1] Jul Oct Feb May Jun Aug
 ## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec</code></pre>
 </section><section id="dates" class="slide level2">
 <h1>Dates</h1>
@@ -1428,7 +1428,7 @@ months</code></pre></div>
 <span class="kw">Sys.Date</span>()     </code></pre></div>
 <pre><code>## [1] &quot;2017-10-01&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2017-10-01 17:46:36 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-01 23:00:26 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the end of the year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2017-12-31&#39;</span>) -<span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
 <pre><code>## Time difference of 91 days</code></pre>
@@ -1443,7 +1443,7 @@ months</code></pre></div>
 <ul>
 <li><p>Lectures: Tue, Thu 12:00 PM - 1:20 PM, 300-300</p></li>
 <li><p>Office hours: Thu 3PM, Huang 304</p></li>
-<li><p>Class website: <a href="http://stanford.edu/class/cme195" class="uri">http://stanford.edu/class/cme195</a></p></li>
+<li><p>Class website: <a href="https://cme195.github.io/" class="uri">https://cme195.github.io/</a></p></li>
 <li><p>Homework submission: <a href="https://canvas.stanford.edu/" class="uri">https://canvas.stanford.edu/</a></p></li>
 <li><p>Questions/Communication: <a href="https://canvas.stanford.edu/" class="uri">https://canvas.stanford.edu/</a></p></li>
 </ul>

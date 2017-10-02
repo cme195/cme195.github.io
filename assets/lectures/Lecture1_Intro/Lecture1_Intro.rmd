@@ -1142,7 +1142,7 @@ possible date formatting.
 
 - Office hours: Thu 3PM, Huang 304
 
-- Class website: http://stanford.edu/class/cme195
+- Class website: https://cme195.github.io/
 
 - Homework submission: https://canvas.stanford.edu/
 
