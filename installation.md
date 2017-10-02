@@ -49,7 +49,7 @@ to install the program.
 
 ## [](#runR) Running R
 
-## [](#interpreteR) The interpreter mode
+### [](#interpreteR) The interpreter mode
 
 To start the R console you can either
 
@@ -68,7 +68,7 @@ The R console is also available as one of the panes in the RStudio IDE,
 and is automatically started when you launch RStudio.
 
 
-## [](#scriptR) The scripting mode
+### [](#scriptR) The scripting mode
 
 - A more convenient way to interact with R is *to write a script*.
 - A script contains all code you want to execute.
