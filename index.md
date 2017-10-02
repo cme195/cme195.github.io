@@ -2,6 +2,9 @@
 layout: cme195
 ---
 
+# [](#welcome) Welcome to CME 195!
+
+
 ## [](#announcements) Announcements
 
 * To get a head start, please install R (version >= 3.4.0) and RStudio IDE
