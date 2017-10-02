@@ -2,11 +2,8 @@
 layout: cme195
 ---
 
-# [](#title) CME 195/STATS 195: Introduction to R
+# [](#title) Software Installation
 
-[back](./)
-
-## [](#tasks) Getting started
 
 In order to work with R you will need to complete two following tasks:
 
@@ -18,8 +15,8 @@ code in other languages. You can even use a basic text editor to write
 an R script, but this of course is sub-optimal.
 
 The two option frequently used by R programmers are
-[https://www.rstudio.com/ *RStudio IDE*] and
-[https://www.gnu.org/software/emacs/ *Emacs*] (for intermediate/advanced users).
+[RStudio IDE](https://www.rstudio.com/) and
+[Emacs](https://www.gnu.org/software/emacs/) (for intermediate/advanced users).
 
 You are free to pick an editor that you feel most comfortable with.
 However, all instructions and lecture materials will use Rstudio.
@@ -27,26 +24,24 @@ However, all instructions and lecture materials will use Rstudio.
 
 ## [](#installR) Installing R
 
-* Visit the official [https://www.r-project.org/ * R website*].
+* Visit the official [R website](https://www.r-project.org/).
 Click on “download R” or go to "CRAN" tab.
 * The download link actually takes you to a list of mirror sites.
 Choose a site that is geographically close to you (USA, UC Berkeley).
-* Choose your operating system (Linux\/Mac OS\/Windows)
+* Choose your operating system (Linux/Mac OS/Windows)
 * Download a binary file and follow the installation instructions for
 your system.
 
 ## [](#installRStudio) Installing RStudio
 
 Install the latest version of [RStudio](https://www.rstudio.com/) 1.0.153.
-Download a binary for your OS from this
-[link](. RStudio
-includes many cool features including  interactive [R
+RStudio includes many cool features including  interactive [R
 Notebooks](http://rmarkdown.rstudio.com/r_notebooks.html), which are R Markdown
 document with chunks of code that can be executed independently and
 interactively, with output visible immediately beneath the input.
 
 * Visit the following
-[RStudio link](https://www.rstudio.com/products/rstudio/download/#download))
+[RStudio link](https://www.rstudio.com/products/rstudio/download/#download)
 * Pick and download installer for your OS.
 * After download is completed you can double-click the file and follow instructions
 to install the program.
@@ -56,10 +51,10 @@ to install the program.
 
 ## [](#interpreteR) The interpreter mode
 
-Start the R console:
+To start the R console you can either
 
-* By launching *the R graphical user interface*.
-* By typing "R" from *the command line/terminal*.
+* launch *the R graphical user interface*.
+* or type "R" from *the command line/terminal*.
 
 To open a terminal window use:
   * For linux: Ctr \+ Alt \+ T.
@@ -69,7 +64,7 @@ To open a terminal window use:
 Then, you can interactively give instructions to the computer, using the
 R commands. To quit enter `q()`.
 
-The R console is also available as one of **the panes in the RStudio IDE**,
+The R console is also available as one of the panes in the RStudio IDE,
 and is automatically started when you launch RStudio.
 
 
@@ -93,7 +88,7 @@ can be evaluated inline, i.e. their output will be included right beneath
 the code. The R Markdown requires you to compile the entire document,
 whereas R Notebooks allow you to evaluate each chunks individually, not
 necessarily in order in which they appear.
-- To start an R Notebook you should go to **File -> New File -> R Notebook**.
+- To start an R Notebook you should go to File > New File > R Notebook.
 - To insert a new code chunk you should use a keyboard shortcut
 `Ctrl + Alt + I` (Mac OS X: `Cmd + Option + I`)
 - To execute the code in a specific chunk: place your cursor inside that chunk
@@ -102,3 +97,5 @@ then use the Run Chunk button or press `Ctrl + Shift + Enter`
 
 You can find more on R Notebooks
 [here](http://rmarkdown.rstudio.com/r_notebooks.html ).
+
+[back](./)

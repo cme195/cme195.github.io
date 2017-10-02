@@ -2,15 +2,16 @@
 layout: cme195
 ---
 
-# [](#title) CME 195/STATS 195: Introduction to R
+# [](#title) Introduction to R
 
 ## [](#announcements) Announcements
 
 * To get a head start, please install R (version >= 3.4.0) and RStudio IDE
-(preview version). Instructions for this can be found [here](installation).
+(v. 1.0.153). Instructions for this can be found [here](installation).
 
-* Note that the classroom location has changed to 300-300 (building 300, room
-  300).
+* Note that the classroom location has changed to
+[300-300](https://campus-map.stanford.edu/?id=01-300&lat=37.42636354&lng=-122.16968483&zoom=17&srch=300-300)
+(building 300, room 300).
 
 ## [](#logistics) Logistics
 
@@ -50,8 +51,8 @@ Topics covered include:
 
 ## [](#logistics) Course prerequisites
 
-There are no formal prerequisites. However, *some statistics knowledge and prior
-programming experience in some language is strongly encouraged*. The class
+There are no formal prerequisites. However, some statistics knowledge and prior
+programming experience in some language is strongly encouraged. The class
 focuses on familiarizing students with the R language, and some of its
 statistics and visualization packages. We will not have time to go over the
 technical details or the mathematics of the methods presented. Optional reading
@@ -60,14 +61,14 @@ about the techniques presented.
 
 ## [](#logistics) Course Policy
 
-There will be *two homework sets*, assigned the second and third week of class
-(due the following week). You are also expected to submit a *final project* (in
+There will be two homework sets, assigned the second and third week of class
+(due the following week). You are also expected to submit a final project (in
 groups up to 3 students). You are free to choose a topic for your final projects
 yourself. Please submit a title and a one-paragraph summary/abstract for your
 intended project by the third week of class.
 
 You are encouraged to take the class for credit, as it forces you to get more
-practice with R. However, anyone is also *welcome to audit* the class, but
+practice with R. However, anyone is also welcome to audit the class, but
 auditors will not be able to have their assignments graded.
 
 ## [](#logistics) Honor code
@@ -75,5 +76,5 @@ auditors will not be able to have their assignments graded.
 You are strongly encouraged to work together and discuss both exercises and the
 project. However, the write-ups and the code for the homeworks should be
 completed and submitted individually. You are also free to use online resources
-or solutions to the problems you find e.g. on stackexchange but of course not
-the full solutions to the assigned exercises.
+or solutions to the problems you find e.g. on stackoverflow/stackexchange but of
+course not the full solutions to the assigned exercises.

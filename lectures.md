@@ -2,13 +2,11 @@
 layout: cme195
 ---
 
-# [](#title) CME 195/STATS 195: Introduction to R
+# [](#lectures) Lectures
 
-[back](./)
+## [](#slides) Slides
 
-## [](#announcements) Announcements
-
-1. Introduction and R Basics
+1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro.html) [pdf](./assets/lectures/Lecture1_Intro.pdf)
 2. Functions and apply functions
 3. Data pre-processing
 4. 2D plotting with ggplot2
@@ -20,3 +18,5 @@ layout: cme195
 
 Disclaimer: these lecture slides are subject to change and can be updated
 any time. Please check regularly.
+
+[back](./)

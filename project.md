@@ -2,11 +2,7 @@
 layout: cme195
 ---
 
-# [](#title) CME 195/STATS 195: Introduction to R
-
-[back](./)
-
-## [](#project) Final Project
+# [](#project) Final Project
 
 Choose a project that interests and excites you. It is intended as a chance for
 you to get more practice with R and to explore its more advanced tools. You
@@ -27,8 +23,8 @@ of work (each).
 
 ## [](#deadlines)  Schedule for deliverables:
 
-* Proposal (title and one-paragraph abstract) due *10\/24 by the end of class*.
-* Final write-up and R code due a week after the last class *11\/03 at noon*.
+* Proposal (title and one-paragraph abstract) due **10/24 by the end of class**.
+* Final write-up and R code due a week after the last class **11\/03 at noon**.
 
 Everything should be uploaded on
 [canvas](https://web.stanford.edu/group/canvas/discovery/) before the
@@ -36,27 +32,27 @@ deadline.
 
 ## [](#ideas) Project Ideas:
 
- * [**Sports data**](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/).
+ * [Sports data](https://www.r-bloggers.com/sports-data-and-r-scope-for-a-thematic-rather-than-task-view-living-post/).
  For example, decide which basketball player would you want on your team?
 
- - [**Financial data**](https://www.quandl.com/browse ). Analyze stock returns, or
+ - [Financial data](https://www.quandl.com/browse ). Analyze stock returns, or
  compute optimal portfolios. Check what people in the field do
  [here](http://www.rinfinance.com/agenda/) and see resources
  [here](https://www.r-bloggers.com/r-and-finance/ ).
 
- - [**Twitter data**](http://geoffjentry.hexdump.org/twitteR.pdf ).
+ - [Twitter data](http://geoffjentry.hexdump.org/twitteR.pdf ).
  Use the content of the posts to perform activity and sentiment analysis.
  You might want to check out
- [**Donald Trump's tweet analysis**](http://varianceexplained.org/r/trump-tweets/ ).
+ [Donald Trump's tweet analysis](http://varianceexplained.org/r/trump-tweets/ ).
 
-- [**Yelp data**](https://www.yelp.com/dataset_challenge ) Similar analysis can be
+- [Yelp data](https://www.yelp.com/dataset_challenge ) Similar analysis can be
 done for yelp data as for twitter data, as done
 [here](http://varianceexplained.org/r/yelp-sentiment/ ).
 
- - [**Movie preference data**](http://grouplens.org/datasets/movielens/ )
+ - [Movie preference data](http://grouplens.org/datasets/movielens/ )
  For example develop a movie recommender system.
 
- - [**Cities/States data.**](http://simplystatistics.tumblr.com/post/15182715327/list-of-citiesstates-with-open-data-help-me)
+ - [Cities/States data.](http://simplystatistics.tumblr.com/post/15182715327/list-of-citiesstates-with-open-data-help-me)
  Use them to either:
     - identify the best and worst neighborhoods to live in based on different
     metrics like how many parks are within walking distance, crime statistics, etc.
@@ -72,14 +68,16 @@ done for yelp data as for twitter data, as done
  to perform these kind of analyses. Many datasets and implementations are
  available on Bioconductor repository.
 
- - Find a [**kaggle competition**](https://www.kaggle.com/competitions) present
+ - Find a [kaggle competition](https://www.kaggle.com/competitions) present
  or past and solve the problem using R.
 
  - Find a dataset on
- [**UCI Machine Learning Repository**](https://archive.ics.uci.edu/ml/index.html )
+ [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.html )
  and try to draw some interesting insigts.
 
  - Or create a stunning set of visualizations for a data set of your choice.
 
  More data available [here](https://www.springboard.com/blog/free-public-data-sets-data-science-project/)
  and [here](https://catalog.data.gov/dataset?res_format=CSV).
+
+ [back](./)
