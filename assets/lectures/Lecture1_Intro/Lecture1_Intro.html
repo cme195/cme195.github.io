@@ -577,9 +577,9 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 </section><section id="what-makes-r-good-1" class="slide level2">
 <h1>What makes R good?</h1>
 <p>As of September 29, there are 11,502 packages on <a href="https://cran.r-project.org/">CRAN</a>, 1,383 on <a href="https://www.bioconductor.org/">Biocondictor</a>, and many others on <a href="https://github.com/trending/r?since=weekly">github</a>)</p>
-<section style="float: center; height: 650px">
-<img src="Lecture1-figure/cran_packages.png", height="600", width="800"></img> <a style="text-align: center;"> Source: <a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">http://blog.revolutionanalytics.com/</a> </a>
-</section>
+<div style="float: center; height: 650px">
+<p><img src="Lecture1-figure/cran_packages.png", height="600", width="800"></img> <a style="text-align: center;"> Source: <a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">http://blog.revolutionanalytics.com/</a> </a></p>
+</div>
 </section></section>
 <section><section id="how-to-get-and-use-r" class="titleslide slide level1"><h1>How to get and use R?</h1></section><section id="how-to-install-r" class="slide level2">
 <h1>How to install R?</h1>
@@ -660,9 +660,9 @@ border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 <pre><code>##           Package     LibPath                                            Version 
 ## abind     &quot;abind&quot;     &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.4-5&quot; 
 ## acepack   &quot;acepack&quot;   &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.4.1&quot; 
-## ade4      &quot;ade4&quot;      &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.7-8&quot; 
+## ade4      &quot;ade4&quot;      &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.7-6&quot; 
 ## ADGofTest &quot;ADGofTest&quot; &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;0.3&quot;   
-## ALL       &quot;ALL&quot;       &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.18.0&quot;</code></pre>
+## affy      &quot;affy&quot;      &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.54.0&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get all packages currently loaded in the R environment </span>
 <span class="kw">search</span>() </code></pre></div>
 <pre><code>## [1] &quot;.GlobalEnv&quot;        &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;</code></pre>
@@ -807,8 +807,8 @@ v </code></pre></div>
 </section><section id="naming-variables" class="slide level2">
 <h1>Naming variables</h1>
 <ul>
-<li><p>A valid <strong>variable name consists of letters, numbers and the dot or underline characters</strong>.</p></li>
-<li><p>The variable name <strong>must start with a letter or the dot not followed by a number</strong>.</p></li>
+<li><p>A valid <strong>variable name consists of letters, numbers and a dot or underline characters</strong>.</p></li>
+<li><p>The variable name <strong>must start with a letter or a dot not followed by a number</strong>.</p></li>
 </ul>
 <p>Examples of:</p>
 <ul>
@@ -1123,18 +1123,18 @@ matrix.names))) </code></pre></div>
 <pre><code>## , , Matrix1
 ## 
 ##      COL1 COL2 COL3
-## ROW1 9830 8750 6723
-## ROW2 2331 3775 7298
-## ROW3 6425 4537 1006
-## ROW4 4197 9687 9223
+## ROW1 5284 8529 4759
+## ROW2 9635  107 4807
+## ROW3  693 6589 4543
+## ROW4 8842 5571 7028
 ## 
 ## , , Matrix2
 ## 
 ##      COL1 COL2 COL3
-## ROW1 1153 8622 5789
-## ROW2 3596 2433 1433
-## ROW3 1223 7213 3986
-## ROW4  867 4288 2957</code></pre>
+## ROW1 9226 8384 9667
+## ROW2 3747 9076 1429
+## ROW3 4309 9617 5586
+## ROW4 6312 3790 5351</code></pre>
 </div>
 </section><section id="lists" class="slide level2">
 <h1>Lists</h1>
@@ -1391,15 +1391,15 @@ new.employees &lt;-<span class="st"> </span>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">months &lt;-<span class="st"> </span><span class="kw">sample</span>(month.name, <span class="dv">6</span>)
 months</code></pre></div>
-<pre><code>## [1] &quot;July&quot;     &quot;October&quot;  &quot;February&quot; &quot;May&quot;      &quot;June&quot;     &quot;August&quot;</code></pre>
+<pre><code>## [1] &quot;April&quot;    &quot;October&quot;  &quot;May&quot;      &quot;December&quot; &quot;July&quot;     &quot;August&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name)) </code></pre></div>
-<pre><code>## [1] July     October  February May      June     August  
+<pre><code>## [1] April    October  May      December July     August  
 ## Levels: January February March April May June July August September October November December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] July     October  February May      June     August  
+<pre><code>## [1] April    October  May      December July     August  
 ## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">labels =</span> month.abb)) </code></pre></div>
-<pre><code>## [1] Jul Oct Feb May Jun Aug
+<pre><code>## [1] Apr Oct May Dec Jul Aug
 ## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec</code></pre>
 </section><section id="dates" class="slide level2">
 <h1>Dates</h1>
@@ -1426,12 +1426,12 @@ months</code></pre></div>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># What day  is it? </span>
 <span class="kw">Sys.Date</span>()     </code></pre></div>
-<pre><code>## [1] &quot;2017-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-03&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2017-10-01 23:00:26 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-03 11:44:36 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the end of the year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2017-12-31&#39;</span>) -<span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
-<pre><code>## Time difference of 91 days</code></pre>
+<pre><code>## Time difference of 89 days</code></pre>
 <ul>
 <li>Look up <code>strptime()</code> function with <code>?strptime</code> command to see a list of possible date formatting.</li>
 </ul>

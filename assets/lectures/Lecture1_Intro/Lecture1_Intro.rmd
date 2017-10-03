@@ -112,12 +112,12 @@ and **interactive graphics**.
 
  As of September 29, there are 11,502 packages on [CRAN](https://cran.r-project.org/), 1,383 on [Biocondictor](https://www.bioconductor.org/), and many others on [github](https://github.com/trending/r?since=weekly))
 
-<section style="float: center; height: 650px">
+<div style="float: center; height: 650px">
   <img src="./Lecture1-figure/cran_packages.png", height="600", width="800"></img> 
   <a style="text-align: center;"> 
   Source: [http://blog.revolutionanalytics.com/](http://blog.revolutionanalytics.com/2017/01/cran-10000.html) 
   </a>
-</section>
+</div>
 
 
 # How to get and use R?
@@ -405,9 +405,9 @@ becomes the data type of the variable**.
 
 ## Naming variables 
 
-- A valid **variable name consists of letters, numbers and the dot or underline characters**. 
+- A valid **variable name consists of letters, numbers and a dot or underline characters**. 
 
-- The variable name **must start with a letter or the dot not followed by a number**.
+- The variable name **must start with a letter or a dot not followed by a number**.
 
 Examples of: 
 
