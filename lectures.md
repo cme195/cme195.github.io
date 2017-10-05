@@ -9,7 +9,7 @@ layout: cme195
 1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro.html)
 [(pdf)](./assets/lectures/Lecture 1_ Introduction to R.pdf).
 2. [Control Flow and Functions](./assets/lectures/Lecture2_Syntax_and_Functions.html)
-[(pdf)](./assets/lectures/Lecture2_Syntax_and_Functions.pdf)
+[(pdf)](./assets/lectures/Lecture 2_ Syntax, control flow, functions.pdf)
 3. 2D plotting with ggplot2
 4. 3D and interactive plotting.
 5. Data pre-processing.
@@ -22,7 +22,8 @@ any time. Please check regularly.
 
 ## [](#exe) Exercises
 
-* [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html) [(rmd)](./assets/exercises/Lec2_Exercises.Rmd).
+* [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
+[(rmd)](./assets/exercises/Lec2_Exercises.Rmd).
 Answers.
 
 ## [](#tut) Extra Tutorials

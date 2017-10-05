@@ -1,5 +1,5 @@
 ---
-title: "Lecture 2: Exercises"
+title: "Lecture 2: Exercise Answers"
 date: October 5th, 2017
 output: 
   html_notebook:
@@ -14,13 +14,16 @@ output:
 Download the file containing data from the 1974 Motor Trend US magazine, 
 and comprises fuel consumption and 10 aspects of automobile design and p
 erformance for 32 automobiles (1973–74 models) from the following URL:
-"https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
+"https://cme195.github.io/assets/data/mtcars.txt"
 to your "~/Desktop" directory.
 
-Note that "destfile" argument specifies the path and the name of the file 
-you want to download the data to:
+**NOTE** "destfile" argument specifies the path and the name of the file 
+you want to download the data to.
+**Windows users need to be careful with path specification**.
+For you, the path should look something like this "C:/Users/YourUserName/Desktop".
 
 ```{r}
+# You should change the "~/Desktop/mtcars.txt" to a path that works for your OS.
 download.file(url = "https://cme195.github.io/assets/data/mtcars.txt",
               destfile = "~/Desktop/mtcars.txt")
 ```
@@ -89,6 +92,8 @@ Now we will download another dataset on New York's Demographic statistics
 broken down by zip code, from the following URL:
 "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
 again to your "~/Desktop" directory.
+**Again, Windows users should use path names such as
+"C:/Users/YourUserName/Desktop"**.
 
 ```{r}
 download.file(url = "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv",
@@ -145,26 +150,26 @@ write.csv(demographics[, chosenVars], file = filename, row.names = FALSE)
 ## Part 2.1
 
 Use a for loop to:
-a. Print the numbers 1 to 100
+a. Print all the letters of the Latin alphabet:
 
 ```{r}
-for (i in 1:15) {
-  print(i)
+for (letter in letters) {
+  print(letter)
 }
 ```
 
-b. Print the numbers 5 to 100 that are divisible by 7
+b. Print the numbers 10 to 100 that are divisible by 7
 ```{r}
-for (i in 5:100) {
+for (i in 10:100) {
   if (i %% 7 == 0) {
     print(i)
   }
 }
 ```
 
-c. Print the numbers 2 to 100 that are divisible by 5 but not by 3.
+c. Print the numbers 1 to 100 that are divisible by 5 but not by 3.
 ```{r}
-for (i in 2:100) {
+for (i in 1:100) {
   if (i %% 5 == 0 & i %% 3 != 0) {
     print(i)
   }
@@ -223,9 +228,8 @@ for (x in 2:20) {
 
 # Execise 3: Functions
 
-# Execise 3: Functions
+## Part 3.1
 
-1. A simple function.
 a.Create a function what will return the number
 of times a given integer is contained a given vector of integers.
 The function should have two arguments one for a vector
@@ -249,7 +253,9 @@ of times the number 12 is in that vector.
 cat("Number of times 12 occurs in the vec is:", no_of_integers(vec, 12))
 ```
 
-2. Write a function that takes in a data.frame as an input, 
+## Part 3.2 
+
+Write a function that takes in a data.frame as an input, 
 prints out the column names, and returns its dimensions.
 
 ```{r}
@@ -259,8 +265,16 @@ my_function <- function(df) {
 }
 ```
 
+```{r}
+x <- my_function(mtcars)
+```
+```{r}
+x
+```
 
-Extra: Create a function that takes an integer as an input, 
+## Extra
+
+Create a function that takes an integer as an input, 
 returns how many divisors the integer has (other than 1 and itself),  
 and prints them (divisors) all out. 
 Then, use the function to find the divisors of 173, 1902 and 3777.
@@ -291,7 +305,9 @@ no_of_divisors(3777)
 
 # Execise 4: Apply function family
 
-1. Use `apply` to compute the column means of the `demographics`
+## Part 4.1
+
+Use `apply` to compute the column means of the `demographics`
 data frame. The results for every column (except the first one)
 are equal to the average number of participants in the category
 indicated by the column name who live in a single jurisdiction/zip code.
@@ -301,7 +317,9 @@ apply(demographics, 2, mean)
 ```
 
 
-2. Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
+## Part 4.2
+
+Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
 compute the percentage of the female, male, pacific islanders, 
 hispanic latino, american indian, asian non-hispanic, white non -hispanic, 
 black non-hispanic and other ethnicity participants (columns 3-14). 
@@ -311,10 +329,14 @@ Append the percentages to the `demographics` dataset.
 get_percent <- function(x, total) {
   return(100*x/total)
 }
-percent.df <- apply(ny_demographic[, 3:14], 2, get_percent, total = demographics[, 2])
+percent.df <- apply(demographics[, 3:14], 2, get_percent, total = demographics[, 2])
 colnames(percent.df) <- gsub("COUNT", "PERCENT", colnames(demographics[3:14]))
 
 new.df <- cbind(demographics, percent.df)
 head(new.df)
+```
+
+```{r}
+sessionInfo()
 ```
 

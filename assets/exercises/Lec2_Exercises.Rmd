@@ -1,5 +1,5 @@
 ---
-title: "Lecture 2: Exercises"
+title: "Lecture 2: Exercise Answers"
 date: October 5th, 2017
 output: 
   html_notebook:
@@ -14,13 +14,16 @@ output:
 Download the file containing data from the 1974 Motor Trend US magazine, 
 and comprises fuel consumption and 10 aspects of automobile design and p
 erformance for 32 automobiles (1973–74 models) from the following URL:
-"https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
+"https://cme195.github.io/assets/data/mtcars.txt"
 to your "~/Desktop" directory.
 
-Note that "destfile" argument specifies the path and the name of the file 
-you want to download the data to:
+**NOTE** "destfile" argument specifies the path and the name of the file 
+you want to download the data to.
+**Windows users need to be careful with path specification**.
+For you, the path should look something like this "C:/Users/YourUserName/Desktop".
 
 ```{r}
+# You should change the "~/Desktop/mtcars.txt" to a path that works for your OS.
 download.file(url = "https://cme195.github.io/assets/data/mtcars.txt",
               destfile = "~/Desktop/mtcars.txt")
 ```
@@ -33,16 +36,7 @@ list.files("~/Desktop/")
 a. Specify the path to your the file you just downloaded in a variable
 called "path2file".
 
-```{r}
-# path2file <- 
-```
-  
-
 Use the `file.show()` command to see the structure of the file.
-
-```{r}
-file.show(path2file)
-```
 
 Note that the file is tab-delimited. Use suitable argument specifications
 to import the data to variable variable "mtcars".
@@ -62,15 +56,25 @@ Now we will download another dataset on New York's Demographic statistics
 broken down by zip code, from the following URL:
 "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
 again to your "~/Desktop" directory.
+**Again, Windows users should use path names such as
+"C:/Users/YourUserName/Desktop"**.
 
 ```{r}
 download.file(url = "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv",
               destfile = "~/Desktop/Demographic_Statistics_By_Zip_Code.csv")
 ```
 
-a. Re-assign the path to the newly downloaded file to the variable "path2file"
+Re-assign the path to the newly downloaded file to the variable "path2file"
+
+```{r}
+path2file <- "~/Desktop/Demographic_Statistics_By_Zip_Code.csv"
+```
 
 Again, inspect the file with the `file.show()` command.
+
+```{r}
+file.show(path2file)
+```
 
 Note, that this would not be good to display larger files. An alternative
 to see the first few lines of a file is to use a `scan()` function:
@@ -79,14 +83,14 @@ to see the first few lines of a file is to use a `scan()` function:
 scan(file = path2file, what = "", sep = "\n", nlines = 10)
 ```
 
-b. Since, the data is comma-delimited you can use `read.csv()` function
+a. Since, the data is comma-delimited you can use `read.csv()` function
 to import the data to variable "demographics", or alternatively use
 `read.table()` with suitable arguments:
 
-c. Use command `head()` to print out the first few rows of the data:
+b. Use command `head()` to print out the first few rows of the data.
 
-d. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN",
-and save the data in a file named "Demographic_Statistics_By_Zip_Code_SUBSET.csv"
+c. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN",
+and save the data in a file named "Demographics_small.csv"
 in the same directory.
 
 
@@ -95,11 +99,13 @@ in the same directory.
 ## Part 2.1
 
 Use a for loop to:
-a. Print the numbers 1 to 100
 
-b. Print the numbers 5 to 100 that are divisible by 7
+a. Print all the letters of the Latin alphabet:`
 
-c. Print the numbers 2 to 100 that are divisible by 5 but not by 3.
+b. Print the numbers 10 to 100 that are divisible by 7
+
+c. Print the numbers 1 to 100 that are divisible by 5 but not by 3.
+
 
 
 ## Part 2.2
@@ -113,7 +119,8 @@ b. Print for each of the numbers x = 2, . . . 20, all numbers that divide x
 
 # Execise 3: Functions
 
-1. A simple function.
+## Part 3.1
+
 a.Create a function what will return the number
 of times a given integer is contained a given vector of integers.
 The function should have two arguments one for a vector
@@ -123,25 +130,33 @@ b. Then, generate a random vector of 100
 integers (in a range 1-20) use the function to count the number
 of times the number 12 is in that vector. 
 
-2. Write a function that takes in a data.frame as an input, 
+## Part 3.2
+
+Write a function that takes in a data.frame as an input, 
 prints out the column names, and returns its dimensions.
 
+## Extra: 
 
-Extra: Create a function that given an integer will calculate how many 
-divisors it has (other than 1 and itself). Make the divisors appear by screen.
-Calculate the divisors of 173, 1902 and 3777.
-
+Create a function that takes an integer as an input, 
+returns how many divisors the integer has (other than 1 and itself),  
+and prints them (divisors) all out. 
+Then, use the function to find the divisors of 173, 1902 and 3777.
 
 # Execise 4: Apply function family
 
-1. Use `apply` to compute the column means of the `demographics`
+## Part 4.1
+
+Use `apply` to compute the column means of the `demographics`
 data frame. The results for every column (except the first one)
 are equal to the average number of participants in the category
 indicated by the column name who live in a single jurisdiction/zip code.
 
-2. Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
+## Part 4.2
+
+Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
 compute the percentage of the female, male, pacific islanders, 
-hispanic latino, american indian, asian non-hispanic, white non-hispanic, 
+hispanic latino, american indian, asian non-hispanic, white non -hispanic, 
 black non-hispanic and other ethnicity participants (columns 3-14). 
 Append the percentages to the `demographics` dataset.
+
 
