@@ -576,7 +576,7 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 </ul>
 </section><section id="what-makes-r-good-1" class="slide level2">
 <h1>What makes R good?</h1>
-<p>As of September 29, there are 11,502 packages on <a href="https://cran.r-project.org/">CRAN</a>, 1,383 on <a href="https://www.bioconductor.org/">Biocondictor</a>, and many others on <a href="https://github.com/trending/r?since=weekly">github</a>)</p>
+<p>As of September 29, there are 11,502 packages on <a href="https://cran.r-project.org/">CRAN</a>, 1,383 on <a href="https://www.bioconductor.org/">Bioconductor</a>, and many others on <a href="https://github.com/trending/r?since=weekly">github</a>)</p>
 <div style="float: center; height: 650px">
 <p><img src="Lecture1-figure/cran_packages.png", height="600", width="800"></img> <a style="text-align: center;"> Source: <a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">http://blog.revolutionanalytics.com/</a> </a></p>
 </div>
@@ -1123,18 +1123,18 @@ matrix.names))) </code></pre></div>
 <pre><code>## , , Matrix1
 ## 
 ##      COL1 COL2 COL3
-## ROW1 5284 8529 4759
-## ROW2 9635  107 4807
-## ROW3  693 6589 4543
-## ROW4 8842 5571 7028
+## ROW1 1650 4164 1585
+## ROW2 9862 7996 2755
+## ROW3 8521 5865 8501
+## ROW4 7781  185 7548
 ## 
 ## , , Matrix2
 ## 
 ##      COL1 COL2 COL3
-## ROW1 9226 8384 9667
-## ROW2 3747 9076 1429
-## ROW3 4309 9617 5586
-## ROW4 6312 3790 5351</code></pre>
+## ROW1 9752 8592 9518
+## ROW2 4649 3117 6686
+## ROW3 1038 1001 6830
+## ROW4 1379 6485 4341</code></pre>
 </div>
 </section><section id="lists" class="slide level2">
 <h1>Lists</h1>
@@ -1391,15 +1391,15 @@ new.employees &lt;-<span class="st"> </span>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">months &lt;-<span class="st"> </span><span class="kw">sample</span>(month.name, <span class="dv">6</span>)
 months</code></pre></div>
-<pre><code>## [1] &quot;April&quot;    &quot;October&quot;  &quot;May&quot;      &quot;December&quot; &quot;July&quot;     &quot;August&quot;</code></pre>
+<pre><code>## [1] &quot;January&quot;  &quot;February&quot; &quot;December&quot; &quot;November&quot; &quot;October&quot;  &quot;August&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name)) </code></pre></div>
-<pre><code>## [1] April    October  May      December July     August  
+<pre><code>## [1] January  February December November October  August  
 ## Levels: January February March April May June July August September October November December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] April    October  May      December July     August  
+<pre><code>## [1] January  February December November October  August  
 ## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">labels =</span> month.abb)) </code></pre></div>
-<pre><code>## [1] Apr Oct May Dec Jul Aug
+<pre><code>## [1] Jan Feb Dec Nov Oct Aug
 ## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec</code></pre>
 </section><section id="dates" class="slide level2">
 <h1>Dates</h1>
@@ -1428,7 +1428,7 @@ months</code></pre></div>
 <span class="kw">Sys.Date</span>()     </code></pre></div>
 <pre><code>## [1] &quot;2017-10-03&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2017-10-03 11:44:36 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-03 18:40:05 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the end of the year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2017-12-31&#39;</span>) -<span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
 <pre><code>## Time difference of 89 days</code></pre>

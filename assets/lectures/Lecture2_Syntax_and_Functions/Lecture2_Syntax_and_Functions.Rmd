@@ -62,9 +62,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 
 ## RStudio apprearance
 
-<div style="float: center; height: 600px">
-  <img src="./Lecture2-figure/RStudio_appearances.png", height="600", width="950"></img> 
+
+<div style="float: center; height: 550px">
+  <img src="./Lecture2-figure/RStudio_appearances.png", height="500", width="900"></img> 
 </div>
+More on RStudio cuztomization can be found [here](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
 
 
 ## R document types
@@ -96,7 +98,7 @@ as **straightforward** as possible.
 enables the embedding of **R code within LaTeX documents**.
 
 
-## R Notebook
+## Working with code chunks
 
 <br/>
 
@@ -125,12 +127,12 @@ with `<-`, stick to it and don't use `=`.
 
 ## Identifiers 
 
-<div class="left", style="width: 50%">
+**Google Convention:** 
 
-**Google Convention:** No underscores ( _ ) or hyphens ( - ) in identifiers. 
-Variable names all with lower case letters; words separated with dots 
-('variable.name'), but 'variableName' is also accepted;
-*function names* have initial capital letters and no dots 
+* No underscores ( _ ) or hyphens ( - ) in identifiers. 
+* **Variable names** all with lower case letters; words separated with dots 
+('variable.name'), but 'variableName' is also accepte
+* **Function names** have initial capital letters and no dots 
 ('FunctionName'). Function names should be verbs. Constants are named like 
 functions but with an initial k.
 
@@ -139,18 +141,18 @@ functions but with an initial k.
 avg.clicks            # variable name
 CalculateAvgClicks    # function name
 # Bad
-avg_Clicks                                    # variable name
-calculate_avg_clicks , calculateAvgClicks     # function name
+avg_Clicks                                 # variable name
+calculate_avg_clicks , calculateAvgClicks  # function name
 ```
 
-</div>
+## Identifiers 
 
-<div class="right", style="width: 50%">
+**Hadley Convention:**
 
-**Hadley Convention:**Variable and function names should be lowercase. 
-Use an underscore (_) to separate words within a name. Generally, 
-variable names should be nouns and function names should be verbs. 
-Strive for names that are concise and meaningful (this is not easy!). 
+- Variable and function names should be lowercase. 
+- Use an underscore (_) to separate words within a name. 
+- Generally, variable names should be nouns and function names should be verbs. 
+- Use names that are concise and meaningful. 
 
 ```{r eval = FALSE}
 # Good
@@ -163,14 +165,11 @@ DayOne
 dayone
 djm1
 ```
-</div>
 
 
 ## Spacing
 
 - Place spaces around all infix operators (=, +, -, <-, etc.). 
-Exception (Google): Spaces around ='s are optional when passing parameters
-in a function call.
 
 - Always put a space after a comma, and never before (just like in regular English).
 
@@ -189,41 +188,64 @@ average<-mean(feet/12+inches,na.rm=TRUE)
 if(debug)do(x)
 plot (x, y)
 if ( debug ) do(x)  # No spaces around debug
-x[1,]   # Needs a space after the comma
-x[1 ,]  # Space goes after comma not before
+x[1,]               # Needs a space after the comma
+x[1 ,]              # Space goes after comma not before
 ```
 
 
-## 
+## Code Documentation 
 
 <div class="left", style="width: 50%">
 
-**Comments:** 
-- Comment your code. Each line of a comment should begin with the comment 
-symbol and a single space: `# `. Comments should explain the why, not the what.
-- Use commented lines of - and = to break up your file into easily readable chunks.
+- Comment your code! They will be helpful when you read 
+your code a month after you wrote it.
 
+- In R each line of a comment should begin with a comment symbol "`# `". 
 
-**Curly braces:**
--  An opening curly brace `{` should never go on its own line and should 
-always be followed by a new line. 
-- A closing curly `}` brace should always go on its own line, unless it’s 
-followed by else.
-- Always indent the code inside curly braces.
-- It’s ok to leave very short statements on the same line
-
-
+```{r}
+# Function returns the answer to life, 
+# the universe and everything else
+get_answer <- function(){
+  return(42)
+}
+```
 </div>
 
 <div class="right", style="width: 50%">
 
+- Comments are not subtitles, i.e. don't repeat the code in the comments.
+
 ```{r, eval = FALSE}
-# Load data ---------------------------
-load("data.rda")
-# Plot data ---------------------------
-plot(x, y)
+# Loop through all bananas in the bunch
+for(banana in bunch) {
+  # make the monkey eat one banana
+  MonkeyEat(b)  
+}
 ```
 
+- Use commented lines of - and = to break up your file into easily readable chunks.
+
+```{r, eval = FALSE}
+# Load data ---------------------------
+# Plot data ---------------------------
+```
+
+</div>
+
+## Curly braces
+
+<div class="left", style="width: 40%">
+
+-  An opening curly brace "`{`" should never go on its own line and should 
+always be followed by a new line. 
+- A closing curly "`}`" brace should always go on its own line, unless it’s 
+followed by else.
+- Always indent the code inside curly braces.
+- It’s ok to leave very short statements on the same line
+
+</div>
+
+<div class="right", style="width: 60%">
 
 ```{r eval = FALSE}
 # Good
@@ -251,8 +273,8 @@ else {
 ```{r eval = FALSE}
 if (y < 0 && debug) message("Y is negative")
 ```
-</div>
 
+</div>
 
 # File Input/Output
 
@@ -287,16 +309,38 @@ setwd("path/to/directory")
 </div>
 
 
+## Paths and directory names
+
+- In Windows, a directory usually has an address of the following form: `C:\Users\lan\folder`.
+
+- R inherits its file and folder naming conventions from unix, and instead uses forward slashes
+instead of backslashes, e.g. `C:/Users/lan/folder/`
+
+- The Mac OSX already uses the unix standards, the address is usually of the form: `/home/lan/folder/`.
+
+- So, when working in R use the forward slashes "/".
+
+- Actually for Windows, you can use either "`C:/Path/To/A/File`" or "`C:\\Path\\To\\A\\File`".
+
+
+## Paths and directory names
+
+- R uses forward slashes for the directories, because backslashes serve 
+a different purpose. They are used as escape characters to isolate special 
+characters and stop them from being immediately interpreted.
+
+- To avoid problems, directory names should NOT contain spaces and special characters.
+
+-  Use a "`Tab`" for autocompletion to find file paths more easily. 
+
+
+
 ## Data import 
 
-<div class="left", style="width: 50%">
-
-Reading **text files** into R is fairly simple.
 
 - **Text Files in a table format** can be read and saved 
 to a selected variable using a `read.table()` function.
-
-- Use `?read.table` to learn about the function arguments.
+Use `?read.table` to learn more about the function.
 
 - A common text file format is a **comma delimited text file**,
 `.csv`. These files use a comma as column separators, e.g:
@@ -307,34 +351,16 @@ Year,Student,Major
 2009, Bart Simpson, Mathematics I
 ```
 
-
-</div>
-
-<div class="right", style="width: 50%">
-
 - To read these files use the following command:
 
 ```{r eval=FALSE}
-# In Windows you might need to use \ instead of the / when specifying the path
-mydata <- read.table("path/to/filename.csv", header=TRUE,  sep=",")
-```
-
-- `header = TRUE` is used when the row in the file contains 
-variable id's/names not actual values.
-
-- The `sep` argument (with white space as default),
-specifies the separator used in the file. For comma-deliminated
-files set `sep = ","`, and for tab-deliminated, `sep = "\t"`.
-
-- You can optionally use `row.names` or `col.names` arguments
-to set the row and column names.
-
-```{r eval = FALSE}
+mydata <- read.table("path/to/filename.csv", header=TRUE,  sep = ",")
 # read.csv() has covenient argument defaults for '.csv' files
 mydata <- read.csv("path/to/filename.csv")
 ```
 
-</div>
+- Optionally, use `row.names` or `col.names` arguments
+to set the row and column names.
 
 
 ## Data import 
@@ -346,13 +372,14 @@ to first install a package "xlsx". Simply run
 ```{r eval = FALSE}
 # first row contains variable names
 library(xlsx)
-mydata <- read.xlsx("path/to/filename.xlsx", 1)  # read the first worksheet
+# read the 1st worksheet
+mydata <- read.xlsx("/path/to/filename.xlsx", 1)  
 
 # read in the worksheet named mysheet
-mydata <- read.xlsx("path/to/filename.xlsx", sheetName = "mysheet")
+mydata <- read.xlsx("/path/to/filename.xlsx", sheetName = "mysheet")
 ```
 
-- **SAS files**. You need to install `Hmisc` or `foreign` 
+- **SAS files**. You need to install the `Hmisc` or `foreign` 
 packages first.
 
 ```{r eval = FALSE}
@@ -374,13 +401,11 @@ mydata <- read.xport("path/to/filename.xpt")
 
 ## Data export
 
-Saving/writing data to a file is also easy.
-
 - **Text files**:
 ```{r eval = FALSE}
-write.table(mydata, "path/to/filename.txt", sep="\t")      # tab-delimited
-write.table(mydata, "path/to/filename.csv", sep=",")       # comma-delimited
-write.csv(mydata, "path/to/filename.csv")                  # comma-delimited
+write.table(mydata, "path/to/filename.txt", sep="\t")  # tab-delimited
+write.table(mydata, "path/to/filename.csv", sep=",")   # comma-delimited
+write.csv(mydata, "path/to/filename.csv")              # comma-delimited
 ```
 
 - **Excel spreadsheet**:
@@ -398,6 +423,9 @@ write.foreign(mydata, datafile = "path/to/filename.txt",
               codefile = "path/to/filename.sas",  package="SAS")
 ```
 
+Here are links to more details on data 
+[import](http://www.statmethods.net/input/importingdata.html)
+and [export](http://www.statmethods.net/input/exportingdata.html). 
 
 ## Saving the workspace
 
@@ -424,25 +452,16 @@ saveRDS(object, file = "path/to/filename.rds")
 
 ```{r eval = FALSE}
 # load a workspace into the current session
-load("path/to/filenamerda")
+load("path/to/filename.rda")
 
 # read just the previously saved 1 object
 object <- readRDS("path/to/filename.rds")
 ```
 
 
-## Practice
+## Exercise 1
 
-Some of the material in this section was taken from 
-[here](http://www.statmethods.net/input/importingdata.html),
-[here](http://www.statmethods.net/input/exportingdata.html), 
-and [here](http://www.statmethods.net/interface/workspace.html),
-where you can look up more details.
-
-**Exercise 1**
-
-- Download "Lec2_ex.Rmd" from the class website
-under Lectures tab.
+- Download "Lec2_ex.Rmd" file from the Lectures tab on class website.
 
 - Open the file in RStudio.
 
@@ -451,37 +470,43 @@ under Lectures tab.
 
 # Control flow
 
-# Booleans/logicals
+## Booleans/logicals
 
-<div class="left", style="width: 50%">
 
-- **Booleans** are logical data types (TRUE/FALSE) associated
+**Booleans** are logical data types (TRUE/FALSE) associated
 with conditional statements, which allow different actions 
 and change control flow.
+<div class="left", style="width: 50%">
 
 ```{r}
-# equals: ==
+# equal "==""
 5 == 5
-# does not equal: != 
+# not equal: "!="" 
 5 != 5 
-# greater than: >
+# greater than: ">""
 5 > 4 
-# greater than or equal: >= (# similarly < and <=)
+# greater than or equal: ">="" (# similarly < and <=)
 5 >= 5
-
-# You can **combine multiple boolean expressions**
-TRUE & TRUE
-TRUE & FALSE 
-TRUE | FALSE
-!(TRUE)
 ```
-
 
 </div>
 
 <div class="right", style="width: 50%">
 
-- In R if you combine 2 vectors of booleans,
+```{r}
+
+# You can combine multiple boolean expressions
+TRUE & TRUE
+TRUE & FALSE 
+TRUE | FALSE
+!(TRUE)
+```
+</div>
+
+
+## Booleans/logicals
+
+In R if you combine 2 vectors of booleans,
 by each element then use `&`. Rember the **recycling property** for vectors.
 
 ```{r}
@@ -490,7 +515,10 @@ c(5 < 4, 7 == 0, 1< 2) | c(5==5, 6> 2, !FALSE)
 c(TRUE, TRUE) & c(TRUE, FALSE, TRUE, FALSE)  # recycling
 ```
 
-- If we use double operators `&&` or `||` is used only the first 
+## Booleans/logicals
+
+
+If we use double operators `&&` or `||` is used only the first 
 elements are compared:
 
 ```{r}
@@ -499,7 +527,6 @@ c(5 < 4, 7 == 0, 1< 2) || c(5==5, 6> 2, !FALSE)
 c(TRUE, TRUE) && c(TRUE, FALSE, TRUE, FALSE)
 ```
 
-</div>
 
 
 ## Booleans/logicals
@@ -519,8 +546,7 @@ any(c(5 > -1, 3 >= 1, 1 < 1))
 ## Control statements
 
 * **Control flow** is the order in which individual statements, 
-instructions or function calls of an imperative program are 
-executed or evaluated.
+instructions or function calls of a program are evaluated.
 
 * Control statements allow you to do more complicated tasks.
 
@@ -537,13 +563,21 @@ two or more paths should be followed.
 
 - Decide on whether a block of code should be executed
 based on the associated boolean expression.
-</br>
+
+- **Syntax**. The if statements are followed by
+a boolean expression wrapped in parenthesis. 
+The conditional block of code is inside curly
+braces `{}`.
 
 ```{r eval = FALSE}
 if (traffic_light == "green") {
   print("Go.")
 }
 ```
+
+</div>
+
+<div class="right", style="width: 50%">
 
 - 'if-else' statements let you introduce more options
 
@@ -554,11 +588,6 @@ if (traffic_light == "green") {
    print("Stay.")
 }
 ```
-
-
-</div>
-
-<div class="right", style="width: 50%">
 
 - You can also use `else if()`
 
@@ -572,19 +601,15 @@ if (traffic_light == "green") {
 }
 ```
 
-- **Note the syntax**. The if statements are followed by
-a boolean expression wrapped in parenthesis (adding white space is
-a good practice). The conditional block of code is inside curly
-braces `{}`.
-
 </div>
 
 
 ## For loops
 
-- Foor loop is a statement specifying iterations, 
-which allows for a block of code to be **execuded repeatedly**
-(a given number of times).
+</br>
+
+- A for loop is a statement which **repeats the execution a block of code** 
+a given number of iterations.
 
 ```{r}
 for (i in 1:5){
@@ -592,7 +617,6 @@ for (i in 1:5){
 }
 ```
 
-- Again note the curly braces syntax!
 
 
 ## While loops
@@ -600,7 +624,7 @@ for (i in 1:5){
 </br>
 
 - Similar to for loops, but repeat the execution 
-as long as the boolean condition supplied is TRUE.
+as long **as the boolean condition supplied is TRUE**.
 
 ```{r}
 i = 1
@@ -614,10 +638,11 @@ while(i <= 5) {
 
 ## Next
 
+
+<div class="left", style="width: 50%">
+
 - `next` halts the processing of the current iteration 
 and advances the looping index. 
-
-- `next` apply only to the innermost of nested loops.
 
 ```{r}
 for (i in 1:10) {
@@ -628,6 +653,26 @@ for (i in 1:10) {
   cat(i, "is greater than 5.\n")
 }
 ```
+</div>
+
+<div class="right", style="width: 50%">
+
+- `next` applies only to the innermost of nested loops.
+
+```{r}
+for (i in 1:3) {
+  cat("Outer-loop i: ", i, ".\n")
+  for (j in 1:4) {
+    if(j > i) {
+      print("skip")
+      next
+    }
+    cat("Inner-loop j:", j, ".\n")
+  }
+}
+```
+
+</div>
 
 
 ## Break
@@ -638,15 +683,12 @@ while loop (of the smallest enclosing).
 the inner-most loop. 
 
 ```{r}
-for (n in 2:10) {
-  for (k in 2:n) {
-    if (n %% k == 0) {                   # n divisible by x
-      cat(n, "equals", k, "*", n/k, "\n")
-      break                              # do not check divisibility by other numbers
-    } else {                             # executed if no break in for loop
-      cat(n, "is a prime number. \n")    # loop fell through without finding a factor
-    }
+for (i in 1:10)  {
+  if (i == 6)  {
+    print(paste("Coming out from for loop Where i = ", i))
+    break
   }
+  print(paste("i is now: ", i))
 }
 ```
 
@@ -664,7 +706,7 @@ for (n in 2:10) {
 
 ## Functions
 
-- A **functions** is a procedure/routine that performs a specific task.
+- A **function** is a procedure/routine that performs a specific task.
 
 - Functions are used to **abstract** components of larger program.
 
@@ -672,14 +714,16 @@ for (n in 2:10) {
 and then do something to find the result**.
 
 - Functions allow you to **automate common tasks** in a more powerful 
-and general way than copy-and-pasting. You should *use a function, 
-whenever you’ve copied and pasted a block of code more than twice*.
+and general way than copy-and-pasting. 
+
+- A general rule is that you should **use a function, whenever you’ve copied 
+and pasted a block of code more than twice**.
 
 
 
 ## Function Definition
 
-<div class="left", style="width: 50%">
+<div class="left", style="width: 40%">
 
 - To define a function you assigne a variable name 
 to a `function` object.
@@ -692,24 +736,20 @@ before the function definition.
 
 </div>
 
-<div class="right", style="width: 50%">
+<div class="right", style="width: 60%">
 
 ```{r}
-# function example - computes measures of central tendency
-# and spread for a numeric vector x. The user has a
-# choice of measures and whether the results are printed.
-mysummary <- function(x, npar=TRUE, print=TRUE) {
-  if (!npar) {
-    center <- mean(x); spread <- sd(x) 
-  } else {
-    center <- median(x); spread <- mad(x) # Median Absolute Deviation (MAD)
+# Computes mean and standard deviation
+# and optionally prints the results.
+mysummary <- function(x, print=TRUE) {
+  center <- mean(x)
+  spread <- sd(x) 
+  if (print) {
+    cat("Mean =", center, "\n", 
+        "SD = ", spread, "\n")
   }
-  if (print & !npar) {
-    cat("Mean =", center, "\n", "SD=", spread, "\n")
-  } else if (print & npar) {
-    cat("Median =", center, "\n", "MAD=", spread, "\n")
-  }
-  result <- list(center=center,spread=spread)
+  result <- list(mean=center, 
+                 sd=spread)
   return(result)
 }
 ```
@@ -718,31 +758,27 @@ mysummary <- function(x, npar=TRUE, print=TRUE) {
 
 ## Calling functions
 
-<div class="left", style="width: 50%">
-- Invoking the function 
+
 ```{r}
-set.seed(1234)
 x <- rnorm(n = 500, mean = 4, sd = 1) 
 y <- mysummary(x)
-y$center 
-y$spread 
 ```
-
-</div>
-
-<div class="right", style="width: 50%">
 
 ```{r}
 # without printing
-y <- mysummary(x, npar=FALSE, print=FALSE)
-y$center
-y$spread
-
-# The order of arguments does not matter if the names are specified
-y <- mysummary(npar=FALSE, x, print=FALSE)
-y <- mysummary(npar=FALSE, print=FALSE, x = x)
+y <- mysummary(x, print = FALSE)
 ```
-</div>
+
+```{r}
+# Results are stored in list "y"
+y$mean
+y$sd
+```
+
+```{r}
+# The order of arguments does not matter if the names are specified
+y <- mysummary(print=FALSE, x = x)
+```
 
 
 ## Exercise 3
@@ -756,24 +792,21 @@ y <- mysummary(npar=FALSE, print=FALSE, x = x)
 
 ## apply, lapply, sapply functions
 
-- "apply" family functions (in R base package), are 
+- The `apply` family functions, are 
 **functions to manipulate slices of data** from matrices, 
-arrays, lists and dataframes in a repetitive way. 
+arrays, lists and dataframes **in a repetitive way**. 
 
 - These functions **avoid explicit use of loops**. 
-Using apply might be computationally more efficient then
-for loops, depending on how big your data is.
-For more details check out this 
+`apply` might be **computationally more efficient than
+for loops**, depending on how big your data is.
+For more details see this 
 [link](https://www.r-bloggers.com/gnu-r-loop-speed-comparison/).
 
-- They **apply a named function** with one or several 
-optional arguments. 
-
-- The apply functions help you perform operations with 
+- The apply functions allow you to perform operations with 
 **very few lines of code.**
 
 - The family comprises: **apply, lapply , sapply, vapply, 
-mapply, rapply, and tapply** (the use depend on the structure
+mapply, rapply, and tapply**. The difference lies in the structure
 of input data and the desired format of the output).
 
 
@@ -781,19 +814,16 @@ of input data and the desired format of the output).
 
 <div class="left", style="width: 50%">
 
-- If we would like to **repeatedly apply a function to 
-a elements of a list**, we should use `lapply()`.
+- `lapply()` is used to **repeatedly apply a function to 
+a elements of sequential objects** such as vectors, lists, 
+or data-frames (applies to columns).
 
-- `lapply` can also be used for other objects like 
-**dataframes, lists or vectors**.
-
-- The output returned is a list which has the same number of elements as
-the input object.
+- The **output returned is a list** with the same number of 
+elements as the input object.
 
 - `sapply` is the same as `lapply` but returns a "simplified" output.
 
-- user-defined functions and extra arguments work for `sapply/lapply`
-just as for `apply`.
+- user-defined functions can be used with `sapply/lapply`
 
 </div>
 
@@ -810,54 +840,51 @@ sapply(1:3, function(x) x^2, simplify = F)
 
 ## apply function
 
-`apply` operates on arrays/matrices. The function call
-for apply function is of the form `apply(X, MARGIN, FUN, ...)` where:
+`apply` operates on arrays/matrices. 
+In the example below we obtain column sums of matrix "X".
 
-- X is an array/matrix 
-- MARGIN is a vector giving the subscripts which the function will be applied 
-over. 
-- FUN is the function to be applied (including the user-defined ones)
-
-In the example below we obtain the sums of the columns.
 ```{r}
-set.seed(12345)
-(X <- matrix(rnorm(30), nrow = 5, ncol = 6))
-apply(X, 2 ,sum)
+(X <- matrix(sample(30), nrow = 5, ncol = 6))
+apply(X, MARGIN = 2 , FUN = sum)
 ```
 
 **Note:** that in a matrix `MARGIN=1` indicates rows and `MARGIN=2`
 indicates columns.
 
+
 ## apply function
 
+
+<div class="left", style="width: 50%">
 - `apply` can be used with **user-defined functions**:
-<font size="5">
+
 ```{r}
 print(X)
-apply(X, 2, function(x) length(x[x < 0])) # number of negative entries
+apply(X, 2, function(x) sum(x < 15)) # number entries < 15
 ```
 
-- Alternatively, the function can be defined outside `apply()`,
-which is useful for more complicated functions. Note **extra arguments**
-can be supplied to apply.
-
-```{r}
-myFun <- function(x, base = NULL) {
-  if (!is.null(base)) x <- x + base
-  return(length(x[x < 0]))
-}
-apply(X, 2, myFun) 
-apply(X, 2, myFun, base = 0.2) 
-```
-
-
-
-## mapply functions
+</div>
 
 <div class="right", style="width: 50%">
+- The function can be defined outside `apply()`,
 
-- `mapply` stands for 'multivariate' apply. 
-- It **applies a function
+
+```{r}
+logColMeans <- function(x, eps = NULL) {
+  if (!is.null(eps)) x <- x + eps
+  return(mean(x))
+}
+apply(X, 2, logColMeans) 
+apply(X, 2, logColMeans, eps = 0.1) 
+```
+
+</div>
+
+ 
+## mapply functions
+
+
+- `mapply` stands for 'multivariate' apply.  It **applies a function
 to a multiple list or multiple vectors as arguments**. 
 - The goal is to vectorize arguments to a function which usually 
 does not accept vectors as arguments. 
@@ -867,22 +894,6 @@ does not accept vectors as arguments.
 word <- function(C,k) paste(rep.int(C,k), collapse='')
 mapply(word, LETTERS[1:6], 6:1, SIMPLIFY = FALSE)
 ```
-
-</div>
-
-<div class="right", style="width: 50%">
-
-`mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)`
-
-- FUN	- function to apply, found via match.fun.
-- ...	- arguments to vectorize over.
-- MoreArgs - a list of other arguments to FUN.
-- SIMPLIFY - logical or character string; attempt to reduce the result to 
-a vector, matrix or higher dimensional array
-- USE.NAMES	- logical; use names if the first ... argument has names, or if it
-is a character vector, use that character vector as the names.
-
-</div>
 
 
 ## Exercise 4

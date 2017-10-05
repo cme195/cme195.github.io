@@ -110,7 +110,7 @@ and **interactive graphics**.
 ## What makes R good?
 
 
- As of September 29, there are 11,502 packages on [CRAN](https://cran.r-project.org/), 1,383 on [Biocondictor](https://www.bioconductor.org/), and many others on [github](https://github.com/trending/r?since=weekly))
+ As of September 29, there are 11,502 packages on [CRAN](https://cran.r-project.org/), 1,383 on [Bioconductor](https://www.bioconductor.org/), and many others on [github](https://github.com/trending/r?since=weekly))
 
 <div style="float: center; height: 650px">
   <img src="./Lecture1-figure/cran_packages.png", height="600", width="800"></img> 
