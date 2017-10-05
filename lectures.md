@@ -6,9 +6,10 @@ layout: cme195
 
 ## [](#slides) Slides
 
-1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro/Lecture1_Intro.html)
-[(pdf)](./assets/lectures/Lecture1_Intro/Lecture 1_ Introduction to R.pdf).
-2. Functions and apply functions
+1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro.html)
+[(pdf)](./assets/lectures/Lecture 1_ Introduction to R.pdf).
+2. [Control Flow and Functions](./assets/lectures/Lecture2_Syntax_and_Functions.html)
+[(pdf)](./assets/lectures/Lecture2_Syntax_and_Functions.pdf)
 3. 2D plotting with ggplot2
 4. 3D and interactive plotting.
 5. Data pre-processing.

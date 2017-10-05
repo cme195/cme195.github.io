@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Lecture2_Syntax_and_Functions_files/reveal.js-3.3.0.1/css/reveal.css"/>
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
 
 
 <style type="text/css">
@@ -48,7 +48,7 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-<link rel="stylesheet" href="Lecture2_Syntax_and_Functions_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
 
 
   <!-- some tweaks to reveal css -->
@@ -96,7 +96,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <style type="text/css">code{white-space: pre;}</style>
 
-    <link rel="stylesheet" href="../../css/class.css"/>
+    <link rel="stylesheet" href="class.css"/>
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -491,7 +491,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 
 <section id="contents" class="slide level2">
-<h1>Contents</h1>
+<h2>Contents</h2>
 <ul>
 <li>RStudio</li>
 <li>Syntax</li>
@@ -501,33 +501,33 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section><section id="rstudio" class="titleslide slide level1"><h1>RStudio</h1></section><section id="rstudio-window" class="slide level2">
-<h1>RStudio window</h1>
+<h2>RStudio window</h2>
 <div style="float: center; height: 600px">
 <p><img src="Lecture2-figure/RStudio_window.png", height="600", width="950"></img></p>
 </div>
 </section><section id="rstudio-preferences" class="slide level2">
-<h1>RStudio preferences</h1>
+<h2>RStudio preferences</h2>
 <div style="float: center; height: 600px">
 <p><img src="Lecture2-figure/RStudio_preferences.png", height="600", width="950"></img></p>
 </div>
 </section><section id="rstudio-layout" class="slide level2">
-<h1>RStudio layout</h1>
+<h2>RStudio layout</h2>
 <div style="float: center; height: 600px">
 <p><img src="Lecture2-figure/RStudio_layout.png", height="600", width="950"></img></p>
 </div>
 </section><section id="rstudio-apprearance" class="slide level2">
-<h1>RStudio apprearance</h1>
+<h2>RStudio apprearance</h2>
 <div style="float: center; height: 550px">
 <p><img src="Lecture2-figure/RStudio_appearances.png", height="500", width="900"></img></p>
 </div>
 <p>More on RStudio cuztomization can be found <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">here</a></p>
 </section><section id="r-document-types" class="slide level2">
-<h1>R document types</h1>
+<h2>R document types</h2>
 <div style="float: center; height: 600px">
 <p><img src="Lecture2-figure/RStudio_documents.png", height="600", width="950"></img></p>
 </div>
 </section><section id="r-document-types-1" class="slide level2">
-<h1>R document types</h1>
+<h2>R document types</h2>
 <ul>
 <li><p><a href="https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html">R Script</a> <strong>a text file</strong> containing R commands stored together.</p></li>
 <li><p><a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown</a> files can generate high quality reports contatining notes, code and code outputs. <strong>Python and bash code </strong> can also be executed.</p></li>
@@ -536,7 +536,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr">R Sweave</a> enables the embedding of <strong>R code within LaTeX documents</strong>.</p></li>
 </ul>
 </section><section id="working-with-code-chunks" class="slide level2">
-<h1>Working with code chunks</h1>
+<h2>Working with code chunks</h2>
 <p><br/></p>
 <p>Keyboard shortcuts:</p>
 <ul>
@@ -546,7 +546,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section></section>
 <section><section id="syntax" class="titleslide slide level1"><h1>Syntax</h1></section><section id="style-guide" class="slide level2">
-<h1>Style Guide</h1>
+<h2>Style Guide</h2>
 <ul>
 <li>There are two main style conventions used in R:
 <ul>
@@ -557,7 +557,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>But you should stay <strong>consistent</strong>, e.g. if you choose to assign variables with <code>&lt;-</code>, stick to it and don’t use <code>=</code>.</li>
 </ul>
 </section><section id="identifiers" class="slide level2">
-<h1>Identifiers</h1>
+<h2>Identifiers</h2>
 <p><strong>Google Convention:</strong></p>
 <ul>
 <li>No underscores ( _ ) or hyphens ( - ) in identifiers.</li>
@@ -571,7 +571,7 @@ CalculateAvgClicks    <span class="co"># function name</span>
 avg_Clicks                                 <span class="co"># variable name</span>
 calculate_avg_clicks , calculateAvgClicks  <span class="co"># function name</span></code></pre></div>
 </section><section id="identifiers-1" class="slide level2">
-<h1>Identifiers</h1>
+<h2>Identifiers</h2>
 <p><strong>Hadley Convention:</strong></p>
 <ul>
 <li>Variable and function names should be lowercase.</li>
@@ -581,7 +581,7 @@ calculate_avg_clicks , calculateAvgClicks  <span class="co"># function name</spa
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
 day_one
-day_1
+day_<span class="dv">1</span>
 
 <span class="co"># Bad</span>
 first_day_of_the_month
@@ -589,28 +589,28 @@ DayOne
 dayone
 djm1</code></pre></div>
 </section><section id="spacing" class="slide level2">
-<h1>Spacing</h1>
+<h2>Spacing</h2>
 <ul>
 <li><p>Place spaces around all infix operators (=, +, -, &lt;-, etc.).</p></li>
 <li><p>Always put a space after a comma, and never before (just like in regular English).</p></li>
 <li><p>Place a space before left parentheses, except in a function call.</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-average &lt;-<span class="st"> </span><span class="kw">mean</span>(feet /<span class="st"> </span><span class="dv">12</span> +<span class="st"> </span>inches, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-if (debug) <span class="kw">do</span>(x)
+average &lt;-<span class="st"> </span><span class="kw">mean</span>(feet <span class="op">/</span><span class="st"> </span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span>inches, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="cf">if</span> (debug) <span class="kw">do</span>(x)
 <span class="kw">plot</span>(x, y)
-if (debug) <span class="kw">do</span>(x)
+<span class="cf">if</span> (debug) <span class="kw">do</span>(x)
 diamonds[<span class="dv">5</span>, ]
 
 <span class="co"># Bad</span>
-average&lt;-<span class="kw">mean</span>(feet/<span class="dv">12</span>+inches,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-if(debug)<span class="kw">do</span>(x)
+average&lt;-<span class="kw">mean</span>(feet<span class="op">/</span><span class="dv">12</span><span class="op">+</span>inches,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+<span class="cf">if</span>(debug)<span class="kw">do</span>(x)
 <span class="kw">plot</span> (x, y)
-if ( debug ) <span class="kw">do</span>(x)  <span class="co"># No spaces around debug</span>
+<span class="cf">if</span> ( debug ) <span class="kw">do</span>(x)  <span class="co"># No spaces around debug</span>
 x[<span class="dv">1</span>,]               <span class="co"># Needs a space after the comma</span>
 x[<span class="dv">1</span> ,]              <span class="co"># Space goes after comma not before</span></code></pre></div>
 </section><section id="code-documentation" class="slide level2">
-<h1>Code Documentation</h1>
+<h2>Code Documentation</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p>Comment your code! They will be helpful when you read your code a month after you wrote it.</p></li>
@@ -618,7 +618,7 @@ x[<span class="dv">1</span> ,]              <span class="co"># Space goes after 
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Function returns the answer to life, </span>
 <span class="co"># the universe and everything else</span>
-get_answer &lt;-<span class="st"> </span>function(){
+get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
   <span class="kw">return</span>(<span class="dv">42</span>)
 }</code></pre></div>
 </div>
@@ -627,7 +627,7 @@ get_answer &lt;-<span class="st"> </span>function(){
 <li>Comments are not subtitles, i.e. don’t repeat the code in the comments.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Loop through all bananas in the bunch</span>
-for(banana in bunch) {
+<span class="cf">for</span>(banana <span class="cf">in</span> bunch) {
   <span class="co"># make the monkey eat one banana</span>
   <span class="kw">MonkeyEat</span>(b)  
 }</code></pre></div>
@@ -638,7 +638,7 @@ for(banana in bunch) {
 <span class="co"># Plot data ---------------------------</span></code></pre></div>
 </div>
 </section><section id="curly-braces" class="slide level2">
-<h1>Curly braces</h1>
+<h2>Curly braces</h2>
 <div class="left" ,="" style="width: 40%">
 <ul>
 <li>An opening curly brace “<code>{</code>” should never go on its own line and should always be followed by a new line.</li>
@@ -649,30 +649,30 @@ for(banana in bunch) {
 </div>
 <div class="right" ,="" style="width: 60%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-if (y &lt;<span class="st"> </span><span class="dv">0</span> &amp;&amp;<span class="st"> </span>debug) {
+<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) {
   <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
 }
-if (y ==<span class="st"> </span><span class="dv">0</span>) {
+<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">log</span>(x)
-} else {
-  y ^<span class="st"> </span>x
+} <span class="cf">else</span> {
+  y <span class="op">^</span><span class="st"> </span>x
 }
 
 <span class="co"># Bad</span>
-if (y &lt;<span class="st"> </span><span class="dv">0</span> &amp;&amp;<span class="st"> </span>debug)
+<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug)
 <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
 
-if (y ==<span class="st"> </span><span class="dv">0</span>) {
+<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">log</span>(x)
 } 
-else {
-  y ^<span class="st"> </span>x
+<span class="cf">else</span> {
+  y <span class="op">^</span><span class="st"> </span>x
 }</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (y &lt;<span class="st"> </span><span class="dv">0</span> &amp;&amp;<span class="st"> </span>debug) <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)</code></pre></div>
 </div>
 </section></section>
 <section><section id="file-inputoutput" class="titleslide slide level1"><h1>File Input/Output</h1></section><section id="working-directory" class="slide level2">
-<h1>Working Directory</h1>
+<h2>Working Directory</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p>The <strong>current working directory</strong> (cmd) is the location which R is currently pointing to</p></li>
@@ -685,14 +685,14 @@ else {
 <li>To see the current working directory use <code>getwd()</code>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()   <span class="co"># with no arguments</span></code></pre></div>
-<pre><code>## [1] &quot;/home/lanhuong/MEGA/Teaching/cme195_intro_to_R/cme195.github.io/assets/lectures/Lecture2_Syntax_and_Functions&quot;</code></pre>
+<pre><code>## [1] &quot;/Users/lanhuongnguyen/MEGA/Teaching/cme195_intro_to_R/cme195.github.io/assets/lectures&quot;</code></pre>
 <ul>
 <li>To change the working directory use <code>setwd(path_name)</code> with a specified path as na argument:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;path/to/directory&quot;</span>)</code></pre></div>
 </div>
 </section><section id="paths-and-directory-names" class="slide level2">
-<h1>Paths and directory names</h1>
+<h2>Paths and directory names</h2>
 <ul>
 <li><p>In Windows, a directory usually has an address of the following form: <code>C:\Users\lan\folder</code>.</p></li>
 <li><p>R inherits its file and folder naming conventions from unix, and instead uses forward slashes instead of backslashes, e.g. <code>C:/Users/lan/folder/</code></p></li>
@@ -701,14 +701,14 @@ else {
 <li><p>Actually for Windows, you can use either “<code>C:/Path/To/A/File</code>” or “<code>C:\\Path\\To\\A\\File</code>”.</p></li>
 </ul>
 </section><section id="paths-and-directory-names-1" class="slide level2">
-<h1>Paths and directory names</h1>
+<h2>Paths and directory names</h2>
 <ul>
 <li><p>R uses forward slashes for the directories, because backslashes serve a different purpose. They are used as escape characters to isolate special characters and stop them from being immediately interpreted.</p></li>
 <li><p>To avoid problems, directory names should NOT contain spaces and special characters.</p></li>
 <li><p>Use a “<code>Tab</code>” for autocompletion to find file paths more easily.</p></li>
 </ul>
 </section><section id="data-import" class="slide level2">
-<h1>Data import</h1>
+<h2>Data import</h2>
 <ul>
 <li><p><strong>Text Files in a table format</strong> can be read and saved to a selected variable using a <code>read.table()</code> function. Use <code>?read.table</code> to learn more about the function.</p></li>
 <li><p>A common text file format is a <strong>comma delimited text file</strong>, <code>.csv</code>. These files use a comma as column separators, e.g:</p></li>
@@ -726,7 +726,7 @@ mydata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span clas
 <li>Optionally, use <code>row.names</code> or <code>col.names</code> arguments to set the row and column names.</li>
 </ul>
 </section><section id="data-import-1" class="slide level2">
-<h1>Data import</h1>
+<h2>Data import</h2>
 <ul>
 <li><strong>Excel files</strong>. To read the excel files you need to first install a package “xlsx”. Simply run <code>install.packages(&quot;xlsx&quot;)</code>.</li>
 </ul>
@@ -754,7 +754,7 @@ mydata &lt;-<span class="st"> </span><span class="kw">sasxport.get</span>(<span 
 <span class="kw">library</span>(foreign)
 mydata &lt;-<span class="st"> </span><span class="kw">read.xport</span>(<span class="st">&quot;path/to/filename.xpt&quot;</span>)</code></pre></div>
 </section><section id="data-export" class="slide level2">
-<h1>Data export</h1>
+<h2>Data export</h2>
 <ul>
 <li><strong>Text files</strong>:</li>
 </ul>
@@ -775,7 +775,7 @@ mydata &lt;-<span class="st"> </span><span class="kw">read.xport</span>(<span cl
               <span class="dt">codefile =</span> <span class="st">&quot;path/to/filename.sas&quot;</span>,  <span class="dt">package=</span><span class="st">&quot;SAS&quot;</span>)</code></pre></div>
 <p>Here are links to more details on data <a href="http://www.statmethods.net/input/importingdata.html">import</a> and <a href="http://www.statmethods.net/input/exportingdata.html">export</a>.</p>
 </section><section id="saving-the-workspace" class="slide level2">
-<h1>Saving the workspace</h1>
+<h2>Saving the workspace</h2>
 <ul>
 <li><p>You can choose to <strong>save all objects</strong> currently in the workspace (variables, functions, etc.) into a file e.g. <code>filename.rda</code>.</p></li>
 <li><p>The file <code>filename.rda</code> can be loaded next time you work with R.</p></li>
@@ -798,7 +798,7 @@ mydata &lt;-<span class="st"> </span><span class="kw">read.xport</span>(<span cl
 <span class="co"># read just the previously saved 1 object</span>
 object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;path/to/filename.rds&quot;</span>)</code></pre></div>
 </section><section id="exercise-1" class="slide level2">
-<h1>Exercise 1</h1>
+<h2>Exercise 1</h2>
 <ul>
 <li><p>Download “Lec2_ex.Rmd” file from the Lectures tab on class website.</p></li>
 <li><p>Open the file in RStudio.</p></li>
@@ -806,53 +806,53 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 </ul>
 </section></section>
 <section><section id="control-flow" class="titleslide slide level1"><h1>Control flow</h1></section><section id="booleanslogicals" class="slide level2">
-<h1>Booleans/logicals</h1>
-<strong>Booleans</strong> are logical data types (TRUE/FALSE) associated with conditional statements, which allow different actions and change control flow.
+<h2>Booleans/logicals</h2>
 <div class="left" ,="" style="width: 50%">
+<p><strong>Booleans</strong> are logical data types (TRUE/FALSE) associated with conditional statements, which allow different actions and change control flow.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equal &quot;==&quot;&quot;</span>
-<span class="dv">5</span> ==<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># not equal: &quot;!=&quot;&quot; </span>
-<span class="dv">5</span> !=<span class="st"> </span><span class="dv">5</span> </code></pre></div>
+<span class="dv">5</span> <span class="op">!=</span><span class="st"> </span><span class="dv">5</span> </code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># greater than: &quot;&gt;&quot;&quot;</span>
-<span class="dv">5</span> &gt;<span class="st"> </span><span class="dv">4</span> </code></pre></div>
+<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> </code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># greater than or equal: &quot;&gt;=&quot;&quot; (# similarly &lt; and &lt;=)</span>
-<span class="dv">5</span> &gt;=<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<span class="dv">5</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can combine multiple boolean expressions</span>
-<span class="ot">TRUE</span> &amp;<span class="st"> </span><span class="ot">TRUE</span></code></pre></div>
+<span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">TRUE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> &amp;<span class="st"> </span><span class="ot">FALSE</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">FALSE</span> </code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> |<span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="ot">TRUE</span> <span class="op">|</span><span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">!(<span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">!</span>(<span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 </div>
 </section><section id="booleanslogicals-1" class="slide level2">
-<h1>Booleans/logicals</h1>
+<h2>Booleans/logicals</h2>
 <p>In R if you combine 2 vectors of booleans, by each element then use <code>&amp;</code>. Rember the <strong>recycling property</strong> for vectors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) &amp;<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] FALSE  TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">5</span> &lt;<span class="st"> </span><span class="dv">4</span>, <span class="dv">7</span> ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>&lt;<span class="st"> </span><span class="dv">2</span>) |<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>==<span class="dv">5</span>, <span class="dv">6</span>&gt;<span class="st"> </span><span class="dv">2</span>, !<span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">7</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span><span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">|</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span><span class="op">==</span><span class="dv">5</span>, <span class="dv">6</span><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>, <span class="op">!</span><span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [1] TRUE TRUE TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) &amp;<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)  <span class="co"># recycling</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)  <span class="co"># recycling</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
 </section><section id="booleanslogicals-2" class="slide level2">
-<h1>Booleans/logicals</h1>
+<h2>Booleans/logicals</h2>
 <p>If we use double operators <code>&amp;&amp;</code> or <code>||</code> is used only the first elements are compared:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) &amp;&amp;<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">5</span> &lt;<span class="st"> </span><span class="dv">4</span>, <span class="dv">7</span> ==<span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>&lt;<span class="st"> </span><span class="dv">2</span>) ||<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>==<span class="dv">5</span>, <span class="dv">6</span>&gt;<span class="st"> </span><span class="dv">2</span>, !<span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">7</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span><span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">||</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span><span class="op">==</span><span class="dv">5</span>, <span class="dv">6</span><span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>, <span class="op">!</span><span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) &amp;&amp;<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </section><section id="booleanslogicals-3" class="slide level2">
-<h1>Booleans/logicals</h1>
+<h2>Booleans/logicals</h2>
 <ul>
 <li>Another possibility to combine booleans is to use <code>all()</code> or <code>any()</code> functions:</li>
 </ul>
@@ -860,12 +860,12 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 <pre><code>## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>))</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">c</span>(<span class="dv">5</span> &gt;<span class="st"> </span>-<span class="dv">1</span>, <span class="dv">3</span> &gt;=<span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span> &lt;<span class="st"> </span><span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all</span>(<span class="kw">c</span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>))</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">c</span>(<span class="dv">5</span> &gt;<span class="st"> </span>-<span class="dv">1</span>, <span class="dv">3</span> &gt;=<span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span> &lt;<span class="st"> </span><span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">any</span>(<span class="kw">c</span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span><span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span> <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>))</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </section><section id="control-statements" class="slide level2">
-<h1>Control statements</h1>
+<h2>Control statements</h2>
 <ul>
 <li><p><strong>Control flow</strong> is the order in which individual statements, instructions or function calls of a program are evaluated.</p></li>
 <li><p>Control statements allow you to do more complicated tasks.</p></li>
@@ -877,13 +877,13 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 </ul></li>
 </ul>
 </section><section id="if-statements" class="slide level2">
-<h1>If statements</h1>
+<h2>If statements</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p>Decide on whether a block of code should be executed based on the associated boolean expression.</p></li>
 <li><p><strong>Syntax</strong>. The if statements are followed by a boolean expression wrapped in parenthesis. The conditional block of code is inside curly braces <code>{}</code>.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (traffic_light ==<span class="st"> &quot;green&quot;</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;green&quot;</span>) {
   <span class="kw">print</span>(<span class="st">&quot;Go.&quot;</span>)
 }</code></pre></div>
 </div>
@@ -891,30 +891,30 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 <ul>
 <li>‘if-else’ statements let you introduce more options</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (traffic_light ==<span class="st"> &quot;green&quot;</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;green&quot;</span>) {
    <span class="kw">print</span>(<span class="st">&quot;Go.&quot;</span>)
-} else {
+} <span class="cf">else</span> {
    <span class="kw">print</span>(<span class="st">&quot;Stay.&quot;</span>)
 }</code></pre></div>
 <ul>
 <li>You can also use <code>else if()</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (traffic_light ==<span class="st"> &quot;green&quot;</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;green&quot;</span>) {
    <span class="kw">print</span>(<span class="st">&quot;Go.&quot;</span>)
-} else if (traffic_light ==<span class="st"> &quot;yellow&quot;</span>) {
+} <span class="cf">else</span> <span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;yellow&quot;</span>) {
   <span class="kw">print</span>(<span class="st">&quot;Get ready.&quot;</span>)
-} else {
+} <span class="cf">else</span> {
    <span class="kw">print</span>(<span class="st">&quot;Stay.&quot;</span>)
 }</code></pre></div>
 </div>
 </section><section id="for-loops" class="slide level2">
-<h1>For loops</h1>
+<h2>For loops</h2>
 <p></br></p>
 <ul>
 <li>A for loop is a statement which <strong>repeats the execution a block of code</strong> a given number of iterations.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">1</span>:<span class="dv">5</span>){
-  <span class="kw">print</span>(i^<span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
+  <span class="kw">print</span>(i<span class="op">^</span><span class="dv">2</span>)
 }</code></pre></div>
 <pre><code>## [1] 1
 ## [1] 4
@@ -922,15 +922,15 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 ## [1] 16
 ## [1] 25</code></pre>
 </section><section id="while-loops" class="slide level2">
-<h1>While loops</h1>
+<h2>While loops</h2>
 <p></br></p>
 <ul>
 <li>Similar to for loops, but repeat the execution as long <strong>as the boolean condition supplied is TRUE</strong>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i =<span class="st"> </span><span class="dv">1</span>
-while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
+<span class="cf">while</span>(i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>) {
   <span class="kw">cat</span>(<span class="st">&quot;i =&quot;</span>, i, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  i =<span class="st"> </span>i +<span class="st"> </span><span class="dv">1</span>
+  i =<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 }</code></pre></div>
 <pre><code>## i = 1 
 ## i = 2 
@@ -938,15 +938,15 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 ## i = 4 
 ## i = 5</code></pre>
 </section><section id="next" class="slide level2">
-<h1>Next</h1>
+<h2>Next</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><code>next</code> halts the processing of the current iteration and advances the looping index.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">1</span>:<span class="dv">10</span>) {
-  if (i &lt;=<span class="st"> </span><span class="dv">5</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+  <span class="cf">if</span> (i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">5</span>) {
     <span class="kw">print</span>(<span class="st">&quot;skip&quot;</span>)
-    next
+    <span class="cf">next</span>
   }
   <span class="kw">cat</span>(i, <span class="st">&quot;is greater than 5.</span><span class="ch">\n</span><span class="st">&quot;</span>)
 }</code></pre></div>
@@ -965,12 +965,12 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 <ul>
 <li><code>next</code> applies only to the innermost of nested loops.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">1</span>:<span class="dv">3</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
   <span class="kw">cat</span>(<span class="st">&quot;Outer-loop i: &quot;</span>, i, <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>)
-  for (j in <span class="dv">1</span>:<span class="dv">4</span>) {
-    if(j &gt;<span class="st"> </span>i) {
+  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {
+    <span class="cf">if</span>(j <span class="op">&gt;</span><span class="st"> </span>i) {
       <span class="kw">print</span>(<span class="st">&quot;skip&quot;</span>)
-      next
+      <span class="cf">next</span>
     }
     <span class="kw">cat</span>(<span class="st">&quot;Inner-loop j:&quot;</span>, j, <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>)
   }
@@ -992,15 +992,15 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 ## [1] &quot;skip&quot;</code></pre>
 </div>
 </section><section id="break" class="slide level2">
-<h1>Break</h1>
+<h2>Break</h2>
 <ul>
 <li>The <code>break</code> statement allows us to break out out of a for, while loop (of the smallest enclosing).</li>
 <li>The control is transferred to the first statement outside the inner-most loop.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">1</span>:<span class="dv">10</span>)  {
-  if (i ==<span class="st"> </span><span class="dv">6</span>)  {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)  {
+  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">6</span>)  {
     <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Coming out from for loop Where i = &quot;</span>, i))
-    break
+    <span class="cf">break</span>
   }
   <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;i is now: &quot;</span>, i))
 }</code></pre></div>
@@ -1011,16 +1011,16 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 ## [1] &quot;i is now:  5&quot;
 ## [1] &quot;Coming out from for loop Where i =  6&quot;</code></pre>
 </section><section id="exercise-2" class="slide level2">
-<h1>Exercise 2</h1>
+<h2>Exercise 2</h2>
 <p></br></p>
 <ul>
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 2.</p></li>
 </ul>
 </section><section id="functions" class="slide level2">
-<h1>Functions</h1>
+<h2>Functions</h2>
 </section><section id="functions-1" class="slide level2">
-<h1>Functions</h1>
+<h2>Functions</h2>
 <ul>
 <li><p>A <strong>function</strong> is a procedure/routine that performs a specific task.</p></li>
 <li><p>Functions are used to <strong>abstract</strong> components of larger program.</p></li>
@@ -1029,7 +1029,7 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 <li><p>A general rule is that you should <strong>use a function, whenever you’ve copied and pasted a block of code more than twice</strong>.</p></li>
 </ul>
 </section><section id="function-definition" class="slide level2">
-<h1>Function Definition</h1>
+<h2>Function Definition</h2>
 <div class="left" ,="" style="width: 40%">
 <ul>
 <li><p>To define a function you assigne a variable name to a <code>function</code> object.</p></li>
@@ -1040,10 +1040,10 @@ while(i &lt;=<span class="st"> </span><span class="dv">5</span>) {
 <div class="right" ,="" style="width: 60%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Computes mean and standard deviation</span>
 <span class="co"># and optionally prints the results.</span>
-mysummary &lt;-<span class="st"> </span>function(x, <span class="dt">print=</span><span class="ot">TRUE</span>) {
+mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print=</span><span class="ot">TRUE</span>) {
   center &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
   spread &lt;-<span class="st"> </span><span class="kw">sd</span>(x) 
-  if (print) {
+  <span class="cf">if</span> (print) {
     <span class="kw">cat</span>(<span class="st">&quot;Mean =&quot;</span>, center, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, 
         <span class="st">&quot;SD = &quot;</span>, spread, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
   }
@@ -1053,29 +1053,29 @@ mysummary &lt;-<span class="st"> </span>function(x, <span class="dt">print=</spa
 }</code></pre></div>
 </div>
 </section><section id="calling-functions" class="slide level2">
-<h1>Calling functions</h1>
+<h2>Calling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 3.901464 
-##  SD =  0.9972197</code></pre>
+<pre><code>## Mean = 4.027061 
+##  SD =  1.02358</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
-y$mean</code></pre></div>
-<pre><code>## [1] 3.901464</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y$sd</code></pre></div>
-<pre><code>## [1] 0.9972197</code></pre>
+y<span class="op">$</span>mean</code></pre></div>
+<pre><code>## [1] 4.027061</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
+<pre><code>## [1] 1.02358</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
 </section><section id="exercise-3" class="slide level2">
-<h1>Exercise 3</h1>
+<h2>Exercise 3</h2>
 <p></br></p>
 <ul>
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 3.</p></li>
 </ul>
 </section><section id="apply-lapply-sapply-functions" class="slide level2">
-<h1>apply, lapply, sapply functions</h1>
+<h2>apply, lapply, sapply functions</h2>
 <ul>
 <li><p>The <code>apply</code> family functions, are <strong>functions to manipulate slices of data</strong> from matrices, arrays, lists and dataframes <strong>in a repetitive way</strong>.</p></li>
 <li><p>These functions <strong>avoid explicit use of loops</strong>. <code>apply</code> might be <strong>computationally more efficient than for loops</strong>, depending on how big your data is. For more details see this <a href="https://www.r-bloggers.com/gnu-r-loop-speed-comparison/">link</a>.</p></li>
@@ -1083,7 +1083,7 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 <li><p>The family comprises: <strong>apply, lapply , sapply, vapply, mapply, rapply, and tapply</strong>. The difference lies in the structure of input data and the desired format of the output).</p></li>
 </ul>
 </section><section id="lapplysapply-functions" class="slide level2">
-<h1>lapply/sapply functions</h1>
+<h2>lapply/sapply functions</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to a elements of sequential objects</strong> such as vectors, lists, or data-frames (applies to columns).</p></li>
@@ -1093,7 +1093,7 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 </ul>
 </div>
 <div class="right" ,="" style="width: 50%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -1102,11 +1102,11 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 ## 
 ## [[3]]
 ## [1] 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>, <span class="dt">simplify =</span> F)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>, <span class="dt">simplify =</span> F)</code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -1117,56 +1117,56 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 ## [1] 9</code></pre>
 </div>
 </section><section id="apply-function" class="slide level2">
-<h1>apply function</h1>
+<h2>apply function</h2>
 <p><code>apply</code> operates on arrays/matrices. In the example below we obtain column sums of matrix “X”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]    4    1   18   28    8   29
-## [2,]   26   11   25   12   16    7
-## [3,]   30   15   19    9   21    3
-## [4,]   22   27    5   24    2   10
-## [5,]    6   13   23   17   14   20</code></pre>
+## [1,]    4    5   14   26   11   25
+## [2,]    2   12   20    6    8   28
+## [3,]   21   10   29   13   17   19
+## [4,]   16    1   15   27   22    9
+## [5,]   18    7   23    3   30   24</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1] 88 67 90 90 61 69</code></pre>
+<pre><code>## [1]  61  35 101  75  88 105</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN=1</code> indicates rows and <code>MARGIN=2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
-<h1>apply function</h1>
+<h2>apply function</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]    4    1   18   28    8   29
-## [2,]   26   11   25   12   16    7
-## [3,]   30   15   19    9   21    3
-## [4,]   22   27    5   24    2   10
-## [5,]    6   13   23   17   14   20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, function(x) <span class="kw">sum</span>(x &lt;<span class="st"> </span><span class="dv">15</span>)) <span class="co"># number entries &lt; 15</span></code></pre></div>
-<pre><code>## [1] 2 3 1 2 3 3</code></pre>
+## [1,]    4    5   14   26   11   25
+## [2,]    2   12   20    6    8   28
+## [3,]   21   10   29   13   17   19
+## [4,]   16    1   15   27   22    9
+## [5,]   18    7   23    3   30   24</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="kw">sum</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span>)) <span class="co"># number entries &lt; 15</span></code></pre></div>
+<pre><code>## [1] 2 5 1 3 2 1</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
 <li>The function can be defined outside <code>apply()</code>,</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span>function(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
-  if (!<span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x +<span class="st"> </span>eps
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
+  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>eps
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 17.6 13.4 18.0 18.0 12.2 13.8</code></pre>
+<pre><code>## [1] 12.2  7.0 20.2 15.0 17.6 21.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 17.7 13.5 18.1 18.1 12.3 13.9</code></pre>
+<pre><code>## [1] 12.3  7.1 20.3 15.1 17.7 21.1</code></pre>
 </div>
 </section><section id="mapply-functions" class="slide level2">
-<h1>mapply functions</h1>
+<h2>mapply functions</h2>
 <ul>
 <li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
 <li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
-word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
-<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span>:<span class="dv">6</span>], <span class="dv">6</span>:<span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
+word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
+<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## $A
 ## [1] &quot;AAAAAA&quot;
 ## 
@@ -1185,7 +1185,7 @@ word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<
 ## $F
 ## [1] &quot;F&quot;</code></pre>
 </section><section id="exercise-4" class="slide level2">
-<h1>Exercise 4</h1>
+<h2>Exercise 4</h2>
 <p></br></p>
 <ul>
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
@@ -1195,8 +1195,8 @@ word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<
     </div>
   </div>
 
-  <script src="Lecture2_Syntax_and_Functions_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
-  <script src="Lecture2_Syntax_and_Functions_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
 
   <script>
 

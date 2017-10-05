@@ -3,14 +3,14 @@ title: 'Lecture 2:  Syntax, control flow, functions'
 date: "October 5, 2017" 
 output: 
   revealjs::revealjs_presentation: 
-    # incremental: true 
-    css: "../../css/class.css" 
+    self_contained: false
+    lib_dir: libs
+    css: class.css
     highlight: default 
     smart: true
     center: true
     transition: default 
     background_transition: default 
-    self_contained: false 
     fig_width: 6 
     fig_height: 4 
     text-align: left;
@@ -209,6 +209,7 @@ get_answer <- function(){
   return(42)
 }
 ```
+
 </div>
 
 <div class="right", style="width: 50%">
@@ -472,11 +473,12 @@ object <- readRDS("path/to/filename.rds")
 
 ## Booleans/logicals
 
+<div class="left", style="width: 50%">
+
 
 **Booleans** are logical data types (TRUE/FALSE) associated
 with conditional statements, which allow different actions 
 and change control flow.
-<div class="left", style="width: 50%">
 
 ```{r}
 # equal "==""

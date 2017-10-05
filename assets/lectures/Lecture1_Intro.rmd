@@ -3,14 +3,14 @@ title: 'Lecture 1: Introduction to R'
 date: "October 3, 2017" 
 output: 
   revealjs::revealjs_presentation: 
-    # incremental: true 
-    css: class.css 
+    self_contained: false
+    lib_dir: libs
+    css: class.css
     highlight: default 
     smart: true
     center: true
     transition: default 
     background_transition: default 
-    self_contained: false 
     fig_width: 6 
     fig_height: 4 
     text-align: left;
@@ -58,7 +58,7 @@ accumulation of specific and inflexible tools.
 
 ## Why should you learn R?
 
-<div style="float: center; height: 700px">
+<div style="float: center; height: 650px">
   <img src="./Lecture1-figure/IEEE_top_languages.png", height="600", width="1000"></img> 
   <p style="text-align: center;"> 
   Source: [https://spectrum.ieee.org/](https://spectrum.ieee.org/computing/software/the-2017-top-programming-languages) 
@@ -68,7 +68,7 @@ accumulation of specific and inflexible tools.
 
 ## Why should you learn R?
 
-<div style="float: left; margin-left: 120px; height: 700px">
+<div style="float: left; margin-left: 120px; height: 650px">
   <img src="./Lecture1-figure/indeed_jobtrends.png", height="600", width="900"></img> 
   <p> Source: [https://indeed.com/jobtrends](https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sql.html) </p>
 </div>
