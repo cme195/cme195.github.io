@@ -175,22 +175,25 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <div id="execise-1-data-importexport" class="section level1">
 <h1>Execise 1: Data import/export</h1>
-<p>Download the data storing New York’s Demographic statistics broken down by zip code, from the following URL: “<a href="https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv" class="uri">https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv</a>” to your “~/Desktop” directory:</p>
+<div id="part-1.1" class="section level2">
+<h2>Part 1.1</h2>
+<p>Download the file containing data from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and p erformance for 32 automobiles (1973–74 models) from the following URL: “<a href="https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv" class="uri">https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv</a>” to your “~/Desktop” directory.</p>
+<p>Note that “destfile” argument specifies the path and the name of the file you want to download the data to:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZG93bmxvYWQuZmlsZSh1cmwgPSBcImh0dHBzOi8vY21lMTk1LmdpdGh1Yi5pby9hc3NldHMvZGF0YS9EZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlLmNzdlwiLFxuICAgICAgICAgICAgICBkZXN0ZmlsZSA9IFwifi9Eb3dubG9hZHMvRGVtb2dyYXBoaWNfU3RhdGlzdGljc19CeV9aaXBfQ29kZS5jc3ZcIilcbmBgYCJ9 -->
-<pre class="r"><code>download.file(url = &quot;https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv&quot;,
-              destfile = &quot;~/Downloads/Demographic_Statistics_By_Zip_Code.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZG93bmxvYWQuZmlsZSh1cmwgPSBcImh0dHBzOi8vY21lMTk1LmdpdGh1Yi5pby9hc3NldHMvZGF0YS9tdGNhcnMudHh0XCIsXG4gICAgICAgICAgICAgIGRlc3RmaWxlID0gXCJ+L0Rlc2t0b3AvbXRjYXJzLnR4dFwiKVxuYGBgIn0= -->
+<pre class="r"><code>download.file(url = &quot;https://cme195.github.io/assets/data/mtcars.txt&quot;,
+              destfile = &quot;~/Desktop/mtcars.txt&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoidHJ5aW5nIFVSTCAnaHR0cHM6Ly9jbWUxOTUuZ2l0aHViLmlvL2Fzc2V0cy9kYXRhL0RlbW9ncmFwaGljX1N0YXRpc3RpY3NfQnlfWmlwX0NvZGUuY3N2J1xuQ29udGVudCB0eXBlICd0ZXh0L2NzdjsgY2hhcnNldD11dGYtOCcgbGVuZ3RoIDEzNjM0IGJ5dGVzICgxMyBLQilcbj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5kb3dubG9hZGVkIDEzIEtCXG4ifQ== -->
-<pre><code>trying URL 'https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv'
-Content type 'text/csv; charset=utf-8' length 13634 bytes (13 KB)
+<!-- rnb-output-begin eyJkYXRhIjoidHJ5aW5nIFVSTCAnaHR0cHM6Ly9jbWUxOTUuZ2l0aHViLmlvL2Fzc2V0cy9kYXRhL210Y2Fycy50eHQnXG5Db250ZW50IHR5cGUgJ3RleHQvcGxhaW47IGNoYXJzZXQ9dXRmLTgnIGxlbmd0aCAxNjk0IGJ5dGVzXG49PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuZG93bmxvYWRlZCAxNjk0IGJ5dGVzXG4ifQ== -->
+<pre><code>trying URL 'https://cme195.github.io/assets/data/mtcars.txt'
+Content type 'text/plain; charset=utf-8' length 1694 bytes
 ==================================================
-downloaded 13 KB</code></pre>
+downloaded 1694 bytes</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Use the following command and check that your file is indeed in the “~/Desktop”</p>
+<p>Use the following command and check that your file is indeed in your “~/Desktop”</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlzdC5maWxlcyhcIn4vRGVza3RvcC9cIilcbmBgYCJ9 -->
@@ -198,63 +201,102 @@ downloaded 13 KB</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Now specify the path to your the file you just downloaded in a variable called “path2file”:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Specify the path to your the file you just downloaded in a variable called “path2file”.</li>
+</ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZW1lbWJlciB0byBjb21tZW50IG91dDpcbiMgcGF0aDJmaWxlIDwtIFxuYGBgIn0= -->
-<pre class="r"><code># Remember to comment out:
-# path2file &lt;- </code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBwYXRoMmZpbGUgPC0gXG5gYGAifQ== -->
+<pre class="r"><code># path2file &lt;- </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>And read-in the text file:</p>
+<p>Use the <code>file.show()</code> command to see the structure of the file.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZW1lbWJlciB0byBjb21tZW50IG91dDpcbiMgbnlfZGVtb2dyYXBoaWMgPC0gXG5gYGAifQ== -->
-<pre class="r"><code># Remember to comment out:
-# ny_demographic &lt;- </code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="2" style="list-style-type: decimal">
+<p>Note that the file is tab-delimited. Use suitable argument specifications to import the data to variable variable “mtcars”.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Check the content of your data with <code>str()</code>, <code>head()</code>, and <code>summary()</code> function.</p></li>
 <li><p>Check the dimensions of your data.</p></li>
 <li><p>Print the variables in your data.</p></li>
-<li><p>Check the content of your data with <code>str()</code>, <code>head()</code>, and <code>summary()</code> function.</p></li>
+</ol>
+</div>
+<div id="part-1.2" class="section level2">
+<h2>Part 1.2</h2>
+<p>Now we will download another dataset on New York’s Demographic statistics broken down by zip code, from the following URL: “<a href="https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv" class="uri">https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv</a>” again to your “~/Desktop” directory.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZG93bmxvYWQuZmlsZSh1cmwgPSBcImh0dHBzOi8vY21lMTk1LmdpdGh1Yi5pby9hc3NldHMvZGF0YS9EZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlLmNzdlwiLFxuICAgICAgICAgICAgICBkZXN0ZmlsZSA9IFwifi9EZXNrdG9wL0RlbW9ncmFwaGljX1N0YXRpc3RpY3NfQnlfWmlwX0NvZGUuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>download.file(url = &quot;https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv&quot;,
+              destfile = &quot;~/Desktop/Demographic_Statistics_By_Zip_Code.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol style="list-style-type: lower-alpha">
+<li>Re-assign the path to the newly downloaded file to the variable “path2file”</li>
+</ol>
+<p>Again, inspect the file with the <code>file.show()</code> command.</p>
+<p>Note, that this would not be good to display larger files. An alternative to see the first few lines of a file is to use a <code>scan()</code> function:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2NhbihmaWxlID0gcGF0aDJmaWxlLCB3aGF0ID0gXCJcIiwgc2VwID0gXCJcXG5cIiwgbmxpbmVzID0gMTApXG5gYGAifQ== -->
+<pre class="r"><code>scan(file = path2file, what = &quot;&quot;, sep = &quot;\n&quot;, nlines = 10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Since, the data is comma-delimited you can use <code>read.csv()</code> function to import the data to variable “demographics”, or alternatively use <code>read.table()</code> with suitable arguments:</p></li>
+<li><p>Use command <code>head()</code> to print out the first few rows of the data:</p></li>
 <li><p>Choose only the columns: “COUNT.FEMALE”, “COUNT.MALE”, “COUNT.GENDER.UNKNOWN”, and save the data in a file named “Demographic_Statistics_By_Zip_Code_SUBSET.csv” in the same directory.</p></li>
 </ol>
 </div>
+</div>
 <div id="execise-2-control-flow" class="section level1">
 <h1>Execise 2: Control Flow</h1>
-<ol style="list-style-type: decimal">
-<li>Use a for loop to:</li>
+</div>
+<div id="execise-2-control-flow-1" class="section level1">
+<h1>Execise 2: Control Flow</h1>
+<div id="part-2.1" class="section level2">
+<h2>Part 2.1</h2>
+<p>Use a for loop to: a. Print the numbers 1 to 100</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Print the numbers 5 to 100 that are divisible by 7</p></li>
+<li><p>Print the numbers 2 to 100 that are divisible by 5 but not by 3.</p></li>
 </ol>
+</div>
+<div id="part-2.2" class="section level2">
+<h2>Part 2.2</h2>
 <ol style="list-style-type: lower-alpha">
-<li>Print the numbers 1 to 15</li>
-<li>Print the numbers 5 to 100 that are divisible by 7</li>
-<li>Print the numbers 2 to 100 that are divisible by 5 but not by 3</li>
-<li>Print for each of the numbers x = 2, . . . 20, all numbers that divide x (all factors) excluding 1 and x. Hence, for 18, it should print 2 3 6 9.</li>
+<li><p>Find all numbers not greater than 10,000 that are divisible by 5, 7 and 11 and print them.</p></li>
+<li><p>Print for each of the numbers x = 2, . . . 20, all numbers that divide x (all factors) excluding 1 and x. Hence, for 18, it should print 2 3 6 9.</p></li>
 </ol>
-<ol start="2" style="list-style-type: decimal">
-<li>Find all numbers not greater than 10,000 that are divisible by 5, 7 and 11 and print them.</li>
-</ol>
+</div>
 </div>
 <div id="execise-3-functions" class="section level1">
 <h1>Execise 3: Functions</h1>
 <ol style="list-style-type: decimal">
-<li><p>Create a function what will return the number of times a given integer is inside a given vector of integers. The function should have two arguments one for a vector and the other for a scalar. Generate a random vector of 100 integers (in a range 1-20) use the function to count the number of times 12 is in that vector.</p></li>
-<li><p>Create a function that given an integer will calculate how many divisors it has (other than 1 and itself). Make the divisors appear by screen. Calculate the divisors of 173, 1902 and 3777.</p></li>
+<li>A simple function. a.Create a function what will return the number of times a given integer is contained a given vector of integers. The function should have two arguments one for a vector and the other for a scalar.</li>
 </ol>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Then, generate a random vector of 100 integers (in a range 1-20) use the function to count the number of times the number 12 is in that vector.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Write a function that takes in a data.frame as an input, prints out the column names, and returns its dimensions.</li>
+</ol>
+<p>Extra: Create a function that given an integer will calculate how many divisors it has (other than 1 and itself). Make the divisors appear by screen. Calculate the divisors of 173, 1902 and 3777.</p>
 </div>
 <div id="execise-4-apply-function-family" class="section level1">
 <h1>Execise 4: Apply function family</h1>
 <ol style="list-style-type: decimal">
-<li><p>Use <code>apply</code> to compute the column means of the <code>ny_demographic</code> data frame. The results for every column (except the first one) are equal to the average number of participants in the category indicated by the column name who live in a single jurisdiction/zip code.</p></li>
-<li><p>Using the “COUNT.PARTICIPANTS” column and the rest of the columns, compute the percentage of the female, male, pacific islanders, hispanic latino, american indian, asian non-hispanic, white non -hispanic, black non-hispanic and other ethnicity participants (columns 3-14). Append the percentages to the <code>ny_demographic</code> dataset.</p></li>
+<li><p>Use <code>apply</code> to compute the column means of the <code>demographics</code> data frame. The results for every column (except the first one) are equal to the average number of participants in the category indicated by the column name who live in a single jurisdiction/zip code.</p></li>
+<li><p>Using the “COUNT.PARTICIPANTS” column and the rest of the columns, compute the percentage of the female, male, pacific islanders, hispanic latino, american indian, asian non-hispanic, white non-hispanic, black non-hispanic and other ethnicity participants (columns 3-14). Append the percentages to the <code>demographics</code> dataset.</p></li>
 </ol>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSAyOiBFeGVyY2lzZXMiCmRhdGU6IE9jdG9iZXIgNXRoLCAyMDE3Cm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCgojIEV4ZWNpc2UgMTogRGF0YSBpbXBvcnQvZXhwb3J0CgoKRG93bmxvYWQgdGhlIGRhdGEgc3RvcmluZyBOZXcgWW9yaydzIERlbW9ncmFwaGljIHN0YXRpc3RpY3MgYnJva2VuIGRvd24gCmJ5IHppcCBjb2RlLCBmcm9tIHRoZSBmb2xsb3dpbmcgVVJMOgoiaHR0cHM6Ly9jbWUxOTUuZ2l0aHViLmlvL2Fzc2V0cy9kYXRhL0RlbW9ncmFwaGljX1N0YXRpc3RpY3NfQnlfWmlwX0NvZGUuY3N2Igp0byB5b3VyICJ+L0Rlc2t0b3AiIGRpcmVjdG9yeToKCmBgYHtyfQpkb3dubG9hZC5maWxlKHVybCA9ICJodHRwczovL2NtZTE5NS5naXRodWIuaW8vYXNzZXRzL2RhdGEvRGVtb2dyYXBoaWNfU3RhdGlzdGljc19CeV9aaXBfQ29kZS5jc3YiLAogICAgICAgICAgICAgIGRlc3RmaWxlID0gIn4vRGVza3RvcC9EZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlLmNzdiIpCmBgYAoKVXNlIHRoZSBmb2xsb3dpbmcgY29tbWFuZCBhbmQgY2hlY2sgdGhhdCB5b3VyIGZpbGUgaXMgaW5kZWVkIGluIHRoZSAifi9EZXNrdG9wIgpgYGB7cn0KbGlzdC5maWxlcygifi9EZXNrdG9wLyIpCmBgYAoKTm93IHNwZWNpZnkgdGhlIHBhdGggdG8geW91ciB0aGUgZmlsZSB5b3UganVzdCBkb3dubG9hZGVkIGluIGEgdmFyaWFibGUKY2FsbGVkICJwYXRoMmZpbGUiOgoKYGBge3J9CiMgUmVtZW1iZXIgdG8gY29tbWVudCBvdXQ6CiMgcGF0aDJmaWxlIDwtIApgYGAKICAKQW5kIHJlYWQtaW4gdGhlIHRleHQgZmlsZToKYGBge3J9CiMgUmVtZW1iZXIgdG8gY29tbWVudCBvdXQ6CiMgbnlfZGVtb2dyYXBoaWMgPC0gCmBgYAoKMi4gQ2hlY2sgdGhlIGRpbWVuc2lvbnMgb2YgeW91ciBkYXRhLgoKCjMuIFByaW50IHRoZSB2YXJpYWJsZXMgaW4geW91ciBkYXRhLgoKCjQuIENoZWNrIHRoZSBjb250ZW50IG9mIHlvdXIgZGF0YSB3aXRoIGBzdHIoKWAsIGBoZWFkKClgLAphbmQgYHN1bW1hcnkoKWAgZnVuY3Rpb24uCgoKNS4gQ2hvb3NlIG9ubHkgdGhlIGNvbHVtbnM6ICJDT1VOVC5GRU1BTEUiLCAiQ09VTlQuTUFMRSIsICAiQ09VTlQuR0VOREVSLlVOS05PV04iLAphbmQgc2F2ZSB0aGUgZGF0YSBpbiBhIGZpbGUgbmFtZWQgIkRlbW9ncmFwaGljX1N0YXRpc3RpY3NfQnlfWmlwX0NvZGVfU1VCU0VULmNzdiIKaW4gdGhlIHNhbWUgZGlyZWN0b3J5LgoKCiMgRXhlY2lzZSAyOiBDb250cm9sIEZsb3cgCgoxLiBVc2UgYSBmb3IgbG9vcCB0bzoKKGEpIFByaW50IHRoZSBudW1iZXJzIDEgdG8gMTUKKGIpIFByaW50IHRoZSBudW1iZXJzIDUgdG8gMTAwIHRoYXQgYXJlIGRpdmlzaWJsZSBieSA3CihjKSBQcmludCB0aGUgbnVtYmVycyAyIHRvIDEwMCB0aGF0IGFyZSBkaXZpc2libGUgYnkgNSBidXQgbm90IGJ5IDMKKGQpIFByaW50IGZvciBlYWNoIG9mIHRoZSBudW1iZXJzIHggPSAyLCAuIC4gLiAyMCwgYWxsIG51bWJlcnMgdGhhdCBkaXZpZGUgeAooYWxsIGZhY3RvcnMpIGV4Y2x1ZGluZyAxIGFuZCB4LiBIZW5jZSwgZm9yIDE4LCBpdCBzaG91bGQgcHJpbnQgMiAzIDYgOS4KCgoyLiBGaW5kIGFsbCBudW1iZXJzIG5vdCBncmVhdGVyIHRoYW4gMTAsMDAwIHRoYXQgYXJlIGRpdmlzaWJsZSBieSAKNSwgNyBhbmQgMTEgYW5kIHByaW50IHRoZW0uCgoKIyBFeGVjaXNlIDM6IEZ1bmN0aW9ucwoKMS4gQ3JlYXRlIGEgZnVuY3Rpb24gd2hhdCB3aWxsIHJldHVybiB0aGUgbnVtYmVyCm9mIHRpbWVzIGEgZ2l2ZW4gaW50ZWdlciBpcyBpbnNpZGUgYSBnaXZlbiB2ZWN0b3Igb2YgaW50ZWdlcnMuClRoZSBmdW5jdGlvbiBzaG91bGQgaGF2ZSB0d28gYXJndW1lbnRzIG9uZSBmb3IgYSB2ZWN0b3IKYW5kIHRoZSBvdGhlciBmb3IgYSBzY2FsYXIuIEdlbmVyYXRlIGEgcmFuZG9tIHZlY3RvciBvZiAxMDAgCmludGVnZXJzIChpbiBhIHJhbmdlIDEtMjApIHVzZSB0aGUgZnVuY3Rpb24gdG8gY291bnQgdGhlIG51bWJlcgpvZiB0aW1lcyAxMiBpcyBpbiB0aGF0IHZlY3Rvci4KCgoyLiBDcmVhdGUgYSBmdW5jdGlvbiB0aGF0IGdpdmVuIGFuIGludGVnZXIgd2lsbCBjYWxjdWxhdGUgaG93IG1hbnkgZGl2aXNvcnMgCml0IGhhcyAob3RoZXIgdGhhbiAxIGFuZCBpdHNlbGYpLiBNYWtlIHRoZSBkaXZpc29ycyBhcHBlYXIgYnkgc2NyZWVuLgpDYWxjdWxhdGUgdGhlIGRpdmlzb3JzIG9mIDE3MywgMTkwMiBhbmQgMzc3Ny4KCgojIEV4ZWNpc2UgNDogQXBwbHkgZnVuY3Rpb24gZmFtaWx5CgoxLiBVc2UgYGFwcGx5YCB0byBjb21wdXRlIHRoZSBjb2x1bW4gbWVhbnMgb2YgdGhlIGBueV9kZW1vZ3JhcGhpY2AKZGF0YSBmcmFtZS4gVGhlIHJlc3VsdHMgZm9yIGV2ZXJ5IGNvbHVtbiAoZXhjZXB0IHRoZSBmaXJzdCBvbmUpCmFyZSBlcXVhbCB0byB0aGUgYXZlcmFnZSBudW1iZXIgb2YgcGFydGljaXBhbnRzIGluIHRoZSBjYXRlZ29yeQppbmRpY2F0ZWQgYnkgdGhlIGNvbHVtbiBuYW1lIHdobyBsaXZlIGluIGEgc2luZ2xlIGp1cmlzZGljdGlvbi96aXAgY29kZS4KCjIuIFVzaW5nIHRoZSAiQ09VTlQuUEFSVElDSVBBTlRTIiBjb2x1bW4gYW5kIHRoZSByZXN0IG9mIHRoZSBjb2x1bW5zLCAKY29tcHV0ZSB0aGUgcGVyY2VudGFnZSBvZiB0aGUgZmVtYWxlLCBtYWxlLCBwYWNpZmljIGlzbGFuZGVycywgCmhpc3BhbmljIGxhdGlubywgYW1lcmljYW4gaW5kaWFuLCBhc2lhbiBub24taGlzcGFuaWMsIHdoaXRlIG5vbiAtaGlzcGFuaWMsIApibGFjayBub24taGlzcGFuaWMgYW5kIG90aGVyIGV0aG5pY2l0eSBwYXJ0aWNpcGFudHMgKGNvbHVtbnMgMy0xNCkuIApBcHBlbmQgdGhlIHBlcmNlbnRhZ2VzIHRvIHRoZSBgbnlfZGVtb2dyYXBoaWNgIGRhdGFzZXQuCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSAyOiBFeGVyY2lzZXMiCmRhdGU6IE9jdG9iZXIgNXRoLCAyMDE3Cm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCgojIEV4ZWNpc2UgMTogRGF0YSBpbXBvcnQvZXhwb3J0CgojIyBQYXJ0IDEuMQpEb3dubG9hZCB0aGUgZmlsZSBjb250YWluaW5nIGRhdGEgZnJvbSB0aGUgMTk3NCBNb3RvciBUcmVuZCBVUyBtYWdhemluZSwgCmFuZCBjb21wcmlzZXMgZnVlbCBjb25zdW1wdGlvbiBhbmQgMTAgYXNwZWN0cyBvZiBhdXRvbW9iaWxlIGRlc2lnbiBhbmQgcAplcmZvcm1hbmNlIGZvciAzMiBhdXRvbW9iaWxlcyAoMTk3M+KAkzc0IG1vZGVscykgZnJvbSB0aGUgZm9sbG93aW5nIFVSTDoKImh0dHBzOi8vY21lMTk1LmdpdGh1Yi5pby9hc3NldHMvZGF0YS9EZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlLmNzdiIKdG8geW91ciAifi9EZXNrdG9wIiBkaXJlY3RvcnkuCgpOb3RlIHRoYXQgImRlc3RmaWxlIiBhcmd1bWVudCBzcGVjaWZpZXMgdGhlIHBhdGggYW5kIHRoZSBuYW1lIG9mIHRoZSBmaWxlIAp5b3Ugd2FudCB0byBkb3dubG9hZCB0aGUgZGF0YSB0bzoKCmBgYHtyfQpkb3dubG9hZC5maWxlKHVybCA9ICJodHRwczovL2NtZTE5NS5naXRodWIuaW8vYXNzZXRzL2RhdGEvbXRjYXJzLnR4dCIsCiAgICAgICAgICAgICAgZGVzdGZpbGUgPSAifi9EZXNrdG9wL210Y2Fycy50eHQiKQpgYGAKClVzZSB0aGUgZm9sbG93aW5nIGNvbW1hbmQgYW5kIGNoZWNrIHRoYXQgeW91ciBmaWxlIGlzIGluZGVlZCBpbiB5b3VyICJ+L0Rlc2t0b3AiCmBgYHtyfQpsaXN0LmZpbGVzKCJ+L0Rlc2t0b3AvIikKYGBgCgphLiBTcGVjaWZ5IHRoZSBwYXRoIHRvIHlvdXIgdGhlIGZpbGUgeW91IGp1c3QgZG93bmxvYWRlZCBpbiBhIHZhcmlhYmxlCmNhbGxlZCAicGF0aDJmaWxlIi4KCmBgYHtyfQojIHBhdGgyZmlsZSA8LSAKYGBgCiAgCgpVc2UgdGhlIGBmaWxlLnNob3coKWAgY29tbWFuZCB0byBzZWUgdGhlIHN0cnVjdHVyZSBvZiB0aGUgZmlsZS4KCmBgYHtyfQpmaWxlLnNob3cocGF0aDJmaWxlKQpgYGAKCk5vdGUgdGhhdCB0aGUgZmlsZSBpcyB0YWItZGVsaW1pdGVkLiBVc2Ugc3VpdGFibGUgYXJndW1lbnQgc3BlY2lmaWNhdGlvbnMKdG8gaW1wb3J0IHRoZSBkYXRhIHRvIHZhcmlhYmxlIHZhcmlhYmxlICJtdGNhcnMiLgoKYi4gQ2hlY2sgdGhlIGNvbnRlbnQgb2YgeW91ciBkYXRhIHdpdGggYHN0cigpYCwgYGhlYWQoKWAsCmFuZCBgc3VtbWFyeSgpYCBmdW5jdGlvbi4KCmMuIENoZWNrIHRoZSBkaW1lbnNpb25zIG9mIHlvdXIgZGF0YS4KCgpkLiBQcmludCB0aGUgdmFyaWFibGVzIGluIHlvdXIgZGF0YS4KCgojIyBQYXJ0IDEuMgoKTm93IHdlIHdpbGwgZG93bmxvYWQgYW5vdGhlciBkYXRhc2V0IG9uIE5ldyBZb3JrJ3MgRGVtb2dyYXBoaWMgc3RhdGlzdGljcyAKYnJva2VuIGRvd24gYnkgemlwIGNvZGUsIGZyb20gdGhlIGZvbGxvd2luZyBVUkw6CiJodHRwczovL2NtZTE5NS5naXRodWIuaW8vYXNzZXRzL2RhdGEvRGVtb2dyYXBoaWNfU3RhdGlzdGljc19CeV9aaXBfQ29kZS5jc3YiCmFnYWluIHRvIHlvdXIgIn4vRGVza3RvcCIgZGlyZWN0b3J5LgoKYGBge3J9CmRvd25sb2FkLmZpbGUodXJsID0gImh0dHBzOi8vY21lMTk1LmdpdGh1Yi5pby9hc3NldHMvZGF0YS9EZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlLmNzdiIsCiAgICAgICAgICAgICAgZGVzdGZpbGUgPSAifi9EZXNrdG9wL0RlbW9ncmFwaGljX1N0YXRpc3RpY3NfQnlfWmlwX0NvZGUuY3N2IikKYGBgCgphLiBSZS1hc3NpZ24gdGhlIHBhdGggdG8gdGhlIG5ld2x5IGRvd25sb2FkZWQgZmlsZSB0byB0aGUgdmFyaWFibGUgInBhdGgyZmlsZSIKCkFnYWluLCBpbnNwZWN0IHRoZSBmaWxlIHdpdGggdGhlIGBmaWxlLnNob3coKWAgY29tbWFuZC4KCk5vdGUsIHRoYXQgdGhpcyB3b3VsZCBub3QgYmUgZ29vZCB0byBkaXNwbGF5IGxhcmdlciBmaWxlcy4gQW4gYWx0ZXJuYXRpdmUKdG8gc2VlIHRoZSBmaXJzdCBmZXcgbGluZXMgb2YgYSBmaWxlIGlzIHRvIHVzZSBhIGBzY2FuKClgIGZ1bmN0aW9uOgoKYGBge3J9CnNjYW4oZmlsZSA9IHBhdGgyZmlsZSwgd2hhdCA9ICIiLCBzZXAgPSAiXG4iLCBubGluZXMgPSAxMCkKYGBgCgpiLiBTaW5jZSwgdGhlIGRhdGEgaXMgY29tbWEtZGVsaW1pdGVkIHlvdSBjYW4gdXNlIGByZWFkLmNzdigpYCBmdW5jdGlvbgp0byBpbXBvcnQgdGhlIGRhdGEgdG8gdmFyaWFibGUgImRlbW9ncmFwaGljcyIsIG9yIGFsdGVybmF0aXZlbHkgdXNlCmByZWFkLnRhYmxlKClgIHdpdGggc3VpdGFibGUgYXJndW1lbnRzOgoKYy4gVXNlIGNvbW1hbmQgYGhlYWQoKWAgdG8gcHJpbnQgb3V0IHRoZSBmaXJzdCBmZXcgcm93cyBvZiB0aGUgZGF0YToKCmQuIENob29zZSBvbmx5IHRoZSBjb2x1bW5zOiAiQ09VTlQuRkVNQUxFIiwgIkNPVU5ULk1BTEUiLCAgIkNPVU5ULkdFTkRFUi5VTktOT1dOIiwKYW5kIHNhdmUgdGhlIGRhdGEgaW4gYSBmaWxlIG5hbWVkICJEZW1vZ3JhcGhpY19TdGF0aXN0aWNzX0J5X1ppcF9Db2RlX1NVQlNFVC5jc3YiCmluIHRoZSBzYW1lIGRpcmVjdG9yeS4KCgojIEV4ZWNpc2UgMjogQ29udHJvbCBGbG93IAoKIyBFeGVjaXNlIDI6IENvbnRyb2wgRmxvdyAKCiMjIFBhcnQgMi4xCgpVc2UgYSBmb3IgbG9vcCB0bzoKYS4gUHJpbnQgdGhlIG51bWJlcnMgMSB0byAxMDAKCmIuIFByaW50IHRoZSBudW1iZXJzIDUgdG8gMTAwIHRoYXQgYXJlIGRpdmlzaWJsZSBieSA3CgpjLiBQcmludCB0aGUgbnVtYmVycyAyIHRvIDEwMCB0aGF0IGFyZSBkaXZpc2libGUgYnkgNSBidXQgbm90IGJ5IDMuCgoKIyMgUGFydCAyLjIKCmEuIEZpbmQgYWxsIG51bWJlcnMgbm90IGdyZWF0ZXIgdGhhbiAxMCwwMDAgdGhhdCBhcmUgZGl2aXNpYmxlIGJ5IAo1LCA3IGFuZCAxMSBhbmQgcHJpbnQgdGhlbS4KCmIuIFByaW50IGZvciBlYWNoIG9mIHRoZSBudW1iZXJzIHggPSAyLCAuIC4gLiAyMCwgYWxsIG51bWJlcnMgdGhhdCBkaXZpZGUgeAooYWxsIGZhY3RvcnMpIGV4Y2x1ZGluZyAxIGFuZCB4LiBIZW5jZSwgZm9yIDE4LCBpdCBzaG91bGQgcHJpbnQgMiAzIDYgOS4KCgojIEV4ZWNpc2UgMzogRnVuY3Rpb25zCgoxLiBBIHNpbXBsZSBmdW5jdGlvbi4KYS5DcmVhdGUgYSBmdW5jdGlvbiB3aGF0IHdpbGwgcmV0dXJuIHRoZSBudW1iZXIKb2YgdGltZXMgYSBnaXZlbiBpbnRlZ2VyIGlzIGNvbnRhaW5lZCBhIGdpdmVuIHZlY3RvciBvZiBpbnRlZ2Vycy4KVGhlIGZ1bmN0aW9uIHNob3VsZCBoYXZlIHR3byBhcmd1bWVudHMgb25lIGZvciBhIHZlY3RvcgphbmQgdGhlIG90aGVyIGZvciBhIHNjYWxhci4gCgpiLiBUaGVuLCBnZW5lcmF0ZSBhIHJhbmRvbSB2ZWN0b3Igb2YgMTAwIAppbnRlZ2VycyAoaW4gYSByYW5nZSAxLTIwKSB1c2UgdGhlIGZ1bmN0aW9uIHRvIGNvdW50IHRoZSBudW1iZXIKb2YgdGltZXMgdGhlIG51bWJlciAxMiBpcyBpbiB0aGF0IHZlY3Rvci4gCgoyLiBXcml0ZSBhIGZ1bmN0aW9uIHRoYXQgdGFrZXMgaW4gYSBkYXRhLmZyYW1lIGFzIGFuIGlucHV0LCAKcHJpbnRzIG91dCB0aGUgY29sdW1uIG5hbWVzLCBhbmQgcmV0dXJucyBpdHMgZGltZW5zaW9ucy4KCgpFeHRyYTogQ3JlYXRlIGEgZnVuY3Rpb24gdGhhdCBnaXZlbiBhbiBpbnRlZ2VyIHdpbGwgY2FsY3VsYXRlIGhvdyBtYW55IApkaXZpc29ycyBpdCBoYXMgKG90aGVyIHRoYW4gMSBhbmQgaXRzZWxmKS4gTWFrZSB0aGUgZGl2aXNvcnMgYXBwZWFyIGJ5IHNjcmVlbi4KQ2FsY3VsYXRlIHRoZSBkaXZpc29ycyBvZiAxNzMsIDE5MDIgYW5kIDM3NzcuCgoKIyBFeGVjaXNlIDQ6IEFwcGx5IGZ1bmN0aW9uIGZhbWlseQoKMS4gVXNlIGBhcHBseWAgdG8gY29tcHV0ZSB0aGUgY29sdW1uIG1lYW5zIG9mIHRoZSBgZGVtb2dyYXBoaWNzYApkYXRhIGZyYW1lLiBUaGUgcmVzdWx0cyBmb3IgZXZlcnkgY29sdW1uIChleGNlcHQgdGhlIGZpcnN0IG9uZSkKYXJlIGVxdWFsIHRvIHRoZSBhdmVyYWdlIG51bWJlciBvZiBwYXJ0aWNpcGFudHMgaW4gdGhlIGNhdGVnb3J5CmluZGljYXRlZCBieSB0aGUgY29sdW1uIG5hbWUgd2hvIGxpdmUgaW4gYSBzaW5nbGUganVyaXNkaWN0aW9uL3ppcCBjb2RlLgoKMi4gVXNpbmcgdGhlICJDT1VOVC5QQVJUSUNJUEFOVFMiIGNvbHVtbiBhbmQgdGhlIHJlc3Qgb2YgdGhlIGNvbHVtbnMsIApjb21wdXRlIHRoZSBwZXJjZW50YWdlIG9mIHRoZSBmZW1hbGUsIG1hbGUsIHBhY2lmaWMgaXNsYW5kZXJzLCAKaGlzcGFuaWMgbGF0aW5vLCBhbWVyaWNhbiBpbmRpYW4sIGFzaWFuIG5vbi1oaXNwYW5pYywgd2hpdGUgbm9uLWhpc3BhbmljLCAKYmxhY2sgbm9uLWhpc3BhbmljIGFuZCBvdGhlciBldGhuaWNpdHkgcGFydGljaXBhbnRzIChjb2x1bW5zIDMtMTQpLiAKQXBwZW5kIHRoZSBwZXJjZW50YWdlcyB0byB0aGUgYGRlbW9ncmFwaGljc2AgZGF0YXNldC4KCg==</div>
 
 
 
