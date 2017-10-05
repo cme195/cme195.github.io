@@ -1,7 +1,10 @@
 ---
 title: "Lecture 2: Exercises"
 date: October 5th, 2017
-output: html_notebook
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
 ---
 
 

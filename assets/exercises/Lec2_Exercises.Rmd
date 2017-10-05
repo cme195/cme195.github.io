@@ -1,7 +1,10 @@
 ---
 title: "Lecture 2: Exercises"
 date: October 5th, 2017
-output: html_notebook
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
 ---
 
 
@@ -86,8 +89,6 @@ d. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN
 and save the data in a file named "Demographic_Statistics_By_Zip_Code_SUBSET.csv"
 in the same directory.
 
-
-# Execise 2: Control Flow 
 
 # Execise 2: Control Flow 
 
