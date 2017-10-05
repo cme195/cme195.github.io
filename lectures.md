@@ -27,7 +27,7 @@ Answers.
 ## [](#tut) Extra Tutorials
 
 * Lecture 1 related:
-    + [lists and matrices](https://cme195.shinyapps.io/vectors_and_matrices/),
+    + [vectors and matrices](https://cme195.shinyapps.io/vectors_and_matrices/),
     + [lists and data-frames](https://cme195.shinyapps.io/lists_and_data_frames/)
 
 * Lecture 2 related:
