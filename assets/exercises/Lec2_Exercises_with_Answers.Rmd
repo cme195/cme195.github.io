@@ -1,0 +1,235 @@
+---
+title: "Lecture 2: Exercises with Answers"
+date: October 5th, 2017
+output: html_notebook
+---
+
+# Execise 1: Data import/export
+
+
+First you need to obtain the data from the class website under Lectures tab.
+Download the file and remeber where you saved it.
+
+1. Read the data file `"Demographic_Statistics_By_Zip_Code.csv"` storing New York's
+Demographic statistics broken down by zip code.
+
+The data is the subset of the dataset available at:
+https://data.cityofnewyork.us/api/views/kku6-nxdu/rows.csv?accessType=DOWNLOAD
+note that you can donwload the entire dataset using `read.csv("https://data.cityofnewyork.us/api/views/kku6-nxdu/rows.csv?accessType=DOWNLOAD")`
+i.e. `read.table` and `read.csv` take urls as the data argument, and can 
+automatically download data from the internet.
+
+```{r}
+# Change this to point to the folder where "Demographic_Statistics_By_Zip_Code.csv" is located
+path2dir <- "~/MEGA/Teaching/cme195_intro_to_R/data/"
+
+# Make sure the file is at the specified location
+list.files(path2dir)
+
+# Read the csv file into R 
+# ny_demographic <- ?
+```
+
+```{r}
+setwd(path2dir)
+filename <- "Demographic_Statistics_By_Zip_Code.csv"
+# or: filename <- paste0(path2dir, "Demographic_Statistics_By_Zip_Code.csv")
+
+ny_demographic <- read.csv(filename)
+# or: ny_demographic <- read.table(filename, sep = ",", header = TRUE)
+```
+
+2. Check the dimensions of your data.
+
+```{r}
+dim(ny_demographic)
+```
+
+3. Print the variables in your data.
+
+```{r}
+(varNames <- colnames(ny_demographic))
+```
+
+4. Check the content of your data with `str()`, `head()`,
+and `summary()` function:
+
+```{r}
+str(ny_demographic)
+```
+
+```{r}
+head(ny_demographic)
+```
+
+```{r}
+summary(ny_demographic)
+```
+
+5. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN",
+and save the data in a file named "Demographic_Statistics_By_Zip_Code_SUBSET.csv"
+in the same directory.
+
+```{r}
+chosenVars <- c("COUNT.FEMALE", "COUNT.MALE", "COUNT.GENDER.UNKNOWN")
+
+filename <- paste0(path2dir, "Demographic_Statistics_By_Zip_Code_SUBSET.csv")
+write.csv(ny_demographic[, chosenVars], file = filename, row.names = FALSE)
+```
+
+
+# Execise 2: Control Flow 
+
+1. Use a for loop to:
+(a) Print the numbers 1 to 100
+
+
+```{r}
+for (i in 1:15) {
+  print(i)
+}
+```
+
+(b) Print the numbers 5 to 100 that are divisible by 7
+```{r}
+for (i in 5:100) {
+  if (i %% 7 == 0) {
+    print(i)
+  }
+}
+```
+
+(c) Print the numbers 2 to 100 that are divisible by 5 but not by 3.
+```{r}
+for (i in 2:100) {
+  if (i %% 5 == 0 & i %% 3 != 0) {
+    print(i)
+  }
+}
+```
+
+(d) Print for each of the numbers x = 2, . . . 20, all numbers that divide x
+(all factors) excluding 1 and x. Hence, for 18, it should print 2 3 6 9.
+```{r}
+for (x in 2:20) {
+  vec <- rep(NA, x-2)
+  for (i in 2:(x-1)) {
+    if (x == 2) next
+    if (x %% i == 0 ) {
+      vec[i-1] <- i 
+    }
+  }
+  cat("Factors of", x, "are:", vec[which(!is.na(vec))], "\n")
+}
+```
+
+```{r}
+# A faster version (inner loop only checks sqrt(x) numbers)
+for (x in 2:20) {
+  vec <- rep(NA, x-2)
+  for (i in 2:ceiling(sqrt(x))) {
+    if (x == 2) next
+    if (x %% i == 0 ) {
+        vec[i - 1] <- i 
+        vec[x/i - 1] <- x/i
+    }
+  }
+  cat("Numbers that divide", x, "are:", vec[which(!is.na(vec))], "\n")
+}
+```
+
+
+2. Find all numbers not greater than 10,000 that are divisible by 
+5, 7 and 11 and print them.
+
+```{r}
+x <- 1
+while (x <= 10000) {
+  if(all(x %% 5 == 0, x %% 7 == 0, x %% 11 == 0)) {
+    print(x)
+  }
+  x <- x + 1
+}
+```
+
+# Execise 3: Functions
+
+1. Create a function what will return the number
+of times a given integer is inside a given vector of integers.
+The function should have two arguments one for a vector
+and the other for a scalar. Generate a random vector of 100 
+integers (in a range 1-20) use the function to count the number
+of times 12 is in that vector.
+
+
+```{r}
+# function returns the number of times a given integer, k, 
+# occurs in a given vector of integers, vec.
+no_of_integers <- function(vec, k) {
+  return(sum(vec == k))
+}
+```
+
+```{r}
+(vec <- sample(1:20, 100, replace = TRUE))
+cat("Number of times 12 occurs in the vec is:", no_of_integers(vec, 12))
+```
+
+
+2. Create a function that given an integer will calculate how many divisors 
+it has (other than 1 and itself). Make the divisors appear by screen.
+Calculate the divisors of 173, 1902 and 3777.
+
+```{r}
+# function returns the number divisors of an integer, x,
+# (other than 1 and itself)
+no_of_divisors <- function(x) {
+  vec <- c()
+  for (i in 2:ceiling(sqrt(x))) {
+    if (x == 2) next
+    if (x %% i == 0) {
+        vec <- c(vec, i)
+        vec <- c(vec, x/i)
+    }
+  }
+  return(sort(vec))
+}
+```
+
+ 
+```{r}
+no_of_divisors(173)
+no_of_divisors(1902)
+no_of_divisors(3777)
+```
+
+
+# Execise 4: Apply function family
+
+1. Use `apply` to compute the column means of the `ny_demographic`
+data frame. The results for every column (except the first one)
+are equal to the average number of participants in the category
+indicated by the column name who live in a single jurisdiction/zip code.
+
+```{r}
+apply(ny_demographic, 2, mean)
+```
+
+
+2. Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
+compute the percentage of the female, male, pacific islanders, 
+hispanic latino, american indian, asian non-hispanic, white non -hispanic, 
+black non-hispanic and other ethnicity participants (columns 3-14). 
+Append the percentages to the `ny_demographic` dataset.
+
+```{r}
+get_percent <- function(x, center) {
+  return(100* x/center)
+}
+percentDf <- apply(ny_demographic[, 3:14], 2, get_percent, center = ny_demographic[, 2])
+colnames(percentDf) <- gsub("COUNT", "PERCENT", colnames(ny_demographic[3:14]))
+
+newDf <- cbind(ny_demographic, percentDf)
+head(newDf)
+```
+
