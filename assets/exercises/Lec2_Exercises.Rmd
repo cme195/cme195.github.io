@@ -1,5 +1,5 @@
 ---
-title: "Lecture 2: Exercise Answers"
+title: "Lecture 2: Exercises"
 date: October 5th, 2017
 output: 
   html_notebook:

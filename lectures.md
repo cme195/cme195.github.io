@@ -23,8 +23,9 @@ any time. Please check regularly.
 ## [](#exe) Exercises
 
 * [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
-[(rmd)](./assets/exercises/Lec2_Exercises.Rmd).
-Answers.
+[(rmd)](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd).
+[Answers](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)
+[(rmd)](https://github.com/cme195/cme195.github.io/blob/master/assets/exercises/Lec2_Exercises_with_Answers.Rmd).
 
 ## [](#tut) Extra Tutorials
 
