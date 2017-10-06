@@ -534,6 +534,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><p><a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook</a> is an R Markdown document with <strong>chunks that can be executed independently and interactively</strong>, with output visible immediately beneath the input.</p></li>
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations">R presentation</a> let’s you author <strong>slides</strong> that make use of R code and LaTeX equations as <strong>straightforward</strong> as possible.</p></li>
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr">R Sweave</a> enables the embedding of <strong>R code within LaTeX documents</strong>.</p></li>
+<li><p><a href="http://rmarkdown.rstudio.com/formats.html">Other</a> documents</p></li>
 </ul>
 </section><section id="working-with-code-chunks" class="slide level2">
 <h2>Working with code chunks</h2>
@@ -1017,9 +1018,8 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 2.</p></li>
 </ul>
-</section><section id="functions" class="slide level2">
-<h2>Functions</h2>
-</section><section id="functions-1" class="slide level2">
+</section></section>
+<section><section id="functions" class="titleslide slide level1"><h1>Functions</h1></section><section id="functions-1" class="slide level2">
 <h2>Functions</h2>
 <ul>
 <li><p>A <strong>function</strong> is a procedure/routine that performs a specific task.</p></li>
@@ -1056,15 +1056,15 @@ mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <spa
 <h2>Calling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 4.027061 
-##  SD =  1.02358</code></pre>
+<pre><code>## Mean = 3.98964 
+##  SD =  0.9744079</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
 y<span class="op">$</span>mean</code></pre></div>
-<pre><code>## [1] 4.027061</code></pre>
+<pre><code>## [1] 3.98964</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
-<pre><code>## [1] 1.02358</code></pre>
+<pre><code>## [1] 0.9744079</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
 </section><section id="exercise-3" class="slide level2">
@@ -1121,13 +1121,13 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 <p><code>apply</code> operates on arrays/matrices. In the example below we obtain column sums of matrix “X”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]    4    5   14   26   11   25
-## [2,]    2   12   20    6    8   28
-## [3,]   21   10   29   13   17   19
-## [4,]   16    1   15   27   22    9
-## [5,]   18    7   23    3   30   24</code></pre>
+## [1,]   27   14    5   25   17   22
+## [2,]    7   28   20    6   12    3
+## [3,]   23    2   10   19   13    4
+## [4,]   26   18   30   11   24   29
+## [5,]   15    9    1    8   21   16</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1]  61  35 101  75  88 105</code></pre>
+<pre><code>## [1] 98 71 66 69 87 74</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN=1</code> indicates rows and <code>MARGIN=2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
 <h2>apply function</h2>
@@ -1137,13 +1137,13 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]    4    5   14   26   11   25
-## [2,]    2   12   20    6    8   28
-## [3,]   21   10   29   13   17   19
-## [4,]   16    1   15   27   22    9
-## [5,]   18    7   23    3   30   24</code></pre>
+## [1,]   27   14    5   25   17   22
+## [2,]    7   28   20    6   12    3
+## [3,]   23    2   10   19   13    4
+## [4,]   26   18   30   11   24   29
+## [5,]   15    9    1    8   21   16</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="kw">sum</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span>)) <span class="co"># number entries &lt; 15</span></code></pre></div>
-<pre><code>## [1] 2 5 1 3 2 1</code></pre>
+<pre><code>## [1] 1 3 3 3 2 2</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
@@ -1154,9 +1154,9 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 12.2  7.0 20.2 15.0 17.6 21.0</code></pre>
+<pre><code>## [1] 19.6 14.2 13.2 13.8 17.4 14.8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 12.3  7.1 20.3 15.1 17.7 21.1</code></pre>
+<pre><code>## [1] 19.7 14.3 13.3 13.9 17.5 14.9</code></pre>
 </div>
 </section><section id="mapply-functions" class="slide level2">
 <h2>mapply functions</h2>
