@@ -21,8 +21,6 @@ data science interactively.
 - [DataCamp](https://www.datacamp.com/) courses on R and data science.
 - [Variance explained blog](http://varianceexplained.org/) by David Robinson,
 a data scientist at Stack Overflow.
-- [Not So Standard Deviations blog](https://hilaryparker.com/) by Hilary parker,
-a data scientist at StitchFix
 - Stack exchange [post](http://stats.stackexchange.com/questions/138/free-resources-for-learning-r).
  with more R related links
 
