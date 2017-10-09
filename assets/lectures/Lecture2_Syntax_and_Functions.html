@@ -1056,15 +1056,15 @@ mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <spa
 <h2>Calling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 3.98964 
-##  SD =  0.9744079</code></pre>
+<pre><code>## Mean = 4.036561 
+##  SD =  0.9852783</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
 y<span class="op">$</span>mean</code></pre></div>
-<pre><code>## [1] 3.98964</code></pre>
+<pre><code>## [1] 4.036561</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
-<pre><code>## [1] 0.9744079</code></pre>
+<pre><code>## [1] 0.9852783</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
 </section><section id="exercise-3" class="slide level2">
@@ -1073,123 +1073,6 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 <ul>
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 3.</p></li>
-</ul>
-</section><section id="apply-lapply-sapply-functions" class="slide level2">
-<h2>apply, lapply, sapply functions</h2>
-<ul>
-<li><p>The <code>apply</code> family functions, are <strong>functions to manipulate slices of data</strong> from matrices, arrays, lists and dataframes <strong>in a repetitive way</strong>.</p></li>
-<li><p>These functions <strong>avoid explicit use of loops</strong>. <code>apply</code> might be <strong>computationally more efficient than for loops</strong>, depending on how big your data is. For more details see this <a href="https://www.r-bloggers.com/gnu-r-loop-speed-comparison/">link</a>.</p></li>
-<li><p>The apply functions allow you to perform operations with <strong>very few lines of code.</strong></p></li>
-<li><p>The family comprises: <strong>apply, lapply , sapply, vapply, mapply, rapply, and tapply</strong>. The difference lies in the structure of input data and the desired format of the output).</p></li>
-</ul>
-</section><section id="lapplysapply-functions" class="slide level2">
-<h2>lapply/sapply functions</h2>
-<div class="left" ,="" style="width: 50%">
-<ul>
-<li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to a elements of sequential objects</strong> such as vectors, lists, or data-frames (applies to columns).</p></li>
-<li><p>The <strong>output returned is a list</strong> with the same number of elements as the input object.</p></li>
-<li><p><code>sapply</code> is the same as <code>lapply</code> but returns a “simplified” output.</p></li>
-<li><p>user-defined functions can be used with <code>sapply/lapply</code></p></li>
-</ul>
-</div>
-<div class="right" ,="" style="width: 50%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
-<pre><code>## [[1]]
-## [1] 1
-## 
-## [[2]]
-## [1] 4
-## 
-## [[3]]
-## [1] 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
-<pre><code>## [1] 1 4 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] 1 4 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>, <span class="dt">simplify =</span> F)</code></pre></div>
-<pre><code>## [[1]]
-## [1] 1
-## 
-## [[2]]
-## [1] 4
-## 
-## [[3]]
-## [1] 9</code></pre>
-</div>
-</section><section id="apply-function" class="slide level2">
-<h2>apply function</h2>
-<p><code>apply</code> operates on arrays/matrices. In the example below we obtain column sums of matrix “X”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   27   14    5   25   17   22
-## [2,]    7   28   20    6   12    3
-## [3,]   23    2   10   19   13    4
-## [4,]   26   18   30   11   24   29
-## [5,]   15    9    1    8   21   16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1] 98 71 66 69 87 74</code></pre>
-<p><strong>Note:</strong> that in a matrix <code>MARGIN=1</code> indicates rows and <code>MARGIN=2</code> indicates columns.</p>
-</section><section id="apply-function-1" class="slide level2">
-<h2>apply function</h2>
-<div class="left" ,="" style="width: 50%">
-<ul>
-<li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   27   14    5   25   17   22
-## [2,]    7   28   20    6   12    3
-## [3,]   23    2   10   19   13    4
-## [4,]   26   18   30   11   24   29
-## [5,]   15    9    1    8   21   16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="kw">sum</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">15</span>)) <span class="co"># number entries &lt; 15</span></code></pre></div>
-<pre><code>## [1] 1 3 3 3 2 2</code></pre>
-</div>
-<div class="right" ,="" style="width: 50%">
-<ul>
-<li>The function can be defined outside <code>apply()</code>,</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
-  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>eps
-  <span class="kw">return</span>(<span class="kw">mean</span>(x))
-}
-<span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 19.6 14.2 13.2 13.8 17.4 14.8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 19.7 14.3 13.3 13.9 17.5 14.9</code></pre>
-</div>
-</section><section id="mapply-functions" class="slide level2">
-<h2>mapply functions</h2>
-<ul>
-<li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
-<li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
-word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
-<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## $A
-## [1] &quot;AAAAAA&quot;
-## 
-## $B
-## [1] &quot;BBBBB&quot;
-## 
-## $C
-## [1] &quot;CCCC&quot;
-## 
-## $D
-## [1] &quot;DDD&quot;
-## 
-## $E
-## [1] &quot;EE&quot;
-## 
-## $F
-## [1] &quot;F&quot;</code></pre>
-</section><section id="exercise-4" class="slide level2">
-<h2>Exercise 4</h2>
-<p></br></p>
-<ul>
-<li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
-<li><p>Do Exercise 4.</p></li>
 </ul>
 </section></section>
     </div>
