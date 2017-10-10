@@ -35,7 +35,7 @@ apply(mtcars, 2, function(x) sd(x))
 
 
 ```{r}
-apply(mtcars, 2, function(x) quantile(x, 0.8))
+apply(mtcars, 2, function(x) { quantile(x, 0.8)})
 ```
 
 ## Part 2

@@ -516,13 +516,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>In the example below we obtain column sums of matrix <code>X</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   22   28   27   21    4    8
-## [2,]    1   26   23   15   24   12
-## [3,]    9    7    5   29   30   10
-## [4,]    3    2   16   19   25   18
-## [5,]   13   20   11    6   17   14</code></pre>
+## [1,]   21   10    9   17   19   20
+## [2,]    6   24   11    1    8    7
+## [3,]   13   23    5   25   16   29
+## [4,]   18   14   26   28   22   27
+## [5,]    3   30   12    4   15    2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1]  48  83  82  90 100  62</code></pre>
+<pre><code>## [1]  61 101  63  75  80  85</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
 <h1>apply function</h1>
@@ -532,19 +532,19 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   22   28   27   21    4    8
-## [2,]    1   26   23   15   24   12
-## [3,]    9    7    5   29   30   10
-## [4,]    3    2   16   19   25   18
-## [5,]   13   20   11    6   17   14</code></pre>
+## [1,]   21   10    9   17   19   20
+## [2,]    6   24   11    1    8    7
+## [3,]   13   23    5   25   16   29
+## [4,]   18   14   26   28   22   27
+## [5,]    3   30   12    4   15    2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
 <span class="kw">apply</span>(X, <span class="dv">2</span>, function(x) <span class="dv">10</span>*x +<span class="st"> </span><span class="dv">2</span>) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]  222  282  272  212   42   82
-## [2,]   12  262  232  152  242  122
-## [3,]   92   72   52  292  302  102
-## [4,]   32   22  162  192  252  182
-## [5,]  132  202  112   62  172  142</code></pre>
+## [1,]  212  102   92  172  192  202
+## [2,]   62  242  112   12   82   72
+## [3,]  132  232   52  252  162  292
+## [4,]  182  142  262  282  222  272
+## [5,]   32  302  122   42  152   22</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
@@ -555,9 +555,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1]  9.6 16.6 16.4 18.0 20.0 12.4</code></pre>
+<pre><code>## [1] 12.2 20.2 12.6 15.0 16.0 17.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1]  9.7 16.7 16.5 18.1 20.1 12.5</code></pre>
+<pre><code>## [1] 12.3 20.3 12.7 15.1 16.1 17.1</code></pre>
 </div>
 </section><section id="lapplysapply-functions" class="slide level2">
 <h1>lapply/sapply functions</h1>
@@ -1080,7 +1080,7 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 <span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">50</span>) %&gt;%
 <span class="st">  </span><span class="kw">colSums</span>() %&gt;%
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">50</span>)</code></pre></div>
-<p><img src="Lecture3_Data_manipulation_files/figure-revealjs/unnamed-chunk-29-1.png" width="576" /></p>
+<p><img src="Lecture3_Data_manipulation_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" /></p>
 </div>
 </section><section id="chaining-operations-1" class="slide level2">
 <h1>Chaining operations</h1>
@@ -2406,23 +2406,23 @@ movies %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
 movies %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">15</span>)</code></pre></div>
 <pre><code>## # A tibble: 15 x 19
-##     budget                        company     country             director
-##      &lt;dbl&gt;                         &lt;fctr&gt;      &lt;fctr&gt;               &lt;fctr&gt;
-##  1 2.5e+07 Incentive Filmed Entertainment         USA       David R. Ellis
-##  2 0.0e+00                  Not specified         USA            Katt Shea
-##  3 1.4e+06                  Buffalo Films    Colombia          Ciro Guerra
-##  4 3.7e+07         Ghoulardi Film Company         USA Paul Thomas Anderson
-##  5 2.1e+07                       Fu Works Netherlands       Paul Verhoeven
-##  6 1.7e+07                   Warner Bros.         USA  &quot;Alfonso Cuar\xf3n&quot;
-##  7 0.0e+00              Cannon Group, The         USA         David Irving
-##  8 4.0e+07          Cent Productions Inc.         USA         Jim Sheridan
-##  9 5.0e+06             Image Organization         USA      Robert Kurtzman
-## 10 0.0e+00    Cannon Screen Entertainment          UK     Richard Franklin
-## 11 3.0e+07                   Warner Bros.         USA   Andrzej Bartkowiak
-## 12 0.0e+00         Aamir Khan Productions       India           Aamir Khan
-## 13 1.3e+07   MFF Feature Film Productions         USA           Chris Koch
-## 14 0.0e+00    Samuel Goldwyn Company, The          UK      Nicholas Hytner
-## 15 2.5e+07                   Warner Bros.         USA       Clint Eastwood
+##     budget                              company country         director
+##      &lt;dbl&gt;                               &lt;fctr&gt;  &lt;fctr&gt;           &lt;fctr&gt;
+##  1 1.2e+07              Handprint Entertainment     USA     Julie Taymor
+##  2 7.0e+07        Columbia Pictures Corporation     USA       Tim Burton
+##  3 0.0e+00 Boll Kino Beteiligungs GmbH &amp; Co. KG     USA         Uwe Boll
+##  4 4.5e+07                              Miramax     USA     Rob Marshall
+##  5 1.2e+07            Metro-Goldwyn-Mayer (MGM)     USA  Craig Gillespie
+##  6 0.0e+00                   Universal Pictures     USA    Ron Underwood
+##  7 0.0e+00                            Portreeve      UK    Simon Langton
+##  8 2.4e+07                      Dimension Films     USA    Alexandre Aja
+##  9 1.0e+07                       Rogue Pictures     USA    Colin Strause
+## 10 3.0e+07                   Universal Pictures     USA Alister Grierson
+## 11 0.0e+00                   Paramount Pictures     USA    Lewis Gilbert
+## 12 6.0e+07 Boll Kino Beteiligungs GmbH &amp; Co. KG Germany         Uwe Boll
+## 13 6.0e+06                   Paramount Pictures  Canada  Jonathan Kaplan
+## 14 3.5e+07                  Regency Enterprises     USA        Ken Scott
+## 15 0.0e+00                  Touchstone Pictures     USA  Bruce Beresford
 ## # ... with 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;, name &lt;fctr&gt;,
 ## #   rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;,
 ## #   votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
@@ -2432,18 +2432,18 @@ movies %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
 movies %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.01</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 68 x 19
-##      budget                                company   country         director
-##       &lt;dbl&gt;                                 &lt;fctr&gt;    &lt;fctr&gt;           &lt;fctr&gt;
-##  1 8.00e+07          Columbia Pictures Corporation       USA     Ivan Reitman
-##  2 1.00e+07               Norman Twain Productions       USA John G. Avildsen
-##  3 0.00e+00                          Blake Edwards       USA    Blake Edwards
-##  4 4.00e+07                           Warner Bros.       USA Frederik Du Chau
-##  5 9.60e+06                 Sony Pictures Classics Australia James Vanderbilt
-##  6 0.00e+00                  Imagine Entertainment       USA      Tamra Davis
-##  7 1.00e+07 Twentieth Century Fox Film Corporation       USA Dwight H. Little
-##  8 1.20e+07                  Fuzzy Bunny Films (I)       USA      Tamra Davis
-##  9 0.00e+00                            Baa-Ram-Ewe  Thailand  Prachya Pinkaew
-## 10 1.15e+08                              Lucasfilm       USA     George Lucas
+##     budget                                company country           director
+##      &lt;dbl&gt;                                 &lt;fctr&gt;  &lt;fctr&gt;             &lt;fctr&gt;
+##  1 2.0e+08 Twentieth Century Fox Film Corporation     USA       Bryan Singer
+##  2 3.0e+07                  X-Filme Creative Pool      UK         Tom Tykwer
+##  3 0.0e+00                                Miramax      UK Christopher Monger
+##  4 4.7e+07                    &quot;Pan Europ\xe9enne&quot; Belgium   Jaco Van Dormael
+##  5 7.6e+07                  Capella International     USA        Des McAnuff
+##  6 5.0e+07                       TriStar Pictures     USA       Joe Johnston
+##  7 0.0e+00                           Warner Bros.     USA      Cameron Crowe
+##  8 0.0e+00               Kings Road Entertainment     USA        Albert Pyun
+##  9 6.0e+06                     Paramount Pictures  Canada    Jonathan Kaplan
+## 10 1.7e+07                       TriStar Pictures     USA       Fede Alvarez
 ## # ... with 58 more rows, and 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;,
 ## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
 ## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;,

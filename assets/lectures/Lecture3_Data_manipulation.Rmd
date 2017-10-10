@@ -274,11 +274,6 @@ Learn about `dplyr` from the [turtorial written by its creator, Hadley Wickham](
 
 ## `filter()`: keep rows matching criteria
 
-```{r echo = FALSE}
-library(hflights)
-flights <- tbl_df(hflights)
-```
-
 
 ```{r eval = FALSE}
 # base R approach to find all comedies by Woody Allen
