@@ -1,0 +1,92 @@
+---
+title: "Lecture 3: Exercises"
+date: October 10th, 2017
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r global_options, echo = FALSE, include = FALSE}
+options(width = 80)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,
+                      cache = FALSE, tidy = FALSE, size = "small")
+```
+
+# Execise 1: Apply family functions
+
+## Part 1
+Below we print six first rows of the built-in dataset, `mtcars`, 
+from the 1974 Motor Trend US magazine, which comprises information
+on the fuel consumption and 10 aspects of automobile design 
+and performance for 32 selected car models. 
+
+```{r}
+head(mtcars)
+```
+
+Use `apply()` function to find the standard deviation and the 0.8-quantile  
+of each of the automobile characteristic.
+
+## Part 2
+
+Below is a vector of dates in year 2017.
+
+```{r}
+set.seed(1234)
+y2017 <- seq(as.Date("2017-01-01", format = "%Y-%m-%d"), 
+             as.Date("2017-12-31", format = "%Y-%m-%d"), 
+             "days")
+# Shuffle days of the year randomly
+y2017.shuffled <- sample(y2017)
+length(y2017.shuffled)
+```
+
+Use an `apply` family function to return the number of weeks
+left from each day in `y2017.shuffled` to the New Year, 2018/01/01.
+
+
+# Execise 2: Data manipulation
+
+## Part 1: `dplyr` verbs
+
+Load in the dataset `movies.csv` used in the lecture:
+
+```{r}
+url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
+movies <- tbl_df(read.csv(url))
+movies
+```
+
+
+a. Find a subset of the movies produced after 2010. 
+Save the subset in 'movies.sub' variable.
+
+b. Keep columns 'name', 'director', 'year', 'country', 'genre', 'budget', 'gross', 'score'
+in the 'movies.sub'.
+
+c. Find the profit for each movie in 'movies.sub' as a fraction of its budget.
+Convert 'budget' and 'gross' columns million dollar units founded to the first decimal point.
+Use `round()` to round numbers.
+
+d. Count the number of movies in 'movies.sub' produced by each genre,
+and order them in the descending count order.
+
+e. Now group movies in 'movies.sub' by countries and genre.
+Then, count the number of movies in each group and the corresponding 
+median fractional profit, the mean and standard deviation of 
+the movie score for each group.
+
+
+## Part 2: Chaining
+
+Using chaining and pipes, for each genre find the three directors the
+top mean movie scores received for the movies produced after 2000,
+after filtering out the directors with fewer than 5 movies in total.
+Hint: Use `top_n()` function to select top n from each group.
+
+Find the movies in your favourite genre by the 5 directors
+you just found. These could serve as suggestions for your next movie night!
+
+
+

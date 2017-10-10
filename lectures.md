@@ -10,9 +10,10 @@ layout: cme195
 [(pdf)](./assets/lectures/Lecture 1_ Introduction to R.pdf).
 2. [Control Flow and Functions](./assets/lectures/Lecture2_Syntax_and_Functions.html)
 [(pdf)](./assets/lectures/Lecture 2_ Syntax, control flow, functions.pdf)
-3. 2D plotting with ggplot2
-4. 3D and interactive plotting.
-5. Data pre-processing.
+3. [Data pre-processing](./assets/lectures/Lecture3_Data_manipulation.html)
+[(pdf)](./assets/lectures/Lecture 3_ Data Manipulation.pdf).
+4. 2D plotting with ggplot2
+5. 3D and interactive plotting.
 6. Hypothesis testing, linear regression, lasso regression.
 7. Classification
 8. Unsupervised Learning
@@ -26,6 +27,9 @@ any time. Please check regularly.
 [(rmd)](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd).
 [Answers](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)
 [(rmd)](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises_with_Answers.Rmd).
+* [Exercises for lecture 3](./assets/exercises/Lec3_Exercises.nb.html)
+[(rmd)](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd).
+Answers.
 
 ## [](#tut) Extra Tutorials
 

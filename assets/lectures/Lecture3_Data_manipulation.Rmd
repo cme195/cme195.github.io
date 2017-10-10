@@ -5,7 +5,7 @@ output:
   revealjs::revealjs_presentation: 
     self_contained: false
     lib_dir: libs
-    css: class.css
+    css: class_big_fonts.css
     highlight: default 
     smart: true
     center: true
@@ -18,35 +18,35 @@ output:
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}
-options(width = 999)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE,
-                      cache = FALSE, tidy = FALSE, size = "small")
+options(width = 80)
+knitr::opts_chunk$set(cache = FALSE, tidy = FALSE, size = "small")
+library(dplyr)
 ```
 
 
 ## Contents
 
-* apply family functions
+* `apply` family functions
 * Intro to `dplyr` package
-* Aggregating & summarizing data
+* Data manipulation functions
+* Chaining operations
 * Joining & appending datasets
-* Wide & long Data 
+* Extras
 
 # apply family
 
 ## apply, lapply, sapply functions
 
 - The `apply` family functions, are 
-**functions to manipulate slices of data** from matrices, 
-arrays, lists and dataframes **in a repetitive way**. 
+**functions which manipulate slices of data**
+stored as matrices, arrays, lists and data-frames 
+**in a repetitive way**. 
 
-- These functions **avoid explicit use of loops**. 
-`apply` might be **computationally more efficient than
-for loops**, depending on how big your data is.
-For more details see this 
-[link](https://www.r-bloggers.com/gnu-r-loop-speed-comparison/).
+- These functions **avoid the explicit use of loops**, and might 
+be **more computationally efficient**, depending on how big a dataset is. 
+For more details on runtimes see this [link](https://www.r-bloggers.com/gnu-r-loop-speed-comparison/).
 
-- The apply functions allow you to perform operations with 
+- `apply` allow you to perform operations with 
 **very few lines of code.**
 
 - The family comprises: **apply, lapply , sapply, vapply, 
@@ -54,45 +54,18 @@ mapply, rapply, and tapply**. The difference lies in the structure
 of input data and the desired format of the output).
 
 
-## lapply/sapply functions
-
-<div class="left", style="width: 50%">
-
-- `lapply()` is used to **repeatedly apply a function to 
-a elements of sequential objects** such as vectors, lists, 
-or data-frames (applies to columns).
-
-- The **output returned is a list** with the same number of 
-elements as the input object.
-
-- `sapply` is the same as `lapply` but returns a "simplified" output.
-
-- user-defined functions can be used with `sapply/lapply`
-
-</div>
-
-<div class="right", style="width: 50%">
-
-```{r}
-lapply(1:3, function(x) x^2)
-unlist(lapply(1:3, function(x) x^2))
-sapply(1:3, function(x) x^2)
-sapply(1:3, function(x) x^2, simplify = F)
-```
-
-</div>
-
 ## apply function
 
 `apply` operates on arrays/matrices. 
-In the example below we obtain column sums of matrix "X".
+
+In the example below we obtain column sums of matrix `X`.
 
 ```{r}
 (X <- matrix(sample(30), nrow = 5, ncol = 6))
 apply(X, MARGIN = 2 , FUN = sum)
 ```
 
-**Note:** that in a matrix `MARGIN=1` indicates rows and `MARGIN=2`
+**Note:** that in a matrix `MARGIN = 1` indicates rows and `MARGIN = 2`
 indicates columns.
 
 
@@ -104,7 +77,9 @@ indicates columns.
 
 ```{r}
 print(X)
-apply(X, 2, function(x) sum(x < 15)) # number entries < 15
+
+# number entries < 15
+apply(X, 2, function(x) 10*x + 2) 
 ```
 
 </div>
@@ -120,6 +95,36 @@ logColMeans <- function(x, eps = NULL) {
 }
 apply(X, 2, logColMeans) 
 apply(X, 2, logColMeans, eps = 0.1) 
+```
+
+</div>
+
+## lapply/sapply functions
+
+<div class="left", style="width: 50%">
+
+- `lapply()` is used to **repeatedly apply a function to 
+elements of a sequential object** such as a vector, list, 
+or data-frame (applies to columns).
+
+- The **output is a list** with the same number of 
+elements as the input object.
+
+- `sapply` is the same as `lapply` but **returns a "simplified" output**.
+
+- user-defined functions can be used with `sapply/lapply`
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+# lapply returns a list
+lapply(1:3, function(x) x^2)
+# which you can 'simplify' with unlist()
+unlist(lapply(1:3, function(x) x^2))
+# Or you could use sapply() instead
+sapply(1:3, function(x) x^2)
 ```
 
 </div>
@@ -140,13 +145,14 @@ mapply(word, LETTERS[1:6], 6:1, SIMPLIFY = FALSE)
 ```
 
 
-## Exercise 4
+## Exercise 1
 
 </br>
 
-- Go back to "Lec2_ex.Rmd" in RStudio.
+- Go to the "Lec3_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
 
-- Do Exercise 4.
+- Complete Exercise 1.
 
 
 # `dplyr` package
@@ -154,323 +160,590 @@ mapply(word, LETTERS[1:6], 6:1, SIMPLIFY = FALSE)
 
 ## `dplyr`
 
-* Introduces a grammar of data manipulation
-Great for data exploration and transformation
-Intuitive to write and easy to read, especially when using the “chaining” syntax (covered below)
-* Fast on data frames (C++) speed of C and eas of R
-* Chaining
+* Introduces **a grammar of data manipulation**.
+* **Code-efficient** for data exploration and transformation.
+* **Fast on data frames** (written in C++): has speed of C and ease of R.
+* **Intuitive to write and easy to read**, esp. when using the *chaining* syntax.
+* You should use `dplyr` even as a beginner R user, and [here is why](http://varianceexplained.org/r/teach-tidyverse/).
+
+```{r, eval=FALSE}
+# To install dplyr with latest updates
+install.packages("devtools")
+devtools::install_github("tidyverse/dplyr")
+
+# Or you could use CRAN
+install.packages("dplyr")
+```
+
 
 ## tibbles
 
-`tbl` structure tibble, glimpse(), tbl_df(), as.data.frame()
-tbl_df creates a “local data frame”
-Local data frame is simply a wrapper for a data frame that prints nicely
+> Tibbles are a modern take on data frames. They keep the features that have 
+stood the test of time, and drop the features that used to be convenient 
+but are now frustrating (i.e. converting character vectors to factors).
+
+
+* A tibble, `tbl`, is **a wrapper for a data frame that prints nicely**.
+* The print method for `tbl` shows only the **first 10 rows, 
+and all the columns that fit on screen**. 
+* Each column is also reported together its type.
+* Tibbles (and `dplyr`) **do NOT preserve the row names**. 
+* **Subsetting `tbl` is strickter** than subsetting `data.frames`,
+and ALWAYS returns objects with expected class, i.e. with a single
+`[` you get back a tibble, and with double`[[` you get a vector.
+
+
+
+## Movie industry dataset
+
+`movies.csv` contains information on last three decades of movies. 
+The data has been scraped from the IMDb website and can be accessed from a [github repo](https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv).
+
+
+```{r, width = 100}
+url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
+movies.df <- read.csv(url)
+rownames(movies.df) <- paste0("M", 1:nrow(movies.df))
+dim(movies.df)
+
+colnames(movies.df)
+```
 
 ##
 
 ```{r}
-# load packages
-suppressMessages(library(dplyr))
-library(hflights)
-
-# explore data
-data(hflights)
-head(hflights)
-
-
-# convert to local data frame
-flights <- tbl_df(hflights)
-
-# printing only shows 10 rows and as many columns as can fit on your screen
-flights
-# you can specify that you want to see more rows
-print(flights, n=20)
-
-# convert to a normal data frame to see all of the columns
-data.frame(head(flights))
+head(movies.df)
 ```
 
 
-## `dplyr` functions
+## Convert to tibble
+
+```{r}
+library(dplyr)
+
+# convert to tibble
+movies <- tbl_df(movies.df)
+class(movies)
+
+# printing only shows 10 rows and as many columns as can fit on your screen
+movies
+```
+
+<small> **Note:** Tibbles and dplyr **do NOT preserve the row names**, you need
+to create an "id" column instead. </small>
+
+
+
+## 
+```{r}
+str(movies)
+```
+
+
+# Data manipulation functions
+
+## `dplyr` verbs
 
 The most commonly used `dplyr` functions (or basic verbs) are:
 
-* `filter()`, 
-* `select()`, 
-* `arrange()`, 
-* `mutate()`, 
-* `summarise()` (used jointly with `group_by()`)
+* `filter()`: keep rows matching criteria, 
+* `select()`: pick columns by name, 
+* `arrange()`: reorder rows, 
+* `mutate()`: add new variables, 
+* `summarise()`: reduce variables to values
 
-The operations performed with the above functions can be done using basic R 
-functions, but they would bothe require writing more lines of (ugly) code, and
-be less computationally efficient.
+</br>
 
-## “Chaining” or “Pipelining”
-Usual way to perform multiple operations in one line is by nesting
-Can write commands in a natural order by using the %>% infix operator (which can be pronounced as “then”)
+Operations performed with the above functions can be done using **base R 
+functions, but they would be less computationally efficient, and 
+require writing more lines of (ugly) code.** 
 
-Chaining increases readability significantly when there are many commands
-Operator is automatically imported from the magrittr package
-Can be used to replace nesting in R commands outside of dplyr
+</br>
 
-```{r}
-# nesting method to select UniqueCarrier and DepDelay columns and filter for delays over 60 minutes
-filter(select(flights, UniqueCarrier, DepDelay), DepDelay > 60)
-# chaining method
-flights %>%
-    select(UniqueCarrier, DepDelay) %>%
-    filter(DepDelay > 60)
+Learn about `dplyr` from the [turtorial written by its creator, Hadley Wickham](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a?preview=dplyr-tutorial.pdf)
 
-# create two vectors and calculate Euclidian distance between them
-x1 <- 1:5; x2 <- 2:6
-sqrt(sum((x1-x2)^2))
-# chaining method
-(x1-x2)^2 %>% sum() %>% sqrt()
 
+
+## Structure of `dplyr` functions
+
+* the first argument is a data frame 
+* subsequent argument specify what to do
+* always return a data frame
+
+
+
+## `filter()`: keep rows matching criteria
+
+```{r echo = FALSE}
+library(hflights)
+flights <- tbl_df(hflights)
 ```
 
 
-## filter: Keep rows matching criteria
-
-Base R approach to filtering forces you to repeat the data frame’s name
-dplyr approach is simpler to write and read
-Command structure (for all dplyr verbs):
-first argument is a data frame
-return value is a data frame
-nothing is modified in place
-Note: dplyr generally does not preserve row names
-
+```{r eval = FALSE}
+# base R approach to find all comedies by Woody Allen
+movies[movies$genre == "Comedy" & movies$director == "Woody Allen", ]
+```
 
 ```{r}
-# base R approach to view all flights on January 1
-flights[flights$Month==1 & flights$DayofMonth==1, ]
 # dplyr approach
-# note: you can use comma or ampersand to represent AND condition
-filter(flights, Month==1, DayofMonth==1)
+# note: both comma or ampersand represent AND condition
+filter(movies, genre == "Comedy", director == "Woody Allen")
+```
 
+##
+
+```{r}
 # use pipe for OR condition
-filter(flights, UniqueCarrier=="AA" | UniqueCarrier=="UA")
+filter(movies, country == "Greece" | country == "Chile")
+```
 
+## 
+
+```{r}
 # you can also use %in% operator
-filter(flights, UniqueCarrier %in% c("AA", "UA"))
+print(filter(movies, country %in% c("Argentina", "Colombia", "Chile")), n = Inf)
 ```
 
 
+## `select()`: pick columns by name
 
-## select: Pick columns by name
 
-
-Base R approach is awkward to type and to read
-dplyr approach uses similar syntax to filter
-Like a SELECT in SQL
+```{r, eval = FALSE}
+# base R approach to select columns
+movies[, c("name", "year", "genre")]
+```
 
 ```{r}
-# base R approach to select DepTime, ArrTime, and FlightNum columns
-flights[, c("DepTime", "ArrTime", "FlightNum")]
 # dplyr approach
-select(flights, DepTime, ArrTime, FlightNum)
-
-# use colon to select multiple contiguous columns, and use `contains` to match columns by name
-# note: `starts_with`, `ends_with`, and `matches` (for regular expressions) can also be used to match columns by name
-select(flights, Year:DayofMonth, contains("Taxi"), contains("Delay"))
+movies.sub <- select(movies, name, country, year, genre)
+movies.sub
 ```
 
-Dropping
+##
 
 ```{r}
-# Keep country and GDP
-flights %>% select(-DepTime, -ArrTime)
+# use colon to select multiple contiguous columns, 
+select(movies, name, genre:score)
+```
 
+
+
+## `select()` helpers
+
+You can use the following functions to help select the columns:
+
+* `starts_with()`
+* `ends_with()`
+* `contains()`
+* `matches()` (matches a regular expression)
+
+```{r}
+select(movies, starts_with("r"))
+```
+
+## 
+
+```{r}
+select(movies, ends_with("e"))
+```
+
+
+```{r}
+select(movies, contains("re"))
+```
+
+
+## Dropping columns
+
+```{r}
+# remove budget and company columns
+print(select(movies, -budget, -company), n = 6)
 
 # Selecting and renaming in one
-flights %>% select(departure_time = DepTime, FlightNum)
+print(select(movies, name, gross_revenue = gross), n = 6)
 ```
 
 
-## arrange: Reorder rows
+## `arrange()`: reorder rows
 
-# base R approach to select UniqueCarrier and DepDelay columns and sort by DepDelay
-flights[order(flights$DepDelay), c("UniqueCarrier", "DepDelay")]
 
 ```{r}
 # dplyr approach
-flights %>%
-    select(UniqueCarrier, DepDelay) %>%
-    arrange(DepDelay)
+print(arrange(movies.sub, name), n = 6)
+
 # use `desc` for descending
-flights %>%
-    select(UniqueCarrier, DepDelay) %>%
-    arrange(desc(DepDelay))
+print(arrange(movies.sub, desc(year)), n = 6)
 ```
 
-## mutate: Add new variables
-Create new variables that are functions of existing variables
-```{r}
-# base R approach to create a new variable Speed (in mph)
-flights$Speed <- flights$Distance / flights$AirTime*60
-flights[, c("Distance", "AirTime", "Speed")]
-# dplyr approach (prints the new variable but does not store it)
-flights %>%
-    select(Distance, AirTime) %>%
-    mutate(Speed = Distance/AirTime*60)
-# store the new variable
-flights <- flights %>% mutate(Speed = Distance/AirTime*60)
-```
+## `mutate()`: add new variables
 
 
-# Renaming
-
-As illustrated in the last line of code above you can rename variables using select(). But this can also be done using rename():
-
-Removing duplicate observations can be useful, but be careful: entire rows will be deleted. Use distinct():
-
-
-
-```{r}
-countries <- data.frame(
-    expand.grid(country = c("USA", "China", "Sudan"), year = 1994:1996),
-    gdp_pc = round(runif(9, 1000, 20000), 0)
-    )
-countries$country <- as.character(countries$country) #factor --> character
-countries
-# Rename GDP per capita
-countries %>% rename(GDP.PC = gdp_pc)
-# Unique values
-countries %>% distinct(country)
-```
-
-
-Note that the function keeps the first non-duplicate. This is more useful when you suspect that duplicate values of the following kind have slipped into the dataset:
-```{r}
-countries2 <- rbind(
-    data.frame(country = "USA", year = 1994, gdp_pc = 10000),
-    countries
-    )
-countries2 
-
-#Note that we all of a sudden have two USA 1994 observations. Delete one of them using distinct().
-
-countries2 %>% distinct(country, year)
-```
-
-
-# Aggregating & summarizing data
-
-## summarise: Reduce variables to values
-Primarily useful with data that has been grouped by one or more variables
-group_by creates the groups that will be operated on
-summarise uses the provided aggregation function to summarise each group
-
-summarise_each allows you to apply the same summary function to multiple columns at once
-Note: mutate_each is also available
-
-Helper function n() counts the number of rows in a group
-Helper function n_distinct(vector) counts the number of unique items in that vector
-
-Grouping can sometimes be useful without summarising
-
-```{r}
-# for each destination, show the number of cancelled and not cancelled flights
-flights %>%
-    group_by(Dest) %>%
-    select(Cancelled) %>%
-    table() %>%
-    head()
-
+```{r eval = FALSE}
+# base R approach to create a new variable 'profit'
+movies$profit <- movies$gross - movies$budget
 ```
 
 ```{r}
-# base R approaches to calculate the average arrival delay to each destination
-head(with(flights, tapply(ArrDelay, Dest, mean, na.rm=TRUE)))
-head(aggregate(ArrDelay ~ Dest, flights, mean))
-# dplyr approach: create a table grouped by Dest, and then summarise each group by taking the mean of ArrDelay
-flights %>%
-    group_by(Dest) %>%
-    summarise(avg_delay = mean(ArrDelay, na.rm=TRUE))
-
-# for each carrier, calculate the percentage of flights cancelled or diverted
-flights %>%
-    group_by(UniqueCarrier) %>%
-    summarise_each(funs(mean), Cancelled, Diverted)
-# for each carrier, calculate the minimum and maximum arrival and departure delays
-flights %>%
-    group_by(UniqueCarrier) %>%
-    summarise_each(funs(min(., na.rm=TRUE), max(., na.rm=TRUE)), matches("Delay"))
-
-# for each day of the year, count the total number of flights and sort in descending order
-flights %>%
-    group_by(Month, DayofMonth) %>%
-    summarise(flight_count = n()) %>%
-    arrange(desc(flight_count))
-
-# rewrite more simply with the `tally` function
-flights %>%
-    group_by(Month, DayofMonth) %>%
-    tally(sort = TRUE)
-
-
-# for each destination, count the total number of flights and the number of distinct planes that flew there
-flights %>%
-    group_by(Dest) %>%
-    summarise(flight_count = n(), plane_count = n_distinct(TailNum))
+# dplyr approach
+movies <- mutate(movies, profit = gross - budget)
+select(movies, name, gross, budget, profit)
 ```
 
+##
 
-## Window Functions
-Aggregation function (like mean) takes n inputs and returns 1 value
-Window function takes n inputs and returns n values
-Includes ranking and ordering functions (like min_rank), offset functions (lead and lag), and cumulative aggregates (like cummean).
+Generating multiple new variables
 
 ```{r}
-# for each carrier, calculate which two days of the year they had their longest departure delays
-# note: smallest (not largest) value is ranked as 1, so you have to use `desc` to rank by largest value
-flights %>%
-    group_by(UniqueCarrier) %>%
-    select(Month, DayofMonth, DepDelay) %>%
-    filter(min_rank(desc(DepDelay)) <= 2) %>%
-    arrange(UniqueCarrier, desc(DepDelay))
-# rewrite more simply with the `top_n` function
-flights %>%
-    group_by(UniqueCarrier) %>%
-    select(Month, DayofMonth, DepDelay) %>%
-    top_n(2) %>%
-    arrange(UniqueCarrier, desc(DepDelay))
-
-
-# for each month, calculate the number of flights and the change from the previous month
-flights %>%
-    group_by(Month) %>%
-    summarise(flight_count = n()) %>%
-    mutate(change = flight_count - lag(flight_count))
-
-
-# rewrite more simply with the `tally` function
-flights %>%
-    group_by(Month) %>%
-    tally() %>%
-    mutate(change = n - lag(n))
+movies <- mutate(movies, 
+                 profit = gross - budget, 
+                 gross_in_mil = gross/10^6,
+                 budget_in_mil = budget/10^6,
+                 profit_in_mil = profit/10^6)
+select(movies, name, contains("_in_mil"))
 ```
 
-## Other Useful Convenience Functions
+## `summarise()`: reduce variables to values
+
+
+<div class="left", style="width: 50%">
+
+* `summarize()` can be used to aggregate data or to compute
+a summarizing value of interest.
 
 ```{r}
-# randomly sample a fixed number of rows, without replacement
-flights %>% sample_n(5)
-# randomly sample a fraction of rows, with replacement
-flights %>% sample_frac(0.25, replace=TRUE)
-
-# base R approach to view the structure of an object
-str(flights)
-
-# dplyr approach: better formatting, and adapts to your screen width
-glimpse(flights)
+# Total gross revenue for all movies in 30 years:
+summarise(movies, 
+          tot_gross_in_bil = sum(gross)/10^9)
 ```
 
+
+</div>
+
+<div class="right", style="width: 50%">
+
+* `summarize()` is **primarily useful on data previously grouped by 
+one or more variables** using `group_by()`.
+
+```{r}
+by_genre <- group_by(movies, genre)
+summarize(by_genre, total = sum(gross)/10^9)
+```
+
+</div>
+
+
+## Useful summary functions
+
+* `min(x)`, `median(x)`,`max(x)`, `quantile(x, p)`
+* `n()`, `n_distinct()`, `sum(x)`, `mean(x)`
+* `sum(x > 10)`, `mean(x > 0)`
+* `sd(x)`, `var(x)`
+
+# Chaining operations
+
+## Pipe operator:  `%>%`
+
+<div class="left", style="width: 50%">
+
+* The `%>%`  operator was intoduced in `magrittr` package to 
+**pipe values forward into an expression or function call**.
+* In the pipe notation we have something like `x %>% f(y)`, rather than `f(x, y)`
+* This is similar to the [Unix pipes](http://www.linfo.org/pipe.html): 
+`|` used to **send the output of one program to another program for 
+further processing**.
+</div>
+
+<div class="right", style="width: 50%">
+
+
+```{r fig.width=6, fig.height=4.5}
+rnorm(500) %>%
+  matrix(ncol = 50) %>%
+  colSums() %>%
+  plot(x = 1:50)
+```
+
+</div>
+
+## Chaining operations
+
+* Pipe operators used together with `dplyr` functions make a large
+difference as they semantically change your code in a way that 
+**makes it more intuitive to both read and write**. 
+
+* The pipes allow users to chain operators which reflects the 
+**sequential nature of data-processing tasks**.
+
+* **Chaining increases readability** significantly when there are 
+many commands 
+
+* `%>%` operator is automatically imported into `dplyr`
+
+##
+
+<small> Find movies from USA produced after 2010. Group by genre and
+compute the group mean gross revenue in million dollars. Then print the genre
+mean 'gross' revenue arranged in a descending order: </small>
+
+
+<div class="left", style="width: 50%">
+```{r}
+# nesting 
+arrange(
+  summarise(
+    group_by(
+      filter(movies, 
+             year > 2010, country == "USA"
+      ),
+      genre
+    ),
+    mean_gross = mean(gross)/10^6
+  ),
+  mean_gross
+)
+```
+
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+# chaining 
+movies %>%
+  filter(year > 2010, country == "USA") %>%
+  group_by(genre) %>%
+  summarise(mean_gross = mean(gross)/10^6) %>%
+  arrange(mean_gross)
+```
+
+</div>
+
+## Exercises 2
+
+
+</br>
+
+- Go to the "Lec3_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 2.
 
 
 # Joining & appending datasets
 
-## 
+## Merging two tables
 
 
-* Wide & long Data 
+
+<div class="left", style="width: 50%">
+```{r}
+x <- data.frame(
+  item = c("cherries", "orange", 
+           "broccoli", "blueberries", 
+           "cabbage", "lemon", "spinach", 
+           "eggplants"),
+  color = c("red", "orange", "green", 
+            "blue", "green", "yellow", 
+            "green", "purple"),
+  stringsAsFactors = FALSE)
+
+y <-  data.frame(
+  item = c("carrot", "cherries", 
+           "broccoli", "blueberries", 
+           "cabbage", "lemon", "tomato"),
+  class = c("vegetable", "fruit", 
+            "vegetable", "fruit", 
+            "vegetable", "fruit", "fruit"), 
+  stringsAsFactors = FALSE)
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+
+
+```{r, echo = FALSE}
+library(kableExtra); library(knitr)
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue")
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen")
+```
+
+</div>
+
+
+## `inner_join(x, y)`
+
+* Include only rows in both x and y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+inner_join(x, y) # or x %>% inner_join(y)
+```
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(inner_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:3, background = "bisque") %>%
+  add_header_above(c("inner_join(x, y)" = 3))
+```
+
+
+## `left_join(x, y)`: 
+
+* Include all of x, and matching rows of y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+left_join(x, y) # or x %>% left_join(y)
+```
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(left_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:3, background = "bisque") %>%
+  add_header_above(c("left_join(x, y)" = 3))
+```
+
+
+## `semi_join(x, y)`: 
+
+* Include rows of x that match y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+semi_join(x, y) # or x %>% semi_join(y)
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(semi_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:2, background = "bisque") %>%
+  add_header_above(c("semi_join(x, y)" = 2))
+```
+
+
+## `anti_join(x, y)`: 
+
+* Include rows of x that don’t match y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+anti_join(x, y) # or x %>% anti_join(y)
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(anti_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:2, background = "bisque") %>%
+  add_header_above(c("anti_join(x, y)" = 2))
+```
+
+
+# Extra functions
+
+## Renaming
+
+```{r}
+movies.sub <- movies %>% select(name, director, year, score, gross)
+print(movies.sub, n = 3)
+# Renaming variable
+movies.sub %>% rename(gross_revenue = gross)
+```
+
+## Distinct values
+
+```{r}
+# Unique values
+movies %>% distinct(rating)
+```
+
+**Note that** can take on multiple variables, and would return distinct variable combinations.
+
+## Group counts
+
+Use a `tally()` function to generate a group frequency table:
+
+```{r}
+movies %>% group_by(genre) %>% tally()
+```
+
+
+## Window Functions
+
+* Aggregation functions such as `mean()`, `n()` return 1 value per group.
+* **Window functions return multiple values per group**. Examples include:
+ranking and ordering functions (like `min_rank`, `top_n()`), 
+offset functions (`lead` and `lag`), and cumulative aggregates (like `cummean`).
+
+
+
+```{r}
+# rewrite more simply with the `top_n` function
+movies %>%
+  select(name, genre, year, score) %>%
+  group_by(genre) %>%  
+  top_n(2, wt = score) %>%      # if 'wt' argument in top_n() is not specified
+  arrange(genre, year, score)   # the last variable is taken for ordering
+```  
+
+
+
+## Sampling functions
+
+```{r}
+# randomly sample a fixed number of rows, without replacement
+movies %>% sample_n(15)
+```
+
+##
+
+```{r}
+# randomly sample a fraction of rows, with replacement
+movies %>% sample_frac(0.01, replace=TRUE)
+```
+
