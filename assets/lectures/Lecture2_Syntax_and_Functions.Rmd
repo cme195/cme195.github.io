@@ -5,7 +5,7 @@ output:
   revealjs::revealjs_presentation: 
     self_contained: false
     lib_dir: libs
-    css: class.css
+    css: class_big_fonts.css
     highlight: default 
     smart: true
     center: true

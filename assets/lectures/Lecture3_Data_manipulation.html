@@ -492,7 +492,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 
 <section id="contents" class="slide level2">
-<h1>Contents</h1>
+<h2>Contents</h2>
 <ul>
 <li><code>apply</code> family functions</li>
 <li>Intro to <code>dplyr</code> package</li>
@@ -503,7 +503,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section>
 <section><section id="apply-family" class="titleslide slide level1"><h1>apply family</h1></section><section id="apply-lapply-sapply-functions" class="slide level2">
-<h1>apply, lapply, sapply functions</h1>
+<h2>apply, lapply, sapply functions</h2>
 <ul>
 <li><p>The <code>apply</code> family functions, are <strong>functions which manipulate slices of data</strong> stored as matrices, arrays, lists and data-frames <strong>in a repetitive way</strong>.</p></li>
 <li><p>These functions <strong>avoid the explicit use of loops</strong>, and might be <strong>more computationally efficient</strong>, depending on how big a dataset is. For more details on runtimes see this <a href="https://www.r-bloggers.com/gnu-r-loop-speed-comparison/">link</a>.</p></li>
@@ -511,56 +511,56 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><p>The family comprises: <strong>apply, lapply , sapply, vapply, mapply, rapply, and tapply</strong>. The difference lies in the structure of input data and the desired format of the output).</p></li>
 </ul>
 </section><section id="apply-function" class="slide level2">
-<h1>apply function</h1>
+<h2>apply function</h2>
 <p><code>apply</code> operates on arrays/matrices.</p>
 <p>In the example below we obtain column sums of matrix <code>X</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   21   10    9   17   19   20
-## [2,]    6   24   11    1    8    7
-## [3,]   13   23    5   25   16   29
-## [4,]   18   14   26   28   22   27
-## [5,]    3   30   12    4   15    2</code></pre>
+## [1,]   29   24    1   27   25    4
+## [2,]    5   18   28    9   21    8
+## [3,]   11   10    7   19   12   15
+## [4,]    2   14   23   26   17   13
+## [5,]   30   16    6   22   20    3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1]  61 101  63  75  80  85</code></pre>
+<pre><code>## [1]  77  82  65 103  95  43</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
-<h1>apply function</h1>
+<h2>apply function</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   21   10    9   17   19   20
-## [2,]    6   24   11    1    8    7
-## [3,]   13   23    5   25   16   29
-## [4,]   18   14   26   28   22   27
-## [5,]    3   30   12    4   15    2</code></pre>
+## [1,]   29   24    1   27   25    4
+## [2,]    5   18   28    9   21    8
+## [3,]   11   10    7   19   12   15
+## [4,]    2   14   23   26   17   13
+## [5,]   30   16    6   22   20    3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
-<span class="kw">apply</span>(X, <span class="dv">2</span>, function(x) <span class="dv">10</span>*x +<span class="st"> </span><span class="dv">2</span>) </code></pre></div>
+<span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="dv">10</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]  212  102   92  172  192  202
-## [2,]   62  242  112   12   82   72
-## [3,]  132  232   52  252  162  292
-## [4,]  182  142  262  282  222  272
-## [5,]   32  302  122   42  152   22</code></pre>
+## [1,]  292  242   12  272  252   42
+## [2,]   52  182  282   92  212   82
+## [3,]  112  102   72  192  122  152
+## [4,]   22  142  232  262  172  132
+## [5,]  302  162   62  222  202   32</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
 <li>The function can be defined outside <code>apply()</code>,</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span>function(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
-  if (!<span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x +<span class="st"> </span>eps
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
+  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>eps
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 12.2 20.2 12.6 15.0 16.0 17.0</code></pre>
+<pre><code>## [1] 15.4 16.4 13.0 20.6 19.0  8.6</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 12.3 20.3 12.7 15.1 16.1 17.1</code></pre>
+<pre><code>## [1] 15.5 16.5 13.1 20.7 19.1  8.7</code></pre>
 </div>
 </section><section id="lapplysapply-functions" class="slide level2">
-<h1>lapply/sapply functions</h1>
+<h2>lapply/sapply functions</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to elements of a sequential object</strong> such as a vector, list, or data-frame (applies to columns).</p></li>
@@ -571,7 +571,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lapply returns a list</span>
-<span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -581,21 +581,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 ## [[3]]
 ## [1] 9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which you can &#39;simplify&#39; with unlist()</span>
-<span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>))</code></pre></div>
+<span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or you could use sapply() instead</span>
-<span class="kw">sapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
 </div>
 </section><section id="mapply-functions" class="slide level2">
-<h1>mapply functions</h1>
+<h2>mapply functions</h2>
 <ul>
 <li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
 <li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
-word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
-<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span>:<span class="dv">6</span>], <span class="dv">6</span>:<span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
+word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
+<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## $A
 ## [1] &quot;AAAAAA&quot;
 ## 
@@ -614,7 +614,7 @@ word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<
 ## $F
 ## [1] &quot;F&quot;</code></pre>
 </section><section id="exercise-1" class="slide level2">
-<h1>Exercise 1</h1>
+<h2>Exercise 1</h2>
 <p></br></p>
 <ul>
 <li><p>Go to the “Lec3_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
@@ -622,7 +622,7 @@ word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<
 </ul>
 </section></section>
 <section><section id="dplyr-package" class="titleslide slide level1"><h1><code>dplyr</code> package</h1></section><section id="dplyr" class="slide level2">
-<h1><code>dplyr</code></h1>
+<h2><code>dplyr</code></h2>
 <ul>
 <li>Introduces <strong>a grammar of data manipulation</strong>.</li>
 <li><strong>Code-efficient</strong> for data exploration and transformation.</li>
@@ -632,12 +632,12 @@ word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To install dplyr with latest updates</span>
 <span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
-devtools::<span class="kw">install_github</span>(<span class="st">&quot;tidyverse/dplyr&quot;</span>)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverse/dplyr&quot;</span>)
 
 <span class="co"># Or you could use CRAN</span>
 <span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
 </section><section id="tibbles" class="slide level2">
-<h1>tibbles</h1>
+<h2>tibbles</h2>
 <blockquote>
 <p>Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors).</p>
 </blockquote>
@@ -649,11 +649,11 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;tidyvers
 <li><strong>Subsetting <code>tbl</code> is strickter</strong> than subsetting <code>data.frames</code>, and ALWAYS returns objects with expected class, i.e. with a single <code>[</code> you get back a tibble, and with double<code>[[</code> you get a vector.</li>
 </ul>
 </section><section id="movie-industry-dataset" class="slide level2">
-<h1>Movie industry dataset</h1>
+<h2>Movie industry dataset</h2>
 <p><code>movies.csv</code> contains information on last three decades of movies. The data has been scraped from the IMDb website and can be accessed from a <a href="https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv">github repo</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv&quot;</span>
 movies.df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
-<span class="kw">rownames</span>(movies.df) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span>:<span class="kw">nrow</span>(movies.df))
+<span class="kw">rownames</span>(movies.df) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(movies.df))
 <span class="kw">dim</span>(movies.df)</code></pre></div>
 <pre><code>## [1] 6820   15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(movies.df)</code></pre></div>
@@ -661,7 +661,7 @@ movies.df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
 ##  [7] &quot;name&quot;     &quot;rating&quot;   &quot;released&quot; &quot;runtime&quot;  &quot;score&quot;    &quot;star&quot;    
 ## [13] &quot;votes&quot;    &quot;writer&quot;   &quot;year&quot;</code></pre>
 </section><section id="section" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(movies.df)</code></pre></div>
 <pre><code>##      budget                                company country       director
 ## M1  8000000          Columbia Pictures Corporation     USA     Rob Reiner
@@ -685,7 +685,7 @@ movies.df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
 ## M5       Joey Cramer  36636 Mark H. Baker 1986
 ## M6     Charlie Sheen 317585  Oliver Stone 1986</code></pre>
 </section><section id="convert-to-tibble" class="slide level2">
-<h1>Convert to tibble</h1>
+<h2>Convert to tibble</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 
 <span class="co"># convert to tibble</span>
@@ -712,27 +712,27 @@ movies</code></pre></div>
 ## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
 <p><small> <strong>Note:</strong> Tibbles and dplyr <strong>do NOT preserve the row names</strong>, you need to create an “id” column instead. </small></p>
 </section><section id="section-1" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(movies)</code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    6820 obs. of  15 variables:
 ##  $ budget  : num  8000000 6000000 15000000 18500000 9000000 6000000 25000000 6000000 9000000 15000000 ...
-##  $ company : Factor w/ 2179 levels &quot;101st Street Films&quot;,..: 663 1683 1683 2068 2124 1158 1160 766 1683 1936 ...
+##  $ company : Factor w/ 2179 levels &quot;\&quot;DIA\&quot; Productions GmbH &amp; Co. KG&quot;,..: 665 1683 1683 2068 2124 1159 1161 763 1683 1936 ...
 ##  $ country : Factor w/ 57 levels &quot;Argentina&quot;,&quot;Aruba&quot;,..: 56 56 56 56 56 54 54 56 56 56 ...
-##  $ director: Factor w/ 2759 levels &quot;Aamir Khan&quot;,&quot;Aaron Blaise&quot;,..: 2246 1295 2651 1058 2124 1951 1204 587 1005 556 ...
+##  $ director: Factor w/ 2759 levels &quot;\xc1lex de la Iglesia&quot;,..: 2200 1305 2652 1074 2131 1955 1215 594 1011 563 ...
 ##  $ genre   : Factor w/ 17 levels &quot;Action&quot;,&quot;Adventure&quot;,..: 2 5 1 1 2 7 2 7 5 7 ...
 ##  $ gross   : num  5.23e+07 7.01e+07 1.80e+08 8.52e+07 1.86e+07 ...
-##  $ name    : Factor w/ 6731 levels &quot;10,000 BC&quot;,&quot;101 Dalmatians&quot;,..: 4667 1819 6207 212 1870 3903 2842 772 3961 5310 ...
+##  $ name    : Factor w/ 6731 levels &quot;&#39;71&quot;,&quot;&#39;night, Mother&quot;,..: 4671 1829 6211 299 1880 3911 2892 784 3969 5313 ...
 ##  $ rating  : Factor w/ 13 levels &quot;B&quot;,&quot;B15&quot;,&quot;G&quot;,..: 9 8 7 9 7 9 7 9 8 9 ...
 ##  $ released: Factor w/ 2403 levels &quot;1986-01-10&quot;,&quot;1986-01-17&quot;,..: 40 28 24 34 37 76 31 52 10 39 ...
 ##  $ runtime : int  89 103 110 137 90 120 101 120 96 96 ...
 ##  $ score   : num  8.1 7.8 6.9 8.4 6.9 8.1 7.4 7.8 6.8 7.5 ...
-##  $ star    : Factor w/ 2504 levels &quot;50 Cent&quot;,&quot;Aaliyah&quot;,..: 2474 1605 2348 2195 1139 369 526 924 1733 1039 ...
+##  $ star    : Factor w/ 2504 levels &quot;&#39;Weird Al&#39; Yankovic&quot;,..: 2458 1609 2350 2197 1146 374 531 928 1734 1045 ...
 ##  $ votes   : int  299174 264740 236909 540152 36636 317585 102879 146768 60565 129698 ...
-##  $ writer  : Factor w/ 4199 levels &quot;A.A. Milne&quot;,&quot;Aaron Guzikowski&quot;,..: 3723 1965 1839 1605 2557 2992 975 894 1965 1333 ...
+##  $ writer  : Factor w/ 4199 levels &quot;&#39;Weird Al&#39; Yankovic&quot;,..: 3728 1981 1862 1639 2559 2996 984 904 1981 1343 ...
 ##  $ year    : int  1986 1986 1986 1986 1986 1986 1986 1986 1986 1986 ...</code></pre>
 </section></section>
 <section><section id="data-manipulation-functions" class="titleslide slide level1"><h1>Data manipulation functions</h1></section><section id="dplyr-verbs" class="slide level2">
-<h1><code>dplyr</code> verbs</h1>
+<h2><code>dplyr</code> verbs</h2>
 <p>The most commonly used <code>dplyr</code> functions (or basic verbs) are:</p>
 <ul>
 <li><code>filter()</code>: keep rows matching criteria,</li>
@@ -746,19 +746,19 @@ movies</code></pre></div>
 <p></br></p>
 <p>Learn about <code>dplyr</code> from the <a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a?preview=dplyr-tutorial.pdf">turtorial written by its creator, Hadley Wickham</a></p>
 </section><section id="structure-of-dplyr-functions" class="slide level2">
-<h1>Structure of <code>dplyr</code> functions</h1>
+<h2>Structure of <code>dplyr</code> functions</h2>
 <ul>
 <li>the first argument is a data frame</li>
 <li>subsequent argument specify what to do</li>
 <li>always return a data frame</li>
 </ul>
 </section><section id="filter-keep-rows-matching-criteria" class="slide level2">
-<h1><code>filter()</code>: keep rows matching criteria</h1>
+<h2><code>filter()</code>: keep rows matching criteria</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to find all comedies by Woody Allen</span>
-movies[movies$genre ==<span class="st"> &quot;Comedy&quot;</span> &amp;<span class="st"> </span>movies$director ==<span class="st"> &quot;Woody Allen&quot;</span>, ]</code></pre></div>
+movies[movies<span class="op">$</span>genre <span class="op">==</span><span class="st"> &quot;Comedy&quot;</span> <span class="op">&amp;</span><span class="st"> </span>movies<span class="op">$</span>director <span class="op">==</span><span class="st"> &quot;Woody Allen&quot;</span>, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
 <span class="co"># note: both comma or ampersand represent AND condition</span>
-<span class="kw">filter</span>(movies, genre ==<span class="st"> &quot;Comedy&quot;</span>, director ==<span class="st"> &quot;Woody Allen&quot;</span>)</code></pre></div>
+<span class="kw">filter</span>(movies, genre <span class="op">==</span><span class="st"> &quot;Comedy&quot;</span>, director <span class="op">==</span><span class="st"> &quot;Woody Allen&quot;</span>)</code></pre></div>
 <pre><code>## # A tibble: 27 x 15
 ##      budget                                     company country    director
 ##       &lt;dbl&gt;                                      &lt;fctr&gt;  &lt;fctr&gt;      &lt;fctr&gt;
@@ -776,9 +776,9 @@ movies[movies$genre ==<span class="st"> &quot;Comedy&quot;</span> &amp;<span cla
 ## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
 ## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
 </section><section id="section-2" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use pipe for OR condition</span>
-<span class="kw">filter</span>(movies, country ==<span class="st"> &quot;Greece&quot;</span> |<span class="st"> </span>country ==<span class="st"> &quot;Chile&quot;</span>)</code></pre></div>
+<span class="kw">filter</span>(movies, country <span class="op">==</span><span class="st"> &quot;Greece&quot;</span> <span class="op">|</span><span class="st"> </span>country <span class="op">==</span><span class="st"> &quot;Chile&quot;</span>)</code></pre></div>
 <pre><code>## # A tibble: 9 x 15
 ##    budget                  company country               director     genre
 ##     &lt;dbl&gt;                   &lt;fctr&gt;  &lt;fctr&gt;                 &lt;fctr&gt;    &lt;fctr&gt;
@@ -795,9 +795,9 @@ movies[movies$genre ==<span class="st"> &quot;Comedy&quot;</span> &amp;<span cla
 ## #   released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;,
 ## #   writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
 </section><section id="section-3" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you can also use %in% operator</span>
-<span class="kw">print</span>(<span class="kw">filter</span>(movies, country %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Argentina&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Chile&quot;</span>)), <span class="dt">n =</span> <span class="ot">Inf</span>)</code></pre></div>
+<span class="kw">print</span>(<span class="kw">filter</span>(movies, country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Argentina&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Chile&quot;</span>)), <span class="dt">n =</span> <span class="ot">Inf</span>)</code></pre></div>
 <pre><code>## # A tibble: 19 x 15
 ##     budget                                                  company   country
 ##      &lt;dbl&gt;                                                   &lt;fctr&gt;    &lt;fctr&gt;
@@ -824,7 +824,7 @@ movies[movies$genre ==<span class="st"> &quot;Comedy&quot;</span> &amp;<span cla
 ## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
 ## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
 </section><section id="select-pick-columns-by-name" class="slide level2">
-<h1><code>select()</code>: pick columns by name</h1>
+<h2><code>select()</code>: pick columns by name</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to select columns</span>
 movies[, <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;genre&quot;</span>)]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
@@ -845,9 +845,9 @@ movies.sub</code></pre></div>
 ## 10                  The Fly     USA  1986     Drama
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="section-4" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use colon to select multiple contiguous columns, </span>
-<span class="kw">select</span>(movies, name, genre:score)</code></pre></div>
+<span class="kw">select</span>(movies, name, genre<span class="op">:</span>score)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 7
 ##                        name     genre     gross rating   released runtime score
 ##  *                   &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt; &lt;fctr&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;dbl&gt;
@@ -863,7 +863,7 @@ movies.sub</code></pre></div>
 ## 10                  The Fly     Drama  40456565      R 1986-08-15      96   7.5
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="select-helpers" class="slide level2">
-<h1><code>select()</code> helpers</h1>
+<h2><code>select()</code> helpers</h2>
 <p>You can use the following functions to help select the columns:</p>
 <ul>
 <li><code>starts_with()</code></li>
@@ -887,7 +887,7 @@ movies.sub</code></pre></div>
 ## 10      R 1986-08-15      96
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="section-5" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="kw">ends_with</span>(<span class="st">&quot;e&quot;</span>))</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 4
 ##        genre                     name runtime score
@@ -919,9 +919,9 @@ movies.sub</code></pre></div>
 ## 10 David Cronenberg     Drama 1986-08-15   7.5
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="dropping-columns" class="slide level2">
-<h1>Dropping columns</h1>
+<h2>Dropping columns</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># remove budget and company columns</span>
-<span class="kw">print</span>(<span class="kw">select</span>(movies, -budget, -company), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<span class="kw">print</span>(<span class="kw">select</span>(movies, <span class="op">-</span>budget, <span class="op">-</span>company), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 13
 ##   country       director     genre     gross                     name rating
 ## *  &lt;fctr&gt;         &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt;                   &lt;fctr&gt; &lt;fctr&gt;
@@ -947,18 +947,18 @@ movies.sub</code></pre></div>
 ## 6                  Platoon     138530565
 ## # ... with 6,814 more rows</code></pre>
 </section><section id="arrange-reorder-rows" class="slide level2">
-<h1><code>arrange()</code>: reorder rows</h1>
+<h2><code>arrange()</code>: reorder rows</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
 <span class="kw">print</span>(<span class="kw">arrange</span>(movies.sub, name), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 4
-##                         name country  year     genre
-##                       &lt;fctr&gt;  &lt;fctr&gt; &lt;int&gt;    &lt;fctr&gt;
-## 1                  10,000 BC     USA  2008    Action
-## 2             101 Dalmatians     USA  1996 Adventure
-## 3             102 Dalmatians     USA  2000 Adventure
-## 4        10 Cloverfield Lane     USA  2016     Drama
-## 5 10 Things I Hate About You     USA  1999    Comedy
-## 6                   10 Years     USA  2011    Comedy
+##                 name country  year   genre
+##               &lt;fctr&gt;  &lt;fctr&gt; &lt;int&gt;  &lt;fctr&gt;
+## 1                &#39;71      UK  2014  Action
+## 2     &#39;night, Mother     USA  1986   Drama
+## 3    &#39;Round Midnight     USA  1986   Drama
+## 4 &#39;Til There Was You     USA  1997 Romance
+## 5            [Rec] 2   Spain  2009  Horror
+## 6   [REC] 3: Genesis   Spain  2012  Horror
 ## # ... with 6,814 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use `desc` for descending</span>
 <span class="kw">print</span>(<span class="kw">arrange</span>(movies.sub, <span class="kw">desc</span>(year)), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
@@ -973,11 +973,11 @@ movies.sub</code></pre></div>
 ## 6 Fantastic Beasts and Where to Find Them      UK  2016 Adventure
 ## # ... with 6,814 more rows</code></pre>
 </section><section id="mutate-add-new-variables" class="slide level2">
-<h1><code>mutate()</code>: add new variables</h1>
+<h2><code>mutate()</code>: add new variables</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to create a new variable &#39;profit&#39;</span>
-movies$profit &lt;-<span class="st"> </span>movies$gross -<span class="st"> </span>movies$budget</code></pre></div>
+movies<span class="op">$</span>profit &lt;-<span class="st"> </span>movies<span class="op">$</span>gross <span class="op">-</span><span class="st"> </span>movies<span class="op">$</span>budget</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
-movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <span class="dt">profit =</span> gross -<span class="st"> </span>budget)
+movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <span class="dt">profit =</span> gross <span class="op">-</span><span class="st"> </span>budget)
 <span class="kw">select</span>(movies, name, gross, budget, profit)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 4
 ##                        name     gross   budget    profit
@@ -994,13 +994,13 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 ## 10                  The Fly  40456565 15000000  25456565
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="section-6" class="slide level2">
-<h1></h1>
+<h2></h2>
 <p>Generating multiple new variables</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, 
-                 <span class="dt">profit =</span> gross -<span class="st"> </span>budget, 
-                 <span class="dt">gross_in_mil =</span> gross/<span class="dv">10</span>^<span class="dv">6</span>,
-                 <span class="dt">budget_in_mil =</span> budget/<span class="dv">10</span>^<span class="dv">6</span>,
-                 <span class="dt">profit_in_mil =</span> profit/<span class="dv">10</span>^<span class="dv">6</span>)
+                 <span class="dt">profit =</span> gross <span class="op">-</span><span class="st"> </span>budget, 
+                 <span class="dt">gross_in_mil =</span> gross<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>,
+                 <span class="dt">budget_in_mil =</span> budget<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>,
+                 <span class="dt">profit_in_mil =</span> profit<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>)
 <span class="kw">select</span>(movies, name, <span class="kw">contains</span>(<span class="st">&quot;_in_mil&quot;</span>))</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 4
 ##                        name gross_in_mil budget_in_mil profit_in_mil
@@ -1017,14 +1017,14 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 ## 10                  The Fly    40.456565          15.0     25.456565
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="summarise-reduce-variables-to-values" class="slide level2">
-<h1><code>summarise()</code>: reduce variables to values</h1>
+<h2><code>summarise()</code>: reduce variables to values</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><code>summarize()</code> can be used to aggregate data or to compute a summarizing value of interest.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Total gross revenue for all movies in 30 years:</span>
 <span class="kw">summarise</span>(movies, 
-          <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)/<span class="dv">10</span>^<span class="dv">9</span>)</code></pre></div>
+          <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">9</span>)</code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   tot_gross_in_bil
 ##              &lt;dbl&gt;
@@ -1035,7 +1035,7 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 <li><code>summarize()</code> is <strong>primarily useful on data previously grouped by one or more variables</strong> using <code>group_by()</code>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_genre &lt;-<span class="st"> </span><span class="kw">group_by</span>(movies, genre)
-<span class="kw">summarize</span>(by_genre, <span class="dt">total =</span> <span class="kw">sum</span>(gross)/<span class="dv">10</span>^<span class="dv">9</span>)</code></pre></div>
+<span class="kw">summarize</span>(by_genre, <span class="dt">total =</span> <span class="kw">sum</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">9</span>)</code></pre></div>
 <pre><code>## # A tibble: 17 x 2
 ##        genre        total
 ##       &lt;fctr&gt;        &lt;dbl&gt;
@@ -1058,7 +1058,7 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 ## 17   Western  0.018519094</code></pre>
 </div>
 </section><section id="useful-summary-functions" class="slide level2">
-<h1>Useful summary functions</h1>
+<h2>Useful summary functions</h2>
 <ul>
 <li><code>min(x)</code>, <code>median(x)</code>,<code>max(x)</code>, <code>quantile(x, p)</code></li>
 <li><code>n()</code>, <code>n_distinct()</code>, <code>sum(x)</code>, <code>mean(x)</code></li>
@@ -1067,7 +1067,7 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 </ul>
 </section></section>
 <section><section id="chaining-operations" class="titleslide slide level1"><h1>Chaining operations</h1></section><section id="pipe-operator" class="slide level2">
-<h1>Pipe operator: <code>%&gt;%</code></h1>
+<h2>Pipe operator: <code>%&gt;%</code></h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li>The <code>%&gt;%</code> operator was intoduced in <code>magrittr</code> package to <strong>pipe values forward into an expression or function call</strong>.</li>
@@ -1076,14 +1076,14 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 </ul>
 </div>
 <div class="right" ,="" style="width: 50%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">500</span>) %&gt;%
-<span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">50</span>) %&gt;%
-<span class="st">  </span><span class="kw">colSums</span>() %&gt;%
-<span class="st">  </span><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">50</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">500</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">colSums</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>)</code></pre></div>
 <p><img src="Lecture3_Data_manipulation_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" /></p>
 </div>
 </section><section id="chaining-operations-1" class="slide level2">
-<h1>Chaining operations</h1>
+<h2>Chaining operations</h2>
 <ul>
 <li><p>Pipe operators used together with <code>dplyr</code> functions make a large difference as they semantically change your code in a way that <strong>makes it more intuitive to both read and write</strong>.</p></li>
 <li><p>The pipes allow users to chain operators which reflects the <strong>sequential nature of data-processing tasks</strong>.</p></li>
@@ -1091,7 +1091,7 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 <li><p><code>%&gt;%</code> operator is automatically imported into <code>dplyr</code></p></li>
 </ul>
 </section><section id="section-7" class="slide level2">
-<h1></h1>
+<h2></h2>
 <p><small> Find movies from USA produced after 2010. Group by genre and compute the group mean gross revenue in million dollars. Then print the genre mean ‘gross’ revenue arranged in a descending order: </small></p>
 <div class="left" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting </span>
@@ -1099,11 +1099,11 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
   <span class="kw">summarise</span>(
     <span class="kw">group_by</span>(
       <span class="kw">filter</span>(movies, 
-             year &gt;<span class="st"> </span><span class="dv">2010</span>, country ==<span class="st"> &quot;USA&quot;</span>
+             year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2010</span>, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>
       ),
       genre
     ),
-    <span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)/<span class="dv">10</span>^<span class="dv">6</span>
+    <span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>
   ),
   mean_gross
 )</code></pre></div>
@@ -1126,10 +1126,10 @@ movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <spa
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># chaining </span>
-movies %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(year &gt;<span class="st"> </span><span class="dv">2010</span>, country ==<span class="st"> &quot;USA&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(genre) %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)/<span class="dv">10</span>^<span class="dv">6</span>) %&gt;%
+movies <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2010</span>, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(genre) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(mean_gross)</code></pre></div>
 <pre><code>## # A tibble: 13 x 2
 ##        genre mean_gross
@@ -1149,7 +1149,7 @@ movies %&gt;%
 ## 13 Animation 151.960486</code></pre>
 </div>
 </section><section id="exercises-2" class="slide level2">
-<h1>Exercises 2</h1>
+<h2>Exercises 2</h2>
 <p></br></p>
 <ul>
 <li><p>Go to the “Lec3_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
@@ -1157,7 +1157,7 @@ movies %&gt;%
 </ul>
 </section></section>
 <section><section id="joining-appending-datasets" class="titleslide slide level1"><h1>Joining &amp; appending datasets</h1></section><section id="merging-two-tables" class="slide level2">
-<h1>Merging two tables</h1>
+<h2>Merging two tables</h2>
 <div class="left" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
   <span class="dt">item =</span> <span class="kw">c</span>(<span class="st">&quot;cherries&quot;</span>, <span class="st">&quot;orange&quot;</span>, 
@@ -1179,6 +1179,8 @@ y &lt;-<span class="st">  </span><span class="kw">data.frame</span>(
   <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div class="right" ,="" style="width: 50%">
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 3.4.1</code></pre>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.4.1</code></pre>
 <table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
 <thead>
 <tr>
@@ -1329,7 +1331,7 @@ fruit
 </table>
 </div>
 </section><section id="inner_joinx-y" class="slide level2">
-<h1><code>inner_join(x, y)</code></h1>
+<h2><code>inner_join(x, y)</code></h2>
 <ul>
 <li>Include only rows in both x and y</li>
 </ul>
@@ -1577,7 +1579,7 @@ fruit
 </tbody>
 </table>
 </section><section id="left_joinx-y" class="slide level2">
-<h1><code>left_join(x, y)</code>:</h1>
+<h2><code>left_join(x, y)</code>:</h2>
 <ul>
 <li>Include all of x, and matching rows of y</li>
 </ul>
@@ -1858,7 +1860,7 @@ NA
 </tbody>
 </table>
 </section><section id="semi_joinx-y" class="slide level2">
-<h1><code>semi_join(x, y)</code>:</h1>
+<h2><code>semi_join(x, y)</code>:</h2>
 <ul>
 <li>Include rows of x that match y</li>
 </ul>
@@ -2088,7 +2090,7 @@ yellow
 </tbody>
 </table>
 </section><section id="anti_joinx-y" class="slide level2">
-<h1><code>anti_join(x, y)</code>:</h1>
+<h2><code>anti_join(x, y)</code>:</h2>
 <ul>
 <li>Include rows of x that don’t match y</li>
 </ul>
@@ -2303,8 +2305,8 @@ purple
 </table>
 </section></section>
 <section><section id="extra-functions" class="titleslide slide level1"><h1>Extra functions</h1></section><section id="renaming" class="slide level2">
-<h1>Renaming</h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies.sub &lt;-<span class="st"> </span>movies %&gt;%<span class="st"> </span><span class="kw">select</span>(name, director, year, score, gross)
+<h2>Renaming</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies.sub &lt;-<span class="st"> </span>movies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(name, director, year, score, gross)
 <span class="kw">print</span>(movies.sub, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 5
 ##                       name    director  year score     gross
@@ -2314,7 +2316,7 @@ purple
 ## 3                  Top Gun  Tony Scott  1986   6.9 179800601
 ## # ... with 6,817 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Renaming variable</span>
-movies.sub %&gt;%<span class="st"> </span><span class="kw">rename</span>(<span class="dt">gross_revenue =</span> gross)</code></pre></div>
+movies.sub <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">gross_revenue =</span> gross)</code></pre></div>
 <pre><code>## # A tibble: 6,820 x 5
 ##                        name         director  year score gross_revenue
 ##                      &lt;fctr&gt;           &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt;         &lt;dbl&gt;
@@ -2330,9 +2332,9 @@ movies.sub %&gt;%<span class="st"> </span><span class="kw">rename</span>(<span c
 ## 10                  The Fly David Cronenberg  1986   7.5      40456565
 ## # ... with 6,810 more rows</code></pre>
 </section><section id="distinct-values" class="slide level2">
-<h1>Distinct values</h1>
+<h2>Distinct values</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Unique values</span>
-movies %&gt;%<span class="st"> </span><span class="kw">distinct</span>(rating)</code></pre></div>
+movies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(rating)</code></pre></div>
 <pre><code>## # A tibble: 13 x 1
 ##           rating
 ##           &lt;fctr&gt;
@@ -2351,9 +2353,9 @@ movies %&gt;%<span class="st"> </span><span class="kw">distinct</span>(rating)</
 ## 13         TV-14</code></pre>
 <p><strong>Note that</strong> can take on multiple variables, and would return distinct variable combinations.</p>
 </section><section id="group-counts" class="slide level2">
-<h1>Group counts</h1>
+<h2>Group counts</h2>
 <p>Use a <code>tally()</code> function to generate a group frequency table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies %&gt;%<span class="st"> </span><span class="kw">group_by</span>(genre) %&gt;%<span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(genre) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
 <pre><code>## # A tibble: 17 x 2
 ##        genre     n
 ##       &lt;fctr&gt; &lt;int&gt;
@@ -2375,16 +2377,16 @@ movies %&gt;%<span class="st"> </span><span class="kw">distinct</span>(rating)</
 ## 16       War     2
 ## 17   Western     2</code></pre>
 </section><section id="window-functions" class="slide level2">
-<h1>Window Functions</h1>
+<h2>Window Functions</h2>
 <ul>
 <li>Aggregation functions such as <code>mean()</code>, <code>n()</code> return 1 value per group.</li>
 <li><strong>Window functions return multiple values per group</strong>. Examples include: ranking and ordering functions (like <code>min_rank</code>, <code>top_n()</code>), offset functions (<code>lead</code> and <code>lag</code>), and cumulative aggregates (like <code>cummean</code>).</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rewrite more simply with the `top_n` function</span>
-movies %&gt;%
-<span class="st">  </span><span class="kw">select</span>(name, genre, year, score) %&gt;%
-<span class="st">  </span><span class="kw">group_by</span>(genre) %&gt;%<span class="st">  </span>
-<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">2</span>, <span class="dt">wt =</span> score) %&gt;%<span class="st">      </span><span class="co"># if &#39;wt&#39; argument in top_n() is not specified</span>
+movies <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(name, genre, year, score) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(genre) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">2</span>, <span class="dt">wt =</span> score) <span class="op">%&gt;%</span><span class="st">      </span><span class="co"># if &#39;wt&#39; argument in top_n() is not specified</span>
 <span class="st">  </span><span class="kw">arrange</span>(genre, year, score)   <span class="co"># the last variable is taken for ordering</span></code></pre></div>
 <pre><code>## # A tibble: 35 x 4
 ## # Groups:   genre [17]
@@ -2402,52 +2404,52 @@ movies %&gt;%
 ## 10                                      Forrest Gump    Comedy  1994   8.8
 ## # ... with 25 more rows</code></pre>
 </section><section id="sampling-functions" class="slide level2">
-<h1>Sampling functions</h1>
+<h2>Sampling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
-movies %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">15</span>)</code></pre></div>
+movies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">15</span>)</code></pre></div>
 <pre><code>## # A tibble: 15 x 19
-##     budget                              company country         director
-##      &lt;dbl&gt;                               &lt;fctr&gt;  &lt;fctr&gt;           &lt;fctr&gt;
-##  1 1.2e+07              Handprint Entertainment     USA     Julie Taymor
-##  2 7.0e+07        Columbia Pictures Corporation     USA       Tim Burton
-##  3 0.0e+00 Boll Kino Beteiligungs GmbH &amp; Co. KG     USA         Uwe Boll
-##  4 4.5e+07                              Miramax     USA     Rob Marshall
-##  5 1.2e+07            Metro-Goldwyn-Mayer (MGM)     USA  Craig Gillespie
-##  6 0.0e+00                   Universal Pictures     USA    Ron Underwood
-##  7 0.0e+00                            Portreeve      UK    Simon Langton
-##  8 2.4e+07                      Dimension Films     USA    Alexandre Aja
-##  9 1.0e+07                       Rogue Pictures     USA    Colin Strause
-## 10 3.0e+07                   Universal Pictures     USA Alister Grierson
-## 11 0.0e+00                   Paramount Pictures     USA    Lewis Gilbert
-## 12 6.0e+07 Boll Kino Beteiligungs GmbH &amp; Co. KG Germany         Uwe Boll
-## 13 6.0e+06                   Paramount Pictures  Canada  Jonathan Kaplan
-## 14 3.5e+07                  Regency Enterprises     USA        Ken Scott
-## 15 0.0e+00                  Touchstone Pictures     USA  Bruce Beresford
+##     budget                       company     country            director
+##      &lt;dbl&gt;                        &lt;fctr&gt;      &lt;fctr&gt;              &lt;fctr&gt;
+##  1 3.1e+07                   BenderSpink         USA  John Francis Daley
+##  2 2.0e+06               New Line Cinema         USA         John Waters
+##  3 1.5e+07              Lions Gate Films         USA         Tyler Perry
+##  4 7.5e+07            Hollywood Pictures         USA         Michael Bay
+##  5 2.7e+07             Columbia Pictures         USA        Mike Nichols
+##  6 0.0e+00                    Fast Films         USA        Abel Ferrara
+##  7 0.0e+00            KB Erik the Viking          UK         Terry Jones
+##  8 9.0e+06              Intermedia Films          UK        Peter Howitt
+##  9 6.5e+07                  Warner Bros.          UK     Stanley Kubrick
+## 10 0.0e+00 Columbia Pictures Corporation         USA        Jeff Pollack
+## 11 3.1e+07               New Line Cinema         USA      Gregory Hoblit
+## 12 0.0e+00               ABC Productions         USA Jeremiah S. Chechik
+## 13 0.0e+00               Informant Media         USA          Josh Boone
+## 14 3.0e+06                 WingNut Films New Zealand       Peter Jackson
+## 15 6.0e+06                    B&amp;W; Films         USA       Jeffrey Blitz
 ## # ... with 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;, name &lt;fctr&gt;,
 ## #   rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;,
 ## #   votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
 ## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
 </section><section id="section-8" class="slide level2">
-<h1></h1>
+<h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
-movies %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.01</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
+movies <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.01</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 68 x 19
-##     budget                                company country           director
-##      &lt;dbl&gt;                                 &lt;fctr&gt;  &lt;fctr&gt;             &lt;fctr&gt;
-##  1 2.0e+08 Twentieth Century Fox Film Corporation     USA       Bryan Singer
-##  2 3.0e+07                  X-Filme Creative Pool      UK         Tom Tykwer
-##  3 0.0e+00                                Miramax      UK Christopher Monger
-##  4 4.7e+07                    &quot;Pan Europ\xe9enne&quot; Belgium   Jaco Van Dormael
-##  5 7.6e+07                  Capella International     USA        Des McAnuff
-##  6 5.0e+07                       TriStar Pictures     USA       Joe Johnston
-##  7 0.0e+00                           Warner Bros.     USA      Cameron Crowe
-##  8 0.0e+00               Kings Road Entertainment     USA        Albert Pyun
-##  9 6.0e+06                     Paramount Pictures  Canada    Jonathan Kaplan
-## 10 1.7e+07                       TriStar Pictures     USA       Fede Alvarez
-## # ... with 58 more rows, and 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;,
-## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
-## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;,
-## #   gross_in_mil &lt;dbl&gt;, budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
+##     budget                                      company   country
+##      &lt;dbl&gt;                                       &lt;fctr&gt;    &lt;fctr&gt;
+##  1 1.0e+06                         Fewlas Entertainment       USA
+##  2 2.0e+07                           Universal Pictures       USA
+##  3 1.5e+08                        Warner Bros. Pictures Australia
+##  4 5.0e+06       Gordon Bijelonic / Datari Turner Films       USA
+##  5 1.0e+07                             Caravan Pictures       USA
+##  6 3.0e+07                           Universal Pictures       USA
+##  7 0.0e+00                       Mindfire Entertainment       USA
+##  8 0.0e+00                              Empire Pictures       USA
+##  9 0.0e+00 Motion Picture Corporation of America (MPCA)       USA
+## 10 2.4e+07                          Touchstone Pictures       USA
+## # ... with 58 more rows, and 16 more variables: director &lt;fctr&gt;, genre &lt;fctr&gt;,
+## #   gross &lt;dbl&gt;, name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;,
+## #   score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;,
+## #   profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;, budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
 </section></section>
     </div>
   </div>
