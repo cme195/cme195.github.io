@@ -1,5 +1,5 @@
 ---
-title: "Homework 1"
+title: "Homework 1 Solution"
 author: "Lan Huong Nguyen"
 date: "October 11, 2017"
 output: 
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
   pdf_document:
-    number_sections: no
+    number_sections: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -15,9 +15,9 @@ rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Exercise 1: R Basics
+## Exercise 1: R Basics
 
-##a. Arithmetic operations [5pt] 
+### a. Arithmetic operations [5pt] 
 
 Compute the following using R:
 
@@ -27,7 +27,16 @@ Compute the following using R:
 * $\left \lfloor {4.011 \pi \over 3}  {5 \choose 2} \right \rfloor$
 * A sum of numbers from $3$ to $9$
 
-##b. Matrix operations [5pt] 
+```{r}
+1.46*log(factorial(12), base = 2)
+4.02*(7^2 + exp(7))^(1/3)
+20*cos(2*pi + 0.25) + 32*sin(3*pi/4)
+floor(4.011*pi/3*choose(5, 2))
+sum(seq(3, 9))
+```
+
+
+### b. Matrix operations [5pt] 
 
 Generate a matrix $A$ with 10 rows and 6 columns with entries 
 being random uniform numbers on an interval $[0, 1]$.
@@ -42,8 +51,27 @@ more about the function. With the two matrices compute:
 * sum of all entries of $A$ multiplied by the 
 element of $B$ in the 5th row and 4th column. 
 
+```{r}
+set.seed(1234)
+(A <- matrix(rnorm(60), ncol = 6))
+(B <- matrix(sample(10:30, 30, replace = TRUE), 
+             ncol = 5))
+```
 
-##c. Data-frames [5pt] 
+```{r}
+A %*% B
+```
+
+```{r}
+A[3, ] + B[, 4]
+```
+
+```{r}
+B[5, 4]*sum(A)
+```
+
+
+### c. Data-frames [5pt] 
 
 Create a data-frame, 'birthdays', which stores information on 
 the birthdays of 6 people your know, i.e. your friends or family members. 
@@ -61,7 +89,27 @@ Compute the difference (in days) between your birthday and the birthday
 of each of the people and apppend that information as a new column 
 'bday_diff' of the data-frame.
 
-##d. Factors [5pt] 
+```{r}
+birthdays <- data.frame(
+  first = c("Joe", "Jane", "Catherine", "Maria", "David", "Lukas"),
+  last = c("Smith", "Doe", "Goodman", "Suarez", "Smith", "Kowalski"),
+  birthday = c("1962-03-27", "1936-06-12", "1967-09-14", "1992-11-18", 
+               "2001-02-18", "1990-12-23"),
+  relationship = c("dad", "grandma", "mom", "friend", "brother", "friend"),
+  YOR = c(20, 20, 20, 9, 16, 5),
+  city = c("San Francisco", "Boston", "San Francisco", "Santiago", 
+           "Los Angeles", "London")
+)
+birthdays
+```
+
+```{r}
+birthdays$birthday <- as.Date(birthdays$birthday, format = "%Y-%m-%d")
+birthdays$bday_diff <- abs(birthdays$birthday - as.Date("1990-08-17", "%Y-%m-%d"))
+birthdays
+```
+
+### d. Factors [5pt] 
 
 In this part of the exercise we use a built-in data set on student's sleep
 data. Learn more about this dataset by reading the help page, acessed by 
@@ -70,17 +118,26 @@ is a factor with lavels 1 through 10. Rename the patient's IDs to be letters
 of the alphabet, with "A" corresponding to 10, "B" to 9, "C" to 8, ..., and "J"
 to 1.
 
+```{r}
+sleep
+sleep$ID <- factor(sleep$ID, levels = 10:1, labels = LETTERS[1:10])
+sleep
+```
 
-#Exercise 2: Functions 
 
-##a. Parametric function [10pt].
+## Exercise 2: Functions 
+
+
+### a. Parametric function [10pt].
 
 * Write a function in are that evaluates the following:
 
+$$ 
 \begin{align*}
 f(\theta) &= 7 - 0.5\sin(\theta) + 2.5\sin(3\theta) + 2\sin(5\theta) - 1.7\sin(7\theta) + \\
 & \quad  +  3\cos(2\theta) - 2\cos(4\theta) - 0.4\cos(16\theta)
 \end{align*}
+$$
 
 * Generate a vector, \texttt{theta}, equal to a sequence from $0$ to $2\pi$ 
 with increments of $0.01$
@@ -88,19 +145,74 @@ with increments of $0.01$
 $y = f(\theta) \cdot \sin(\theta)$ for $\theta$ you just created.
 * Plot a scatter plot of (x, y) with two vectors computed.
 
+```{r}
+f <- function(theta) {
+  res <- 7 - 0.5 * sin(theta) + 2.5 * sin(3 * theta) + 
+    2 * sin(5 * theta) - 1.7 * sin(7 * theta) + 
+    3 * cos(2 * theta) - 2 * cos(4 * theta) - 
+    0.4 * cos(16 * theta)
+  return(res)
+}
+```
 
-##b. Multiple arguments [10pt]
+```{r}
+theta <- seq(0, 2 * pi, by = 0.01)
+```
+
+```{r}
+x <- sapply(theta, function(x) f(x)*cos(x))
+y <- sapply(theta, function(x) f(x)*sin(x))
+```
+
+```{r}
+plot(x, y)
+```
+
+### b. Multiple arguments [10pt]
 
 Write a function `time_diff()` that takes two dates as inputs and returns
 the difference between them in units of "hours", "days", "months"
 or "years", defined by an optional argument 'units', set by default
 to "days". Use the function to compute the number of months, days,
 and hours left to 2018 FIFA World Cup opening game in "2018/06/14"
- 
- 
-#Exercise 3: Control Flow
 
-##a. Fibonacci numbers [5pt]. 
+```{r}
+time_diff <- function(date1, date2, units = "days") {
+  if (!all(class(date1) == "Date", class(date2) == "Date"))
+    stop('date1 and date2 must be of class "Date"')
+  if (!units %in% c("hours", "days", "months", "years"))
+    stop('"units" must be "hours", "days", "months", or "years"')
+  diff <- as.numeric(date2 - date1)
+  if (units == "hours") diff <- 24 * diff 
+  if (units == "months") diff <- ceiling(diff/31) 
+  if (units == "years") diff <- ceiling(diff/365)
+  return(diff)
+
+  }
+```
+
+```{r}
+time_diff(Sys.Date(), 
+          as.Date(as.Date("14/06/2018", format = "%d/%m/%Y")),
+         "months")
+```
+
+```{r}
+time_diff(Sys.Date(), 
+          as.Date(as.Date("14/06/2018", format = "%d/%m/%Y")),
+         "days")
+```
+
+```{r}
+time_diff(Sys.Date(), 
+          as.Date(as.Date("14/06/2018", format = "%d/%m/%Y")),
+         "hours")
+```
+ 
+ 
+## Exercise 3: Control Flow
+
+### a. Fibonacci numbers [5pt]. 
 
 Fibonacci sequence starts with numbers 1 and 2, and each subsequent term 
 is generated by adding the previous two terms. The first 10 terms of 
@@ -108,8 +220,23 @@ the Fibonacci sequence are thus: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ... .
 Find the total sum of **even numbers**, not exceeding one million which
 also belong to the Fibonacci sequence.
 
+```{r}
+i1 <- 1; i2 <- 2
+sum_even_fib <- 2
+nums <- c(2)
+while(i2 < 10^6) {
+  i0 <- i1; i1 <- i2
+  i2 <- i0 + i2
+  if (i2 %% 2 == 0) {
+    nums <- c(nums, i2)
+    sum_even_fib <- sum_even_fib + i2
+  }
+}
+sum_even_fib
+```
 
-##b. Prime numbers [15pt]. 
+
+### b. Prime numbers [15pt]. 
 
 * Write a function `is_prime(n)` that returns `TRUE` if $n$ is prime 
 and `FALSE` otherwise. Note that apart from 2 and 3, all primes 
@@ -128,28 +255,89 @@ If you don't know where to begin from, then read [the wikipedia
 entry](https://en.wikipedia.org/wiki/Primality_test) on primality test.
 
 
-#Exercise 4: Data Import/Export 
+```{r}
+# function returns whether the input argument is a prime number
+is_prime <- function(n) {
+  if (n <= 1) return(FALSE)
+  if (n <= 3) return(TRUE)  
+  # Now we check if n is NOT of the form  6k + 1 or 6k -1
+  if (n %% 6 != 1   && n %% 6 != 5) return(FALSE)
+  return(!any(n %% 2:sqrt(n) == 0))
+}
+```
 
-##a. Import data [10pt]
+```{r}
+# function returns all primes less than or equal to n
+primes_up_to <- function(n){
+  idx_prime <- sapply(1:n, is_prime)
+  return(seq(1, n)[idx_prime])
+}
+```
+
+```{r}
+sum(primes_up_to(10000))
+```
+
+```{r}
+# function returns first k primes 
+n_primes <- function(k){
+  if (k != floor(k) | k <= 0){
+    stop("k must be a positive integer")
+  }
+  primes <- c(2, 3)
+  cur_number <- 4
+  while (length(primes) < k) {
+    while(!is_prime(cur_number)) {
+      cur_number <- cur_number + 1
+    }
+    primes <- c(primes, cur_number)
+    cur_number <- cur_number + 1
+  }
+  return(primes)
+}
+```
+
+
+```{r}
+sum(n_primes(1000))
+head(n_primes(1000), 20)
+```
+
+
+## Exercise 4: Data Import/Export 
+
+### a. Import data [10pt]
 
 Go to the following URL:
-https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/data/share-of-people-who-say-they-are-happy.txt
-
+"https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/data/share-of-people-who-say-they-are-happy.txt"
 Note the structure and format of the data. Then, use the function `read.table()`
 with suitable arguments to import the data. Use R to find the cuntry
 with the highest share of "happy" people in 2014.
 
 
-##b. Export data [10pt]
+```{r}
+url <- "https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/data/share-of-people-who-say-they-are-happy.txt"
+happiness <- read.table(file = url, sep = ";", header = TRUE, row.names = 1)
+happiness[which.max(happiness[happiness$Year == "2014", "ShareOfHappyPeople"]), ]
+```
+
+
+### b. Export data [10pt]
 
 Select the observations from the data set on happiness which were reported after 
 year 2000. Export the subset of the data as a tab-text file to a chosen location
 on your computer.
 
+```{r}
+happiness2000 <- happiness[happiness$Year > 2000, ]
+write.table(happiness2000, file = "~/Downloads/happiness2000.txt", 
+            quote = FALSE, sep = "\t")
+```
 
-#Exercise 5. Data manipulations 
 
-##a. `dplyr` functions [10pt]
+## Exercise 5. Data manipulations 
+
+### a. `dplyr` functions [10pt]
 
 Install a package `nycflights13` to acess datasets on filights and airports
 in the city of New York in 2013. Print the dataset 'fights' and note that
@@ -162,8 +350,30 @@ report both the average arrival and departure delay. **Note**: Since, the datase
 contatins missiing values, when computing the averages, remember to exclude
 the missing values (use 'na.rm = TRUE' in `mean()` function).
 
+```{r, eval = FALSE}
+install.packages("nycflights13")
+```
 
-##b. Joining/merging datasets [10pt]
+
+```{r}
+library(nycflights13)
+library(dplyr)
+flights
+```
+
+```{r}
+flights %>% 
+  select(carrier, origin, dest, dep_delay, arr_delay) %>%
+  group_by(origin, carrier) %>%
+  summarise(
+    avg_dep_delay = mean(dep_delay, na.rm = TRUE),
+    avg_arr_delay = mean(arr_delay, na.rm = TRUE)
+  ) %>%
+  top_n(n = 1, wt = desc(avg_dep_delay))
+```
+
+
+### b. Joining/merging datasets [10pt]
 
 The `nycflights13` package also includes a data-frame, '`airlines`', which 
 includes the full names of the carries. First, select columns: year, month, day, 
@@ -191,5 +401,30 @@ You must use the `by = ` argument in the join function
 and specify which columns from '`flights2`' you are matching
 to which column in  '`airports`'.
 
+```{r}
+flights2 <- flights  %>% 
+  select(month, day, time_hour, dep_time, arr_time, carrier, 
+         flight, tailnum, origin, dest) 
+flights2
+```
 
+```{r}
+flights2 %>% left_join(airlines)
+```
+
+```{r}
+flights2 %>% left_join(weather)
+```
+
+```{r}
+flights2 %>% left_join(planes, by = "tailnum")
+```
+
+```{r}
+flights2 %>% left_join(airports, by = c("origin" = "faa"))
+```
+
+```{r}
+sessionInfo()
+```
 
