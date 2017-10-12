@@ -33,6 +33,9 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)].
 [Answers](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises_with_Answers.Rmd)].
+* [Exercises for lecture 4](./assets/exercises/Lec4_Exercises.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)].
+Answers.
 
 ## [](#tut) Extra Tutorials
 

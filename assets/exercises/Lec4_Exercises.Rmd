@@ -1,0 +1,78 @@
+---
+title: "Lecture 4: Exercises"
+date: October 12th, 2016
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Original plot and data
+
+For practice, you will try to recreate
+a plot published in the Economist issue of July 20th, 2016 reflecting
+the relationship between well-being and financial inclusion.
+
+![](./economist.png)
+
+
+* The original graph can be found 
+[here](http://www.economist.com/blogs/graphicdetail/2016/07/daily-chart-13)
+
+* You will generate this figure step by step through a series of included 
+exercises using the tools we've just learned and will learn about. 
+
+
+The data for the exercises `EconomistData.csv` can be downloaded from 
+the class github repository.
+
+```{r}
+url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
+              "master/data/EconomistData.csv")
+dat <- read.csv(url)
+head(dat)
+```
+
+
+# Exercise 1
+
+1. Create a scatter plot with percent of people over the age of 15 with a bank 
+account on the x axis and the SEDA score on the y axis.
+2. Color the points in the previous plot blue.
+3. Color the points in the previous plot according to the `Region`.
+4. Create boxplots of SEDA scores by `Region`.
+5. Overlay points on top of the box plots
+
+
+# Exercise 2
+
+1. Re-create a scatter plot with percent of people aged 15+ with a bank account
+on the x axis and SEDA current level score on the y axis 
+(as you did in the previous exercise).
+2. Overlay a smoothing line on top of the scatter plot using the lm method. 
+Hint: see `?stat_smooth`.
+3. Overlay a smoothing line on top of the scatter plot using the default method.
+4. Overlay a smoothing line on top of the scatter plot using the default loess 
+method, but make it less smooth. Hint: see `?loess`.
+
+
+# Exercise 3
+
+1. For the scatter plot of % of ppl aged 15+ with bank account vs SEDA score
+colored by region, generated in Exercise I.3 modify the color scale to 
+use specific values of your choosing. Hint: see `?scale_color_manual`.
+
+
+# Exercise 5: Finish the Economist plot.
+
+1. Change order of the Regions
+2. Add the linear trend
+3. Change the axes ratio.
+4. Change the color scheme. Use these colors 
+`colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D", "#248E84","#DCC3AA", "#96503F")`
+5. Add a title and format the axes
+6. Change the background and theme
+7. Format the legend
+8. Add point labels
+9. Add notes to the bottom and save the plot
+

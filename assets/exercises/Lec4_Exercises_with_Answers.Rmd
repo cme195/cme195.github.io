@@ -1,0 +1,280 @@
+---
+title: "Lecture 4: Exercises with answers"
+date: October 12th, 2016
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Original plot and data
+
+For practice, you will try to recreate
+a plot published in the Economist issue of July 20th, 2016 reflecting
+the relationship between well-being and financial inclusion.
+
+![](./economist.png)
+
+
+* The original graph can be found 
+[here](http://www.economist.com/blogs/graphicdetail/2016/07/daily-chart-13)
+
+* You will generate this figure step by step through a series of included 
+exercises using the tools we've just learned and will learn about. 
+
+
+The data for the exercises `EconomistData.csv` can be downloaded from 
+the class github repository.
+
+```{r}
+url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
+              "master/data/EconomistData.csv")
+dat <- read.csv(url)
+head(dat)
+```
+
+
+# Exercise 1
+
+1. Create a scatter plot with percent of people over the age of 15 with a bank 
+account on the x axis and the SEDA score on the y axis.
+2. Color the points in the previous plot blue.
+3. Color the points in the previous plot according to the `Region`.
+4. Create boxplots of SEDA scores by `Region`.
+5. Overlay points on top of the box plots
+
+
+```{r}
+#1. Create a scatter plot with percent of people over the age of 15 with a bank 
+p <- ggplot(dat, aes(x = Percent.of.15plus.with.bank.account, y = SEDA.Current.level)) 
+p + geom_point()
+```
+
+```{r}
+#2. Color the points in the previous plot blue.
+p + geom_point(color = "blue")
+```
+
+```{r}
+#3. Color the points in the previous plot according to the `Region`.
+p + geom_point(aes(color = Region))
+```
+
+```{r}
+#4. Create boxplots of SEDA scores by `Region`.
+boxplot <- ggplot(dat, aes(x = Region, y = SEDA.Current.level)) + geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 15, hjust = 1))
+boxplot
+```
+
+```{r}
+#5. Overlay points on top of the box plots
+boxplot + geom_point()
+```
+
+```{r}
+#5. Overlay points on top of the box plots
+boxplot + geom_jitter(width = 0.4)
+```
+
+
+# Exercise 2
+
+1. Re-create a scatter plot with percent of people aged 15+ with a bank account
+on the x axis and SEDA current level score on the y axis 
+(as you did in the previous exercise).
+2. Overlay a smoothing line on top of the scatter plot using the lm method. 
+Hint: see `?stat_smooth`.
+3. Overlay a smoothing line on top of the scatter plot using the default method.
+4. Overlay a smoothing line on top of the scatter plot using the default loess 
+method, but make it less smooth. Hint: see `?loess`.
+
+```{r}
+#1. Re-create a scatter plot
+p <- ggplot(dat, aes(x = Percent.of.15plus.with.bank.account, y = SEDA.Current.level))
+(p <- p + geom_point())
+```
+
+```{r}
+#2. Overlay a smoothing line on top of the scatter plot using the lm method
+p + geom_smooth(method = "lm")
+```
+
+```{r}
+#3. Overlay a smoothing line on top of the scatter plot using the default method.
+p + geom_smooth()
+```
+
+```{r}
+#4. Overlay a smoothing line on top of the scatter plot using the default loess 
+# method, but make it less smooth
+p + geom_smooth(span = 0.2)
+```
+
+
+# Exercise 3
+
+1. For the scatter plot of % of ppl aged 15+ with bank account vs SEDA score
+colored by region, generated in Exercise I.3 modify the color scale to 
+use specific values of your choosing. Hint: see `?scale_color_manual`.
+
+```{r}
+pEc <- ggplot(dat, aes(Percent.of.15plus.with.bank.account, SEDA.Current.level)) 
+(pEc <- pEc + geom_point(aes(color = Region)) + scale_color_brewer(palette = "Set1"))
+```
+
+# Exercise 4
+
+1. Facet  by region (`~ Region`) the the Economist plot from Exercise 3.
+
+```{r}
+pEc + facet_wrap(~ Region)
+```
+
+
+
+# Exercise 5: Finish the Economist plot.
+
+1. Change order of the Regions
+2. Add the linear trend
+3. Change the axes ratio.
+4. Change the color scheme. Use these colors 
+`colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D", "#248E84","#DCC3AA", "#96503F")`
+5. Add a title and format the axes
+6. Change the background and theme
+7. Format the legend
+8. Add point labels
+
+
+## Change order of the Regions
+
+```{r}
+dat$Region <- as.character(dat$Region)
+dat$Region <- factor(dat$Region, 
+                     levels = c("Europe", "Asia", "Oceania", 
+                                "North America", 
+                                "Latin America & the Caribbean", 
+                                "Middle East & North Africa",
+                                "Sub-Saharan Africa"),
+                     labels = c("Europe", "Asia", "Oceania", 
+                                "North America", 
+                                "Latin America & \n the Caribbean", 
+                                "Middle East & \n North Africa",
+                                "Sub-Saharan \n Africa"))
+```
+
+
+```{r}
+pEc <- ggplot(dat, aes(Percent.of.15plus.with.bank.account, SEDA.Current.level)) 
+pEc + geom_point(aes(color = Region))
+```
+
+# Add the linear trend
+
+```{r}
+pEc <- pEc + geom_smooth(method = "lm", se = FALSE, col = "black", size = 0.5) 
+(pEc <- pEc + geom_point(aes(fill = Region), color = "white", shape = 21, size =4)) 
+```
+
+## Change the axes ratio.
+
+```{r}
+(pEc <- pEc + coord_fixed(ratio = 0.4))
+```
+
+## Change the color scheme
+
+```{r}
+colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D", 
+             "#248E84","#DCC3AA", "#96503F")
+(pEc <- pEc + scale_fill_manual(name = "",
+                                values = colors))
+```
+
+
+## Add a title and format the axes
+
+```{r}
+(pEc <- pEc +
+  scale_x_continuous(name = "% of people aged 15+ with bank account, 2014",
+                     limits = c(0, 100),
+                     breaks = seq(0, 100, by = 20)) +
+  scale_y_continuous(name = "SEDA Score, 100-maximum",
+                     limits = c(0, 100),
+                     breaks = seq(0, 100, by = 20)) +
+  ggtitle("Laughing all the way to the bank \n Well-being amd financial inclusion \n 2014-15"))
+```
+
+## Change the background and theme
+
+You can check out the [`ggthemes`](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) 
+package which implement the themes that make your plots look like they came from:
+
+* Base graphics
+* Tableau
+* Excel
+* Stata
+* Economist
+* Wall Street Journal
+* Edward Tufte
+* Nate Silver's Fivethirtyeight
+* etc.
+
+```{r}
+# install.pcakages("ggthemes")
+library(ggthemes)
+(pEc <- pEc + theme_economist_white(gray_bg=FALSE))
+```
+
+## Format the legend
+
+```{r, fig.width=9, fig.height=5}
+(pEc <- pEc + coord_fixed(0.4) +
+   theme(text = element_text(color = "grey37", size = 12),
+        legend.position = c(0.45, 1.1), # position the legend in the upper left 
+        legend.direction = "horizontal",
+        legend.justification = 0.1, # anchor point for legend.position.
+        legend.text = element_text(size = 10, color = "gray10"),
+        plot.title = element_text(size = rel(1.1), color = "black"),
+        plot.margin = unit(c(1, 1.5, 1.5, 0.5), "cm")) +
+  guides(fill = guide_legend(ncol = 4, byrow = FALSE)))
+```
+
+## Add point labels
+
+```{r}
+pointsToLabel <- c("Yemen", "Iraq", "Egypt", "Jordan", "Chad", "Congo", 
+                   "Angola", "Albania", "Zimbabwe", "Uganda", "Nigeria",
+                   "Uruguay", "Kazakhstan", "India", "Turkey", "South Africa",
+                   "Kenya", "Russia", "Brazil", "Chile", "Saudi Arabia", 
+                   "Poland", "China", "Serbia", "United States", "United Kingdom")
+```
+
+```{r, fig.width=9, fig.height=5}
+(pEcText <-  pEc + geom_text_repel(aes(label = Country), color = "gray20",
+                               data = subset(dat, Country %in% pointsToLabel),
+                               force = 20))
+```
+
+## Add notes to the bottom and save the plot
+
+Use "grid.text()" to add notes
+
+```{r}
+library(grid)
+png(file = "../../lectures/Lecture3_files/econScatter.png", width = 800, height = 600)
+pEcText
+grid.text("Source: Boston Consulting Group",
+         x = .02, y = .04, just = "left",
+         draw = TRUE, gp=gpar(fontsize=10, col="grey37"))
+grid.text("Data available for 123 countries \n Sustainable economic development assesment",
+         x = 0.98, y = .06, just = "right",
+          draw = TRUE, gp=gpar(fontsize=10, col="grey37"))
+dev.off()
+```
+![](./econScatter.png)
+
+
+Similar to the original:
+
+![](./economist.png)
