@@ -28,7 +28,7 @@ the class github repository.
 
 ```{r}
 url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
-              "master/data/EconomistData.csv")
+              "master/assets/data/EconomistData.csv")
 dat <- read.csv(url)
 head(dat)
 ```

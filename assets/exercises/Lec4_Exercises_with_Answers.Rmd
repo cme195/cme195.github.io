@@ -28,7 +28,7 @@ the class github repository.
 
 ```{r}
 url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
-              "master/data/EconomistData.csv")
+              "master/assets/data/EconomistData.csv")
 dat <- read.csv(url)
 head(dat)
 ```
@@ -146,7 +146,7 @@ pEc + facet_wrap(~ Region)
 8. Add point labels
 
 
-## Change order of the Regions
+### Change order of the Regions
 
 ```{r}
 dat$Region <- as.character(dat$Region)
@@ -169,20 +169,20 @@ pEc <- ggplot(dat, aes(Percent.of.15plus.with.bank.account, SEDA.Current.level))
 pEc + geom_point(aes(color = Region))
 ```
 
-# Add the linear trend
+### Add the linear trend
 
 ```{r}
 pEc <- pEc + geom_smooth(method = "lm", se = FALSE, col = "black", size = 0.5) 
 (pEc <- pEc + geom_point(aes(fill = Region), color = "white", shape = 21, size =4)) 
 ```
 
-## Change the axes ratio.
+### Change the axes ratio.
 
 ```{r}
 (pEc <- pEc + coord_fixed(ratio = 0.4))
 ```
 
-## Change the color scheme
+### Change the color scheme
 
 ```{r}
 colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D", 
@@ -192,7 +192,7 @@ colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D",
 ```
 
 
-## Add a title and format the axes
+### Add a title and format the axes
 
 ```{r}
 (pEc <- pEc +
@@ -205,7 +205,7 @@ colors <-  c("#28AADC","#F2583F", "#76C0C1","#24576D",
   ggtitle("Laughing all the way to the bank \n Well-being amd financial inclusion \n 2014-15"))
 ```
 
-## Change the background and theme
+### Change the background and theme
 
 You can check out the [`ggthemes`](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) 
 package which implement the themes that make your plots look like they came from:
@@ -226,7 +226,7 @@ library(ggthemes)
 (pEc <- pEc + theme_economist_white(gray_bg=FALSE))
 ```
 
-## Format the legend
+### Format the legend
 
 ```{r, fig.width=9, fig.height=5}
 (pEc <- pEc + coord_fixed(0.4) +
@@ -240,7 +240,7 @@ library(ggthemes)
   guides(fill = guide_legend(ncol = 4, byrow = FALSE)))
 ```
 
-## Add point labels
+### Add point labels
 
 ```{r}
 pointsToLabel <- c("Yemen", "Iraq", "Egypt", "Jordan", "Chad", "Congo", 
@@ -256,13 +256,13 @@ pointsToLabel <- c("Yemen", "Iraq", "Egypt", "Jordan", "Chad", "Congo",
                                force = 20))
 ```
 
-## Add notes to the bottom and save the plot
+### Add notes to the bottom and save the plot
 
 Use "grid.text()" to add notes
 
 ```{r}
 library(grid)
-png(file = "../../lectures/Lecture3_files/econScatter.png", width = 800, height = 600)
+png(file = "./econScatter.png", width = 800, height = 600)
 pEcText
 grid.text("Source: Boston Consulting Group",
          x = .02, y = .04, just = "left",
