@@ -14,7 +14,6 @@ output:
     text-align: left;
     reveal_options: 
       slideNumber: true 
-      previewLinks: true 
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}
