@@ -177,6 +177,8 @@ movies %>%
   arrange(desc(score))
 ```
 
+## Part 3: Merging
+
 Consider the two data-frames below:
 
 ```{r}
