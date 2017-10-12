@@ -1,0 +1,10 @@
+base
+ggplot2
+ggrepel
+gridExtra
+dplyr
+bindrcpp
+RColorBrewer
+viridisLite
+viridis
+wesanderson

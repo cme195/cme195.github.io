@@ -878,3 +878,9 @@ ggplot(diamonds, aes(x = carat)) +
   facet_grid(color ~ cut)
 ```
 
+
+## Exercise 4,5
+
+* Go to back "Lec4_Exercises.Rmd"
+
+* Complete Exercise 4,5

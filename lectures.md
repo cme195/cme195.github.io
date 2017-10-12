@@ -50,7 +50,7 @@ get it by installing my tutorials with `devtools::install_github("nlhuong/rexerc
 Then, run a tutorial with the following command:
 `learnr::run_tutorial("data_to_R", package = "rexercises")`
 * Lecture 4:
-    + [plotting](https://cme195.shinyapps.io/base_plotting/)
+    + [base plotting](https://cme195.shinyapps.io/base_plotting/)
 
 Tutorials might include bugs, or some unclear hints. Please, let me know
 if you encounter any mistakes in the tutorials so I can fix them.
