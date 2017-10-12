@@ -13,7 +13,7 @@ layout: cme195
 3. [Data pre-processing](./assets/lectures/Lecture3_Data_manipulation.html)
 [[pdf](./assets/lectures/Lecture 3_ Data Manipulation.pdf)].
 4. [2D plotting with ggplot2](./assets/lectures/Lecture4_2D_graphics.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 4_ Generating 2D graphics with R.pdf)]
 5. 3D and interactive plotting.
 6. Hypothesis testing, linear regression, lasso regression.
