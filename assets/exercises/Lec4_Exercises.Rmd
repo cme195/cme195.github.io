@@ -62,6 +62,9 @@ method, but make it less smooth. Hint: see `?loess`.
 colored by region, generated in Exercise I.3 modify the color scale to 
 use specific values of your choosing. Hint: see `?scale_color_manual`.
 
+# Exercise 4
+
+1. Facet  by region (`~ Region`) the the Economist plot from Exercise 3.
 
 # Exercise 5
 
