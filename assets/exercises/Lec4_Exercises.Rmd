@@ -63,7 +63,9 @@ colored by region, generated in Exercise I.3 modify the color scale to
 use specific values of your choosing. Hint: see `?scale_color_manual`.
 
 
-# Exercise 5: Finish the Economist plot.
+# Exercise 5
+
+Finish the Economist plot:
 
 1. Change order of the Regions
 2. Add the linear trend

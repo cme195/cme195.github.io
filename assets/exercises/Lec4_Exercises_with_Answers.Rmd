@@ -133,7 +133,9 @@ pEc + facet_wrap(~ Region)
 
 
 
-# Exercise 5: Finish the Economist plot.
+# Exercise 5
+
+Finish the Economist plot:
 
 1. Change order of the Regions
 2. Add the linear trend
