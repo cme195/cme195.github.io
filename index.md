@@ -13,8 +13,7 @@ layout: cme195
 (v. 1.0.153). Instructions for this can be found [here](installation).
 
 * Note that the classroom location has changed to
-[300-300](https://campus-map.stanford.edu/?id=01-300&lat=37.42636354&lng=-122.16968483&zoom=17&srch=300-300)
-(building 300, room 300).
+[300-300](https://campus-map.stanford.edu/?id=01-300&lat=37.42636354&lng=-122.16968483&zoom=17&srch=300-300).
 
 ## [](#logistics) Logistics
 
