@@ -7,13 +7,11 @@ layout: cme195
 
 ## [](#announcements) Announcements
 
+* Please complete this [SURVEY](https://goo.gl/forms/MBhy2VFXrxuxWv5I3) help
+me reschedule the office hours and to give me feedback on this class even
+if you don't attend and just use the materials on this website! 
+
 * Homework 1 is out and due Oct 20th 23:59.
-
-* To get a head start, please install R (version >= 3.4.0) and RStudio IDE
-(v. 1.0.153). Instructions for this can be found [here](installation).
-
-* Note that the classroom location has changed to
-[300-300](https://campus-map.stanford.edu/?id=01-300&lat=37.42636354&lng=-122.16968483&zoom=17&srch=300-300).
 
 ## [](#logistics) Logistics
 

@@ -372,8 +372,14 @@ p1 + geom_point(aes(shape = cut, color = color))
 ## Variable vs fixed aesthetics
 
 ```{r}
+length(c(rep("blue",10), rep("green", nrow(dsmall) - 10)))
+nrow(dsmall)
+```
+
+
+```{r}
 ggplot(data = dsmall, aes(x = carat, y = price)) + 
-  geom_point(aes(size = 2), color = "darkgreen") 
+  geom_point(aes(size = 2), color = "green") 
 ```
 
 ## 
