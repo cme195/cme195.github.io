@@ -7,6 +7,8 @@ layout: cme195
 
 ## [](#announcements) Announcements
 
+* Homework 1 is out and due Oct 20th 23:59
+
 * To get a head start, please install R (version >= 3.4.0) and RStudio IDE
 (v. 1.0.153). Instructions for this can be found [here](installation).
 
