@@ -1,6 +1,6 @@
 ---
 title: 'Lecture 5: 3D and Interactive graphics'
-date: "October 17, 2016"
+date: "October 17, 2017"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -91,7 +91,7 @@ plot_ly(df, x = ~V, y = ~W, z = ~U, type = "scatter3d", mode = "markers",
 ##
 
 ```{r plotly-scatter3D-col, message=FALSE, warning=FALSE}
-df$cols <- rep_len(c("orange", "blue", "green"), length.out = length(z))
+df$cols <- rep_len(c("orange", "blue", "green"), length.out = length(theta))
 (plt <- plot_ly(df, x = ~V, y = ~W, z = ~U, color = ~cols,
         type = "scatter3d", mode = "markers+lines",
         marker = list(size = 5), line = list(width = 5)))
@@ -100,14 +100,13 @@ df$cols <- rep_len(c("orange", "blue", "green"), length.out = length(z))
 
 ## Adding layers
 
-```{r plotly-scatter3D-col}
-dbl.helix <- data.frame(t = rep(seq(0, 2*pi, length.out = 100), 2)) %>%
+```{r plotly-scatter3D-layer}
+dbl.helix <- data.frame(t = rep(seq(0, 2*pi, length.out = 100), 3)) %>%
   mutate(x1 = sin(t), y1 = cos(t), z = (1:length(t))/10,
          x2 = sin(t + pi/2), y2 = cos(t + pi/2))
 plot_ly(dbl.helix, x = ~x1, y = ~y1, z = ~z, type = "scatter3d", mode = "lines", 
-        color = "green", colors = c("green", "purple"), line = list(width = 5),
-        width = 500, height = 700) %>% 
-  add_trace(x = ~x2, y = ~y2, z = ~z+10, color = "purple") 
+        color = "green", colors = c("green", "purple"), line = list(width = 5)) %>% 
+  add_trace(x = ~x2, y = ~y2, z = ~z+0.2, color = "purple") 
 ```
 
 ## Volcano dataset
