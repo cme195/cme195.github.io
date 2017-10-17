@@ -21,7 +21,7 @@ if you don't attend and just use the materials on this website!**
 
 **Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
 
-**Office hours:** Thu 3:00 - 4:00 PM, [Huang 304](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang%20304)
+**Office hours:** Tue 6:00 - 7:00 PM, [Huang 304](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang%20304)
 
 **Communication:** Please direct your questions on class materials and
 assignments to: [canvas](https://canvas.stanford.edu).

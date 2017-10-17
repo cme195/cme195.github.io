@@ -2,7 +2,7 @@
 layout: cme195
 ---
 
-# [](#project) Final Project
+# [](#project) Final Project [Optional]
 
 Choose a project that interests and excites you. It is intended as a chance for
 you to get more practice with R and to explore its more advanced tools. You
@@ -24,7 +24,7 @@ of work (each).
 ## [](#deadlines)  Schedule for deliverables:
 
 * Proposal (title and one-paragraph abstract) due **10/24 by the end of class**.
-* Final write-up and R code due a week after the last class **11\/03 at noon**.
+* Final write-up and R code due a week after the last class **11/15 at noon**.
 
 Everything should be uploaded on
 [canvas](https://web.stanford.edu/group/canvas/discovery/) before the

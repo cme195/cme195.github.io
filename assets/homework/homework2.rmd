@@ -28,6 +28,8 @@ a. heatmap
 b. Hypothesis testing
 c. boxplot
 
+DNA microarray data ESL
+
 # Exercise 3: `ggmap`
 
 a. Plot housing market prices
@@ -35,12 +37,14 @@ b. Plot route to work
 
 # Exercise 4: linear model
 
+prostate cancer dataset ESL
 
 # Exercise 5: classification
-
+Email spam ESL
 
 # Exercise 6: clustering
 
+https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/ggmap/ggmapCheatsheet.pdf
 
 http://web.stanford.edu/~imalone/VAM/ggmap.html
 

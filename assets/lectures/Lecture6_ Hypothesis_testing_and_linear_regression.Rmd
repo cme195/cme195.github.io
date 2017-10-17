@@ -1,0 +1,601 @@
+---
+title: 'Lecture 6: Hypothesis testing and Linear Regression'
+date: "October 19, 2017"
+output: 
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: libs
+    theme: simple
+    hightlights: haddock
+    smart: true
+    center: true
+    transition: slide
+    css: cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+.packages <- c("ggplot2", "plotly", "plot3D")
+lapply(.packages, require, character.only = TRUE)
+```
+
+
+## Relevant Books
+
+
+For more background in statistics check out the following books:
+
+* ["An introduction to Statistical Learning"](http://www-bcf.usc.edu/~gareth/ISL/getbook.html) [ESL] by James, Witten, Hastie and Tibshirani 
+
+* ["Elements of statistical learning"](http://www.springer.com/gp/book/9780387848570) [ISL] by Hastie, Tibshirani and Friedman 
+
+* ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
+
+</br>
+
+<center><small>
+All presented material is under a 
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+</small></center>
+
+
+## When do you need a model? 
+
+When you want to:
+
+> - detect patterns in the data,
+> - predict outcomes for new observations,
+> - assess the significance of a factor on the outcome, 
+> - perform statistical tests
+
+
+# Hypothesis testing
+
+
+## Hypothesis testing
+
+> - Is a **significant difference** between two groups of observations? 
+> - e.g. in medical a study, did the treatment group have better 
+outcomes than a control group? 
+>- The **hypotheses** can be tested with statistical procedures.
+
+
+## Student's t-test
+
+
+> - William Gosset (1908), a chemist at **the Guiness brewery**.
+> - Published in Biometrika under a **pseudonym Student**.
+> - Used to **monitor the quality of stouts**.
+> - Now one of the standard/traditional methods to **test the equality 
+of the means of two populations**.
+
+## Dataset
+
+* A built-in dataset, `mtcars`,  that comes from a 1974 issue of Motor Trends 
+magazine. 
+
+```{r}
+data("mtcars")
+head(mtcars)
+```
+
+* rows correspond to car models,
+* column are car attributes: miles per gallon, number of cylinders, displacement, 
+transmission etc.
+
+## Testing equality of mpg 
+
+Is the fuel efficiency (mpg) the same for the cars 
+with automatic and manual transmission? 
+
+</br>
+**Test the null hypothesis:**
+
+\[H_0: \text{mean mpg of automatic cars = mean mpg of manual cars}\]
+
+## 
+Convert the column `am` (transmission) to a factor:  
+```{r}
+#  convert am (0 = automatic, 1 = manual) column to a factor
+mtcars$am <- factor(mtcars$am, levels = c(0, 1), 
+                    labels = c("automatic", "manual"))
+head(mtcars)
+```
+
+##
+First, visualize the data
+
+```{r fig.height=4, fig.width=4}
+library(ggplot2)
+ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
+  xlab("Trasmission") + ylab("Fuel efficiency") +
+  geom_jitter(width = 0.4)
+```
+
+## 
+
+The R implementation of the Student's t-test is `t.test()` function:
+
+```{r}
+(tt <- t.test(formula = mpg ~ am, data = mtcars))
+# or
+tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
+             y = mtcars$mpg[mtcars$am == "manual"])
+```
+
+* **A tilde symbol, `~`**, means "explained by". 
+* `t.test()` outputs group means, the t-statistic and the p-value.
+
+
+## p-value
+
+* p-value is the **probability of obtaining a result equal to or "more extreme" than what 
+was actually observed, when the null hypothesis is true**.
+* A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
+so you reject the null hypothesis.
+* A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
+so you do NOT to reject the null hypothesis.
+
+## Distribution of the statistic
+
+```{r fig.width=6, fig.height=5.5,echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("./Lecture6__Hypothesis_testing_and_linear_regression_files/P-value_in_statistical_significance_testing.svg.png")
+grid.raster(img)
+```
+
+
+##
+Here, the p-value is equal to 
+$\mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d\; | \; | H_0] = 
+\mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d \; | \; |\mu_{aut} - \mu_{man}| = 0]$ where $d$ is the difference
+observed in your samples.
+
+```{r}
+# Remember tt <- t.test(formula = mpg ~ am, data = mtcars)
+names(tt)
+```
+
+```{r}
+# The p-value:
+tt$p.value
+```
+
+```{r}
+# The 95% confidence interval for the difference between the two means:
+tt$conf.int
+```
+
+
+# Supervised Learning
+
+## Supervised Learning
+
+* **Supervised Learning** is a task of inferring the relationship between
+the input data and the response variable, $y = f(x)$. 
+
+* In supervised learning each observation consist of a pair $(x, y)$ 
+where $x$ is the input data, e.g. a collection of the attributes, 
+and $y$ the label or the output value.
+
+* Supervised learning problems can be divided into:
+
+    + **Regression**: $y$ is a *quantitative* variable (numerical/continuous/ordered)
+      e.g. mileage per gallon in the `mtcars` dataset
+    
+    + **Classification**: $y$ is a *qualitative* variable (categorical)   
+      e.g. transmission in the `mtcars` dataset
+
+
+# Linear Regression
+
+## Linear Regression
+
+> - **Linear regression** is a type of regression where the quantitative
+output variable is modeled as a **linear** function of the inputs. 
+
+> - **Simple linear regression** predicts the output $y$ from a single predictor 
+$x$. That is we assume the outcome $y$ follows the following linear model, where
+$\epsilon$ is a random noise term with zero mean.
+\[y = \beta_0 + \beta_1 x + \epsilon\]
+
+> - **Multiple linear regression** assumes $y$ relies on many covariates:
+\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
+\vec \beta \vec x + \epsilon\]
+
+## Objective function
+
+Linear regression seeks a solution $\hat y = \hat \beta \cdot \vec x$ 
+that minimizes the difference between the true outcome $y$ and the prediction $\hat y$,
+in terms of the residual sum of squares (RSS).
+
+$$arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} - \hat \beta x^{(i)}\right)^2$$
+
+
+## Simple Linear Regression
+
+* Predict the mileage per gallon using the weight of the car.
+
+* In R the linear models can be fit with a `lm` function.
+
+```{r}
+fit <- lm(mpg ~ wt, mtcars)
+```
+
+* Same formula  as for the `t.test` function. 
+
+## 
+
+We can check the details on the fitted model by calling:
+```{r}
+summary(fit)
+```
+
+##
+
+The coefficients ($\beta$) of the model can be extracted with:
+```{r}
+(co <-  coef(summary(fit)))
+```
+
+$\hat y$  = predicted `mpg` values for existing observations (cars) 
+```{r}
+predict(fit)[1:15]
+```
+
+##
+To predict the `mpg` for the **new observations**, cars with specific
+weights, e.g. `wt = 3.14` we can use the computed coefficients:
+
+```{r}
+co[, 1]
+# beta0 + beta1 * wt
+co[1, 1] + co[2, 1]* 3.14 #  37.285126 +  (-5.344472) * 3.14
+```
+
+Predictions for a number of new observations: 
+
+```{r}
+# create a data frame with new weights:
+newcars <- data.frame(wt = c(2, 2.1, 3.14, 4.1, 4.3))
+# Note the same prediction for `wt = 3.14` as computed previously.
+predict(fit, newcars)
+```
+
+
+##
+`ggplot2` can plot the data and the fitted model without having to compute 
+the `lm` model ahead. `geom_smoother` with the `method` argument set to `"lm"` 
+does the computations automatically.
+
+```{r}
+ggplot(mtcars, aes(wt, mpg)) + geom_point() + geom_smooth(method="lm")
+```
+
+
+## Multiple Linear Regression
+
+* Can be fitted using the same function `lm()`.
+* Predict `mpg` using weight, displacement and 
+the number of cylinders in the car.
+
+```{r fig.height=3.5 }
+ggplot(mtcars, aes(x=wt, y=mpg, col=cyl, size=disp)) + geom_point()
+```
+
+##
+
+```{r}
+mfit <- lm(mpg ~ wt + disp + cyl, data = mtcars)
+
+# Summarize the results 
+summary(mfit)
+```
+
+
+## No intercept model
+
+You can choose the fix the intercept at 0 with:
+```{r}
+mfit0 <- lm(mpg ~ 0 + wt + disp + cyl, data = mtcars)
+
+# Summarize the results 
+summary(mfit0)
+```
+
+
+##
+
+To **predict `mpg` for new cars**, you must first create a data frame 
+describing the attributes of the new cars:
+```{r}
+(newcars <- data.frame(wt = c(2, 2.1, 3.14, 4.1, 4.3),
+                      disp = c(100, 200, 500,300, 210),
+                      cyl = c(6,6,4,6,8)))
+```
+
+Then you can compute the predicted `mpg`
+
+```{r}
+predict(mfit, newcars)
+```
+
+
+## Interaction terms
+
+* **An interaction** occurs when an independent variable has a different
+effect on the outcome depending on the values of another independent 
+variable.
+
+* If you are not familiar with the concept of the interaction terms,
+read [this](http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/interaction.pdf).
+
+
+##
+
+Models with **interaction effects** can be specified with '*':
+```{r}
+mfit_iter <- lm(mpg ~ am * wt, mtcars)
+summary(mfit_iter)
+```
+
+## Interaction terms
+
+Note that '*' generates all the terms:
+```{r}
+names(coefficients(mfit_iter))
+```
+
+You can also specify explicitly which terms you want:
+```{r}
+mfit_iter2 <- lm(mpg ~ 1 + am + wt + am:wt, mtcars)
+summary(mfit_iter2)
+```
+
+
+
+# Lasso Regression
+
+## Choosing a model
+
+* Modern datasets often have "too" many variables, e.g. predict the risk 
+of a disease from the single nucleotide polymorphisms (SNPs) data.
+* **Issue:** $n \ll p$ i.e. no. of predictors is much larger than than the
+no. of observations. 
+* **Lasso regression** is especially useful for problems,
+where 
+
+> the number of available covariates is extremely large, but
+only a handful of them are relevant for the prediction of the outcome.
+
+
+## Lasso Regression
+
+* Lasso regression is simply regression with $L_1$ penalty. 
+* That is, it solves the problem:
+
+\[\hat \beta ^*  = arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} 
+- \hat \beta x^{(i)}\right)^2 + \lambda \|\hat \beta\|_1\]
+
+* It turns out that the $L_1$ norm $\|\vec x\|_1 = \sum_j |x_j|$ **promotes
+sparsity**.
+
+* The solution, $\hat \beta^*$, usually has only a small number of 
+non-zero coefficients. 
+
+* The number of non-zero coefficients depends on the choice of 
+the tuning parameter, $\lambda$. The higher the
+$\lambda$ the fewer non-zero coefficients.
+
+
+## `glmnet`
+
+* Lasso regression is implemented in an R package `glmnet`.
+* An introductory tutorial to the package can be found 
+[here](https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html).
+
+```{r}
+# install.packages("glmnet")
+library(glmnet)
+```
+
+
+##
+
+* We go back to `mtcars` datasets and use Lasso regression
+to predict the `mpg` using all variables.
+* Lasso will pick a subset of predictors (the ones with non-zero 
+coefficents) that best predict the `mpg`.
+
+```{r}
+head(mtcars)
+```
+
+## 
+```{r}
+y <- mtcars[, 1]  # mileage per gallon 
+x <- mtcars[, -1] # all other variables treated as predictors
+x <- data.matrix(x, "matrix") # converts to NUMERIC matrix
+# Choose a training set
+set.seed(123)
+trainIdx <- sample(1:nrow(mtcars), round(0.7 * nrow(mtcars)))
+fit <- glmnet(x[trainIdx, ], y[trainIdx])
+names(fit)
+```
+
+##
+
+```{r}
+print(fit)
+```
+
+
+##
+
+* `glmnet()` compute the Lasso regression for a sequence of 
+different tuning parameters, $\lambda$. 
+* Each row of `print(fit)` corresponds to a particular
+$\lambda$ in the sequence.
+* column `Df` denotes the number of non-zero coefficients
+(degrees of freedom), 
+* `%Dev` is the percentage variance explained, 
+* `Lambda` is the value of the currently chosen tuning parameter. 
+
+##
+
+```{r fig.height=3.5, fig.width=5}
+# label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.
+plot(fit, label = TRUE) 
+```
+
+* the y-axis corresponds the value of the coefficients.
+* the x-axis is denoted "$L_1$ norm" but is scaled to indicate
+the number of non-zero coefficients (the effective degrees 
+of freedom).
+
+##
+
+* Each curve corresponds to a single variable, and shows the value
+of the coefficient as the tuning parameter varies.
+* $\|\hat \beta\|_{L_1}$ increases and $\lambda$
+decreases from left to right.
+* When $\lambda$ is small (right) there are more non-zero coefficients.
+
+
+The computed Lasso coefficient for a particular choice of $\lambda$ can be
+printed using:
+
+```{r}
+# Lambda = 1
+coef(fit, s = 1)
+```
+
+##
+
+* Like for `lm()`, we can use a function `predict()` to 
+predict the `mpg` for the training or the test data. 
+* However, we need specify the value of $\lambda$ using
+the argument `s`.
+
+```{r}
+# Predict for the test set:
+predict(fit, newx = x[-trainIdx, ], s = c(0.5, 1.5, 2))
+```
+
+Each of the columns corresponds to a choice of $\lambda$.
+
+## Choosing $\lambda$
+
+* To choose $\lambda$ can use [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)).
+* Use `cv.glmnet()` function to perform a k-fold cross validation.
+
+> In k-fold cross-validation, the original sample is randomly partitioned into 
+k equal sized subsamples. Of the k subsamples, a single subsample is retained 
+as the validation data for testing the model, and the remaining k − 1 
+subsamples are used as training data. ^[https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation]
+
+
+##
+
+```{r fig.width=5, fig.height=3.5}
+set.seed(1)
+# `nfolds` argument sets the number of folds (k).
+cvfit <- cv.glmnet(x[trainIdx, ], y[trainIdx], nfolds = 5)
+plot(cvfit)
+```
+
+* The <span style="color:red">red dots</span> are the average MSE over the k-folds.
+* The two chosen $\lambda$ values are the one with $MSE_{min}$ and 
+one with $MSE_{min} + sd_{min}$
+
+## 
+
+$\lambda$ with minimum MSE:
+```{r}
+cvfit$lambda.min
+```
+
+
+The biggest $\lambda$ such that the MSE is within one standard error 
+of the minimum MSE.
+```{r}
+cvfit$lambda.1se
+```
+
+
+
+# Exercise I
+
+## Exercise I
+
+In this exercise you will perform Lasso regression yourself.
+We will use the `Boston` dataset from the `MASS` package.
+The dataset contains information on the Boston suburbs 
+housing market collected by David Harrison in 1978.
+
+We will try to predict the median value of of homes in the region based on 
+its attributes recorded in other variables.
+
+First install the package:
+```{r}
+# install.packages("MASS")
+library(MASS)
+```
+
+##
+```{r}
+head(Boston, 3)
+str(Boston)
+```
+
+##
+
+Split the data to training and testing subsets.
+```{r}
+set.seed(123)
+trainIdx <- sample(1:nrow(Boston), round(0.7 * nrow(Boston)))
+boston.test <- Boston[-trainIdx,"medv"]
+```
+
+
+Perform a Lasso regression with `glmnet`. Steps:
+  
+1. Extract the input and output data from the `Boston` `data.frame` and convert
+them if necessary to a correct format.
+2. Use cross-validation to select the value for $\lambda$.
+3. Inspect comuted coefficients for `lambda.min`.
+4. Compute the predictions for the test dataset the two choices of the tuning
+parameter, `lambda.min` and `lambda.1se`. 
+Evaluate the MSE for each.
+
+
+
+```{r}
+# (... ?)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

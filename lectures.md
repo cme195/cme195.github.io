@@ -16,7 +16,7 @@ layout: cme195
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 4_ Generating 2D graphics with R.pdf)]
 5. [3D and interactive plotting](./assets/lectures/Lecture5_Interactive_graphics.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd))]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 5_ 3D and Interactive graphics.pdf)].
 6. Hypothesis testing, linear regression, lasso regression.
 7. Classification
