@@ -310,12 +310,11 @@ ggmap(europe_map)
 
 ## Adding data
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 Lisbon <- geocode("Lisbon")
 Warsaw <- geocode("Warsaw")
 road <- data.frame(latitude = seq(Lisbon$lat, Warsaw$lat, length.out =30),
                    longitude = seq(Lisbon$lon, Warsaw$lon, length.out = 30))
-
 ggmap(europe_map)+
  geom_point(data = road, aes(x = longitude, y = latitude), 
             alpha = .5, color="darkred")
