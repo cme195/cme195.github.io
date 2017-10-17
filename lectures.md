@@ -15,7 +15,9 @@ layout: cme195
 4. [2D plotting with ggplot2](./assets/lectures/Lecture4_2D_graphics.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 4_ Generating 2D graphics with R.pdf)]
-5. 3D and interactive plotting.
+5. [3D and interactive plotting](./assets/lectures/Lecture5_Interactive_graphics.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd))]
+[[pdf](./assets/lectures/Lecture 5_ 3D and Interactive graphics.pdf)].
 6. Hypothesis testing, linear regression, lasso regression.
 7. Classification
 8. Unsupervised Learning
@@ -35,6 +37,9 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises_with_Answers.Rmd)].
 * [Exercises for lecture 4](./assets/exercises/Lec4_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)].
+Answers.
+* [Exercises for lecture 5](./assets/exercises/Lec5_Exercises.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)].
 Answers.
 
 ## [](#tut) Extra Tutorials

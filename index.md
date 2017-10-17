@@ -7,9 +7,9 @@ layout: cme195
 
 ## [](#announcements) Announcements
 
-* Please complete this [SURVEY](https://goo.gl/forms/MBhy2VFXrxuxWv5I3) help
+* **Please complete this [SURVEY](https://goo.gl/forms/MBhy2VFXrxuxWv5I3) help
 me reschedule the office hours and to give me feedback on this class even
-if you don't attend and just use the materials on this website! 
+if you don't attend and just use the materials on this website!**
 
 * Homework 1 is out and due Oct 20th 23:59.
 
