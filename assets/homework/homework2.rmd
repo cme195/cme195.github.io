@@ -1,0 +1,57 @@
+---
+title: "Homework 1"
+author: "Lan Huong Nguyen"
+date: "October 11, 2017"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+  pdf_document:
+    number_sections: no
+---
+
+```{r setup, include=FALSE}
+rm(list = ls())
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Exercise 1: ggplot
+
+a. Process data
+b. ggplot2 line /scatter plot 
+c. Settings
+
+# Exercise 2: Gene expression data
+
+a. heatmap
+b. Hypothesis testing
+c. boxplot
+
+# Exercise 3: `ggmap`
+
+a. Plot housing market prices
+b. Plot route to work
+
+# Exercise 4: linear model
+
+
+# Exercise 5: classification
+
+
+# Exercise 6: clustering
+
+
+http://web.stanford.edu/~imalone/VAM/ggmap.html
+
+http://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html
+
+http://urbanspatialanalysis.com/dataviz-tutorial-mapping-san-francisco-home-prices-using-r/
+
+https://takeout.google.com/settings/takeout
+
+
+https://medium.com/@tejasrr19/visualize-your-google-location-history-a2343b14a6fe
+https://shiring.github.io/maps/2016/12/30/Standortverlauf_post
+
+https://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/heatmap/

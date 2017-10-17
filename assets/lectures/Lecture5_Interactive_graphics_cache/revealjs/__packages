@@ -1,0 +1,11 @@
+base
+ggplot2
+plotly
+plot3D
+bindrcpp
+RColorBrewer
+viridisLite
+viridis
+heatmaply
+ggmap
+dplyr

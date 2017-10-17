@@ -155,7 +155,7 @@
 .reveal ul {
   list-style-type: disc; 
   text-align: left;
-  max-width: 90%;
+  max-width: 95%;
   margin: auto;
 }
 
@@ -207,7 +207,6 @@
   position: relative;
   width: 90%;
   margin: 20px auto;
-  text-align: left;
   font-size: 0.6em;
   font-family: monospace;
   line-height: 1.2em;
