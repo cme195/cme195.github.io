@@ -38,6 +38,7 @@ b. Plot route to work
 # Exercise 4: linear model
 
 prostate cancer dataset ESL
+educatiob vs income ISL
 
 # Exercise 5: classification
 Email spam ESL

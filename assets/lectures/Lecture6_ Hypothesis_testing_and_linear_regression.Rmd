@@ -35,43 +35,64 @@ For more background in statistics check out the following books:
 
 * ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
 
-</br>
-
-<center><small>
-All presented material is under a 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
-</small></center>
-
-
-## When do you need a model? 
-
-When you want to:
-
-> - detect patterns in the data,
-> - predict outcomes for new observations,
-> - assess the significance of a factor on the outcome, 
-> - perform statistical tests
-
 
 # Hypothesis testing
 
 
 ## Hypothesis testing
 
-> - Is a **significant difference** between two groups of observations? 
-> - e.g. in medical a study, did the treatment group have better 
-outcomes than a control group? 
->- The **hypotheses** can be tested with statistical procedures.
+Examples of questions that could be answered using a hypothesis test:
+* **Is the measured quantity equal to/higher/lower than a give threshold?**
+e.g. is the number of faulty items in the received order statistically higher
+than the one guaranteed by the manufacturer? 
+* **Is there a  difference between two groups or observations**? 
+e.g. Do treated patient have higher survival rate than the untreated ones?
+* **Is the level of one quantity related to the value of the other quantity?**
+e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?
+
+
+Everyday life 
+[(top answer from Quora])(https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
+
+>- Test weather route A or route B is the faster way to get from your home to your school.
+>- Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
+>- If you are 21 or older, test whether Tequila or beer gives you worse hangover.
+>  Test if you run faster in the morning compared to the afternoon.
+>- Test if you weight is lower in the morning compared to the afternoon.
+
+ no effective difference between the observed sample mean and the hypothesized or stated population mean—i.e., that any measured difference is due only to chance.
+ 
+## Hypothesis testing
+
+To perform a hypothesis test you need to:
+
+1. Define the null and alternative hypotheses.
+2. Choose level of significance $\alpha$.
+3. Pick and compute test statistics.
+4. Compute the p-value.
+5. Check whether to reject the null hypothesis by comparing p-value to $\alpha$.
+6. Draw conclusion from the test.
+
+## Null and alternative hypotheses
+
+**The null hypothesis (H0)**: A statement assumed to be true unless it can be 
+shown to be incorrect beyond a reasonable doubt. This is something one usually 
+attempts to disprove or discredit. 
+
+**The alternate hypothesis (H1)**: A claim that is contradictory to 
+H0 and what we conclude when we reject H0.
+
+H0 and H1 are on purporse set up to be contradictory, so that one **can collect
+and examine data to decide if there is enough evidence to reject the null 
+hypothesis or not**. 
 
 
 ## Student's t-test
 
-
 > - William Gosset (1908), a chemist at **the Guiness brewery**.
 > - Published in Biometrika under a **pseudonym Student**.
-> - Used to **monitor the quality of stouts**.
-> - Now one of the standard/traditional methods to **test the equality 
-of the means of two populations**.
+> - Used to select best yielding varieties of barley.
+> - Now one of the standard/traditional methods for hypothesis testing.
 
 ## Dataset
 
@@ -84,8 +105,8 @@ head(mtcars)
 ```
 
 * rows correspond to car models,
-* column are car attributes: miles per gallon, number of cylinders, displacement, 
-transmission etc.
+* column are car attributes: miles per gallon, number of 
+cylinders, displacement, transmission etc.
 
 ## Testing equality of mpg 
 

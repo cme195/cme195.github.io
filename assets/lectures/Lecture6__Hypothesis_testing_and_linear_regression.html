@@ -499,28 +499,36 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><p><a href="http://www.springer.com/gp/book/9780387848570">“Elements of statistical learning”</a> [ISL] by Hastie, Tibshirani and Friedman</p></li>
 <li><p><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html">“Introduction to Linear Regression Analysis”</a> by Montgomery, Peck, Vinning</p></li>
 </ul>
-<p></br></p>
-<center>
-<small> All presented material is under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. </small>
-</center>
-</section>
-<section id="when-do-you-need-a-model" class="slide level2">
-<h1>When do you need a model?</h1>
-<p>When you want to:</p>
-<ul>
-<li class="fragment">detect patterns in the data,</li>
-<li class="fragment">predict outcomes for new observations,</li>
-<li class="fragment">assess the significance of a factor on the outcome,</li>
-<li class="fragment">perform statistical tests</li>
-</ul>
 </section>
 <section><section id="hypothesis-testing" class="titleslide slide level1"><h1>Hypothesis testing</h1></section><section id="hypothesis-testing-1" class="slide level2">
 <h1>Hypothesis testing</h1>
+<p>Examples of questions that could be answered using a hypothesis test: * <strong>Is the measured quantity equal to/higher/lower than a give threshold?</strong> e.g. is the number of faulty items in the received order statistically higher than the one guaranteed by the manufacturer? * <strong>Is there a difference between two groups or observations</strong>? e.g. Do treated patient have higher survival rate than the untreated ones? * <strong>Is the level of one quantity related to the value of the other quantity?</strong> e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?</p>
+<p>Everyday life [(top answer from Quora])(<a href="https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life" class="uri">https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life</a>):</p>
 <ul>
-<li class="fragment">Is a <strong>significant difference</strong> between two groups of observations?</li>
-<li class="fragment">e.g. in medical a study, did the treatment group have better outcomes than a control group?</li>
-<li class="fragment">The <strong>hypotheses</strong> can be tested with statistical procedures.</li>
+<li class="fragment">Test weather route A or route B is the faster way to get from your home to your school.</li>
+<li class="fragment">Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.</li>
+<li class="fragment">If you are 21 or older, test whether Tequila or beer gives you worse hangover. Test if you run faster in the morning compared to the afternoon.</li>
+<li class="fragment">Test if you weight is lower in the morning compared to the afternoon.</li>
 </ul>
+</section><section id="hypothesis-testing-2" class="slide level2">
+<h1>Hypothesis testing</h1>
+<p>To perform a hypothesis test you need to:</p>
+<ol type="1">
+<li>Define the null and alternative hypotheses.</li>
+<li>Choose level of significance <span class="math inline">\(\alpha\)</span>.</li>
+<li>Pick and compute test statistics.</li>
+<li>Compute the p-value.</li>
+<li>Check whether to reject the null hypothesis by comparing p-value to <span class="math inline">\(\alpha\)</span>.</li>
+<li>Draw conclusion from the test.</li>
+</ol>
+</section><section id="null-hypothesis" class="slide level2">
+<h1>Null hypothesis</h1>
+<p>The null hypothesis: It is a statement about the population that will be assumed to be true unless it can be shown to be incorrect beyond a reasonable doubt. The alternate hypothesis: It is a claim about the population that is contradictory to H0 and what we conclude when we reject H0</p>
+<p>Since the null and alternate hypotheses are contradictory, we must examine evidence to decide if there is enough evidence to reject the null hypothesis or not. The evidence is in the form of sample data.</p>
+<p>A null hypothesis (H0) exists when a researcher believes there is no relationship between the two variables, or there is a lack of information to state a scientific hypothesis. This is something to attempt to disprove or discredit.</p>
+<p>There is no significant change in my health during the times when I drink green tea only or root beer only.</p>
+<p>This is where the alternative hypothesis (H1) enters the scene. In an attempt to disprove a null hypothesis, researchers will seek to discover an alternative hypothesis.</p>
+<p>My health improves during the times when I drink green tea only, as opposed to root beer only.</p>
 </section><section id="students-t-test" class="slide level2">
 <h1>Student’s t-test</h1>
 <ul>
