@@ -491,51 +491,83 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h3 class="date">October 19, 2017</h3>
 </section>
 
-<section id="relevant-books" class="slide level2">
-<h1>Relevant Books</h1>
-<p>For more background in statistics check out the following books:</p>
+<section id="contents" class="slide level2">
+<h1>Contents</h1>
 <ul>
-<li><p><a href="http://www-bcf.usc.edu/~gareth/ISL/getbook.html">“An introduction to Statistical Learning”</a> [ESL] by James, Witten, Hastie and Tibshirani</p></li>
+<li>Hypothesis testing</li>
+<li>Linear Regression</li>
+<li>Extra: Lasso Regression</li>
+</ul>
+</section>
+<section id="useful-books" class="slide level2">
+<h1>Useful Books</h1>
+<ul>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL/getbook.html">“An introduction to Statistical Learning”</a> [ESL] by James, Witten, Hastie and Tibshirani</li>
 <li><p><a href="http://www.springer.com/gp/book/9780387848570">“Elements of statistical learning”</a> [ISL] by Hastie, Tibshirani and Friedman</p></li>
 <li><p><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html">“Introduction to Linear Regression Analysis”</a> by Montgomery, Peck, Vinning</p></li>
 </ul>
 </section>
-<section><section id="hypothesis-testing" class="titleslide slide level1"><h1>Hypothesis testing</h1></section><section id="hypothesis-testing-1" class="slide level2">
-<h1>Hypothesis testing</h1>
-<p>Examples of questions that could be answered using a hypothesis test: * <strong>Is the measured quantity equal to/higher/lower than a give threshold?</strong> e.g. is the number of faulty items in the received order statistically higher than the one guaranteed by the manufacturer? * <strong>Is there a difference between two groups or observations</strong>? e.g. Do treated patient have higher survival rate than the untreated ones? * <strong>Is the level of one quantity related to the value of the other quantity?</strong> e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?</p>
-<p>Everyday life [(top answer from Quora])(<a href="https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life" class="uri">https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life</a>):</p>
+<section><section id="hypothesis-testing" class="titleslide slide level1"><h1>Hypothesis testing</h1></section><section id="hypothesis-testing-can-answer-questions" class="slide level2">
+<h1>Hypothesis testing can answer questions:</h1>
 <ul>
-<li class="fragment">Test weather route A or route B is the faster way to get from your home to your school.</li>
-<li class="fragment">Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.</li>
-<li class="fragment">If you are 21 or older, test whether Tequila or beer gives you worse hangover. Test if you run faster in the morning compared to the afternoon.</li>
-<li class="fragment">Test if you weight is lower in the morning compared to the afternoon.</li>
+<li class="fragment"><strong>Is the measured quantity equal to/higher/lower than a given threshold?</strong> e.g. is the number of faulty items in an order statistically higher than the one guaranteed by a manufacturer?</li>
+<li class="fragment"><strong>Is there a difference between two groups or observations</strong>? e.g. Do treated patient have a higher survival rate than the untreated ones?</li>
+<li class="fragment"><strong>Is the level of one quantity related to the value of the other quantity?</strong> e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?</li>
 </ul>
-</section><section id="hypothesis-testing-2" class="slide level2">
-<h1>Hypothesis testing</h1>
-<p>To perform a hypothesis test you need to:</p>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<p>Everyday life examples <a href="https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life">(top answer from Quora)</a>:</p>
+<ul>
+<li>Test weather route A or route B is the faster way to get from your home to your school.</li>
+<li>Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.</li>
+<li>If you are 21 or older, test whether Tequila or beer gives you worse hangover.</li>
+<li>Test if you run faster in the morning compared to the afternoon.</li>
+<li>Test if you weight is lower in the morning compared to the afternoon.</li>
+</ul>
+</section><section id="to-perform-a-hypothesis-test-you-need-to" class="slide level2">
+<h1>To perform a hypothesis test you need to:</h1>
 <ol type="1">
-<li>Define the null and alternative hypotheses.</li>
-<li>Choose level of significance <span class="math inline">\(\alpha\)</span>.</li>
-<li>Pick and compute test statistics.</li>
-<li>Compute the p-value.</li>
-<li>Check whether to reject the null hypothesis by comparing p-value to <span class="math inline">\(\alpha\)</span>.</li>
-<li>Draw conclusion from the test.</li>
+<li class="fragment">Define the null and alternative hypotheses.</li>
+<li class="fragment">Choose level of significance <span class="math inline">\(\alpha\)</span>.</li>
+<li class="fragment">Pick and compute test statistics.</li>
+<li class="fragment">Compute the p-value.</li>
+<li class="fragment">Check whether to reject the null hypothesis by comparing p-value to <span class="math inline">\(\alpha\)</span>.</li>
+<li class="fragment">Draw conclusion from the test.</li>
 </ol>
-</section><section id="null-hypothesis" class="slide level2">
-<h1>Null hypothesis</h1>
-<p>The null hypothesis: It is a statement about the population that will be assumed to be true unless it can be shown to be incorrect beyond a reasonable doubt. The alternate hypothesis: It is a claim about the population that is contradictory to H0 and what we conclude when we reject H0</p>
-<p>Since the null and alternate hypotheses are contradictory, we must examine evidence to decide if there is enough evidence to reject the null hypothesis or not. The evidence is in the form of sample data.</p>
-<p>A null hypothesis (H0) exists when a researcher believes there is no relationship between the two variables, or there is a lack of information to state a scientific hypothesis. This is something to attempt to disprove or discredit.</p>
-<p>There is no significant change in my health during the times when I drink green tea only or root beer only.</p>
-<p>This is where the alternative hypothesis (H1) enters the scene. In an attempt to disprove a null hypothesis, researchers will seek to discover an alternative hypothesis.</p>
-<p>My health improves during the times when I drink green tea only, as opposed to root beer only.</p>
+</section><section id="null-and-alternative-hypotheses" class="slide level2">
+<h1>Null and alternative hypotheses</h1>
+<p><strong>The null hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: A statement assumed to be true unless it can be shown to be incorrect beyond a reasonable doubt. This is something one usually attempts to disprove or discredit.</p>
+<p><strong>The alternate hypothesis (<span class="math inline">\(H_1\)</span>)</strong>: A claim that is contradictory to H0 and what we conclude when we reject H0.</p>
+<p>H0 and H1 are on purporse set up to be contradictory, so that one <strong>can collect and examine data to decide if there is enough evidence to reject the null hypothesis or not</strong>.</p>
+</section><section id="section-1" class="slide level2">
+<h1></h1>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/failed_reject.jpg" /></p>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/penguin.jpg" /></p>
 </section><section id="students-t-test" class="slide level2">
 <h1>Student’s t-test</h1>
 <ul>
 <li class="fragment">William Gosset (1908), a chemist at <strong>the Guiness brewery</strong>.</li>
 <li class="fragment">Published in Biometrika under a <strong>pseudonym Student</strong>.</li>
-<li class="fragment">Used to <strong>monitor the quality of stouts</strong>.</li>
-<li class="fragment">Now one of the standard/traditional methods to <strong>test the equality of the means of two populations</strong>.</li>
+<li class="fragment">Used to select best yielding varieties of barley.</li>
+<li class="fragment">Now one of the standard/traditional methods for hypothesis testing.</li>
+</ul>
+</section><section id="distribution-of-the-statistic" class="slide level2">
+<h1>Distribution of the statistic</h1>
+<p>p-value is the probability of an observed (or more extreme) result assuming that the null hypothesis is true, i.e. <span class="math inline">\(P[observations | H_0]\)</span>. Note that:</p>
+<p><span class="math display">\[P[observations \; | \; hypothesis] \ne P[hypothesis \; | \; ovservations]\]</span></p>
+<p></br></p>
+<div class="left">
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/tdist.gif" /></p>
+</div>
+<div class="right">
+<p><strong>This is the reason why p-values should NOT be used a “ranking”/“scoring” system for your hypotheses</strong>. You should only use it to potentially reject your null hypothesis. Null hypothesis cannot be proven true, <strong>you can only fail to reject it</strong>.</p>
+</div>
+</section><section id="p-value" class="slide level2">
+<h1>p-value</h1>
+<ul>
+<li class="fragment">p-value is the <strong>probability of obtaining a result equal to or “more extreme” than what was actually observed, when the null hypothesis is true</strong>.</li>
+<li class="fragment">A small p-value (typically <span class="math inline">\(\le 0.05\)</span>) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.</li>
+<li class="fragment">A large p-value (&gt; 0.05) indicates weak evidence against the null hypothesis, so you do NOT to reject the null hypothesis.</li>
 </ul>
 </section><section id="dataset" class="slide level2">
 <h1>Dataset</h1>
@@ -555,44 +587,112 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>rows correspond to car models,</li>
 <li>column are car attributes: miles per gallon, number of cylinders, displacement, transmission etc.</li>
 </ul>
-</section><section id="testing-equality-of-mpg" class="slide level2">
-<h1>Testing equality of mpg</h1>
+</section><section id="testing-mpg-equal-to-a-value" class="slide level2">
+<h1>Testing mpg equal to a value</h1>
+<div class="left">
+<p>Is the mean fuel efficiency (mpg) in the cars in <code>mtcars</code> statistically equal to 25?</p>
+<p></br> <strong>Test the null hypothesis:</strong></p>
+<p><span class="math display">\[H_0: \mu = 25 \\
+H_a: \mu \ne 25\]</span> where <span class="math inline">\(\mu\)</span> is the mean mpg of cars in the dataset</p>
+</div>
+<div class="right">
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/both-sided.png" /></p>
+</div>
+</section><section id="section-2" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars$mpg</code></pre></div>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+## [29] 15.8 19.7 15.0 21.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">x =</span> mtcars$mpg, <span class="dt">mu =</span> <span class="dv">25</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)
+tt</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  mtcars$mpg
+## t = -4.6079, df = 31, p-value = 6.587e-05
+## alternative hypothesis: true mean is not equal to 25
+## 95 percent confidence interval:
+##  17.91768 22.26357
+## sample estimates:
+## mean of x 
+##  20.09062</code></pre>
+</section><section id="section-3" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(tt)</code></pre></div>
+<pre><code>## [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
+## [6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The p-value:</span>
+tt$p.value</code></pre></div>
+<pre><code>## [1] 6.586738e-05</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 95% confidence interval for the mean:</span>
+tt$conf.int</code></pre></div>
+<pre><code>## [1] 17.91768 22.26357
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+</section><section id="testing-mpg-smaller-than-a-value" class="slide level2">
+<h1>Testing mpg smaller than a value</h1>
+<div class="left">
+<p>Is the mean fuel efficiency (mpg) in the cars in <code>mtcars</code> statistically less than 25?</p>
+<p></br> <strong>Test the null hypothesis:</strong></p>
+<p><span class="math display">\[H_0: \mu = 25 \\
+H_a: \mu &lt; 25\]</span> where <span class="math inline">\(\mu\)</span> is the mean mpg of cars in the dataset</p>
+</div>
+<div class="right">
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/left-sided.png" /></p>
+</div>
+</section><section id="section-4" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">x =</span> mtcars$mpg, <span class="dt">mu =</span> <span class="dv">25</span>, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)
+tt</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  mtcars$mpg
+## t = -4.6079, df = 31, p-value = 3.293e-05
+## alternative hypothesis: true mean is less than 25
+## 95 percent confidence interval:
+##      -Inf 21.89707
+## sample estimates:
+## mean of x 
+##  20.09062</code></pre>
+</section><section id="testing-difference-between-groups" class="slide level2">
+<h1>Testing difference between groups</h1>
 <p>Is the fuel efficiency (mpg) the same for the cars with automatic and manual transmission?</p>
 <p></br> <strong>Test the null hypothesis:</strong></p>
-<p><span class="math display">\[H_0: \text{mean mpg of automatic cars = mean mpg of manual cars}\]</span></p>
-</section><section id="section" class="slide level2">
+<p><span class="math display">\[H_0: \mu_a = \mu_m\\
+H_a: \mu_a \ne \mu_m\]</span></p>
+<p>where <span class="math inline">\(\mu_a\)</span> mean mpg of automatic cars and <span class="math inline">\(\mu_m\)</span> is the mean mpg of manual cars.</p>
+</section><section id="section-5" class="slide level2">
 <h1></h1>
 <p>Convert the column <code>am</code> (transmission) to a factor:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  convert am (0 = automatic, 1 = manual) column to a factor</span>
-mtcars$am &lt;-<span class="st"> </span><span class="kw">factor</span>(mtcars$am, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), 
-                    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))
+mtcars &lt;-<span class="st"> </span>mtcars %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">am =</span> <span class="kw">factor</span>(am, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), 
+                               <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>)))
 <span class="kw">head</span>(mtcars)</code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs        am gear
-## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0    manual    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0    manual    4
-## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1    manual    4
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1 automatic    3
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0 automatic    3
-## Valiant           18.1   6  225 105 2.76 3.460 20.22  1 automatic    3
-##                   carb
-## Mazda RX4            4
-## Mazda RX4 Wag        4
-## Datsun 710           1
-## Hornet 4 Drive       1
-## Hornet Sportabout    2
-## Valiant              1</code></pre>
-</section><section id="section-1" class="slide level2">
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs        am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0    manual    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0    manual    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1    manual    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1 automatic    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0 automatic    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1 automatic    3    1</code></pre>
+</section><section id="section-6" class="slide level2">
 <h1></h1>
 <p>First, visualize the data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> am, <span class="dt">y =</span> mpg)) +<span class="st"> </span><span class="kw">geom_boxplot</span>() +
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Trasmission&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Fuel efficiency&quot;</span>) +
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.4</span>)</code></pre></div>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-3-1.png" width="384" /></p>
-</section><section id="section-2" class="slide level2">
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.2</span>, <span class="dt">height =</span> <span class="dv">0</span>)</code></pre></div>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" /></p>
+</section><section id="section-7" class="slide level2">
 <h1></h1>
 <p>The R implementation of the Student’s t-test is <code>t.test()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">formula =</span> mpg ~<span class="st"> </span>am, <span class="dt">data =</span> mtcars))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">x =</span> mtcars$mpg[mtcars$am ==<span class="st"> &quot;automatic&quot;</span>], 
+             <span class="dt">y =</span> mtcars$mpg[mtcars$am ==<span class="st"> &quot;manual&quot;</span>])
+<span class="co"># or</span>
+(tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">formula =</span> mpg ~<span class="st"> </span>am, <span class="dt">data =</span> mtcars))</code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -604,79 +704,52 @@ mtcars$am &lt;-<span class="st"> </span><span class="kw">factor</span>(mtcars$am
 ## sample estimates:
 ## mean in group automatic    mean in group manual 
 ##                17.14737                24.39231</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
-tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(<span class="dt">x =</span> mtcars$mpg[mtcars$am ==<span class="st"> &quot;automatic&quot;</span>], 
-             <span class="dt">y =</span> mtcars$mpg[mtcars$am ==<span class="st"> &quot;manual&quot;</span>])</code></pre></div>
 <ul>
 <li><strong>A tilde symbol, <code>~</code></strong>, means “explained by”.</li>
-<li><code>t.test()</code> outputs group means, the t-statistic and the p-value.</li>
-</ul>
-</section><section id="p-value" class="slide level2">
-<h1>p-value</h1>
-<ul>
-<li>p-value is the <strong>probability of obtaining a result equal to or “more extreme” than what was actually observed, when the null hypothesis is true</strong>.</li>
-<li>A small p-value (typically <span class="math inline">\(\le 0.05\)</span>) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.</li>
-<li>A large p-value (&gt; 0.05) indicates weak evidence against the null hypothesis, so you do NOT to reject the null hypothesis.</li>
-</ul>
-</section><section id="distribution-of-the-statistic" class="slide level2">
-<h1>Distribution of the statistic</h1>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" /></p>
-</section><section id="section-3" class="slide level2">
-<h1></h1>
-<p>Here, the p-value is equal to <span class="math inline">\(\mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d\; | \; | H_0] = \mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d \; | \; |\mu_{aut} - \mu_{man}| = 0]\)</span> where <span class="math inline">\(d\)</span> is the difference observed in your samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Remember tt &lt;- t.test(formula = mpg ~ am, data = mtcars)</span>
-<span class="kw">names</span>(tt)</code></pre></div>
-<pre><code>## [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
-## [6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The p-value:</span>
-tt$p.value</code></pre></div>
-<pre><code>## [1] 0.001373638</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The 95% confidence interval for the difference between the two means:</span>
-tt$conf.int</code></pre></div>
-<pre><code>## [1] -11.280194  -3.209684
-## attr(,&quot;conf.level&quot;)
-## [1] 0.95</code></pre>
-</section></section>
-<section><section id="supervised-learning" class="titleslide slide level1"><h1>Supervised Learning</h1></section><section id="supervised-learning-1" class="slide level2">
-<h1>Supervised Learning</h1>
-<ul>
-<li><p><strong>Supervised Learning</strong> is a task of inferring the relationship between the input data and the response variable, <span class="math inline">\(y = f(x)\)</span>.</p></li>
-<li><p>In supervised learning each observation consist of a pair <span class="math inline">\((x, y)\)</span> where <span class="math inline">\(x\)</span> is the input data, e.g. a collection of the attributes, and <span class="math inline">\(y\)</span> the label or the output value.</p></li>
-<li><p>Supervised learning problems can be divided into:</p>
-<ul>
-<li><p><strong>Regression</strong>: <span class="math inline">\(y\)</span> is a <em>quantitative</em> variable (numerical/continuous/ordered) e.g. mileage per gallon in the <code>mtcars</code> dataset</p></li>
-<li><p><strong>Classification</strong>: <span class="math inline">\(y\)</span> is a <em>qualitative</em> variable (categorical)<br />
-e.g. transmission in the <code>mtcars</code> dataset</p></li>
-</ul></li>
 </ul>
 </section></section>
 <section><section id="linear-regression" class="titleslide slide level1"><h1>Linear Regression</h1></section><section id="linear-regression-1" class="slide level2">
 <h1>Linear Regression</h1>
+<p></br></p>
 <ul>
-<li class="fragment"><strong>Linear regression</strong> is a type of regression where the quantitative output variable is modeled as a <strong>linear</strong> function of the inputs.</li>
+<li class="fragment">Regression is a supervised learning method, whose goal is inferring the relationship between input data, <span class="math inline">\(x\)</span>, and a <strong>continuous</strong> response variable, <span class="math inline">\(y\)</span>.</li>
 </ul>
 <ul>
-<li class="fragment"><strong>Simple linear regression</strong> predicts the output <span class="math inline">\(y\)</span> from a single predictor <span class="math inline">\(x\)</span>. That is we assume the outcome <span class="math inline">\(y\)</span> follows the following linear model, where <span class="math inline">\(\epsilon\)</span> is a random noise term with zero mean. <span class="math display">\[y = \beta_0 + \beta_1 x + \epsilon\]</span></li>
+<li class="fragment"><strong>Linear regression</strong> is a type of regression where <strong><span class="math inline">\(y\)</span> is modeled as a linear function of <span class="math inline">\(x\)</span></strong>.</li>
+</ul>
+<ul>
+<li class="fragment"><strong>Simple linear regression</strong> predicts the output <span class="math inline">\(y\)</span> from a single predictor <span class="math inline">\(x\)</span>. <span class="math display">\[y = \beta_0 + \beta_1 x + \epsilon\]</span></li>
 </ul>
 <ul>
 <li class="fragment"><strong>Multiple linear regression</strong> assumes <span class="math inline">\(y\)</span> relies on many covariates: <span class="math display">\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
 \vec \beta \vec x + \epsilon\]</span></li>
 </ul>
+<ul>
+<li class="fragment">here <span class="math inline">\(\epsilon\)</span> denotes a random noise term with zero mean.</li>
+</ul>
 </section><section id="objective-function" class="slide level2">
 <h1>Objective function</h1>
-<p>Linear regression seeks a solution <span class="math inline">\(\hat y = \hat \beta \cdot \vec x\)</span> that minimizes the difference between the true outcome <span class="math inline">\(y\)</span> and the prediction <span class="math inline">\(\hat y\)</span>, in terms of the residual sum of squares (RSS).</p>
+<p>Linear regression seeks a solution <span class="math inline">\(\hat y = \hat \beta \cdot \vec x\)</span> that <strong>minimizes the difference between the true outcome <span class="math inline">\(y\)</span> and the prediction <span class="math inline">\(\hat y\)</span></strong>, in terms of the residual sum of squares (RSS).</p>
 <p><span class="math display">\[arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} - \hat \beta x^{(i)}\right)^2\]</span></p>
 </section><section id="simple-linear-regression" class="slide level2">
 <h1>Simple Linear Regression</h1>
 <ul>
 <li><p>Predict the mileage per gallon using the weight of the car.</p></li>
-<li><p>In R the linear models can be fit with a <code>lm</code> function.</p></li>
+<li><p>In R the linear models can be fit with a <code>lm()</code> function.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt, mtcars)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt, mtcars)
+fit</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344</code></pre>
 <ul>
-<li>Same formula as for the <code>t.test</code> function.</li>
+<li>Same ‘~’ formula notation as for the <code>t.test</code> function.</li>
 </ul>
-</section><section id="section-4" class="slide level2">
+</section><section id="section-8" class="slide level2">
 <h1></h1>
 <p>We can check the details on the fitted model by calling:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit)</code></pre></div>
@@ -698,14 +771,14 @@ e.g. transmission in the <code>mtcars</code> dataset</p></li>
 ## Residual standard error: 3.046 on 30 degrees of freedom
 ## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
 ## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
-</section><section id="section-5" class="slide level2">
+</section><section id="section-9" class="slide level2">
 <h1></h1>
-<p>The coefficients (<span class="math inline">\(\beta\)</span>) of the model can be extracted with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(co &lt;-<span class="st">  </span><span class="kw">coef</span>(<span class="kw">summary</span>(fit)))</code></pre></div>
+<p>The coefficients (<span class="math inline">\(\beta\)</span>) of the model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(beta &lt;-<span class="st">  </span><span class="kw">coef</span>(<span class="kw">summary</span>(fit)))</code></pre></div>
 <pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 37.285126   1.877627 19.857575 8.241799e-19
 ## wt          -5.344472   0.559101 -9.559044 1.293959e-10</code></pre>
-<p><span class="math inline">\(\hat y\)</span> = predicted <code>mpg</code> values for existing observations (cars)</p>
+<p><span class="math inline">\(\hat y\)</span> = predicted <code>mpg</code> values for existing observations (cars):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(fit)[<span class="dv">1</span>:<span class="dv">15</span>]</code></pre></div>
 <pre><code>##          Mazda RX4      Mazda RX4 Wag         Datsun 710 
 ##           23.28261           21.91977           24.88595 
@@ -717,36 +790,33 @@ e.g. transmission in the <code>mtcars</code> dataset</p></li>
 ##           18.90014           18.90014           15.53313 
 ##         Merc 450SL        Merc 450SLC Cadillac Fleetwood 
 ##           17.35025           17.08302            9.22665</code></pre>
-</section><section id="section-6" class="slide level2">
+</section><section id="section-10" class="slide level2">
 <h1></h1>
-<p>To predict the <code>mpg</code> for the <strong>new observations</strong>, cars with specific weights, e.g. <code>wt = 3.14</code> we can use the computed coefficients:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">co[, <span class="dv">1</span>]</code></pre></div>
+<p>To predict the <code>mpg</code> for <strong>new observations</strong>, e.g. a new car with weight <code>wt = 3.14</code>, we can do a manual computation using estimated coefficients:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">beta[, <span class="dv">1</span>]</code></pre></div>
 <pre><code>## (Intercept)          wt 
 ##   37.285126   -5.344472</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># beta0 + beta1 * wt</span>
-co[<span class="dv">1</span>, <span class="dv">1</span>] +<span class="st"> </span>co[<span class="dv">2</span>, <span class="dv">1</span>]*<span class="st"> </span><span class="fl">3.14</span> <span class="co">#  37.285126 +  (-5.344472) * 3.14</span></code></pre></div>
+beta[<span class="dv">1</span>, <span class="dv">1</span>] +<span class="st"> </span>beta[<span class="dv">2</span>, <span class="dv">1</span>]*<span class="st"> </span><span class="fl">3.14</span></code></pre></div>
 <pre><code>## [1] 20.50349</code></pre>
-<p>Predictions for a number of new observations:</p>
+<p>Predictions can be more efficiently computed using <code>predict()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a data frame with new weights:</span>
 newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.1</span>, <span class="fl">3.14</span>, <span class="fl">4.1</span>, <span class="fl">4.3</span>))
-<span class="co"># Note the same prediction for `wt = 3.14` as computed previously.</span>
 <span class="kw">predict</span>(fit, newcars)</code></pre></div>
 <pre><code>##        1        2        3        4        5 
 ## 26.59618 26.06174 20.50349 15.37279 14.30390</code></pre>
-</section><section id="section-7" class="slide level2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Note the same prediction for `wt = 3.14` as computed previously.</span></code></pre></div>
+</section><section id="section-11" class="slide level2">
 <h1></h1>
-<p><code>ggplot2</code> can plot the data and the fitted model without having to compute the <code>lm</code> model ahead. <code>geom_smoother</code> with the <code>method</code> argument set to <code>&quot;lm&quot;</code> does the computations automatically.</p>
+<p><code>ggplot2</code> with <code>geom_smooth()</code> can plot the data and the fitted <code>lm</code> model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" /></p>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" /></p>
 </section><section id="multiple-linear-regression" class="slide level2">
 <h1>Multiple Linear Regression</h1>
-<ul>
-<li>Can be fitted using the same function <code>lm()</code>.</li>
-<li>Predict <code>mpg</code> using weight, displacement and the number of cylinders in the car.</li>
-</ul>
+<p>We might like to predict <code>mpg</code> using weight, displacement and the number of cylinders in the car.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">col=</span>cyl, <span class="dt">size=</span>disp)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" /></p>
-</section><section id="section-8" class="slide level2">
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-17-1.png" width="1152" /></p>
+</section><section id="section-12" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>wt +<span class="st"> </span>disp +<span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)
 
@@ -772,33 +842,7 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 ## Residual standard error: 2.595 on 28 degrees of freedom
 ## Multiple R-squared:  0.8326, Adjusted R-squared:  0.8147 
 ## F-statistic: 46.42 on 3 and 28 DF,  p-value: 5.399e-11</code></pre>
-</section><section id="no-intercept-model" class="slide level2">
-<h1>No intercept model</h1>
-<p>You can choose the fix the intercept at 0 with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit0 &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span><span class="dv">0</span> +<span class="st"> </span>wt +<span class="st"> </span>disp +<span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)
-
-<span class="co"># Summarize the results </span>
-<span class="kw">summary</span>(mfit0)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = mpg ~ 0 + wt + disp + cyl, data = mtcars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -10.530  -4.147   1.219   6.516  14.641 
-## 
-## Coefficients:
-##      Estimate Std. Error t value Pr(&gt;|t|)    
-## wt    6.12494    2.26328   2.706  0.01128 *  
-## disp -0.12830    0.02065  -6.213  8.9e-07 ***
-## cyl   4.67349    1.17614   3.974  0.00043 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 7.42 on 29 degrees of freedom
-## Multiple R-squared:  0.8863, Adjusted R-squared:  0.8745 
-## F-statistic: 75.36 on 3 and 29 DF,  p-value: 8.468e-14</code></pre>
-</section><section id="section-9" class="slide level2">
+</section><section id="section-13" class="slide level2">
 <h1></h1>
 <p>To <strong>predict <code>mpg</code> for new cars</strong>, you must first create a data frame describing the attributes of the new cars:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.1</span>, <span class="fl">3.14</span>, <span class="fl">4.1</span>, <span class="fl">4.3</span>),
@@ -817,14 +861,15 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 </section><section id="interaction-terms" class="slide level2">
 <h1>Interaction terms</h1>
 <ul>
-<li><p><strong>An interaction</strong> occurs when an independent variable has a different effect on the outcome depending on the values of another independent variable.</p></li>
+<li>An interaction occurs when <strong>an independent variable has a different effect on the outcome depending on the values of another independent</strong>. variable.</li>
+<li><p>For example, one variable, <span class="math inline">\(x_1\)</span> might have a different effect on <span class="math inline">\(y\)</span> within different categories or groups, given by variable <span class="math inline">\(x_2\)</span>.</p></li>
 <li><p>If you are not familiar with the concept of the interaction terms, read <a href="http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/interaction.pdf">this</a>.</p></li>
 </ul>
-</section><section id="section-10" class="slide level2">
+</section><section id="section-14" class="slide level2">
 <h1></h1>
 <p>Models with <strong>interaction effects</strong> can be specified with ’*’:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_iter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>am *<span class="st"> </span>wt, mtcars)
-<span class="kw">summary</span>(mfit_iter)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_inter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>am *<span class="st"> </span>wt, mtcars)
+<span class="kw">summary</span>(mfit_inter)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ am * wt, data = mtcars)
@@ -845,11 +890,15 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 ## Residual standard error: 2.591 on 28 degrees of freedom
 ## Multiple R-squared:  0.833,  Adjusted R-squared:  0.8151 
 ## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
-</section><section id="interaction-terms-1" class="slide level2">
-<h1>Interaction terms</h1>
-<p>Note that ’*’ generates all the terms:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">coefficients</span>(mfit_iter))</code></pre></div>
+</section><section id="section-15" class="slide level2">
+<h1></h1>
+<p>Note that ’*’ generates the interaction terms:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_inter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span>am *<span class="st"> </span>wt, mtcars)
+
+<span class="kw">names</span>(<span class="kw">coefficients</span>(mfit_inter))</code></pre></div>
 <pre><code>## [1] &quot;(Intercept)&quot; &quot;ammanual&quot;    &quot;wt&quot;          &quot;ammanual:wt&quot;</code></pre>
+</section><section id="section-16" class="slide level2">
+<h1></h1>
 <p>You can also specify explicitly which terms you want:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_iter2 &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg ~<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span>am +<span class="st"> </span>wt +<span class="st"> </span>am:wt, mtcars)
 <span class="kw">summary</span>(mfit_iter2)</code></pre></div>
@@ -874,7 +923,7 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 ## Multiple R-squared:  0.833,  Adjusted R-squared:  0.8151 
 ## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
 </section></section>
-<section><section id="lasso-regression" class="titleslide slide level1"><h1>Lasso Regression</h1></section><section id="choosing-a-model" class="slide level2">
+<section><section id="extra-lasso-regression" class="titleslide slide level1"><h1>Extra: Lasso Regression</h1></section><section id="choosing-a-model" class="slide level2">
 <h1>Choosing a model</h1>
 <ul>
 <li>Modern datasets often have “too” many variables, e.g. predict the risk of a disease from the single nucleotide polymorphisms (SNPs) data.</li>
@@ -884,7 +933,7 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 <blockquote>
 <p>the number of available covariates is extremely large, but only a handful of them are relevant for the prediction of the outcome.</p>
 </blockquote>
-</section><section id="lasso-regression-1" class="slide level2">
+</section><section id="lasso-regression" class="slide level2">
 <h1>Lasso Regression</h1>
 <ul>
 <li>Lasso regression is simply regression with <span class="math inline">\(L_1\)</span> penalty.</li>
@@ -905,31 +954,21 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;glmnet&quot;)</span>
 <span class="kw">library</span>(glmnet)</code></pre></div>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## Loading required package: foreach</code></pre>
-<pre><code>## Loaded glmnet 2.0-13</code></pre>
-</section><section id="section-11" class="slide level2">
+</section><section id="section-17" class="slide level2">
 <h1></h1>
 <ul>
 <li>We go back to <code>mtcars</code> datasets and use Lasso regression to predict the <code>mpg</code> using all variables.</li>
 <li>Lasso will pick a subset of predictors (the ones with non-zero coefficents) that best predict the <code>mpg</code>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs        am gear
-## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0    manual    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0    manual    4
-## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1    manual    4
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1 automatic    3
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0 automatic    3
-## Valiant           18.1   6  225 105 2.76 3.460 20.22  1 automatic    3
-##                   carb
-## Mazda RX4            4
-## Mazda RX4 Wag        4
-## Datsun 710           1
-## Hornet 4 Drive       1
-## Hornet Sportabout    2
-## Valiant              1</code></pre>
-</section><section id="section-12" class="slide level2">
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs        am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0    manual    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0    manual    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1    manual    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1 automatic    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0 automatic    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1 automatic    3    1</code></pre>
+</section><section id="section-18" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>mtcars[, <span class="dv">1</span>]  <span class="co"># mileage per gallon </span>
 x &lt;-<span class="st"> </span>mtcars[, -<span class="dv">1</span>] <span class="co"># all other variables treated as predictors</span>
@@ -942,101 +981,7 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <pre><code>##  [1] &quot;a0&quot;        &quot;beta&quot;      &quot;df&quot;        &quot;dim&quot;       &quot;lambda&quot;   
 ##  [6] &quot;dev.ratio&quot; &quot;nulldev&quot;   &quot;npasses&quot;   &quot;jerr&quot;      &quot;offset&quot;   
 ## [11] &quot;call&quot;      &quot;nobs&quot;</code></pre>
-</section><section id="section-13" class="slide level2">
-<h1></h1>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
-<pre><code>## 
-## Call:  glmnet(x = x[trainIdx, ], y = y[trainIdx]) 
-## 
-##       Df   %Dev   Lambda
-##  [1,]  0 0.0000 4.679000
-##  [2,]  1 0.1383 4.264000
-##  [3,]  2 0.2626 3.885000
-##  [4,]  2 0.3700 3.540000
-##  [5,]  2 0.4593 3.225000
-##  [6,]  2 0.5333 2.939000
-##  [7,]  2 0.5948 2.678000
-##  [8,]  2 0.6459 2.440000
-##  [9,]  2 0.6883 2.223000
-## [10,]  2 0.7235 2.026000
-## [11,]  2 0.7527 1.846000
-## [12,]  2 0.7770 1.682000
-## [13,]  3 0.7993 1.532000
-## [14,]  3 0.8179 1.396000
-## [15,]  3 0.8335 1.272000
-## [16,]  3 0.8463 1.159000
-## [17,]  3 0.8570 1.056000
-## [18,]  3 0.8659 0.962300
-## [19,]  3 0.8733 0.876800
-## [20,]  4 0.8797 0.798900
-## [21,]  4 0.8862 0.727900
-## [22,]  4 0.8915 0.663300
-## [23,]  4 0.8960 0.604300
-## [24,]  4 0.8997 0.550700
-## [25,]  4 0.9028 0.501700
-## [26,]  4 0.9054 0.457200
-## [27,]  4 0.9075 0.416600
-## [28,]  4 0.9093 0.379500
-## [29,]  5 0.9108 0.345800
-## [30,]  6 0.9124 0.315100
-## [31,]  5 0.9139 0.287100
-## [32,]  5 0.9152 0.261600
-## [33,]  5 0.9162 0.238400
-## [34,]  5 0.9171 0.217200
-## [35,]  5 0.9178 0.197900
-## [36,]  5 0.9184 0.180300
-## [37,]  5 0.9189 0.164300
-## [38,]  5 0.9193 0.149700
-## [39,]  4 0.9197 0.136400
-## [40,]  4 0.9199 0.124300
-## [41,]  4 0.9201 0.113200
-## [42,]  4 0.9203 0.103200
-## [43,]  5 0.9215 0.094020
-## [44,]  7 0.9263 0.085660
-## [45,]  7 0.9313 0.078050
-## [46,]  6 0.9350 0.071120
-## [47,]  6 0.9361 0.064800
-## [48,]  6 0.9371 0.059050
-## [49,]  7 0.9379 0.053800
-## [50,]  7 0.9387 0.049020
-## [51,]  8 0.9396 0.044670
-## [52,]  9 0.9414 0.040700
-## [53,] 10 0.9443 0.037080
-## [54,] 10 0.9473 0.033790
-## [55,] 10 0.9499 0.030790
-## [56,] 10 0.9520 0.028050
-## [57,] 10 0.9538 0.025560
-## [58,] 10 0.9553 0.023290
-## [59,] 10 0.9565 0.021220
-## [60,] 10 0.9575 0.019330
-## [61,] 10 0.9584 0.017620
-## [62,] 10 0.9591 0.016050
-## [63,] 10 0.9597 0.014630
-## [64,] 10 0.9602 0.013330
-## [65,] 10 0.9606 0.012140
-## [66,] 10 0.9609 0.011060
-## [67,] 10 0.9612 0.010080
-## [68,] 10 0.9614 0.009186
-## [69,] 10 0.9616 0.008369
-## [70,] 10 0.9618 0.007626
-## [71,] 10 0.9619 0.006949
-## [72,] 10 0.9620 0.006331
-## [73,] 10 0.9621 0.005769
-## [74,] 10 0.9622 0.005256
-## [75,] 10 0.9623 0.004789
-## [76,] 10 0.9623 0.004364
-## [77,] 10 0.9624 0.003976
-## [78,] 10 0.9624 0.003623
-## [79,] 10 0.9625 0.003301
-## [80,] 10 0.9625 0.003008
-## [81,] 10 0.9625 0.002741
-## [82,] 10 0.9625 0.002497
-## [83,] 10 0.9626 0.002275
-## [84,] 10 0.9626 0.002073
-## [85,] 10 0.9626 0.001889
-## [86,] 10 0.9626 0.001721
-## [87,] 10 0.9626 0.001568</code></pre>
-</section><section id="section-14" class="slide level2">
+</section><section id="section-19" class="slide level2">
 <h1></h1>
 <ul>
 <li><code>glmnet()</code> compute the Lasso regression for a sequence of different tuning parameters, <span class="math inline">\(\lambda\)</span>.</li>
@@ -1045,16 +990,16 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <li><code>%Dev</code> is the percentage variance explained,</li>
 <li><code>Lambda</code> is the value of the currently chosen tuning parameter.</li>
 </ul>
-</section><section id="section-15" class="slide level2">
+</section><section id="section-20" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.</span>
 <span class="kw">plot</span>(fit, <span class="dt">label =</span> <span class="ot">TRUE</span>) </code></pre></div>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-28-1.png" width="480" /></p>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-27-1.png" width="480" /></p>
 <ul>
 <li>the y-axis corresponds the value of the coefficients.</li>
 <li>the x-axis is denoted “<span class="math inline">\(L_1\)</span> norm” but is scaled to indicate the number of non-zero coefficients (the effective degrees of freedom).</li>
 </ul>
-</section><section id="section-16" class="slide level2">
+</section><section id="section-21" class="slide level2">
 <h1></h1>
 <ul>
 <li>Each curve corresponds to a single variable, and shows the value of the coefficient as the tuning parameter varies.</li>
@@ -1077,7 +1022,7 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 ## am           .          
 ## gear         .          
 ## carb         .</code></pre>
-</section><section id="section-17" class="slide level2">
+</section><section id="section-22" class="slide level2">
 <h1></h1>
 <ul>
 <li>Like for <code>lm()</code>, we can use a function <code>predict()</code> to predict the <code>mpg</code> for the training or the test data.</li>
@@ -1085,17 +1030,17 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict for the test set:</span>
 <span class="kw">predict</span>(fit, <span class="dt">newx =</span> x[-trainIdx, ], <span class="dt">s =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">2</span>))</code></pre></div>
-<pre><code>##                           1        2        3
-## Datsun 710         25.36098 23.87240 23.22262
-## Valiant            19.82245 19.42427 19.41920
-## Duster 360         16.19324 17.27111 17.74858
-## Merc 230           22.62471 21.86937 21.50396
-## Merc 450SE         15.20595 16.16123 16.71324
-## Cadillac Fleetwood 11.25687 13.28117 14.26985
-## Chrysler Imperial  10.81730 13.01570 14.07314
-## Fiat 128           25.88928 24.20103 23.47110
-## Toyota Corolla     27.01880 25.08206 24.22690
-## Toyota Corona      24.89106 23.51713 22.92237</code></pre>
+<pre><code>##              1        2        3
+##  [1,] 25.36098 23.87240 23.22262
+##  [2,] 19.82245 19.42427 19.41920
+##  [3,] 16.19324 17.27111 17.74858
+##  [4,] 22.62471 21.86937 21.50396
+##  [5,] 15.20595 16.16123 16.71324
+##  [6,] 11.25687 13.28117 14.26985
+##  [7,] 10.81730 13.01570 14.07314
+##  [8,] 25.88928 24.20103 23.47110
+##  [9,] 27.01880 25.08206 24.22690
+## [10,] 24.89106 23.51713 22.92237</code></pre>
 <p>Each of the columns corresponds to a choice of <span class="math inline">\(\lambda\)</span>.</p>
 </section><section id="choosing-lambda" class="slide level2">
 <h1>Choosing <span class="math inline">\(\lambda\)</span></h1>
@@ -1106,18 +1051,18 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <blockquote>
 <p>In k-fold cross-validation, the original sample is randomly partitioned into k equal sized subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
-</section><section id="section-18" class="slide level2">
+</section><section id="section-23" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 <span class="co"># `nfolds` argument sets the number of folds (k).</span>
 cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx, ], y[trainIdx], <span class="dt">nfolds =</span> <span class="dv">5</span>)
 <span class="kw">plot</span>(cvfit)</code></pre></div>
-<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-31-1.png" width="480" /></p>
+<p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/figure-revealjs/unnamed-chunk-30-1.png" width="480" /></p>
 <ul>
 <li>The <span style="color:red">red dots</span> are the average MSE over the k-folds.</li>
 <li>The two chosen <span class="math inline">\(\lambda\)</span> values are the one with <span class="math inline">\(MSE_{min}\)</span> and one with <span class="math inline">\(MSE_{min} + sd_{min}\)</span></li>
 </ul>
-</section><section id="section-19" class="slide level2">
+</section><section id="section-24" class="slide level2">
 <h1></h1>
 <p><span class="math inline">\(\lambda\)</span> with minimum MSE:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit$lambda.min</code></pre></div>
@@ -1133,12 +1078,7 @@ cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx
 <p>First install the package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;MASS&quot;)</span>
 <span class="kw">library</span>(MASS)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:plotly&#39;:
-## 
-##     select</code></pre>
-</section><section id="section-20" class="slide level2">
+</section><section id="section-25" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Boston, <span class="dv">3</span>)</code></pre></div>
 <pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
@@ -1165,7 +1105,7 @@ cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx
 ##  $ black  : num  397 397 393 395 397 ...
 ##  $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...
 ##  $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 16.5 18.9 ...</code></pre>
-</section><section id="section-21" class="slide level2">
+</section><section id="section-26" class="slide level2">
 <h1></h1>
 <p>Split the data to training and testing subsets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)

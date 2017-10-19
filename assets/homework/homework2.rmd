@@ -30,20 +30,23 @@ c. boxplot
 
 DNA microarray data ESL
 
-# Exercise 3: `ggmap`
-
-a. Plot housing market prices
-b. Plot route to work
-
-# Exercise 4: linear model
+# Exercise 3: linear model
 
 prostate cancer dataset ESL
 educatiob vs income ISL
 
-# Exercise 5: classification
+# Exercise 4: classification
 Email spam ESL
 
-# Exercise 6: clustering
+# Exercise 5: clustering
+
+# Exercise 6: `ggmap`
+
+a. Plot housing market prices
+b. Plot route to work
+
+Fire smoke https://cran.r-project.org/web/packages/PWFSLSmoke/vignettes/Maps_and_Timeseries_Plots.html
+Fire smoke https://cran.r-project.org/web/packages/PWFSLSmoke/vignettes/Data_Model.html
 
 https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/ggmap/ggmapCheatsheet.pdf
 

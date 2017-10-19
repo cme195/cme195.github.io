@@ -23,14 +23,15 @@ knitr::opts_chunk$set(cache=TRUE)
 lapply(.packages, require, character.only = TRUE)
 ```
 
+## Contents
 
-## Relevant Books
+* Hypothesis testing
+* Linear Regression
+* Extra: Lasso Regression
 
-
-For more background in statistics check out the following books:
+## Useful Books
 
 * ["An introduction to Statistical Learning"](http://www-bcf.usc.edu/~gareth/ISL/getbook.html) [ESL] by James, Witten, Hastie and Tibshirani 
-
 * ["Elements of statistical learning"](http://www.springer.com/gp/book/9780387848570) [ISL] by Hastie, Tibshirani and Friedman 
 
 * ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
@@ -38,54 +39,55 @@ For more background in statistics check out the following books:
 
 # Hypothesis testing
 
+## Hypothesis testing can answer questions:
 
-## Hypothesis testing
-
-Examples of questions that could be answered using a hypothesis test:
-* **Is the measured quantity equal to/higher/lower than a give threshold?**
-e.g. is the number of faulty items in the received order statistically higher
-than the one guaranteed by the manufacturer? 
-* **Is there a  difference between two groups or observations**? 
-e.g. Do treated patient have higher survival rate than the untreated ones?
-* **Is the level of one quantity related to the value of the other quantity?**
+> - **Is the measured quantity equal to/higher/lower than a given threshold?**
+e.g. is the number of faulty items in an order statistically higher
+than the one guaranteed by a manufacturer? 
+> - **Is there a  difference between two groups or observations**? 
+e.g. Do treated patient have a higher survival rate than the untreated ones?
+> - **Is the level of one quantity related to the value of the other quantity?**
 e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?
 
+##
 
-Everyday life 
-[(top answer from Quora])(https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
+Everyday life examples
+[(top answer from Quora)](https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
 
->- Test weather route A or route B is the faster way to get from your home to your school.
->- Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
->- If you are 21 or older, test whether Tequila or beer gives you worse hangover.
->  Test if you run faster in the morning compared to the afternoon.
->- Test if you weight is lower in the morning compared to the afternoon.
+* Test weather route A or route B is the faster way to get from your home to your school.
+* Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
+* If you are 21 or older, test whether Tequila or beer gives you worse hangover.
+*  Test if you run faster in the morning compared to the afternoon.
+* Test if you weight is lower in the morning compared to the afternoon.
 
- no effective difference between the observed sample mean and the hypothesized or stated population mean—i.e., that any measured difference is due only to chance.
  
-## Hypothesis testing
+## To perform a hypothesis test you need to:
 
-To perform a hypothesis test you need to:
-
-1. Define the null and alternative hypotheses.
-2. Choose level of significance $\alpha$.
-3. Pick and compute test statistics.
-4. Compute the p-value.
-5. Check whether to reject the null hypothesis by comparing p-value to $\alpha$.
-6. Draw conclusion from the test.
+> 1. Define the null and alternative hypotheses.
+> 2. Choose level of significance $\alpha$.
+> 3. Pick and compute test statistics.
+> 4. Compute the p-value.
+> 5. Check whether to reject the null hypothesis by comparing p-value to $\alpha$.
+> 6. Draw conclusion from the test.
 
 ## Null and alternative hypotheses
 
-**The null hypothesis (H0)**: A statement assumed to be true unless it can be 
+**The null hypothesis ($H_0$)**: A statement assumed to be true unless it can be 
 shown to be incorrect beyond a reasonable doubt. This is something one usually 
 attempts to disprove or discredit. 
 
-**The alternate hypothesis (H1)**: A claim that is contradictory to 
+**The alternate hypothesis ($H_1$)**: A claim that is contradictory to 
 H0 and what we conclude when we reject H0.
 
 H0 and H1 are on purporse set up to be contradictory, so that one **can collect
 and examine data to decide if there is enough evidence to reject the null 
 hypothesis or not**. 
 
+##
+
+![](./Lecture6__Hypothesis_testing_and_linear_regression_files/failed_reject.jpg)
+
+![](./Lecture6__Hypothesis_testing_and_linear_regression_files/penguin.jpg)
 
 ## Student's t-test
 
@@ -93,6 +95,42 @@ hypothesis or not**.
 > - Published in Biometrika under a **pseudonym Student**.
 > - Used to select best yielding varieties of barley.
 > - Now one of the standard/traditional methods for hypothesis testing.
+
+## Distribution of the statistic
+
+p-value is the probability of an observed (or more extreme) result assuming 
+that the null hypothesis is true, i.e. $P[observations | H_0]$. Note that:
+
+$$P[observations \; | \; hypothesis] \ne P[hypothesis \; | \; ovservations]$$
+
+</br>
+
+<div class = "left">
+
+![](./Lecture6__Hypothesis_testing_and_linear_regression_files/tdist.gif)
+
+</div>
+
+<div class = "right">
+
+**This is the reason why p-values should NOT be used a "ranking"/"scoring"
+system for your hypotheses**. You should only use it to potentially reject
+your null hypothesis. Null hypothesis cannot be proven true, **you can only 
+fail to reject it**.
+</div>
+
+
+## p-value
+
+> - p-value is the **probability of obtaining a result equal to or "more extreme" than what 
+was actually observed, when the null hypothesis is true**.
+> - A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
+so you reject the null hypothesis.
+> - A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
+so you do NOT to reject the null hypothesis.
+
+
+
 
 ## Dataset
 
@@ -108,77 +146,34 @@ head(mtcars)
 * column are car attributes: miles per gallon, number of 
 cylinders, displacement, transmission etc.
 
-## Testing equality of mpg 
+## Testing mpg equal to a value
 
-Is the fuel efficiency (mpg) the same for the cars 
-with automatic and manual transmission? 
+<div class = "left">
+Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
+statistically equal to 25? 
 
 </br>
 **Test the null hypothesis:**
 
-\[H_0: \text{mean mpg of automatic cars = mean mpg of manual cars}\]
+\[H_0: \mu = 25 \\
+H_a: \mu \ne 25\]
+where $\mu$ is the mean mpg of cars in the dataset
+</div>
 
-## 
-Convert the column `am` (transmission) to a factor:  
-```{r}
-#  convert am (0 = automatic, 1 = manual) column to a factor
-mtcars$am <- factor(mtcars$am, levels = c(0, 1), 
-                    labels = c("automatic", "manual"))
-head(mtcars)
-```
-
-##
-First, visualize the data
-
-```{r fig.height=4, fig.width=4}
-library(ggplot2)
-ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
-  xlab("Trasmission") + ylab("Fuel efficiency") +
-  geom_jitter(width = 0.4)
-```
-
-## 
-
-The R implementation of the Student's t-test is `t.test()` function:
-
-```{r}
-(tt <- t.test(formula = mpg ~ am, data = mtcars))
-# or
-tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
-             y = mtcars$mpg[mtcars$am == "manual"])
-```
-
-* **A tilde symbol, `~`**, means "explained by". 
-* `t.test()` outputs group means, the t-statistic and the p-value.
-
-
-## p-value
-
-* p-value is the **probability of obtaining a result equal to or "more extreme" than what 
-was actually observed, when the null hypothesis is true**.
-* A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
-so you reject the null hypothesis.
-* A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
-so you do NOT to reject the null hypothesis.
-
-## Distribution of the statistic
-
-```{r fig.width=6, fig.height=5.5,echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("./Lecture6__Hypothesis_testing_and_linear_regression_files/P-value_in_statistical_significance_testing.svg.png")
-grid.raster(img)
-```
+<div class = "right">
+![](./Lecture6__Hypothesis_testing_and_linear_regression_files/both-sided.png)
+</div>
 
 
 ##
-Here, the p-value is equal to 
-$\mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d\; | \; | H_0] = 
-\mathbb{P}[| \bar X_{aut} - \bar X_{man}| \ge d \; | \; |\mu_{aut} - \mu_{man}| = 0]$ where $d$ is the difference
-observed in your samples.
-
 ```{r}
-# Remember tt <- t.test(formula = mpg ~ am, data = mtcars)
+mtcars$mpg
+tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "two.sided")
+tt
+```
+
+##
+```{r}
 names(tt)
 ```
 
@@ -188,52 +183,111 @@ tt$p.value
 ```
 
 ```{r}
-# The 95% confidence interval for the difference between the two means:
+# The 95% confidence interval for the mean:
 tt$conf.int
 ```
 
 
-# Supervised Learning
+## Testing mpg  smaller than a value
 
-## Supervised Learning
+<div class = "left">
 
-* **Supervised Learning** is a task of inferring the relationship between
-the input data and the response variable, $y = f(x)$. 
+Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
+statistically less than 25? 
 
-* In supervised learning each observation consist of a pair $(x, y)$ 
-where $x$ is the input data, e.g. a collection of the attributes, 
-and $y$ the label or the output value.
+</br>
+**Test the null hypothesis:**
 
-* Supervised learning problems can be divided into:
+\[H_0: \mu = 25 \\
+H_a: \mu < 25\]
+where $\mu$ is the mean mpg of cars in the dataset
+</div>
 
-    + **Regression**: $y$ is a *quantitative* variable (numerical/continuous/ordered)
-      e.g. mileage per gallon in the `mtcars` dataset
-    
-    + **Classification**: $y$ is a *qualitative* variable (categorical)   
-      e.g. transmission in the `mtcars` dataset
+<div class = "right">
+![](./Lecture6__Hypothesis_testing_and_linear_regression_files/left-sided.png)
+</div>
+
+##
+```{r}
+tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "less")
+tt
+```
+
+## Testing difference between groups 
+
+Is the fuel efficiency (mpg) the same for the cars 
+with automatic and manual transmission? 
+
+</br>
+**Test the null hypothesis:**
+
+\[H_0: \mu_a = \mu_m\\
+H_a: \mu_a \ne \mu_m\]
+
+where $\mu_a$ mean mpg of automatic cars and $\mu_m$ is the mean mpg of manual
+cars.
+
+## 
+Convert the column `am` (transmission) to a factor:  
+```{r}
+#  convert am (0 = automatic, 1 = manual) column to a factor
+mtcars <- mtcars %>%
+  mutate(am = factor(am, levels = c(0, 1), 
+                               labels = c("automatic", "manual")))
+head(mtcars)
+```
+
+##
+First, visualize the data
+
+```{r, fig.width=8, fig.height=6}
+library(ggplot2)
+ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
+  xlab("Trasmission") + ylab("Fuel efficiency") +
+  geom_jitter(width = 0.2, height = 0)
+```
+
+## 
+
+The R implementation of the Student's t-test is `t.test()` function:
+
+```{r}
+tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
+             y = mtcars$mpg[mtcars$am == "manual"])
+# or
+(tt <- t.test(formula = mpg ~ am, data = mtcars))
+```
+
+* **A tilde symbol, `~`**, means "explained by". 
 
 
 # Linear Regression
 
 ## Linear Regression
 
-> - **Linear regression** is a type of regression where the quantitative
-output variable is modeled as a **linear** function of the inputs. 
+</br>
+
+> - Regression is a supervised learning method, whose goal is inferring the 
+relationship between input data, $x$, and a **continuous** response variable, $y$.
+
+> - **Linear regression** is a type of regression where **$y$ is modeled as a 
+linear function of $x$**. 
 
 > - **Simple linear regression** predicts the output $y$ from a single predictor 
-$x$. That is we assume the outcome $y$ follows the following linear model, where
-$\epsilon$ is a random noise term with zero mean.
+$x$. 
 \[y = \beta_0 + \beta_1 x + \epsilon\]
 
 > - **Multiple linear regression** assumes $y$ relies on many covariates:
 \[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
 \vec \beta \vec x + \epsilon\]
 
+> - here $\epsilon$ denotes a random noise term with zero mean.
+
 ## Objective function
 
 Linear regression seeks a solution $\hat y = \hat \beta \cdot \vec x$ 
-that minimizes the difference between the true outcome $y$ and the prediction $\hat y$,
-in terms of the residual sum of squares (RSS).
+that **minimizes the difference between the true outcome $y$ and the 
+prediction $\hat y$**, in terms of the residual sum of squares (RSS).
 
 $$arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} - \hat \beta x^{(i)}\right)^2$$
 
@@ -242,13 +296,14 @@ $$arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} - \hat \beta x^{(i)}\right)^
 
 * Predict the mileage per gallon using the weight of the car.
 
-* In R the linear models can be fit with a `lm` function.
+* In R the linear models can be fit with a `lm()` function.
 
 ```{r}
 fit <- lm(mpg ~ wt, mtcars)
+fit
 ```
 
-* Same formula  as for the `t.test` function. 
+* Same '~' formula notation as for the `t.test` function. 
 
 ## 
 
@@ -259,40 +314,41 @@ summary(fit)
 
 ##
 
-The coefficients ($\beta$) of the model can be extracted with:
+The coefficients ($\beta$) of the model:
 ```{r}
-(co <-  coef(summary(fit)))
+(beta <-  coef(summary(fit)))
 ```
 
-$\hat y$  = predicted `mpg` values for existing observations (cars) 
+$\hat y$  = predicted `mpg` values for existing observations (cars): 
 ```{r}
 predict(fit)[1:15]
 ```
 
 ##
-To predict the `mpg` for the **new observations**, cars with specific
-weights, e.g. `wt = 3.14` we can use the computed coefficients:
+
+To predict the `mpg` for **new observations**, e.g. a new car with 
+weight `wt = 3.14`, we can do a manual computation using estimated coefficients:
 
 ```{r}
-co[, 1]
+beta[, 1]
 # beta0 + beta1 * wt
-co[1, 1] + co[2, 1]* 3.14 #  37.285126 +  (-5.344472) * 3.14
+beta[1, 1] + beta[2, 1]* 3.14
 ```
 
-Predictions for a number of new observations: 
+Predictions can be more efficiently computed using `predict()` function: 
 
 ```{r}
 # create a data frame with new weights:
 newcars <- data.frame(wt = c(2, 2.1, 3.14, 4.1, 4.3))
-# Note the same prediction for `wt = 3.14` as computed previously.
 predict(fit, newcars)
+# Note the same prediction for `wt = 3.14` as computed previously.
 ```
 
 
 ##
-`ggplot2` can plot the data and the fitted model without having to compute 
-the `lm` model ahead. `geom_smoother` with the `method` argument set to `"lm"` 
-does the computations automatically.
+
+`ggplot2` with `geom_smooth()` can plot the data and the fitted `lm` model
+
 
 ```{r}
 ggplot(mtcars, aes(wt, mpg)) + geom_point() + geom_smooth(method="lm")
@@ -301,11 +357,10 @@ ggplot(mtcars, aes(wt, mpg)) + geom_point() + geom_smooth(method="lm")
 
 ## Multiple Linear Regression
 
-* Can be fitted using the same function `lm()`.
-* Predict `mpg` using weight, displacement and 
-the number of cylinders in the car.
+We might like to predict `mpg` using weight, displacement and the number of 
+cylinders in the car.
 
-```{r fig.height=3.5 }
+```{r fig.height=5.5, fig.width=12}
 ggplot(mtcars, aes(x=wt, y=mpg, col=cyl, size=disp)) + geom_point()
 ```
 
@@ -316,17 +371,6 @@ mfit <- lm(mpg ~ wt + disp + cyl, data = mtcars)
 
 # Summarize the results 
 summary(mfit)
-```
-
-
-## No intercept model
-
-You can choose the fix the intercept at 0 with:
-```{r}
-mfit0 <- lm(mpg ~ 0 + wt + disp + cyl, data = mtcars)
-
-# Summarize the results 
-summary(mfit0)
 ```
 
 
@@ -349,9 +393,11 @@ predict(mfit, newcars)
 
 ## Interaction terms
 
-* **An interaction** occurs when an independent variable has a different
-effect on the outcome depending on the values of another independent 
+* An interaction occurs when **an independent variable has a different
+effect on the outcome depending on the values of another independent**. 
 variable.
+* For example, one variable, $x_1$ might have a different effect on $y$ within 
+different categories or groups, given by variable $x_2$.
 
 * If you are not familiar with the concept of the interaction terms,
 read [this](http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/interaction.pdf).
@@ -361,18 +407,23 @@ read [this](http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/i
 
 Models with **interaction effects** can be specified with '*':
 ```{r}
-mfit_iter <- lm(mpg ~ am * wt, mtcars)
-summary(mfit_iter)
+mfit_inter <- lm(mpg ~ am * wt, mtcars)
+summary(mfit_inter)
 ```
 
-## Interaction terms
+## 
 
-Note that '*' generates all the terms:
+Note that '*' generates the interaction terms:
 ```{r}
-names(coefficients(mfit_iter))
+mfit_inter <- lm(mpg ~ am * wt, mtcars)
+
+names(coefficients(mfit_inter))
 ```
+
+## 
 
 You can also specify explicitly which terms you want:
+
 ```{r}
 mfit_iter2 <- lm(mpg ~ 1 + am + wt + am:wt, mtcars)
 summary(mfit_iter2)
@@ -380,7 +431,7 @@ summary(mfit_iter2)
 
 
 
-# Lasso Regression
+# Extra: Lasso Regression
 
 ## Choosing a model
 
@@ -448,13 +499,6 @@ trainIdx <- sample(1:nrow(mtcars), round(0.7 * nrow(mtcars)))
 fit <- glmnet(x[trainIdx, ], y[trainIdx])
 names(fit)
 ```
-
-##
-
-```{r}
-print(fit)
-```
-
 
 ##
 
