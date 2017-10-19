@@ -18,9 +18,9 @@ layout: cme195
 5. [3D and interactive plotting](./assets/lectures/Lecture5_Interactive_graphics.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 5_ 3D and Interactive graphics.pdf)].
-6. [Hypothesis testing, linear regression, lasso regression.](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression)]
-[[pdf](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.pdf)]
+6. [Hypothesis testing, linear regression, lasso regression](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.Rmd)]
+[[pdf](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.pdf)].
 
 7. Classification
 8. Unsupervised Learning
