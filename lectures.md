@@ -19,7 +19,7 @@ layout: cme195
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd)]
 [[pdf](./assets/lectures/Lecture 5_ 3D and Interactive graphics.pdf)].
 6. [Hypothesis testing, linear regression, lasso regression](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6_Hypothesis_testing_and_linear_regression.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6_ Hypothesis_testing_and_linear_regression.Rmd)]
 [[pdf](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.pdf)].
 
 7. Classification
