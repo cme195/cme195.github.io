@@ -21,7 +21,9 @@ layout: cme195
 6. [Hypothesis testing, linear regression, lasso regression](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6_%20Hypothesis_testing_and_linear_regression.Rmd)]
 [[pdf](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.pdf)].
-7. Classification
+7. [Classification](./assets/lectures/Lecture7_Classification.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture7_Classification.Rmd)]
+[[pdf](./assets/lectures/Lecture 7_ Classification.pdf)].
 8. Unsupervised Learning
 
 Disclaimer: these lecture slides are subject to change and can be updated
@@ -47,6 +49,9 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises_with_Answers.Rmd)].
 * [Exercises for lecture 6](./assets/exercises/Lec6_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)].
+[Answers](./assets/exercises/Lec6_Exercises_with_Answers.nb.html).
+* [Exercises for lecture 7](./assets/exercises/Lec7_Exercises.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)].
 Answers.
 
 ## [](#tut) Extra Tutorials

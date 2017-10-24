@@ -2,18 +2,19 @@
 title: 'Lecture 3:  Data Manipulation'
 date: "October 10, 2017" 
 output: 
-  revealjs::revealjs_presentation: 
+  revealjs::revealjs_presentation:
     self_contained: false
     lib_dir: libs
-    css: class_big_fonts.css
-    highlight: default 
+    theme: simple
+    hightlights: haddock
     smart: true
     center: true
-    transition: default 
-    background_transition: default 
-    text-align: left;
-    reveal_options: 
-      slideNumber: true 
+    transition: slide
+    css: cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}

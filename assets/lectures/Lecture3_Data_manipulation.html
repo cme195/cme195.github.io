@@ -97,7 +97,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <style type="text/css">code{white-space: pre;}</style>
 
-    <link rel="stylesheet" href="class_big_fonts.css"/>
+    <link rel="stylesheet" href="cme195.css"/>
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -516,13 +516,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>In the example below we obtain column sums of matrix <code>X</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   28    6   15   22   20   12
-## [2,]   25   14   17    1    3   26
-## [3,]   16   29    8   11   13   23
-## [4,]   21   18    7   10    9   19
-## [5,]   30   24   27    2    5    4</code></pre>
+## [1,]   23   25   29    1   13    8
+## [2,]    3    4    6   12   22    2
+## [3,]    5   21   26   17   19   14
+## [4,]    7   10   15   27   16   28
+## [5,]   24   18   20    9   30   11</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1] 120  91  74  46  50  84</code></pre>
+<pre><code>## [1]  62  78  96  66 100  63</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
 <h1>apply function</h1>
@@ -532,19 +532,19 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   28    6   15   22   20   12
-## [2,]   25   14   17    1    3   26
-## [3,]   16   29    8   11   13   23
-## [4,]   21   18    7   10    9   19
-## [5,]   30   24   27    2    5    4</code></pre>
+## [1,]   23   25   29    1   13    8
+## [2,]    3    4    6   12   22    2
+## [3,]    5   21   26   17   19   14
+## [4,]    7   10   15   27   16   28
+## [5,]   24   18   20    9   30   11</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
 <span class="kw">apply</span>(X, <span class="dv">2</span>, function(x) <span class="dv">10</span>*x +<span class="st"> </span><span class="dv">2</span>) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]  282   62  152  222  202  122
-## [2,]  252  142  172   12   32  262
-## [3,]  162  292   82  112  132  232
-## [4,]  212  182   72  102   92  192
-## [5,]  302  242  272   22   52   42</code></pre>
+## [1,]  232  252  292   12  132   82
+## [2,]   32   42   62  122  222   22
+## [3,]   52  212  262  172  192  142
+## [4,]   72  102  152  272  162  282
+## [5,]  242  182  202   92  302  112</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
@@ -555,9 +555,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 24.0 18.2 14.8  9.2 10.0 16.8</code></pre>
+<pre><code>## [1] 12.4 15.6 19.2 13.2 20.0 12.6</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 24.1 18.3 14.9  9.3 10.1 16.9</code></pre>
+<pre><code>## [1] 12.5 15.7 19.3 13.3 20.1 12.7</code></pre>
 </div>
 </section><section id="lapplysapply-functions" class="slide level2">
 <h1>lapply/sapply functions</h1>
@@ -2406,48 +2406,48 @@ movies %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
 movies %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">15</span>)</code></pre></div>
 <pre><code>## # A tibble: 15 x 19
-##      budget                      company     country             director
-##       &lt;dbl&gt;                       &lt;fctr&gt;      &lt;fctr&gt;               &lt;fctr&gt;
-##  1 2.50e+08               Marvel Studios         USA          Joss Whedon
-##  2 1.00e+07            Entertainment One         USA      &quot;Ciar\xe1n Foy&quot;
-##  3 0.00e+00                      Miramax          UK   Christopher Monger
-##  4 6.00e+03              Next Wave Films          UK    Christopher Nolan
-##  5 0.00e+00 Akira Committee Company Ltd.       Japan &quot;Katsuhiro \xd4tomo&quot;
-##  6 1.20e+08            Fox 2000 Pictures         USA              Ang Lee
-##  7 0.00e+00                   EuropaCorp      France  Patrick Alessandrin
-##  8 4.00e+06             Harvey Boys, The         USA          Kevin Smith
-##  9 1.75e+08           Paramount Pictures         USA      Stephen Sommers
-## 10 3.50e+07                 Bavaria Film     Denmark         Bille August
-## 11 2.00e+07           Universal Pictures         USA           Nick Moore
-## 12 7.00e+06                    CiBy 2000 New Zealand         Jane Campion
-## 13 4.00e+06        Imagine Entertainment         USA      Radha Bharadwaj
-## 14 1.60e+07          Lorimar Productions         USA         Sidney Lumet
-## 15 0.00e+00       Sony Pictures Classics         USA      Lisa Cholodenko
-## # ... with 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;, name &lt;fctr&gt;,
-## #   rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;,
-## #   votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
+##      budget                       company country            director     genre
+##       &lt;dbl&gt;                        &lt;fctr&gt;  &lt;fctr&gt;              &lt;fctr&gt;    &lt;fctr&gt;
+##  1 4.50e+06      Keystone Family Pictures  Canada        Robert Vince    Comedy
+##  2 0.00e+00 Raajkamal Films International   India        Kamal Haasan     Crime
+##  3 1.75e+07                United Artists      UK        Terry George Biography
+##  4 1.60e+07               New Line Cinema     USA  Jonathan Liebesman    Horror
+##  5 0.00e+00                  Warner Bros.     USA           John Gray Adventure
+##  6 2.00e+08                    DreamWorks     USA         Michael Bay    Action
+##  7 3.20e+06                   ContentFilm     USA        Wayne Kramer     Crime
+##  8 0.00e+00                Orion Pictures     USA            Jim Kouf    Action
+##  9 1.05e+08                  Warner Bros.     USA     Roland Emmerich    Action
+## 10 1.70e+06             Magnolia Pictures     USA   Steven Soderbergh     Drama
+## 11 1.50e+07                    Fox Atomic     USA        Martin Weisz    Action
+## 12 1.60e+07              DC Entertainment     USA     Kenneth Johnson    Action
+## 13 0.00e+00      Colorado Film Production   Italy Gabriele Salvatores     Crime
+## 14 0.00e+00              Caravan Pictures     USA     Martha Coolidge    Comedy
+## 15 2.00e+07             Magnolia Pictures      UK     Michael Radford     Crime
+## # ... with 14 more variables: gross &lt;dbl&gt;, name &lt;fctr&gt;, rating &lt;fctr&gt;,
+## #   released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;,
+## #   writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
 ## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
 </section><section id="section-8" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
 movies %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.01</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## # A tibble: 68 x 19
-##      budget                                 company country          director
-##       &lt;dbl&gt;                                  &lt;fctr&gt;  &lt;fctr&gt;            &lt;fctr&gt;
-##  1 4.20e+07                     Gulfstream Pictures  Canada  Peter Lepeniotis
-##  2 0.00e+00          Recorded Picture Company (RPC)      UK       Karel Reisz
-##  3 5.00e+07                        Caravan Pictures     USA      Ridley Scott
-##  4 2.20e+07                            Warner Bros.     USA Steven Soderbergh
-##  5 1.50e+08                            Warner Bros.     USA        Tim Burton
-##  6 4.00e+07                   Samuelson Productions      UK      Geoffrey Sax
-##  7 7.00e+06  Twentieth Century Fox Film Corporation     USA  Fran Rubel Kuzui
-##  8 0.00e+00                     Working Title Films      UK      Bernard Rose
-##  9 1.75e+05             40 Acres &amp; A Mule Filmworks     USA         Spike Lee
-## 10 0.00e+00 Cecchi Gori Group Tiger Cinematografica   Italy   Roberto Benigni
-## # ... with 58 more rows, and 15 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;,
-## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
-## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;,
-## #   gross_in_mil &lt;dbl&gt;, budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
+##     budget                    company country          director     genre
+##      &lt;dbl&gt;                     &lt;fctr&gt;  &lt;fctr&gt;            &lt;fctr&gt;    &lt;fctr&gt;
+##  1 2.5e+07          Exodus Film Group     USA      Tony Leondis Animation
+##  2 0.0e+00     Chroma III Productions     USA    Mark Griffiths    Comedy
+##  3 0.0e+00                Marble Hall     USA James Glickenhaus    Action
+##  4 1.2e+05         Chango Productions     USA     Bryan Johnson     Crime
+##  5 1.0e+08      Beacon Communications     USA       Peter Hyams    Action
+##  6 7.4e+07 Illumination Entertainment     USA        Kyle Balda Animation
+##  7 1.1e+08          Columbia Pictures     USA     Morten Tyldum Adventure
+##  8 0.0e+00          Fox 2000 Pictures     USA       Adam Collis    Comedy
+##  9 1.8e+07   Morgan Creek Productions     USA       John Warren    Comedy
+## 10 4.9e+07           Carolco Pictures  France    Paul Verhoeven     Drama
+## # ... with 58 more rows, and 14 more variables: gross &lt;dbl&gt;, name &lt;fctr&gt;,
+## #   rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;,
+## #   votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
+## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
 </section></section>
     </div>
   </div>
@@ -2467,7 +2467,7 @@ movies %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span 
         // Vertical centering of slides
         center: true,
         // Transition style
-        transition: 'default', // none/fade/slide/convex/concave/zoom
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
         // Transition style for full page slide backgrounds
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
 

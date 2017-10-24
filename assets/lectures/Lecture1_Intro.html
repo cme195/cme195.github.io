@@ -96,7 +96,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
     <style type="text/css">code{white-space: pre;}</style>
 
-    <link rel="stylesheet" href="class.css"/>
+    <link rel="stylesheet" href="cme195.css"/>
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -491,24 +491,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 
 <section id="contents" class="slide level2">
-<h2>Contents</h2>
-<ul style="margin: auto; width: 50%; padding: 10px">
-<li>
-R language
-</li>
-<li>
-How to get and use R?
-</li>
-<li>
-R Basics
-</li>
-<li>
-Course Objectives &amp; Organization
-</li>
+<h1>Contents</h1>
+<ul>
+<li>R language</li>
+<li>How to get and use R?</li>
+<li>R Basics</li>
+<li>Course Objectives &amp; Organization</li>
 </ul>
 </section>
 <section><section id="r-language" class="titleslide slide level1"><h1>R language</h1></section><section id="what-is-r" class="slide level2">
-<h2>What is R?</h2>
+<h1>What is R?</h1>
 <ul>
 <li>R is <strong>a language and environment</strong> for statistical computing and graphics.</li>
 </ul>
@@ -525,7 +517,7 @@ Course Objectives &amp; Organization
 <li class="fragment">It is, however, <strong>a fully planned and coherent system</strong>, rather than an incremental accumulation of specific and inflexible tools.</li>
 </ul>
 </section><section id="why-should-you-learn-r" class="slide level2">
-<h2>Why should you learn R?</h2>
+<h1>Why should you learn R?</h1>
 <div style="float: center; height: 650px">
 <img src="Lecture1-figure/IEEE_top_languages.png", height="600", width="1000"></img>
 <p style="text-align: center;">
@@ -533,7 +525,7 @@ Source: <a href="https://spectrum.ieee.org/computing/software/the-2017-top-progr
 </p>
 </div>
 </section><section id="why-should-you-learn-r-1" class="slide level2">
-<h2>Why should you learn R?</h2>
+<h1>Why should you learn R?</h1>
 <div style="float: left; margin-left: 120px; height: 650px">
 <img src="Lecture1-figure/indeed_jobtrends.png", height="600", width="900"></img>
 <p>
@@ -544,7 +536,7 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <p><img src="Lecture1-figure/indeed_jobtrends_legend.png", height="250", width="200"></img></p>
 </div>
 </section><section id="when-should-you-use-r" class="slide level2">
-<h2>When should you use R?</h2>
+<h1>When should you use R?</h1>
 <ul>
 <li>R can be used for <strong>data analysis and visualization</strong>.</li>
 </ul>
@@ -558,7 +550,7 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <li class="fragment">It’s NOT as good for working with massive datasets whose elements need to be continuously accessed.</li>
 </ul>
 </section><section id="what-makes-r-good" class="slide level2">
-<h2>What makes R good?</h2>
+<h1>What makes R good?</h1>
 <ul>
 <li class="fragment">R is an <strong>interpreted language</strong>, i.e. programs do not need to be compiled into machine-language instructions.</li>
 </ul>
@@ -575,19 +567,19 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <li class="fragment">Many <strong>user-created R packages</strong> contain implementations of <strong>cutting edge statistics methods</strong>.</li>
 </ul>
 </section><section id="what-makes-r-good-1" class="slide level2">
-<h2>What makes R good?</h2>
+<h1>What makes R good?</h1>
 <p>As of September 29, there are 11,502 packages on <a href="https://cran.r-project.org/">CRAN</a>, 1,383 on <a href="https://www.bioconductor.org/">Bioconductor</a>, and many others on <a href="https://github.com/trending/r?since=weekly">github</a>)</p>
 <div style="float: center; height: 650px">
 <p><img src="Lecture1-figure/cran_packages.png", height="600", width="800"></img> <a style="text-align: center;"> Source: <a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">http://blog.revolutionanalytics.com/</a> </a></p>
 </div>
 </section></section>
 <section><section id="how-to-get-and-use-r" class="titleslide slide level1"><h1>How to get and use R?</h1></section><section id="how-to-install-r" class="slide level2">
-<h2>How to install R?</h2>
+<h1>How to install R?</h1>
 <p>R is open sources and cross platform (Linux, Mac, Windows).</p>
 <p></br></p>
 <p>To install it just go to <strong>the official R website</strong> (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>), download the latest version for your OS and follow the instructions.</p>
 </section><section id="how-to-run-r-interpreter-mode" class="slide level2">
-<h2>How to run R? (interpreter mode)</h2>
+<h1>How to run R? (interpreter mode)</h1>
 <div class="left" ,="" style="width: 65%;">
 <p>Start the R <strong>console</strong>:</p>
 <ul>
@@ -608,7 +600,7 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <p><img src="Lecture1-figure/RGUI.png", height="350", width="400"></img> <img src="Lecture1-figure/terminal.png", height="350", width="400"></img></p>
 </div>
 </section><section id="how-to-run-r-scripting-mode" class="slide level2">
-<h2>How to run R? (scripting mode)</h2>
+<h1>How to run R? (scripting mode)</h1>
 <ul>
 <li><p>A more convenient way to interact with R is <strong>to write a script</strong>.</p></li>
 <li><p>A script should contains all code that you want to execute.</p></li>
@@ -617,7 +609,7 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <li><p>Then, you can run/execute the code from the terminal by calling <code>Rscript script.R</code></p></li>
 </ul>
 </section><section id="r-editors" class="slide level2">
-<h2>R Editors</h2>
+<h1>R Editors</h1>
 <div class="left" ,="" style="width: 40%">
 <p>The most popular <strong>R editors</strong> are:</p>
 <ul>
@@ -630,13 +622,13 @@ Source: <a href="https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sq
 <p><img src="Lecture1-figure/rstudio.png", height="650", width="900"></img></p>
 </div>
 </section><section id="r-packages" class="slide level2">
-<h2>R packages</h2>
+<h1>R packages</h1>
 <div class="center" style="margin: auto">
 <p><img src="Lecture1-figure/Rpackages.png", style="background-color:whiet;
 border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 </div>
 </section><section id="r-packages-1" class="slide level2">
-<h2>R packages</h2>
+<h1>R packages</h1>
 <ul>
 <li>R packages are <strong>a collection of R functions, complied code and sample data.</strong></li>
 </ul>
@@ -651,23 +643,23 @@ border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 </ul></li>
 </ul>
 </section><section id="available-r-packages" class="slide level2">
-<h2>Available R packages</h2>
+<h1>Available R packages</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get library locations containing R packages </span>
 <span class="kw">.libPaths</span>()</code></pre></div>
-<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot;</code></pre>
+<pre><code>## [1] &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;/usr/local/lib/R/site-library&quot;                    &quot;/usr/lib/R/site-library&quot;                          &quot;/usr/lib/R/library&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the info on all the packages installed </span>
-<span class="kw">installed.packages</span>()[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</code></pre></div>
-<pre><code>##           Package     LibPath                                                          Version 
-## abind     &quot;abind&quot;     &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot; &quot;1.4-5&quot; 
-## acepack   &quot;acepack&quot;   &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot; &quot;1.4.1&quot; 
-## ade4      &quot;ade4&quot;      &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot; &quot;1.7-6&quot; 
-## ADGofTest &quot;ADGofTest&quot; &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot; &quot;0.3&quot;   
-## affy      &quot;affy&quot;      &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&quot; &quot;1.54.0&quot;</code></pre>
+<span class="kw">installed.packages</span>()[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<pre><code>##           Package     LibPath                                            Version 
+## abind     &quot;abind&quot;     &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.4-5&quot; 
+## acepack   &quot;acepack&quot;   &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.4.1&quot; 
+## ade4      &quot;ade4&quot;      &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.7-6&quot; 
+## ADGofTest &quot;ADGofTest&quot; &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;0.3&quot;   
+## affy      &quot;affy&quot;      &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4&quot; &quot;1.54.0&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get all packages currently loaded in the R environment </span>
 <span class="kw">search</span>() </code></pre></div>
 <pre><code>## [1] &quot;.GlobalEnv&quot;        &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot;  &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;</code></pre>
 </section><section id="installing-r-packages" class="slide level2">
-<h2>Installing R packages</h2>
+<h1>Installing R packages</h1>
 <ul>
 <li>From CRAN:</li>
 </ul>
@@ -696,7 +688,7 @@ border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 <span class="co"># or using install_git(&quot;url&quot;), e.g. </span>
 <span class="kw">install_git</span>(<span class="st">&quot;https://github.com/twitter/AnomalyDetection&quot;</span>) </code></pre></div>
 </section><section id="useful-resources-for-learning-r" class="slide level2">
-<h2>Useful resources for learning R</h2>
+<h1>Useful resources for learning R</h1>
 <ul>
 <li><p><em>R in a nutshell</em> and introductory book by Joseph Adler - <em>R tutorial</em> (<a href="https://www.tutorialspoint.com/r/r_packages.htm" class="uri">https://www.tutorialspoint.com/r/r_packages.htm</a>)</p></li>
 <li><p><em>Advanced R</em> book by Hadley Wickham for intermediate programmers (<a href="http://adv-r.had.co.nz/Introduction.html" class="uri">http://adv-r.had.co.nz/Introduction.html</a>)</p></li>
@@ -705,21 +697,21 @@ border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 </ul>
 </section></section>
 <section><section id="r-basics" class="titleslide slide level1"><h1>R Basics</h1></section><section id="r-as-an-extensible-calculator" class="slide level2">
-<h2>R as an extensible calculator</h2>
+<h1>R as an extensible calculator</h1>
 <ul>
 <li>R has allows you to <strong>intuitively input and easily compute</strong> elementary mathematical expressions , e.g.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">23</span> <span class="op">+</span><span class="st"> </span><span class="dv">8</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">23</span> +<span class="st"> </span><span class="dv">8</span> </code></pre></div>
 <pre><code>## [1] 31</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">10</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">abs</span>(-<span class="dv">10</span>) </code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="dv">10</span>) <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span> *<span class="st"> </span><span class="kw">exp</span>(<span class="dv">10</span>) +<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span>) </code></pre></div>
 <pre><code>## [1] 88107.28</code></pre>
 <ul>
 <li>Intuitive arithmetic operators: addition (<code>+</code>), subtraction (<code>-</code>), multiplication (<code>*</code>), division: (<code>/</code>), exponentiation: (<code>^</code>), modulus: (<code>%%</code>)</li>
 </ul>
 </section><section id="built-in-constants" class="slide level2">
-<h2>Built-in constants</h2>
+<h1>Built-in constants</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pi</code></pre></div>
 <pre><code>## [1] 3.141593</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LETTERS </code></pre></div>
@@ -731,25 +723,25 @@ border:0px; box-shadow:none;" height="450", width="1000"></img></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">month.name </code></pre></div>
 <pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;       &quot;June&quot;      &quot;July&quot;      &quot;August&quot;    &quot;September&quot; &quot;October&quot;   &quot;November&quot;  &quot;December&quot;</code></pre>
 </section><section id="special-values-in-r" class="slide level2">
-<h2>Special values in R</h2>
+<h1>Special values in R</h1>
 <p>Some words are <strong>reserved</strong> in <code>R</code> and cannot be used as oject/variable/function names:</p>
 <ul>
 <li><code>Inf</code> and <code>–Inf</code> which respectively stand for positive and negative infinity. R will returnm this value if results are numbers that are too big.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">1024</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">1024</span> </code></pre></div>
 <pre><code>## [1] Inf</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">-<span class="dv">1</span>/<span class="dv">0</span> </code></pre></div>
 <pre><code>## [1] -Inf</code></pre>
 <ul>
 <li><code>NULL</code> denotes a null object and is often used as a default value of an argument in a function definition, e.g.:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, <span class="dt">arg2 =</span> <span class="ot">NULL</span>) { 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span>function(arg1, <span class="dt">arg2 =</span> <span class="ot">NULL</span>) { 
   <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Argument 1 is:&quot;</span>, arg1)) 
-  <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.null</span>(arg2)) 
+  if(!<span class="kw">is.null</span>(arg2)) 
     <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Argument 2 is:&quot;</span>, arg2)) 
 } </code></pre></div>
 </section><section id="special-values-in-r-1" class="slide level2">
-<h2>Special values in R</h2>
+<h1>Special values in R</h1>
 <ul>
 <li><code>NA</code> represents a missing value (“not available”).</li>
 </ul>
@@ -762,12 +754,12 @@ v </code></pre></div>
 <ul>
 <li><code>NaN</code> means ‘Not a Number’, and can result from a computation that is undefined:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span>/<span class="dv">0</span> </code></pre></div>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>/<span class="dv">0</span> -<span class="st"> </span><span class="dv">1</span>/<span class="dv">0</span> </code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 </section><section id="values" class="slide level2">
-<h2>Values</h2>
+<h1>Values</h1>
 <p>In computer science a value is <strong>an expression which cannot be evaluated any further</strong>.</p>
 <p></br></p>
 <p>For example, an expression <code>2 + 3</code> is not a value as it can be reduced to expression <code>5</code>.</p>
@@ -777,7 +769,7 @@ v </code></pre></div>
 <p><br/></p>
 <p>Values have types …</p>
 </section><section id="data-types" class="slide level2">
-<h2>Data types</h2>
+<h1>Data types</h1>
 <p>The values in R are limited to <strong>only 6 types</strong>:</p>
 <ul>
 <li><strong>Logical</strong>: <code>TRUE/FALSE</code></li>
@@ -791,7 +783,7 @@ v </code></pre></div>
 <p><strong>An atomic vector</strong> (one-element vector) is the simplest object in R, and it must belong to one of these 6 types.</p>
 <p>Fortunately, R supports more complicated, R-objects which are <strong>built upon these atomic vectors</strong>.</p>
 </section><section id="variables" class="slide level2">
-<h2>Variables</h2>
+<h1>Variables</h1>
 <ul>
 <li class="fragment">In computer programs, <strong>variables</strong> are used to store various information.</li>
 </ul>
@@ -805,7 +797,7 @@ v </code></pre></div>
 <li class="fragment">When variables are assigned with R-Objects, <strong>the data type of the R-object becomes the data type of the variable</strong>.</li>
 </ul>
 </section><section id="naming-variables" class="slide level2">
-<h2>Naming variables</h2>
+<h1>Naming variables</h1>
 <ul>
 <li><p>A valid <strong>variable name consists of letters, numbers and a dot or underline characters</strong>.</p></li>
 <li><p>The variable name <strong>must start with a letter or a dot not followed by a number</strong>.</p></li>
@@ -820,25 +812,25 @@ v </code></pre></div>
 </ul>
 <p><code>var_name%, var.name!, 2var_name, .2var_name</code></p>
 </section><section id="variable-assignment" class="slide level2">
-<h2>Variable assignment</h2>
+<h1>Variable assignment</h1>
 <p>Variable assignment can be done using the following operators: <code>=, &lt;-, -&gt;</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assignment using equal operator. </span>
-var.<span class="dv">1</span> =<span class="st"> </span><span class="dv">34759</span>
+var<span class="fl">.1</span> =<span class="st"> </span><span class="dv">34759</span>
 
 <span class="co"># Assignment using leftward operator. </span>
-var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
+var<span class="fl">.2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 
 <span class="co">#Assignment using rightward operator. </span>
-<span class="ot">TRUE</span> -&gt;<span class="st"> </span>var.<span class="dv">3</span> </code></pre></div>
+<span class="ot">TRUE</span> -&gt;<span class="st"> </span>var<span class="fl">.3</span> </code></pre></div>
 <p>The values of the variables can be printed with <code>print()</code> function, or <code>cat()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(var.<span class="dv">1</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(var<span class="fl">.1</span>) </code></pre></div>
 <pre><code>## [1] 34759</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;var.2 is &quot;</span>, var.<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;var.2 is &quot;</span>, var<span class="fl">.2</span>)</code></pre></div>
 <pre><code>## var.2 is  learn R</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;var.3 is &quot;</span>, var.<span class="dv">3</span> ,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;var.3 is &quot;</span>, var<span class="fl">.3</span> ,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) </code></pre></div>
 <pre><code>## var.3 is  TRUE</code></pre>
 </section><section id="variable-class" class="slide level2">
-<h2>Variable class</h2>
+<h1>Variable class</h1>
 <p>R is <strong>a dynamically typed language</strong>, which means that we can change a variable’s data type of the same variable again and again when using it in a program.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">var_x &lt;-<span class="st"> &quot;Hello&quot;</span> 
 <span class="kw">cat</span>(<span class="st">&quot;The class of var_x is&quot;</span>, <span class="kw">class</span>(var_x),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
@@ -851,9 +843,9 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 <pre><code>##    Next the class of var_x becomes  integer</code></pre>
 <p>You can see what variables are <strong>currently available in the workspace</strong> by calling</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">ls</span>()) </code></pre></div>
-<pre><code>## [1] &quot;f1&quot;    &quot;v&quot;     &quot;var_x&quot; &quot;var.1&quot; &quot;var.2&quot; &quot;var.3&quot;</code></pre>
+<pre><code>## [1] &quot;f1&quot;    &quot;v&quot;     &quot;var.1&quot; &quot;var.2&quot; &quot;var.3&quot; &quot;var_x&quot;</code></pre>
 </section><section id="data-structures" class="slide level2">
-<h2>Data structures</h2>
+<h1>Data structures</h1>
 <p>There are many types/classes of R-objects, but <strong>the most frequenly used data structures are</strong>:</p>
 <ul>
 <li>Vectors</li>
@@ -864,7 +856,7 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 <li>Factors</li>
 </ul>
 </section><section id="vectors" class="slide level2">
-<h2>Vectors</h2>
+<h1>Vectors</h1>
 <div class="left" ,="" style="width: 40%">
 <ul>
 <li><p><strong>Vectors are the most basic R data objects</strong>. There is no simpler object, e.g. no scalars.</p></li>
@@ -876,7 +868,7 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 <li>Vectors can be defined using a combine, <code>c()</code>, function:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a vector </span>
-(vec1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span><span class="op">:</span><span class="dv">12</span>)) </code></pre></div>
+(vec1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>:<span class="dv">12</span>)) </code></pre></div>
 <pre><code>## [1]  1  3  7  8  9 10 11 12</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(vec2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;apple&#39;</span>, <span class="st">&#39;banana&#39;</span>, <span class="st">&#39;tangerine&#39;</span>, <span class="st">&#39;watermelon&#39;</span>)) </code></pre></div>
 <pre><code>## [1] &quot;apple&quot;      &quot;banana&quot;     &quot;tangerine&quot;  &quot;watermelon&quot;</code></pre>
@@ -885,7 +877,7 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 <pre><code>## [1] &quot;apple&quot;  &quot;123.56&quot; &quot;5&quot;      &quot;TRUE&quot;</code></pre>
 </div>
 </section><section id="numerical-sequences" class="slide level2">
-<h2>Numerical sequences</h2>
+<h1>Numerical sequences</h1>
 <ul>
 <li>Can be genereted with a <code>seq()</code> function:</li>
 </ul>
@@ -896,16 +888,16 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 <li>or using a colon operator:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Creating a sequence from 5 to 13. </span>
-(v &lt;-<span class="st"> </span><span class="dv">5</span><span class="op">:</span><span class="dv">13</span>) </code></pre></div>
+(v &lt;-<span class="st"> </span><span class="dv">5</span>:<span class="dv">13</span>) </code></pre></div>
 <pre><code>## [1]  5  6  7  8  9 10 11 12 13</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Colon can be used also for non-integers (still increments of 1) </span>
-(v &lt;-<span class="st"> </span><span class="fl">6.6</span><span class="op">:</span><span class="fl">12.6</span>) </code></pre></div>
+(v &lt;-<span class="st"> </span><span class="fl">6.6</span>:<span class="fl">12.6</span>) </code></pre></div>
 <pre><code>## [1]  6.6  7.6  8.6  9.6 10.6 11.6 12.6</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If the final element specified does not belong to the sequence then it is discarded. </span>
-(v &lt;-<span class="st"> </span><span class="fl">3.8</span><span class="op">:</span><span class="fl">11.4</span>) </code></pre></div>
+(v &lt;-<span class="st"> </span><span class="fl">3.8</span>:<span class="fl">11.4</span>) </code></pre></div>
 <pre><code>## [1]  3.8  4.8  5.8  6.8  7.8  8.8  9.8 10.8</code></pre>
 </section><section id="accessing-vector-elements" class="slide level2">
-<h2>Accessing vector elements</h2>
+<h1>Accessing vector elements</h1>
 <div class="left" ,="" style="width: 40%">
 <ul>
 <li><p>Elements of a vector can be accessed using indexing, with <code>[]</code> brackets.</p></li>
@@ -921,56 +913,56 @@ var.<span class="dv">2</span> &lt;-<span class="st">&quot;learn R&quot;</span>
 (weekend.days &lt;-<span class="st"> </span>days[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>)])</code></pre></div>
 <pre><code>## [1] &quot;Sun&quot; &quot;Sat&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Accessing vector elements using negative indexing. </span>
-(week.days &lt;-<span class="st"> </span>days[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">7</span>)])</code></pre></div>
+(week.days &lt;-<span class="st"> </span>days[<span class="kw">c</span>(-<span class="dv">1</span>,-<span class="dv">7</span>)])</code></pre></div>
 <pre><code>## [1] &quot;Mon&quot;   &quot;Tue&quot;   &quot;Wed&quot;   &quot;Thurs&quot; &quot;Fri&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Accessing vector elements using logical indexing. </span>
 (my.birthday &lt;-<span class="st"> </span>days[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)])</code></pre></div>
 <pre><code>## [1] &quot;Thurs&quot;</code></pre>
 </div>
 </section><section id="vector-arithmetics" class="slide level2">
-<h2>Vector arithmetics</h2>
+<h1>Vector arithmetics</h1>
 <p>Two vectors of same length can be added, subtracted, multiplied or divided giving an output vector of the same length.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create two vectors. </span>
 v1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">15</span>) 
 v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">9</span>,<span class="dv">4</span>,<span class="dv">11</span>,<span class="dv">0</span>,<span class="dv">8</span>)
 
 <span class="co"># Vector addition. </span>
-(vec.sum &lt;-<span class="st"> </span>v1<span class="op">+</span>v2)</code></pre></div>
+(vec.sum &lt;-<span class="st"> </span>v1+v2)</code></pre></div>
 <pre><code>## [1] 13 13 11 14  8 23</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vector subtraction. </span>
-(vec.difference &lt;-<span class="st"> </span>v1<span class="op">-</span>v2)</code></pre></div>
+(vec.difference &lt;-<span class="st"> </span>v1-v2)</code></pre></div>
 <pre><code>## [1] -11  -5   3  -8   8   7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vector multiplication. </span>
-(vec.product &lt;-<span class="st"> </span>v1<span class="op">*</span>v2)</code></pre></div>
+(vec.product &lt;-<span class="st"> </span>v1*v2)</code></pre></div>
 <pre><code>## [1]  12  36  28  33   0 120</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vector division. </span>
-(vec.ratio &lt;-<span class="st"> </span>v1<span class="op">/</span>v2)</code></pre></div>
+(vec.ratio &lt;-<span class="st"> </span>v1/v2)</code></pre></div>
 <pre><code>## [1] 0.08333333 0.44444444 1.75000000 0.27272727        Inf 1.87500000</code></pre>
 </section><section id="recycling" class="slide level2">
-<h2>Recycling</h2>
+<h1>Recycling</h1>
 <ul>
 <li><strong>Recycling</strong> is an automatic lengthening of vectors in certain settings.</li>
 <li>If an operator (such as +, -, or ^) is applied to two vectors of different lengths, R will repeat the shorter vector until the length of the longer vector is reached.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The number &#39;3&#39; can be thought of as a vector of length one. </span>
-<span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></code></pre></div>
+<span class="dv">3</span> +<span class="st"> </span><span class="dv">1</span>:<span class="dv">6</span></code></pre></div>
 <pre><code>## [1] 4 5 6 7 8 9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add 1 to every other number from 1 to 6. </span>
-<span class="dv">0</span><span class="op">:</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></code></pre></div>
+<span class="dv">0</span>:<span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span>:<span class="dv">6</span></code></pre></div>
 <pre><code>## [1] 1 3 3 5 5 7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multiply two vectors of unequal lengths. </span>
-<span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> </code></pre></div>
+<span class="dv">1</span>:<span class="dv">3</span> *<span class="st"> </span><span class="dv">1</span>:<span class="dv">5</span> </code></pre></div>
 <pre><code>## Warning in 1:3 * 1:5: longer object length is not a multiple of shorter object length</code></pre>
 <pre><code>## [1]  1  4  9  4 10</code></pre>
 <p><strong>Note</strong>: a warning is not an error. It only informs you that your code continued to run, but perhaps it did not work as you intended.</p>
 </section><section id="matrices" class="slide level2">
-<h2>Matrices</h2>
+<h1>Matrices</h1>
 <ul>
 <li><p>Matrices in R are objects whose elements are arranged in <strong>a two-dimensional rectangular layout</strong>.</p></li>
 <li><p><strong>All elements must be of the same type</strong> (numeric, logical, character, etc.). The most frequently used are <strong>numeric matrices</strong>.</p></li>
 </ul>
 </section><section id="matrices-1" class="slide level2">
-<h2>Matrices</h2>
+<h1>Matrices</h1>
 <div class="left" ,="" style="width: 50%">
 <p>A matrix can be created with a function</p>
 <p><small><code>matrix(data, nrow, ncol, byrow, dimnames)</code></small></p>
@@ -984,13 +976,13 @@ v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Elements are arranged sequentially by row. </span>
-(M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>))</code></pre></div>
+(M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>:<span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    5    6    7    8    9
 ## [2,]   10   11   12   13   14
 ## [3,]   15   16   17   18   19</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Elements are arranged sequentially by column. </span>
-(N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>))</code></pre></div>
+(N &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>:<span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    5    8   11   14   17
 ## [2,]    6    9   12   15   18
@@ -998,7 +990,7 @@ v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define the column and row names. </span>
 rownames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;row1&quot;</span>, <span class="st">&quot;row2&quot;</span>, <span class="st">&quot;row3&quot;</span>) 
 colnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>, <span class="st">&quot;col4&quot;</span>, <span class="st">&quot;col5&quot;</span>) 
-(P &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, 
+(P &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>:<span class="dv">19</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, 
              <span class="dt">dimnames =</span> <span class="kw">list</span>(rownames, colnames))) </code></pre></div>
 <pre><code>##      col1 col2 col3 col4 col5
 ## row1    5    6    7    8    9
@@ -1006,7 +998,7 @@ colnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st
 ## row3   15   16   17   18   19</code></pre>
 </div>
 </section><section id="accessing-elements-of-a-matrix" class="slide level2">
-<h2>Accessing Elements of a Matrix</h2>
+<h1>Accessing Elements of a Matrix</h1>
 <div class="left" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">P</code></pre></div>
 <pre><code>##      col1 col2 col3 col4 col5
@@ -1032,17 +1024,17 @@ colnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st
 ## row1    7    5
 ## row2   12   10
 ## row3   17   15</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">P[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>] <span class="co"># Subset 1:2 row 3:5 column </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">P[<span class="dv">1</span>:<span class="dv">2</span>, <span class="dv">3</span>:<span class="dv">5</span>] <span class="co"># Subset 1:2 row 3:5 column </span></code></pre></div>
 <pre><code>##      col3 col4 col5
 ## row1    7    8    9
 ## row2   12   13   14</code></pre>
 </div>
 </section><section id="matrix-computations" class="slide level2">
-<h2>Matrix Computations</h2>
+<h1>Matrix Computations</h1>
 <p>Matrix <strong>addition and subtraction</strong> needs matrices of same dimensions:</p>
 <div class="left" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create two 2x3 matrices. </span>
-(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">9</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)) </code></pre></div>
+(A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">9</span>, -<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    3   -1    2
 ## [2,]    9    4    6</code></pre>
@@ -1053,35 +1045,35 @@ colnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add the matrices. </span>
-A <span class="op">+</span><span class="st"> </span>B</code></pre></div>
+A +<span class="st"> </span>B</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    8   -1    5
 ## [2,]   11   13   10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subtract the matrices </span>
-A <span class="op">-</span><span class="st"> </span>B </code></pre></div>
+A -<span class="st"> </span>B </code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]   -2   -1   -1
 ## [2,]    7   -5    2</code></pre>
 </div>
 </section><section id="matrix-computations-1" class="slide level2">
-<h2>Matrix Computations</h2>
+<h1>Matrix Computations</h1>
 <p>Matrix <strong>elementwise multiplication and division</strong> needs matrices of same dimensions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add the matrices. </span>
-A <span class="op">*</span><span class="st"> </span>B</code></pre></div>
+A *<span class="st"> </span>B</code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]   15    0    6
 ## [2,]   18   36   24</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Subtract the matrices </span>
-A <span class="op">/</span><span class="st"> </span>B </code></pre></div>
+A /<span class="st"> </span>B </code></pre></div>
 <pre><code>##      [,1]      [,2]      [,3]
 ## [1,]  0.6      -Inf 0.6666667
 ## [2,]  4.5 0.4444444 1.5000000</code></pre>
 </section><section id="matrix-algebra" class="slide level2">
-<h2>Matrix Algebra</h2>
+<h1>Matrix Algebra</h1>
 <p>Linear algebra: <em>true matrix multiplication</em> <code>A x B</code>, with <code>A</code> (m x p) and <code>B</code> (p x n): <span class="math inline">\((AB)_{ij} = \sum_{k = 1}^p A_{ik}B_{kj} \)</span> can be done using the <code>%*%</code> operator:</p>
 <div class="left" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A (2 x 3) matrix X </span>
-(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">9</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)) </code></pre></div>
+(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">9</span>, -<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    3   -1    2
 ## [2,]    9    4    6</code></pre>
@@ -1095,14 +1087,14 @@ A <span class="op">/</span><span class="st"> </span>B </code></pre></div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a matrix product is a (2 x 4) matrix </span>
 
-X <span class="op">%*%</span><span class="st"> </span>Y </code></pre></div>
+X %*%<span class="st"> </span>Y </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4]
 ## [1,]   13   32   23   38
 ## [2,]   53  117  111  135</code></pre>
 <p>More on matrix algebra operators: (<a href="http://www.statmethods.net/advstats/matrix.html" class="uri">http://www.statmethods.net/advstats/matrix.html</a>)</p>
 </div>
 </section><section id="arrays" class="slide level2">
-<h2>Arrays</h2>
+<h1>Arrays</h1>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li><p>Arrays are the R data objects which can store <strong>data in more than two dimensions.</strong></p></li>
@@ -1113,7 +1105,7 @@ X <span class="op">%*%</span><span class="st"> </span>Y </code></pre></div>
 </ul>
 </div>
 <div class="right" ,="" style="width: 50%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>, <span class="dv">2</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">4</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="dv">10000</span>, <span class="dv">2</span>*<span class="dv">3</span>*<span class="dv">4</span>) 
 row.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ROW1&quot;</span>,<span class="st">&quot;ROW2&quot;</span>,<span class="st">&quot;ROW3&quot;</span>, <span class="st">&quot;ROW4&quot;</span>) 
 column.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;COL1&quot;</span>,<span class="st">&quot;COL2&quot;</span>,<span class="st">&quot;COL3&quot;</span>) 
 matrix.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Matrix1&quot;</span>,<span class="st">&quot;Matrix2&quot;</span>)
@@ -1123,21 +1115,21 @@ matrix.names))) </code></pre></div>
 <pre><code>## , , Matrix1
 ## 
 ##      COL1 COL2 COL3
-## ROW1 3294 4184 3617
-## ROW2 1039 9156 4173
-## ROW3 1547 7784 2466
-## ROW4 8678 5920 7826
+## ROW1 7399 6382  156
+## ROW2 3524 5290 1612
+## ROW3  855 3544 8393
+## ROW4 2683 8579 6874
 ## 
 ## , , Matrix2
 ## 
 ##      COL1 COL2 COL3
-## ROW1 9641 3472 1372
-## ROW2 4962 1204 7153
-## ROW3 5361 7271 2347
-## ROW4 9663 4947 9736</code></pre>
+## ROW1 9231 5100  570
+## ROW2 5015  768 1837
+## ROW3 1411 1347 9157
+## ROW4 1424 6063  248</code></pre>
 </div>
 </section><section id="lists" class="slide level2">
-<h2>Lists</h2>
+<h1>Lists</h1>
 <div class="left" ,="" style="width: 40%">
 <ul>
 <li><p>In R lists can <strong>contain elements of different types</strong> e.g. numbers, strings, vectors and/or another list.</p></li>
@@ -1148,7 +1140,7 @@ matrix.names))) </code></pre></div>
 <div class="right" ,="" style="width: 60%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a list containing heterogeneous elements </span>
 (my.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Jan&quot;</span>,<span class="st">&quot;Feb&quot;</span>,<span class="st">&quot;Mar&quot;</span>), <span class="ot">TRUE</span>, 
-                 <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">8</span>), <span class="dt">nrow =</span><span class="dv">2</span>), 
+                 <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">5</span>,<span class="dv">1</span>,-<span class="dv">2</span>,<span class="dv">8</span>), <span class="dt">nrow =</span><span class="dv">2</span>), 
                  <span class="kw">list</span>(<span class="st">&quot;green&quot;</span>,<span class="fl">12.3</span>))) </code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot;
@@ -1169,7 +1161,7 @@ matrix.names))) </code></pre></div>
 ## [1] 12.3</code></pre>
 </div>
 </section><section id="lists-1" class="slide level2">
-<h2>Lists</h2>
+<h1>Lists</h1>
 <div class="left" ,="" style="width: 45%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create named list </span>
 (named.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first =</span> <span class="st">&quot;Jane&quot;</span>, 
@@ -1212,7 +1204,7 @@ student </code></pre></div>
 ## [1] TRUE</code></pre>
 </div>
 </section><section id="accessing-elements-of-a-list" class="slide level2">
-<h2>Accessing elements of a list</h2>
+<h1>Accessing elements of a list</h1>
 <ul>
 <li><p>Elements of the list can be accessed <strong>by the index</strong> of the element in the list.</p></li>
 <li><p>In case of named lists it can also be accessed <strong>using the names</strong>.</p></li>
@@ -1221,7 +1213,7 @@ student </code></pre></div>
 student[[<span class="dv">3</span>]]</code></pre></div>
 <pre><code>## [1] &quot;Bioengineering&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the same information using named alement </span>
-student<span class="op">$</span>major</code></pre></div>
+student$major</code></pre></div>
 <pre><code>## [1] &quot;Bioengineering&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the first and the thrird element of the list </span>
 student[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
@@ -1231,7 +1223,7 @@ student[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3<
 ## $major
 ## [1] &quot;Bioengineering&quot;</code></pre>
 </section><section id="data-frames" class="slide level2">
-<h2>Data-frames</h2>
+<h1>Data-frames</h1>
 <div class="left" ,="" style="width: 40%">
 <p>A data frame is a table or a <strong>2D array-like structure</strong>. In data-frames:</p>
 <ul>
@@ -1264,7 +1256,7 @@ employees</code></pre></div>
 ##  $ start_date: Date, format: &quot;2012-01-01&quot; &quot;2013-09-23&quot; &quot;2014-11-15&quot; &quot;2014-05-11&quot; ...</code></pre>
 </div>
 </section><section id="data-frames-1" class="slide level2">
-<h2>Data-frames</h2>
+<h1>Data-frames</h1>
 <p>We can print the first few rows of a data matrix using a function <code>head()</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Print first 2 rows of employees </span>
 <span class="kw">head</span>(employees, <span class="dv">2</span>) </code></pre></div>
@@ -1283,13 +1275,13 @@ employees</code></pre></div>
 ##                     Max.   :843.2   Max.   :2015-03-27</code></pre>
 <p>The elements of a data frame can be accessed by indexing just like the elements of a matrix.</p>
 </section><section id="subsetting-data-frames" class="slide level2">
-<h2>Subsetting data-frames</h2>
+<h1>Subsetting data-frames</h1>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li>We can extract specific columns:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using column names. </span>
-employees<span class="op">$</span>name
+employees$name
 employees[, <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;salary&quot;</span>)]
 
 <span class="co"># using integer indexing</span>
@@ -1321,13 +1313,13 @@ employees[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">
 ## E3 Michelle  611.0 2014-11-15</code></pre>
 </div>
 </section><section id="adding-data-to-data-frames" class="slide level2">
-<h2>Adding data to data-frames</h2>
+<h1>Adding data to data-frames</h1>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li>We can add a column to a data matrix simply by assignment</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add the &quot;dept&quot; coulmn. </span>
-employees<span class="op">$</span>dept &lt;-<span class="st"> </span>
+employees$dept &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;IT&quot;</span>,<span class="st">&quot;Operations&quot;</span>,<span class="st">&quot;IT&quot;</span>,<span class="st">&quot;HR&quot;</span>,<span class="st">&quot;Finance&quot;</span>) 
 employees</code></pre></div>
 <pre><code>##        name salary start_date       dept
@@ -1343,7 +1335,7 @@ employees</code></pre></div>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the second data frame </span>
 new.employees &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> <span class="kw">paste0</span>(<span class="st">&quot;E&quot;</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">8</span>), 
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> <span class="kw">paste0</span>(<span class="st">&quot;E&quot;</span>, <span class="dv">6</span>:<span class="dv">8</span>), 
              <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Rasmi&quot;</span>,<span class="st">&quot;Pranab&quot;</span>,<span class="st">&quot;Tusar&quot;</span>), 
              <span class="dt">salary =</span> <span class="kw">c</span>(<span class="fl">578.0</span>,<span class="fl">722.5</span>,<span class="fl">632.8</span>), 
              <span class="dt">start_date =</span> <span class="kw">as.Date</span>(<span class="kw">c</span>(<span class="st">&quot;2013-05-21&quot;</span>,<span class="st">&quot;2013-07-30&quot;</span>,<span class="st">&quot;2014-06-17&quot;</span>)), 
@@ -1363,7 +1355,7 @@ new.employees &lt;-<span class="st"> </span>
 ## E8    Tusar 632.80 2014-06-17   Fianance</code></pre>
 </div>
 </section><section id="factors" class="slide level2">
-<h2>Factors</h2>
+<h1>Factors</h1>
 <div class="left" ,="" style="width: 45%">
 <ul>
 <li>Factors are used to <strong>categorize the data and store it as levels</strong>.</li>
@@ -1384,25 +1376,25 @@ new.employees &lt;-<span class="st"> </span>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </section><section id="factors-ordering" class="slide level2">
-<h2>Factors ordering</h2>
+<h1>Factors ordering</h1>
 <ul>
 <li>If not specified R will order character type by alphabetical order.</li>
 <li>Note that factor <strong>labels are not the same as levels</strong>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">months &lt;-<span class="st"> </span><span class="kw">sample</span>(month.name, <span class="dv">6</span>)
 months</code></pre></div>
-<pre><code>## [1] &quot;November&quot;  &quot;March&quot;     &quot;September&quot; &quot;June&quot;      &quot;May&quot;       &quot;April&quot;</code></pre>
+<pre><code>## [1] &quot;July&quot;      &quot;May&quot;       &quot;April&quot;     &quot;November&quot;  &quot;September&quot; &quot;February&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name)) </code></pre></div>
-<pre><code>## [1] November  March     September June      May       April    
+<pre><code>## [1] July      May       April     November  September February 
 ## Levels: January February March April May June July August September October November December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] November  March     September June      May       April    
+<pre><code>## [1] July      May       April     November  September February 
 ## Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; July &lt; August &lt; September &lt; October &lt; November &lt; December</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(months &lt;-<span class="st"> </span><span class="kw">factor</span>(months, <span class="dt">levels =</span> month.name, <span class="dt">labels =</span> month.abb)) </code></pre></div>
-<pre><code>## [1] Nov Mar Sep Jun May Apr
+<pre><code>## [1] Jul May Apr Nov Sep Feb
 ## Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; Oct &lt; Nov &lt; Dec</code></pre>
 </section><section id="dates" class="slide level2">
-<h2>Dates</h2>
+<h1>Dates</h1>
 <div class="left" ,="" style="width: 50%">
 <ul>
 <li>R makes it easy to work with dates.</li>
@@ -1414,7 +1406,7 @@ months</code></pre></div>
 <pre><code>## 
 ##     April    August  December  February   January      July      June     March       May  November   October September 
 ##        30        31        31        29        31        31        30        31        31        30        31        30</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &#39;2004-09-01&#39;</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(x ==<span class="st"> &#39;2004-09-01&#39;</span>) </code></pre></div>
 <pre><code>## [1] 245</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(x)                  </code></pre></div>
 <pre><code>## [1] 366</code></pre>
@@ -1426,19 +1418,19 @@ months</code></pre></div>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># What day  is it? </span>
 <span class="kw">Sys.Date</span>()     </code></pre></div>
-<pre><code>## [1] &quot;2017-10-05&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-23&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2017-10-05 11:39:25 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2017-10-23 17:07:45 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the end of the year. </span>
-<span class="kw">as.Date</span>(<span class="st">&#39;2017-12-31&#39;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
-<pre><code>## Time difference of 87 days</code></pre>
+<span class="kw">as.Date</span>(<span class="st">&#39;2017-12-31&#39;</span>) -<span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
+<pre><code>## Time difference of 69 days</code></pre>
 <ul>
 <li>Look up <code>strptime()</code> function with <code>?strptime</code> command to see a list of possible date formatting.</li>
 </ul>
 </div>
 </section></section>
 <section><section id="course-objectives-organization" class="titleslide slide level1"><h1>Course Objectives &amp; Organization</h1></section><section id="course-logistics" class="slide level2">
-<h2>Course Logistics</h2>
+<h1>Course Logistics</h1>
 <p></br></p>
 <ul>
 <li><p>Lectures: Tue, Thu 12:00 PM - 1:20 PM, 300-300</p></li>
@@ -1448,7 +1440,7 @@ months</code></pre></div>
 <li><p>Questions/Communication: <a href="https://canvas.stanford.edu/" class="uri">https://canvas.stanford.edu/</a></p></li>
 </ul>
 </section><section id="topics-covered" class="slide level2">
-<h2>Topics Covered</h2>
+<h1>Topics Covered</h1>
 <ul>
 <li>Data types (e.g. logical, numeric, character)</li>
 <li>Data structures (e.g. vector, matrix, lists, data frames)</li>
@@ -1463,7 +1455,7 @@ months</code></pre></div>
 <li>Unsupervised learning methods</li>
 </ul>
 </section><section id="course-expectations" class="slide level2">
-<h2>Course Expectations</h2>
+<h1>Course Expectations</h1>
 <p></br></p>
 <p>There are no formal pre-requisites, but some prior <strong>knowledge of statistics and programming experience</strong> is strongly encouraged.</p>
 <p></br></p>
@@ -1471,14 +1463,14 @@ months</code></pre></div>
 <p></br></p>
 <p>Instead, I will show you how to perform the tasks using the R implementation of these methods. You will learn how to input the data, set parameters, and interpret the output of the methods.</p>
 </section><section id="work-load" class="slide level2">
-<h2>Work Load</h2>
+<h1>Work Load</h1>
 <p></br></p>
 <ul>
 <li><p>two homework assignments (due a week after posted)</p></li>
 <li><p>a final group (up to 3 people) project</p></li>
 </ul>
 </section><section id="final-project" class="slide level2">
-<h2>Final Project</h2>
+<h1>Final Project</h1>
 <p></br></p>
 <ul>
 <li class="fragment">Choose a project that is interesting and allows you to practice your R skills.</li>
@@ -1496,7 +1488,7 @@ months</code></pre></div>
 <li class="fragment">Final write-up due a week after the last class <strong>(11/03)</strong>.</li>
 </ul>
 </section><section id="final-project-1" class="slide level2">
-<h2>Final Project</h2>
+<h1>Final Project</h1>
 <p>Final project should involve <strong>an extensive use of R</strong>. Focus on the programming part, not on answering the research question. Project Ideas:</p>
 <ul>
 <li><p><strong>Sports data</strong>. e.g. decide which basketball player would you want on your team?</p></li>
@@ -1525,10 +1517,8 @@ months</code></pre></div>
         history: true,
         // Vertical centering of slides
         center: true,
-        // Opens links in an iframe preview overlay
-        previewLinks: true,
         // Transition style
-        transition: 'default', // none/fade/slide/convex/concave/zoom
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
         // Transition style for full page slide backgrounds
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
 

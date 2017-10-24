@@ -192,4 +192,3 @@ and specify which columns from '`flights2`' you are matching
 to which column in  '`airports`'.
 
 
-

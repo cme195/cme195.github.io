@@ -31,8 +31,8 @@ lapply(.packages, require, character.only = TRUE)
 
 ## Useful Books
 
-* ["An introduction to Statistical Learning"](http://www-bcf.usc.edu/~gareth/ISL/getbook.html) [ESL] by James, Witten, Hastie and Tibshirani 
-* ["Elements of statistical learning"](http://www.springer.com/gp/book/9780387848570) [ISL] by Hastie, Tibshirani and Friedman 
+* ["An introduction to Statistical Learning"](http://www-bcf.usc.edu/~gareth/ISL/getbook.html) [ISL] by James, Witten, Hastie and Tibshirani 
+* ["Elements of statistical learning"](http://www.springer.com/gp/book/9780387848570) [ESL] by Hastie, Tibshirani and Friedman 
 
 * ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
 
@@ -99,9 +99,9 @@ hypothesis or not**.
 ## Distribution of the statistic
 
 p-value is the probability of an observed (or more extreme) result assuming 
-that the null hypothesis is true, i.e. $P[observations | H_0]$. Note that:
+that the null hypothesis is true, i.e. $P[observations \mid H_0]$. Note that:
 
-$$P[observations \; | \; hypothesis] \ne P[hypothesis \; | \; ovservations]$$
+$$P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
 
 </br>
 
@@ -259,6 +259,15 @@ tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"],
 ```
 
 * **A tilde symbol, `~`**, means "explained by". 
+
+## Exercise
+
+</br>
+
+- Go to the "Lec6_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 1.
 
 
 # Linear Regression
@@ -430,6 +439,15 @@ summary(mfit_iter2)
 ```
 
 
+## Exercise
+
+</br>
+
+- Go to the "Lec6_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 2.
+
 
 # Extra: Lasso Regression
 
@@ -593,10 +611,7 @@ cvfit$lambda.1se
 ```
 
 
-
-# Exercise I
-
-## Exercise I
+## Extra Exercise
 
 In this exercise you will perform Lasso regression yourself.
 We will use the `Boston` dataset from the `MASS` package.
@@ -640,9 +655,6 @@ Evaluate the MSE for each.
 
 
 
-```{r}
-# (... ?)
-```
 
 
 

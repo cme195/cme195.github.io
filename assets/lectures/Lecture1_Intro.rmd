@@ -2,21 +2,19 @@
 title: 'Lecture 1: Introduction to R'
 date: "October 3, 2017" 
 output: 
-  revealjs::revealjs_presentation: 
+  revealjs::revealjs_presentation:
     self_contained: false
     lib_dir: libs
-    css: class.css
-    highlight: default 
+    theme: simple
+    hightlights: haddock
     smart: true
     center: true
-    transition: default 
-    background_transition: default 
-    fig_width: 6 
-    fig_height: 4 
-    text-align: left;
-    reveal_options: 
-      slideNumber: true 
-      previewLinks: true 
+    transition: slide
+    css: cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}
@@ -27,17 +25,13 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 
 ## Contents
 
-
-<ul style="margin: auto; width: 50%; padding: 10px">
-  <li>R language</li>
-  <li>How to get and use R?</li>
-  <li>R Basics </li>
-  <li>Course Objectives & Organization </li>
-</ul>
+* R language
+* How to get and use R?
+* R Basics 
+* Course Objectives & Organization 
 
 
 # R language
-
 
 ## What is R?
 

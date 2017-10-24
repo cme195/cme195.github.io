@@ -20,7 +20,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
 .packages <- c("ggplot2", "plotly", "heatmaply", "ggmap", "dplyr")
-lapply(.packages, require, character.only = TRUE)
+sapply(.packages, require, character.only = TRUE)
 ```
 
 ## Packages:
@@ -320,3 +320,13 @@ ggmap(europe_map)+
             alpha = .5, color="darkred")
 ```
 
+
+
+## Exercises
+
+</br>
+
+- Go to the "Lec5_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete all exercises.

@@ -24,7 +24,7 @@ of work (each).
 ## [](#deadlines)  Schedule for deliverables:
 
 * Proposal (title and one-paragraph abstract) due **10/24 by the end of class**.
-* Final write-up and R code due a week after the last class **11/15 at noon**.
+* Final write-up and R code due a week after the last class **11/30 at noon**.
 
 Everything should be uploaded on
 [canvas](https://web.stanford.edu/group/canvas/discovery/) before the

@@ -2,21 +2,19 @@
 title: 'Lecture 2:  Syntax, control flow, functions'
 date: "October 5, 2017" 
 output: 
-  revealjs::revealjs_presentation: 
+  revealjs::revealjs_presentation:
     self_contained: false
     lib_dir: libs
-    css: class_big_fonts.css
-    highlight: default 
+    theme: simple
+    hightlights: haddock
     smart: true
     center: true
-    transition: default 
-    background_transition: default 
-    fig_width: 6 
-    fig_height: 4 
-    text-align: left;
-    reveal_options: 
-      slideNumber: true 
-      previewLinks: true 
+    transition: slide
+    css: cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}

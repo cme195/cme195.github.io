@@ -502,8 +502,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="useful-books" class="slide level2">
 <h1>Useful Books</h1>
 <ul>
-<li><a href="http://www-bcf.usc.edu/~gareth/ISL/getbook.html">“An introduction to Statistical Learning”</a> [ESL] by James, Witten, Hastie and Tibshirani</li>
-<li><p><a href="http://www.springer.com/gp/book/9780387848570">“Elements of statistical learning”</a> [ISL] by Hastie, Tibshirani and Friedman</p></li>
+<li><a href="http://www-bcf.usc.edu/~gareth/ISL/getbook.html">“An introduction to Statistical Learning”</a> [ISL] by James, Witten, Hastie and Tibshirani</li>
+<li><p><a href="http://www.springer.com/gp/book/9780387848570">“Elements of statistical learning”</a> [ESL] by Hastie, Tibshirani and Friedman</p></li>
 <li><p><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html">“Introduction to Linear Regression Analysis”</a> by Montgomery, Peck, Vinning</p></li>
 </ul>
 </section>
@@ -553,8 +553,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section><section id="distribution-of-the-statistic" class="slide level2">
 <h1>Distribution of the statistic</h1>
-<p>p-value is the probability of an observed (or more extreme) result assuming that the null hypothesis is true, i.e. <span class="math inline">\(P[observations | H_0]\)</span>. Note that:</p>
-<p><span class="math display">\[P[observations \; | \; hypothesis] \ne P[hypothesis \; | \; ovservations]\]</span></p>
+<p>p-value is the probability of an observed (or more extreme) result assuming that the null hypothesis is true, i.e. <span class="math inline">\(P[observations \mid H_0]\)</span>. Note that:</p>
+<p><span class="math display">\[P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]\]</span></p>
 <p></br></p>
 <div class="left">
 <p><img src="Lecture6__Hypothesis_testing_and_linear_regression_files/tdist.gif" /></p>
@@ -707,6 +707,13 @@ mtcars &lt;-<span class="st"> </span>mtcars %&gt;%
 <ul>
 <li><strong>A tilde symbol, <code>~</code></strong>, means “explained by”.</li>
 </ul>
+</section><section id="exercise" class="slide level2">
+<h1>Exercise</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec6_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
 </section></section>
 <section><section id="linear-regression" class="titleslide slide level1"><h1>Linear Regression</h1></section><section id="linear-regression-1" class="slide level2">
 <h1>Linear Regression</h1>
@@ -780,16 +787,10 @@ fit</code></pre></div>
 ## wt          -5.344472   0.559101 -9.559044 1.293959e-10</code></pre>
 <p><span class="math inline">\(\hat y\)</span> = predicted <code>mpg</code> values for existing observations (cars):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(fit)[<span class="dv">1</span>:<span class="dv">15</span>]</code></pre></div>
-<pre><code>##          Mazda RX4      Mazda RX4 Wag         Datsun 710 
-##           23.28261           21.91977           24.88595 
-##     Hornet 4 Drive  Hornet Sportabout            Valiant 
-##           20.10265           18.90014           18.79325 
-##         Duster 360          Merc 240D           Merc 230 
-##           18.20536           20.23626           20.45004 
-##           Merc 280          Merc 280C         Merc 450SE 
-##           18.90014           18.90014           15.53313 
-##         Merc 450SL        Merc 450SLC Cadillac Fleetwood 
-##           17.35025           17.08302            9.22665</code></pre>
+<pre><code>##        1        2        3        4        5        6        7        8 
+## 23.28261 21.91977 24.88595 20.10265 18.90014 18.79325 18.20536 20.23626 
+##        9       10       11       12       13       14       15 
+## 20.45004 18.90014 18.90014 15.53313 17.35025 17.08302  9.22665</code></pre>
 </section><section id="section-10" class="slide level2">
 <h1></h1>
 <p>To predict the <code>mpg</code> for <strong>new observations</strong>, e.g. a new car with weight <code>wt = 3.14</code>, we can do a manual computation using estimated coefficients:</p>
@@ -922,6 +923,13 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 ## Residual standard error: 2.591 on 28 degrees of freedom
 ## Multiple R-squared:  0.833,  Adjusted R-squared:  0.8151 
 ## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
+</section><section id="exercise-1" class="slide level2">
+<h1>Exercise</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec6_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 2.</p></li>
+</ul>
 </section></section>
 <section><section id="extra-lasso-regression" class="titleslide slide level1"><h1>Extra: Lasso Regression</h1></section><section id="choosing-a-model" class="slide level2">
 <h1>Choosing a model</h1>
@@ -954,6 +962,9 @@ newcars &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;glmnet&quot;)</span>
 <span class="kw">library</span>(glmnet)</code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## Loaded glmnet 2.0-13</code></pre>
 </section><section id="section-17" class="slide level2">
 <h1></h1>
 <ul>
@@ -1070,14 +1081,18 @@ cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx
 <p>The biggest <span class="math inline">\(\lambda\)</span> such that the MSE is within one standard error of the minimum MSE.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit$lambda.1se</code></pre></div>
 <pre><code>## [1] 0.6632685</code></pre>
-</section></section>
-<section><section id="exercise-i" class="titleslide slide level1"><h1>Exercise I</h1></section><section id="exercise-i-1" class="slide level2">
-<h1>Exercise I</h1>
+</section><section id="extra-exercise" class="slide level2">
+<h1>Extra Exercise</h1>
 <p>In this exercise you will perform Lasso regression yourself. We will use the <code>Boston</code> dataset from the <code>MASS</code> package. The dataset contains information on the Boston suburbs housing market collected by David Harrison in 1978.</p>
 <p>We will try to predict the median value of of homes in the region based on its attributes recorded in other variables.</p>
 <p>First install the package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;MASS&quot;)</span>
 <span class="kw">library</span>(MASS)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:plotly&#39;:
+## 
+##     select</code></pre>
 </section><section id="section-25" class="slide level2">
 <h1></h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Boston, <span class="dv">3</span>)</code></pre></div>
@@ -1118,7 +1133,6 @@ boston.test &lt;-<span class="st"> </span>Boston[-trainIdx,<span class="st">&quo
 <li>Inspect comuted coefficients for <code>lambda.min</code>.</li>
 <li>Compute the predictions for the test dataset the two choices of the tuning parameter, <code>lambda.min</code> and <code>lambda.1se</code>. Evaluate the MSE for each.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># (... ?)</span></code></pre></div>
 </section></section>
 <section class="footnotes">
 <hr />

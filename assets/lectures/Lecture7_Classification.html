@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="dcterms.date" content="2017-10-24" />
+  <title>Lecture 7: Classification</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 7: Classification</h1>
+    <h3 class="date">October 24, 2017</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h1>Contents</h1>
+<ul>
+<li>Logistic Regression</li>
+<li>Random Forest</li>
+<li>Extra: Support Vector Machines</li>
+</ul>
+</section>
+<section id="classification" class="slide level2">
+<h1>Classification</h1>
+<ul>
+<li><p><strong>Classification</strong> is a supervised methood which deals with prediction outcomes or <strong>response variables that are qualitative, or categorical</strong>.</p></li>
+<li><p>The task is to classify or <strong>assign each observation to a category or a class.</strong></p></li>
+<li>Examples of classification problems include:
+<ul>
+<li>predicting what medical condition or disease a patient has base on their symptoms,</li>
+<li>determining cell types based on their gene expression profiles (single cell RNA-seq data).</li>
+<li>detecting fraudulent transactions based on the transaction history</li>
+</ul></li>
+</ul>
+</section>
+<section><section id="logistic-regression" class="titleslide slide level1"><h1>Logistic Regression</h1></section><section id="logistic-regression-1" class="slide level2">
+<h1>Logistic Regression</h1>
+<ul>
+<li><p>Logistic regression is actually used for <strong>classification</strong>, and not regression tasks, <span class="math inline">\(Y \in \{0, 1\}\)</span>.</p></li>
+<li><p>The name <strong>regression</strong> comes from the fact that the method <strong>fits a linear function to a continuous quantity, the log odds of the response</strong>.</p></li>
+</ul>
+<p><span class="math display">\[
+p = P[Y = 1 \mid X]\\
+\log\left(\frac{p}{1-p}\right) = X\beta = \beta_0 + \beta_1^Tx 
+\]</span></p>
+<ul>
+<li>The method performs <strong>binary classification</strong> (k = 2), but can be generalized to handle <span class="math inline">\(k &gt; 2\)</span> classes (<strong>multinomial logistic regression</strong>).</li>
+</ul>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<p><span class="math display">\[
+\begin{align*}
+g(p) &amp;= \log\left(\frac{p}{1 - p}\right), \quad \quad \; \text{ ( logit a link function ) } \\
+g^{-1}(\eta) &amp;= \frac{1}{1 + e^{-\eta}},  \quad \quad \quad \quad \text{ ( logistic function ) }\\
+\eta &amp;= X\beta, \quad  \quad \quad \quad \quad \quad \text{ ( linear predictor ) } \\
+&amp;\\
+E[Y] &amp;= P[Y = 1 \mid X = x] \quad \; \text{ ( probability of outcome ) } \\
+&amp;= p = g^{-1}(\eta) \\
+&amp; = {1 \over 1 + e^{-X\beta}}
+\end{align*}
+\]</span></p>
+</section><section id="section-1" class="slide level2">
+<h1></h1>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" /></p>
+</section><section id="section-2" class="slide level2">
+<h1></h1>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" /></p>
+</section><section id="grad-school-admissions" class="slide level2">
+<h1>Grad School Admissions</h1>
+<p>Suppose we would like to predict students’ admission to graduate school based on their GRE, GPA, and the rank of their undergraduate institution.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">admissions &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://stats.idre.ucla.edu/stat/data/binary.csv&quot;</span>)
+admissions &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(admissions)
+admissions</code></pre></div>
+<pre><code>## # A tibble: 400 x 4
+##    admit   gre   gpa  rank
+##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
+##  1     0   380  3.61     3
+##  2     1   660  3.67     3
+##  3     1   800  4.00     1
+##  4     1   640  3.19     4
+##  5     0   520  2.93     4
+##  6     1   760  3.00     2
+##  7     1   560  2.98     1
+##  8     0   400  3.08     2
+##  9     1   540  3.39     3
+## 10     0   700  3.92     2
+## # ... with 390 more rows</code></pre>
+</section><section id="section-3" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(admissions)</code></pre></div>
+<pre><code>##      admit             gre             gpa             rank      
+##  Min.   :0.0000   Min.   :220.0   Min.   :2.260   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:520.0   1st Qu.:3.130   1st Qu.:2.000  
+##  Median :0.0000   Median :580.0   Median :3.395   Median :2.000  
+##  Mean   :0.3175   Mean   :587.7   Mean   :3.390   Mean   :2.485  
+##  3rd Qu.:1.0000   3rd Qu.:660.0   3rd Qu.:3.670   3rd Qu.:3.000  
+##  Max.   :1.0000   Max.   :800.0   Max.   :4.000   Max.   :4.000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(admissions, sd)</code></pre></div>
+<pre><code>##       admit         gre         gpa        rank 
+##   0.4660867 115.5165364   0.3805668   0.9444602</code></pre>
+<p>Check that there are observations included in each subgroup, and whether the data is balanced:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(admissions, <span class="kw">table</span>(admit, rank))</code></pre></div>
+<pre><code>##      rank
+## admit  1  2  3  4
+##     0 28 97 93 55
+##     1 33 54 28 12</code></pre>
+</section><section id="logistic-regression-in-r" class="slide level2">
+<h1>Logistic Regression in R</h1>
+<ul>
+<li>In R logistic regression can be done using a function <code>glm()</code>.</li>
+<li><code>glm</code> stands for Generalized Linear Model.</li>
+<li>The function can fit many other regression models. Use <code>?glm</code> to learn more.</li>
+<li>For cases with <span class="math inline">\(k &gt;2\)</span> classes, <code>multinom()</code> function from <code>nnet</code> package can be used. To see how go over this <a href="https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/">example</a>.</li>
+</ul>
+</section><section id="section-4" class="slide level2">
+<h1></h1>
+<p>Note that currently the column ‘admit’ and ‘rank’ in <code>admissions</code> are integers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(admissions, class)</code></pre></div>
+<pre><code>##     admit       gre       gpa      rank 
+## &quot;integer&quot; &quot;integer&quot; &quot;numeric&quot; &quot;integer&quot;</code></pre>
+<p>We convert the two columns to factors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">admissions &lt;-<span class="st"> </span><span class="kw">mutate</span>(admissions,
+  <span class="dt">admit =</span> <span class="kw">factor</span>(admit, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;rejected&quot;</span>, <span class="st">&quot;admitted&quot;</span>)),
+  <span class="dt">rank =</span> <span class="kw">factor</span>(rank, <span class="dt">levels =</span> <span class="dv">1</span>:<span class="dv">4</span>)
+)
+admissions</code></pre></div>
+<pre><code>## # A tibble: 400 x 4
+##       admit   gre   gpa   rank
+##      &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt; &lt;fctr&gt;
+##  1 rejected   380  3.61      3
+##  2 admitted   660  3.67      3
+##  3 admitted   800  4.00      1
+##  4 admitted   640  3.19      4
+##  5 rejected   520  2.93      4
+##  6 admitted   760  3.00      2
+##  7 admitted   560  2.98      1
+##  8 rejected   400  3.08      2
+##  9 admitted   540  3.39      3
+## 10 rejected   700  3.92      2
+## # ... with 390 more rows</code></pre>
+</section><section id="split-data" class="slide level2">
+<h1>Split data</h1>
+<p>Divide data into train and test set so that we can evaluate the model accuracy later on. Here we use 70%-30% split.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123456</span>)
+train.idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(admissions), <span class="fl">0.7</span>*<span class="kw">nrow</span>(admissions))
+train &lt;-<span class="st"> </span>admissions[train.idx, ]
+test &lt;-<span class="st"> </span>admissions[-train.idx, ]</code></pre></div>
+</section><section id="fitting-a-logistic-regression-model" class="slide level2">
+<h1>Fitting a logistic regression model</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.logit &lt;-<span class="st"> </span><span class="kw">glm</span>(admit ~<span class="st"> </span>gre +<span class="st"> </span>gpa +<span class="st"> </span>rank, <span class="dt">data =</span> train, 
+                 <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</code></pre></div>
+<ul>
+<li><p>The first argument,<br />
+<code>formula = admit ~ gre + gpa + rank</code>,<br />
+specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)</span>.</p></li>
+<li><p>You need to set the family to <code>family = &quot;binomial&quot;</code> equivalent to choosing a logistic regression, i.e. using <strong>a logit link function</strong> <span class="math inline">\(g(\cdot)\)</span> in a GLM model.</p></li>
+</ul>
+</section><section id="section-5" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit.logit)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = admit ~ gre + gpa + rank, family = &quot;binomial&quot;, 
+##     data = train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.4811  -0.8899  -0.6611   1.1862   2.0721  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept) -3.626928   1.333747  -2.719  0.00654 **
+## gre          0.003061   0.001311   2.335  0.01953 * 
+## gpa          0.500902   0.386621   1.296  0.19512   
+## rank2       -0.502376   0.378062  -1.329  0.18391   
+## rank3       -0.980873   0.407041  -2.410  0.01596 * 
+## rank4       -1.237913   0.493217  -2.510  0.01208 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 350.14  on 279  degrees of freedom
+## Residual deviance: 324.87  on 274  degrees of freedom
+## AIC: 336.87
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</section><section id="section-6" class="slide level2">
+<h1></h1>
+<p>Logistic regression <strong>coefficients</strong> for continuous predictors (covariates) give <strong>the log fold change in the odds of the outcome corresponding to a unit increase in the predictor</strong>.</p>
+<p><span class="math display">\[
+\begin{align*}
+\beta_{cont} &amp;= \log \left({P[Y = 1 \;| \; X_{cont} = x + 1 ] \over P[Y = 1\;|\; X_{cont} = x]} \right)\\
+\end{align*}
+\]</span></p>
+<p><strong>Categorical features (factors) are first converted to indicator variables</strong> and then the model fits separate coefficients for each level of the factor. Coefficients corresponding to a specific indicator variable give the increase/decrease in the log odds of the outcome in case the observation is recorded with that level.</p>
+<p><span class="math display">\[
+\begin{align*}
+\beta_{facL} &amp;= \log \left({P[Y = 1 \;| \; X_{fac} =  L ] \over P[Y = 1\;|\; X_{fac} \ne L ]} \right)\\
+\end{align*}
+\]</span></p>
+</section><section id="section-7" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(fit.logit)</code></pre></div>
+<pre><code>##  (Intercept)          gre          gpa        rank2        rank3 
+## -3.626927707  0.003061239  0.500901628 -0.502375799 -0.980872661 
+##        rank4 
+## -1.237912642</code></pre>
+<p></br></p>
+<ul>
+<li><p>For every unit increase in <code>gre</code>, the log odds of admitted (versus rejected) increases by <span class="math inline">\(\approx\)</span> 0.0030612.</p></li>
+<li><p>For every unit increase in <code>gpa</code>, the log odds increases by <span class="math inline">\(\approx\)</span> 0.5009016.</p></li>
+<li><p>There are three coefficients for the rank variable, e.g. a student attending a college with rank 2, one with rank 1 (base level), has the log admission odds decreased by <span class="math inline">\(\approx\)</span> -0.5023758.</p></li>
+</ul>
+</section><section id="section-8" class="slide level2">
+<h1></h1>
+<p>You can get the confidence intervals for the coefficients with the <code>confint()</code> fuinction</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confint</span>(fit.logit)</code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                     2.5 %       97.5 %
+## (Intercept) -6.3005033773 -1.055267675
+## gre          0.0005270972  0.005682988
+## gpa         -0.2517254914  1.269320820
+## rank2       -1.2478927740  0.239891701
+## rank3       -1.7887087854 -0.186990834
+## rank4       -2.2410453972 -0.293855964</code></pre>
+<p>The <span class="math inline">\(95\%\)</span> CI are away from zero which indicates significance.</p>
+</section><section id="section-9" class="slide level2">
+<h1></h1>
+<p>Rank variable effect is given with three different coeffients.</p>
+<p>We can sse <code>wald.test()</code> function from the <code>aod</code> package to test the overall effect of ‘rank’.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(aod)</span>
+<span class="kw">library</span>(aod)
+<span class="kw">wald.test</span>(<span class="dt">b =</span> <span class="kw">coef</span>(fit.logit), <span class="dt">Sigma =</span> <span class="kw">vcov</span>(fit.logit), <span class="dt">Terms =</span> <span class="dv">4</span>:<span class="dv">6</span>)</code></pre></div>
+<pre><code>## Wald test:
+## ----------
+## 
+## Chi-squared test:
+## X2 = 8.8, df = 3, P(&gt; X2) = 0.033</code></pre>
+<ul>
+<li><code>b</code> supplies the coefficients,</li>
+<li><code>Sigma</code> supplies the variance covariance matrix of the error terms,</li>
+<li><code>Terms</code> indices of the coefficients to be tested; here 4, 5, and 6, corresponding to ‘rank’.</li>
+</ul>
+<p>The p-value indicates that the overall effect of rank is statistically significant.</p>
+</section><section id="predictions" class="slide level2">
+<h1>Predictions</h1>
+<p>Predictions can be computed using <code>predict()</code> function, with the argument <code>type = &quot;response&quot;</code>. Otherwise, the default will compute predictions on the scale of the linear predictors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Must have the same column names as the variables in the model </span>
+newStudents &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gre =</span> <span class="kw">c</span>(<span class="dv">670</span>, <span class="dv">790</span>, <span class="dv">550</span>), 
+                          <span class="dt">gpa =</span> <span class="kw">c</span>(<span class="fl">3.56</span>, <span class="fl">4.00</span>, <span class="fl">3.87</span>), 
+                          <span class="dt">rank =</span> <span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)))
+
+<span class="co"># The output is the probability of admissions for each of the new students.</span>
+newStudents &lt;-<span class="st"> </span>newStudents %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">pred.prob.admit =</span> <span class="kw">predict</span>(fit.logit, <span class="dt">newdata =</span> newStudents, 
+                              <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>),
+    <span class="dt">admit =</span> <span class="kw">factor</span>(pred.prob.admit &lt;<span class="st"> </span><span class="fl">0.5</span>, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>),
+                   <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;rejected&quot;</span>, <span class="st">&quot;admitted&quot;</span>))
+  )
+newStudents</code></pre></div>
+<pre><code>##   gre  gpa rank pred.prob.admit    admit
+## 1 670 3.56    1       0.5516432 admitted
+## 2 790 4.00    2       0.5726525 admitted
+## 3 550 3.87    2       0.3758659 rejected</code></pre>
+</section><section id="test-set-predictions" class="slide level2">
+<h1>Test Set Predictions</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred.prob.admit &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.logit, <span class="dt">newdata =</span> test, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+admit &lt;-<span class="st"> </span><span class="kw">factor</span>(pred.prob.admit &lt;<span class="st"> </span><span class="fl">0.5</span>, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>),
+                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;rejected&quot;</span>, <span class="st">&quot;admitted&quot;</span>))
+(confusion.matrix &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">pred =</span> admit, <span class="dt">true =</span> test$admit))</code></pre></div>
+<pre><code>##           true
+## pred       rejected admitted
+##   rejected       80       34
+##   admitted        2        4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Accuracy</span>
+<span class="kw">sum</span>(<span class="kw">diag</span>(confusion.matrix))/<span class="kw">nrow</span>(test)</code></pre></div>
+<pre><code>## [1] 0.7</code></pre>
+</section><section id="exercise" class="slide level2">
+<h1>Exercise</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec7_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="random-forest" class="titleslide slide level1"><h1>Random Forest</h1></section><section id="random-forest-1" class="slide level2">
+<h1>Random Forest</h1>
+<ul>
+<li>Random Forest is <strong>an ensemble learning method based on classification and regression trees, CART,</strong> proposed by <a href="http://link.springer.com/article/10.1023/A:1010933404324">Breinman</a> in 2001.</li>
+<li>RF can be used to perform <strong>both classification and regression</strong>.</li>
+<li>RF models are robust as they <strong>combine predictions calculated from a large number of decision trees (a forest).</strong></li>
+<li>Details on RF can be found in Chapter 8 of <a href="http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Sixth%20Printing.pdf">ISL</a> and Chapter 15 <a href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">ESL</a>; also a good write-up can also be found <a href="http://www.bios.unc.edu/~dzeng/BIOS740/randomforest.pdf">here</a></li>
+</ul>
+</section><section id="decision-trees" class="slide level2">
+<h1>Decision trees</h1>
+<ul>
+<li><p>Cool visualization explaining what decision trees are: <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">link</a></p></li>
+<li><p>Decision tree on classification of Titanic Survivors:</p></li>
+</ul>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+</section><section id="tree-bagging-algorithm" class="slide level2">
+<h1>Tree bagging Algorithm</h1>
+<p>Suppse we have an input data matrix, <span class="math inline">\(X \in \mathbb{R}^{N \times p}\)</span> and a response vector, <span class="math inline">\(Y \in \mathbb{R}^N\)</span>.</p>
+<div style="color:#00008f">
+<p>For b = 1, 2, …, B:</p>
+<p><span class="math inline">\(\quad\)</span> 1. Generate a random subset of the data <span class="math inline">\((X_b, Y_b)\)</span> contatining <span class="math inline">\(n &lt; N\)</span> </p>
+<p><span class="math inline">\(\quad \;\)</span> observations sampled with replacement.</p>
+<p><span class="math inline">\(\quad\)</span> 2. Train a decision tree <span class="math inline">\(T_b\)</span> on <span class="math inline">\((X_b, Y_b)\)</span></p>
+<p><span class="math inline">\(\quad\)</span> 3. Predict the outcome for <span class="math inline">\(N-n\;\)</span> unseen (complement) samples <span class="math inline">\((X_b&#39;, Y_b&#39;)\)</span></p>
+<p>Afterwards, combine predictions from all decision trees and compute the average predicted outcome .</p>
+</div>
+<p></br></p>
+<p><strong>Averaging over a collection of decision trees makes the predictions more stable.</strong></p>
+</section><section id="decision-trees-for-bootrap-samples" class="slide level2">
+<h1>Decision trees for bootrap samples</h1>
+<div style="text-align: center">
+<p><img src="Lecture7_Classification_files/ensembleTrees.png" alt="ESL" /></p>
+<p>Source: <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">Chapter 8 ESL</a></p>
+</div>
+</section><section id="random-forest-characteristics" class="slide level2">
+<h1>Random Forest Characteristics</h1>
+<ul>
+<li><p>Random forests differ in only one way from tree bagging: it uses a modified tree learning algorithm sometimes called <strong>feature bagging</strong>.</p></li>
+<li><p>At each candidate split in the learning process, <strong>only a random subset of the features is included in a pool</strong> from which the variables can be selected for splitting the branch.</p></li>
+<li><p>Introducing <strong>randomness</strong> into the candidate splitting variables, <strong>reduces correlation between the generated trees.</strong></p></li>
+</ul>
+</section><section id="section-10" class="slide level2">
+<h1></h1>
+<div style="text-align: center">
+<p><img src="Lecture7_Classification_files/rfparams.png" /></p>
+</div>
+</section><section id="section-11" class="slide level2">
+<h1></h1>
+<div style="text-align: center">
+<p><img src="Lecture7_Classification_files/randomForest.jpg" /></p>
+<p>Source: <a href="http://www.slideshare.net/satnam74/india-software-developers-conference-2013-bangalore">link</a></p>
+</div>
+</section><section id="wine-quality" class="slide level2">
+<h1>Wine Quality</h1>
+<p>UCI ML Repo includes two datasets on red and white variants of the Portuguese <a href="http://www.vinhoverde.pt">“Vinho Verde” wine</a>. The datasets contain information on physicochemical and sensory characteristics of the wine quality score.</p>
+<p>We will use the white wines dataset to classify wines according to their quality classes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &#39;https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv&#39;</span>
+wines &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(<span class="kw">read.csv</span>(url, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>))
+<span class="kw">print</span>(wines, <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## # A tibble: 4,898 x 12
+##   fixed.acidity volatile.acidity citric.acid residual.sugar chlorides
+##           &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+## 1           7.0             0.27        0.36           20.7     0.045
+## 2           6.3             0.30        0.34            1.6     0.049
+## 3           8.1             0.28        0.40            6.9     0.050
+## 4           7.2             0.23        0.32            8.5     0.058
+## 5           7.2             0.23        0.32            8.5     0.058
+## 6           8.1             0.28        0.40            6.9     0.050
+## # ... with 4,892 more rows, and 7 more variables:
+## #   free.sulfur.dioxide &lt;dbl&gt;, total.sulfur.dioxide &lt;dbl&gt;, density &lt;dbl&gt;,
+## #   pH &lt;dbl&gt;, sulphates &lt;dbl&gt;, alcohol &lt;dbl&gt;, quality &lt;int&gt;</code></pre>
+</section><section id="class-frequency" class="slide level2">
+<h1>Class Frequency</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(wines, <span class="kw">aes</span>(<span class="dt">x =</span> quality)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +<span class="st"> </span><span class="kw">theme_classic</span>() +
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Barplot for Quality Scores&quot;</span>)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p style="font-size: 30px">
+The classes are ordered and not balanced (munch more normal wines than excellent/poor ones).
+</p>
+</section><section id="section-12" class="slide level2">
+<h1></h1>
+<p>To make things easier, we will wines into <strong>“good”, “average” and “bad”</strong> categories.</p>
+<p>The new classes will be more balanced, and it will be easier to fit the model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qualClass &lt;-<span class="st"> </span>function(quality) {
+  if(quality &gt;<span class="st"> </span><span class="dv">6</span>) <span class="kw">return</span>(<span class="st">&quot;good&quot;</span>)
+  if(quality &lt;<span class="st"> </span><span class="dv">6</span>) <span class="kw">return</span>(<span class="st">&quot;bad&quot;</span>)
+  <span class="kw">return</span>(<span class="st">&quot;average&quot;</span>)
+}
+wines &lt;-<span class="st"> </span><span class="kw">mutate</span>(wines, <span class="dt">taste =</span> <span class="kw">sapply</span>(quality, qualClass),
+         <span class="dt">taste =</span> <span class="kw">factor</span>(taste, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;bad&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;good&quot;</span>)))
+wines</code></pre></div>
+<pre><code>## # A tibble: 4,898 x 13
+##    fixed.acidity volatile.acidity citric.acid residual.sugar chlorides
+##            &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+##  1           7.0             0.27        0.36           20.7     0.045
+##  2           6.3             0.30        0.34            1.6     0.049
+##  3           8.1             0.28        0.40            6.9     0.050
+##  4           7.2             0.23        0.32            8.5     0.058
+##  5           7.2             0.23        0.32            8.5     0.058
+##  6           8.1             0.28        0.40            6.9     0.050
+##  7           6.2             0.32        0.16            7.0     0.045
+##  8           7.0             0.27        0.36           20.7     0.045
+##  9           6.3             0.30        0.34            1.6     0.049
+## 10           8.1             0.22        0.43            1.5     0.044
+## # ... with 4,888 more rows, and 8 more variables:
+## #   free.sulfur.dioxide &lt;dbl&gt;, total.sulfur.dioxide &lt;dbl&gt;, density &lt;dbl&gt;,
+## #   pH &lt;dbl&gt;, sulphates &lt;dbl&gt;, alcohol &lt;dbl&gt;, quality &lt;int&gt;, taste &lt;fctr&gt;</code></pre>
+</section><section id="section-13" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(wines$quality)</code></pre></div>
+<pre><code>## 
+##    3    4    5    6    7    8    9 
+##   20  163 1457 2198  880  175    5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(wines, <span class="kw">aes</span>(<span class="dt">x =</span> taste)) +
+<span class="st">  </span><span class="kw">geom_bar</span>() +<span class="st"> </span><span class="kw">theme_classic</span>() +
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Barplot for Quality Scores&quot;</span>)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;" /></p>
+</section><section id="splitting-data" class="slide level2">
+<h1>Splitting data</h1>
+<p>We include 60% of the data in a train set and the remaining into a test set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+train.idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(wines), <span class="fl">0.6</span> *<span class="st"> </span><span class="kw">nrow</span>(wines))
+train &lt;-<span class="st"> </span>wines[train.idx, ]
+test &lt;-<span class="st"> </span>wines[-train.idx, ]
+<span class="kw">dim</span>(train)</code></pre></div>
+<pre><code>## [1] 2938   13</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(test)</code></pre></div>
+<pre><code>## [1] 1960   13</code></pre>
+</section><section id="random-forest-in-r" class="slide level2">
+<h1>Random Forest in R</h1>
+<p>In R there is a convenient function <code>randomForest</code> from <code>randomForest</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;randomForest&quot;)</span>
+<span class="kw">library</span>(randomForest)</code></pre></div>
+<pre><code>## randomForest 4.6-12</code></pre>
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;randomForest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     margin</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf.wines &lt;-<span class="st"> </span><span class="kw">randomForest</span>(taste ~<span class="st"> </span>. -<span class="st"> </span>quality, <span class="dt">data =</span> train,
+                         <span class="dt">mtry =</span> <span class="dv">6</span>, <span class="dt">ntree =</span> <span class="dv">600</span>, <span class="dt">importance =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<ul>
+<li><p>Note that in the formula ‘<code>taste ~ . - quality</code>’ means we include all features EXCEPT for ‘quality’ (the response variable).</p></li>
+<li><p><code>mtry</code> - the number of variables randomly sampled as candidates at each split. Defaults: for classification – <span class="math inline">\(\sqrt{p}\)</span> and for regression – <span class="math inline">\(p/3\)</span>, where <span class="math inline">\(p\)</span> is number of all variables in the model.</p></li>
+<li><p><code>ntree</code> - the number of trees in the forest.</p></li>
+<li><p><code>importance</code> - whether importance of predictors be computed.</p></li>
+</ul>
+</section><section id="section-14" class="slide level2">
+<h1></h1>
+<p>Observe, that RF is good at distinguishing “bad” wines from“good” wines, but still struggles when it comes to “average” wines.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rf.wines</code></pre></div>
+<pre><code>## 
+## Call:
+##  randomForest(formula = taste ~ . - quality, data = train, mtry = 6,      ntree = 600, importance = TRUE) 
+##                Type of random forest: classification
+##                      Number of trees: 600
+## No. of variables tried at each split: 6
+## 
+##         OOB estimate of  error rate: 30.12%
+## Confusion matrix:
+##         bad average good class.error
+## bad     677     278   18   0.3042138
+## average 228     971  117   0.2621581
+## good     20     224  405   0.3759630</code></pre>
+</section><section id="model-accuracy" class="slide level2">
+<h1>Model Accuracy</h1>
+<ul>
+<li><p>You should always evaluate your model’s performance on a test set, which was set aside and not observed by the method at all.</p></li>
+<li><p>In case of RF, performance on train and test set should be similar; this is because the method averages predictions computed by individual trees for observations unseen by the tree.</p></li>
+<li><p>Inspect the confusion matrix to asses the model accuracy.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rf.wines, <span class="dt">newdata =</span> test)
+(confusion.mat &lt;-<span class="st"> </span><span class="kw">table</span>(pred, <span class="dt">truth =</span> test$taste))</code></pre></div>
+<pre><code>##          truth
+## pred      bad average good
+##   bad     476     131    9
+##   average 178     661  151
+##   good     13      90  251</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(rf.accuracy &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion.mat)) /<span class="st"> </span><span class="kw">nrow</span>(test))</code></pre></div>
+<pre><code>## [1] 0.7081633</code></pre>
+</section><section id="section-15" class="slide level2">
+<h1></h1>
+<p><a href="https://stats.stackexchange.com/questions/197827/how-to-interpret-mean-decrease-in-accuracy-and-mean-decrease-gini-in-random-fore" class="uri">https://stats.stackexchange.com/questions/197827/how-to-interpret-mean-decrease-in-accuracy-and-mean-decrease-gini-in-random-fore</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Look at variable importance:
+<span class="kw">importance</span>(rf.wines)</code></pre></div>
+<pre><code>##                           bad  average     good MeanDecreaseAccuracy
+## fixed.acidity        31.61926 25.98041 36.16006             49.52878
+## volatile.acidity     65.62247 53.90561 78.14410            100.81170
+## citric.acid          29.32895 30.59606 42.66566             51.41656
+## residual.sugar       34.76200 36.22169 34.11017             57.45461
+## chlorides            38.82683 24.70974 59.44965             64.23190
+## free.sulfur.dioxide  51.67186 35.52296 44.81158             68.81886
+## total.sulfur.dioxide 29.64474 25.20661 44.60063             54.97681
+## density              32.81271 26.11959 44.55753             56.24973
+## pH                   37.88014 26.46448 46.75563             59.06318
+## sulphates            28.53080 28.27934 42.38525             53.00674
+## alcohol              88.94843 39.38382 96.90979            118.11452
+##                      MeanDecreaseGini
+## fixed.acidity                130.1805
+## volatile.acidity             197.2117
+## citric.acid                  143.9020
+## residual.sugar               156.1524
+## chlorides                    159.6429
+## free.sulfur.dioxide          180.5619
+## total.sulfur.dioxide         162.8233
+## density                      188.9939
+## pH                           156.6557
+## sulphates                    138.7374
+## alcohol                      266.9109</code></pre>
+</section><section id="section-16" class="slide level2">
+<h1></h1>
+<p>What seems to be the conclusion? What are the characteristics that are predictive of the wine quality score?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(rf.wines)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" /></p>
+</section><section id="exercise-1" class="slide level2">
+<h1>Exercise</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec7_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 2.</p></li>
+</ul>
+</section></section>
+<section><section id="support-vector-machines" class="titleslide slide level1"><h1>Support Vector Machines</h1></section><section id="suport-vector-machines-svm" class="slide level2">
+<h1>Suport Vector Machines (SVM)</h1>
+<ul>
+<li><p>Method invented by Vladimir N. Vapnik and Alexey Ya. Chervonenkis in 1963.</p></li>
+<li><p>The idea is to find the best hyperplane sepparating observations from 2 different classes, where the best means the one that represents the largest separation or margin.</p></li>
+<li><p>The Andrew Ng’s CS229 <a href="https://www.youtube.com/watch?v=_PwhiWxHK8o">lecture</a> and <a href="http://cs229.stanford.edu/notes/cs229-notes3.pdf">notes</a> are good resources to learn about principles of SVMs.</p></li>
+<li><p>More details can also be found in Chapter 9 <a href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">ISL</a> and Chapter 12 <a href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">ESL</a></p></li>
+</ul>
+</section><section id="section-17" class="slide level2">
+<h1></h1>
+<div style="text-align: center">
+<p><img src="Lecture7_Classification_files/support_vecs.png" /></p>
+<p><img src="Lecture7_Classification_files/SVM_optimize.png" /></p>
+</div>
+</section><section id="svm-problem" class="slide level2">
+<h1>SVM Problem</h1>
+<span class="math display">\[\begin{align}
+\max_{w, b} &amp; \quad \frac{2}{\|w\|} \\
+s.t. \; \forall i: \;  y_i (w \cdot &amp; x_i + b) \ge 1
+\end{align}\]</span>
+<p>which can be converted to:</p>
+<span class="math display">\[\begin{align}
+\min_{w, b} \quad  {1 \over 2}&amp; \|w\|^2  \\
+s.t. \; \forall i: \; y_i (w \cdot x_i &amp; + b) \ge 1
+\end{align}\]</span>
+</section><section id="svm-problem-1" class="slide level2">
+<h1>SVM Problem</h1>
+Sometimes the data is not linearly separable, and regularization/soft-margin works better:
+<span class="math display">\[\begin{align}
+\min_{w, b}  {1 \over 2} \|w\|^2 &amp; + C \sum_{i = 1}^n \xi_i\\
+s.t. \; \forall i: \; y_i (w \cdot x_i + b) &amp;\ge 1 - \xi_i\\
+\xi_i &amp;\ge 0
+\end{align}\]</span>
+<p>Lagrangian:</p>
+<span class="math display">\[\begin{align}
+\mathcal{L}(w, b, \xi, \alpha, r)
+= {1\over 2} &amp; w^Tw + C \sum_{i = 1}^n \xi_i - \sum_{i = 1}^n r_i \xi_i \\
+&amp; -\sum_{i = 1}^n \alpha_i\left[ y_i (w \cdot x_i + b) - 1 + \xi_i\right] 
+\end{align}\]</span>
+</section><section id="svm-example" class="slide level2">
+<h1>SVM Example</h1>
+<p>We will do a simple example from the ISL computing SVM on a simulated data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">40</span>*<span class="dv">2</span>), <span class="dt">ncol=</span><span class="dv">2</span>)
+y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(-<span class="dv">1</span>,<span class="dv">20</span>), <span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">20</span>))
+x[y ==<span class="st"> </span><span class="dv">1</span>, ] &lt;-<span class="st"> </span>x[y ==<span class="st"> </span><span class="dv">1</span>, ] +<span class="st"> </span><span class="dv">2</span>
+dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y=</span><span class="kw">as.factor</span>(y))
+<span class="kw">head</span>(dat)</code></pre></div>
+<pre><code>##          x.1        x.2  y
+## 1 -0.6264538 -0.1645236 -1
+## 2  0.1836433 -0.2533617 -1
+## 3 -0.8356286  0.6969634 -1
+## 4  1.5952808  0.5566632 -1
+## 5  0.3295078 -0.6887557 -1
+## 6 -0.8204684 -0.7074952 -1</code></pre>
+</section><section id="section-18" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x[, <span class="dv">2</span>], x[, <span class="dv">1</span>], <span class="dt">col=</span>(<span class="dv">3</span>-y))</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" /></p>
+</section><section id="svm-in-r" class="slide level2">
+<h1>SVM in R</h1>
+<p>You can use the <code>e1071</code> package to perform svm in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
+<span class="co"># Set scale to be FALSE otherwise by default x is scaled to zero mean and unit variance</span>
+svmfit &lt;-<span class="st"> </span><span class="kw">svm</span>(y ~<span class="st"> </span>., <span class="dt">data=</span>dat, <span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>, <span class="dt">cost =</span> <span class="dv">10</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)
+<span class="kw">summary</span>(svmfit)</code></pre></div>
+<pre><code>## 
+## Call:
+## svm(formula = y ~ ., data = dat, kernel = &quot;linear&quot;, cost = 10, 
+##     scale = FALSE)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  10 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  10
+## 
+##  ( 5 5 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+</section><section id="section-19" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svmfit$index</code></pre></div>
+<pre><code>##  [1]  4  8 11 15 16 24 27 34 35 37</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svmfit, dat)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" /></p>
+</section><section id="section-20" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svmfit &lt;-<span class="st"> </span><span class="kw">svm</span>(y~., <span class="dt">data=</span>dat, <span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>, <span class="dt">cost=</span><span class="fl">0.05</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)
+svmfit$index</code></pre></div>
+<pre><code>##  [1]  2  3  4  7  8  9 10 11 15 16 19 20 24 25 27 28 29 32 34 35 36 37 38</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(svmfit)</code></pre></div>
+<pre><code>## 
+## Call:
+## svm(formula = y ~ ., data = dat, kernel = &quot;linear&quot;, cost = 0.05, 
+##     scale = FALSE)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  0.05 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  23
+## 
+##  ( 12 11 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+</section><section id="section-21" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svmfit, dat)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" /></p>
+</section><section id="section-22" class="slide level2">
+<h1></h1>
+<p>To find a best choice of the tuning parameter “C” use the <code>tune()</code> function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+tune.out &lt;-<span class="st"> </span><span class="kw">tune</span>(svm,y ~<span class="st"> </span>., <span class="dt">data=</span>dat, <span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,
+                 <span class="dt">ranges=</span><span class="kw">list</span>(<span class="dt">cost=</span><span class="kw">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">20</span>)))
+<span class="kw">summary</span>(tune.out)</code></pre></div>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost
+##  0.05
+## 
+## - best performance: 0.1 
+## 
+## - Detailed performance results:
+##    cost error dispersion
+## 1 1e-03 0.625  0.2946278
+## 2 1e-02 0.450  0.2581989
+## 3 5e-02 0.100  0.1290994
+## 4 1e-01 0.125  0.1767767
+## 5 1e+00 0.150  0.1748015
+## 6 5e+00 0.125  0.1317616
+## 7 1e+01 0.125  0.1317616
+## 8 2e+01 0.125  0.1317616</code></pre>
+</section><section id="section-23" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bestmod &lt;-<span class="st"> </span>tune.out$best.model
+<span class="kw">plot</span>(bestmod, dat)</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" /></p>
+</section><section id="section-24" class="slide level2">
+<h1></h1>
+<p>We build a new test dataset from a similar model as we did for the train data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+xtest &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">30</span>*<span class="dv">2</span>), <span class="dt">ncol=</span><span class="dv">2</span>)
+ytest &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(-<span class="dv">1</span>,<span class="dv">1</span>), <span class="dv">30</span>, <span class="dt">rep=</span><span class="ot">TRUE</span>)
+xtest[ytest ==<span class="st"> </span><span class="dv">1</span>, ] &lt;-<span class="st"> </span>xtest[ytest ==<span class="st"> </span><span class="dv">1</span>,] +<span class="st"> </span><span class="dv">2</span>
+testdat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> xtest, <span class="dt">y =</span> <span class="kw">as.factor</span>(ytest))
+<span class="kw">plot</span>(xtest[, <span class="dv">2</span>], xtest[, <span class="dv">1</span>], <span class="dt">col=</span>(<span class="dv">3</span>-ytest))</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" /></p>
+</section><section id="section-25" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ypred &lt;-<span class="st"> </span><span class="kw">predict</span>(bestmod, testdat)
+<span class="kw">table</span>(<span class="dt">predict =</span> ypred, <span class="dt">truth =</span> testdat$y)</code></pre></div>
+<pre><code>##        truth
+## predict -1  1
+##      -1 13  1
+##      1   0 16</code></pre>
+<p>And for the non-tuned model we have:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svmfit &lt;-<span class="st"> </span><span class="kw">svm</span>(y~., <span class="dt">data=</span>dat, <span class="dt">kernel =</span> <span class="st">&quot;linear&quot;</span>, <span class="dt">cost=</span><span class="dv">10</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>)
+ypred &lt;-<span class="st"> </span><span class="kw">predict</span>(svmfit, testdat)
+<span class="kw">table</span>(<span class="dt">predict =</span> ypred, <span class="dt">truth =</span> testdat$y)</code></pre></div>
+<pre><code>##        truth
+## predict -1  1
+##      -1 13  2
+##      1   0 15</code></pre>
+</section><section id="kernel-svm" class="slide level2">
+<h1>Kernel SVM</h1>
+<p><img src="Lecture7_Classification_files/Kernel_Machine.png" /></p>
+</section><section id="kernel-svm-example" class="slide level2">
+<h1>Kernel SVM Example</h1>
+<p>Now suppose we have non-linearly separable data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="co"># Generate 200 points</span>
+x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">400</span>*<span class="dv">2</span>), <span class="dt">ncol=</span><span class="dv">2</span>)
+x[<span class="dv">1</span>:<span class="dv">100</span>,] &lt;-<span class="st"> </span>x[<span class="dv">1</span>:<span class="dv">100</span>,] +<span class="st"> </span><span class="dv">2</span>
+x[<span class="dv">101</span>:<span class="dv">200</span>,] &lt;-<span class="st"> </span>x[<span class="dv">101</span>:<span class="dv">200</span>, ] -<span class="st"> </span><span class="dv">2</span>
+y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">200</span>), <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">200</span>))
+dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> <span class="kw">as.factor</span>(y))
+<span class="co"># Let a random half be a training set</span>
+trainIdx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">400</span>, <span class="dv">200</span>)</code></pre></div>
+</section><section id="section-26" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(x[trainIdx, <span class="dv">2</span>], x[trainIdx, <span class="dv">1</span>], <span class="dt">col=</span>y[trainIdx])</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-40-1.png" width="960" /></p>
+</section><section id="section-27" class="slide level2">
+<h1></h1>
+<p>We will use the SVM with <strong>a radial kernel</strong>. Note that here we can additionally specify the <code>gamma</code> parameter for the radial function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svmfit &lt;-<span class="st"> </span><span class="kw">svm</span>(y~., <span class="dt">data=</span>dat[trainIdx,], <span class="dt">kernel =</span> <span class="st">&quot;radial&quot;</span>,  <span class="dt">gamma=</span><span class="dv">1</span>, <span class="dt">cost=</span><span class="dv">1</span>)
+<span class="kw">table</span>(<span class="dt">true =</span> dat[-trainIdx,<span class="st">&quot;y&quot;</span>], <span class="dt">pred=</span><span class="kw">predict</span>(svmfit, <span class="dt">newdata =</span> dat[-trainIdx, ]))</code></pre></div>
+<pre><code>##     pred
+## true  1  2
+##    1 81 16
+##    2 11 92</code></pre>
+</section><section id="section-28" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(svmfit, dat[trainIdx,])</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-42-1.png" width="960" /></p>
+</section><section id="section-29" class="slide level2">
+<h1></h1>
+<p>We can tune both <code>gamma</code> and <code>cost</code> parameters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tune.out &lt;-<span class="st"> </span><span class="kw">tune</span>(svm, y~., <span class="dt">data=</span>dat[trainIdx,], <span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>, 
+              <span class="dt">ranges=</span><span class="kw">list</span>(<span class="dt">cost=</span><span class="kw">seq</span>(<span class="fl">0.01</span>, <span class="dv">15</span>, <span class="dt">length.out =</span> <span class="dv">10</span>), 
+                          <span class="dt">gamma=</span><span class="kw">seq</span>(<span class="fl">0.01</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> <span class="dv">5</span>)))
+<span class="kw">table</span>(<span class="dt">true =</span> dat[-trainIdx,<span class="st">&quot;y&quot;</span>], 
+      <span class="dt">pred =</span> <span class="kw">predict</span>(tune.out$best.model, <span class="dt">newdata =</span> dat[-trainIdx,]))</code></pre></div>
+<pre><code>##     pred
+## true  1  2
+##    1 84 13
+##    2 12 91</code></pre>
+</section><section id="section-30" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tune.out$best.model, dat[trainIdx,])</code></pre></div>
+<p><img src="Lecture7_Classification_files/figure-revealjs/unnamed-chunk-44-1.png" width="960" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
