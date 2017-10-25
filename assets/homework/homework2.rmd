@@ -2,12 +2,12 @@
 title: "Homework 2"
 author: "Lan Huong Nguyen"
 date: "October 25, 2017"
-output: 
-  html_notebook:
-    toc: true
-    toc_float: true
+output:
   pdf_document:
     number_sections: no
+  html_notebook:
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -49,7 +49,7 @@ emission per 'sub.region'.
 
 f. Use `ggplot` to generate a stacked density plot the annual $CO_2$ 
 (in giga tonnes) by world regions ("sub.region").
-Your plot should resemble something like this (but with other regional 
+Your plot should be similarto the one in Fig. 1 (but with other regional 
 categories, and slightly different values). Hint: use `geom_area()`
 function with suitable parameters. Which region seems to produce most
 $CO_2$? You might like to modify the color scheme to better distinguish
@@ -69,14 +69,14 @@ microarray <- read.table("https://web.stanford.edu/~hastie/ElemStatLearn/dataset
 info <- read.table("https://web.stanford.edu/~hastie/ElemStatLearn/datasets/nci.info.txt",
                    skip = 12)
 colnames(microarray) <- info$V1
-microarray[1:5, 1:5]
 ```
 
 In the 'microarray' matrix columns correspond to samples, and rows to genes.
 
-a. Randomly subset microarray to 500 genes. Then, plot a heatmap without
-clustering/dendrograms. You can use 'asp = 0.2' argument to change the aspect
-ratio of the heatmap.
+a. Subset microarray to 500 most variable genes, i.e. the ones with the highest 
+standard deviation across samples (you shoud use `order()` to find the indices). 
+Then, plot a heatmap without clustering/dendrograms. You can use 'asp = 0.2' 
+argument to change the aspect ratio of the heatmap.
 
 b. Plot the previous heatmap with red/green color scheme. For your convenience
 here is the color vector you might like to use:
@@ -107,9 +107,9 @@ information on movies from the last three decates, which was scrapped from
 the IMDB database.
 
 ```{r}
+library(dplyr)
 url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
 movies <- tbl_df(read.csv(url))
-movies
 ```
 
 a. Generate a boxplot of runtimes for action movies and commedies
@@ -190,11 +190,9 @@ and spams:
 url.info <- "https://archive.ics.uci.edu/ml/machine-learning-databases/spambase/spambase.names"
 spam.info <- read.table(url.info, comment.char = "|", skip = 32, stringsAsFactors = FALSE)
 attributes <- gsub(":", "", spam.info[[1]])
-attributes[49: 54]
 symbols <- c("semicolon", "left.parenthesis", "left.sq.bracket", "exclamation", 
              "dollar", "hashtag")
 attributes[49: 54] <- paste0("char_freq_", symbols)
-attributes[49: 54] 
 ```
 
 
@@ -204,7 +202,6 @@ spam <- read.csv(url.data, header = FALSE, stringsAsFactors = FALSE)
 colnames(spam) <- c(attributes, "spam")
 spam <- spam %>%
   mutate(spam  = factor(spam, levels = c(0, 1), labels = c("email", "spam")))
-spam
 ```
 
 a. Check if the dataset contains balance classes spam vs email. To
@@ -245,7 +242,4 @@ information on the housing prices. The dataset with housing prices
 can be downloaded from github as follows:
 
 
-```{r}
-sessionInfo()
-```
 
