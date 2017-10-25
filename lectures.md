@@ -49,10 +49,12 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises_with_Answers.Rmd)].
 * [Exercises for lecture 6](./assets/exercises/Lec6_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec6_Exercises_with_Answers.nb.html).
+[Answers](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises_with_Answers.Rmd)].
 * [Exercises for lecture 7](./assets/exercises/Lec7_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)].
-Answers.
+[Answers](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises_with_Answers.Rmd)].
 
 ## [](#tut) Extra Tutorials
 
