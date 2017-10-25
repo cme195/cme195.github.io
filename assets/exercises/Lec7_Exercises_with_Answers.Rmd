@@ -16,6 +16,7 @@ To obtain the data you will need to install a package `ISLR`.
 ```{r}
 # install.packages("ISLR")
 library(ISLR)
+library(dplyr)
 (Default <- tbl_df(Default))
 ```
 
