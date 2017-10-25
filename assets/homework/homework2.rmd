@@ -143,7 +143,7 @@ predicted by the amount of TV advertising. Print the summary of the fitted model
 Then, predict the sales values for the test set and evaluate the test model 
 accuracy in terms of root mean squared error (MSE), which measures 
 the average level of error between the prediction and the true response.
-$$RMSE = \sqrt{{1 \over n} \sum\limits_{i = 1}^n(\hat y_i - y_i)^2}$$.
+$$RMSE = \sqrt{\frac{1}{n} \sum\limits_{i = 1}^n(\hat y_i - y_i)^2}$$
 
 f. Fit a multiple linerar regression model including all the variables 'TV',
 'radio', 'newspaper' to model the 'sales' in the training set. Then, compute 
