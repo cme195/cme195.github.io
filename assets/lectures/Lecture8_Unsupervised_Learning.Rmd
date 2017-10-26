@@ -180,18 +180,40 @@ The elements of `prcomp` output are:
 head(pca.res$x)
 ```
 
+These are the sample coordinates in the PCA projection space.
+
+##
 
 * The principal axes matrix, $V$, contatins the eigenvectors of the covariance
 matrix. A related matrix of **loadings** is a matrix of eigenvectors scaled by 
 the square roots of the respective eigenvalues: 
 
 $$L = \frac{V \Sigma}{\sqrt{n-1}}$$ 
+
 The loadings or principal axes give the weights of the variables in each of
 the principal components.
 
 ```{r}
 pca.res$rotation
 ```
+
+##
+
+```{r}
+pca.res$rotation
+```
+
+</br> 
+
+* PC1 places similar weights on `Assault`, `Murder`, 
+and `Rape` variables, and a much smaller one on `UrbanPop`. Therefore,
+**PC1 measures an overall measure of crime**.
+* The 2nd loading puts most weight on `UrbanPop`. Thus,
+**PC2 measures a level of urbanization**.
+* The crime-related variables are **correlated** with each other, 
+and therefore are close to each other on the biplot.
+* `UrbanPop` is **independent** of the crime rate, and so 
+it is further away on the plot.
 
 
 ##
@@ -243,35 +265,17 @@ plot(pca.res)
 
 * Percent of variance explained:
 
-```{r, fig.width=10, fig.height=5.5}
+```{r, fig.width=12, fig.height=5.5}
 (pve <- 100*pr.var/sum(pr.var))
 ggplot(data.frame(pve = pve, pc = 1:length(pve)), aes(x = pc, y = pve)) + 
   geom_bar(stat = "identity") + ylim(0, 100) + theme_classic() +
   xlab("Principal Component") + ylab("Percent of Variance Explained") 
 ```
 
-##
 
-```{r}
-pca.res$rotation
-```
+## Samples Plot
 
-</br> 
-
-* PC1 places similar weights on `Assault`, `Murder`, 
-and `Rape` variables, and a much smaller one on `UrbanPop`. Therefore,
-**PC1 measures an overall measure of crime**.
-* The 2nd loading puts most weight on `UrbanPop`. Thus,
-**PC2 measures a level of urbanization**.
-* The crime-related variables are **correlated** with each other, 
-and therefore are close to each other on the biplot.
-* `UrbanPop` is **independent** of the crime rate, and so 
-it is further away on the plot.
-
-
-##
-
-```{r, fig.height=4, fig.width=8}
+```{r, fig.height=6.5, fig.width=12}
 df <- data.frame(state = rownames(USArrests), pca.res$x[, 1:2])
 ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = state)) +
   xlab(paste0("PC1, ", round(pve[1], digits = 2), "%")) +
@@ -279,9 +283,9 @@ ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = state)) +
   theme_classic() + coord_fixed(pve[2]/pve[1])
 ```
 
-##
+## Features Plot
 
-```{r, fig.height=4, fig.width=8}
+```{r, fig.height=6, fig.width=12}
 L <- sweep(pca.res$rotation, 2, pca.res$sdev, "*")
 df <- data.frame(features = colnames(USArrests), L[, 1:2])
 ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = features)) +
@@ -291,7 +295,7 @@ ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = features)) +
 ```
 
 
-##
+## Biplot
 
 A biplot allows information on both samples and variables of a data matrix to 
 be displayed at the same time.
@@ -676,7 +680,7 @@ ggplot(iris, aes(Petal.Length, Petal.Width)) + theme_bw() +
 - Go to the "Lec8_Exercises.Rmd" file, which can be downloaded
 from the class website under the Lecture tab.
 
-- Complete Exercise 1.
+- Complete Exercise 2.
 
 
 

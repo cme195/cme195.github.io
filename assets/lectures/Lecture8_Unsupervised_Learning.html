@@ -639,17 +639,36 @@ document.getElementsByTagName('head')[0].appendChild(style);
 ## Arkansas    0.1399989  1.1085423  0.11342217 -0.180973554
 ## California -2.4986128 -1.5274267  0.59254100 -0.338559240
 ## Colorado   -1.4993407 -0.9776297  1.08400162  0.001450164</code></pre>
+<p>These are the sample coordinates in the PCA projection space.</p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
 <ul>
 <li>The principal axes matrix, <span class="math inline">\(V\)</span>, contatins the eigenvectors of the covariance matrix. A related matrix of <strong>loadings</strong> is a matrix of eigenvectors scaled by the square roots of the respective eigenvalues:</li>
 </ul>
-<p><span class="math display">\[L = \frac{V \Sigma}{\sqrt{n-1}}\]</span> The loadings or principal axes give the weights of the variables in each of the principal components.</p>
+<p><span class="math display">\[L = \frac{V \Sigma}{\sqrt{n-1}}\]</span></p>
+<p>The loadings or principal axes give the weights of the variables in each of the principal components.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
 <pre><code>##                 PC1        PC2        PC3         PC4
 ## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
 ## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
 ## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
 ## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
-</section><section id="section-3" class="slide level2">
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
+<pre><code>##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+<p></br></p>
+<ul>
+<li>PC1 places similar weights on <code>Assault</code>, <code>Murder</code>, and <code>Rape</code> variables, and a much smaller one on <code>UrbanPop</code>. Therefore, <strong>PC1 measures an overall measure of crime</strong>.</li>
+<li>The 2nd loading puts most weight on <code>UrbanPop</code>. Thus, <strong>PC2 measures a level of urbanization</strong>.</li>
+<li>The crime-related variables are <strong>correlated</strong> with each other, and therefore are close to each other on the biplot.</li>
+<li><code>UrbanPop</code> is <strong>independent</strong> of the crime rate, and so it is further away on the plot.</li>
+</ul>
+</section><section id="section-5" class="slide level2">
 <h2></h2>
 <ul>
 <li>The standard deviations of the principal components (<strong>square roots of the eigenvalues</strong> of <span class="math inline">\(\tilde X^T \tilde X\)</span>)</li>
@@ -682,9 +701,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 (pr.var &lt;-<span class="st"> </span>pca.res<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 2.4802416 0.9897652 0.3565632 0.1734301</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pca.res)</code></pre></div>
-<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-</section><section id="section-4" class="slide level2">
+</section><section id="section-6" class="slide level2">
 <h2></h2>
 <ul>
 <li>Percent of variance explained:</li>
@@ -694,45 +713,30 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">pve =</span> pve, <span class="dt">pc =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(pve)), <span class="kw">aes</span>(<span class="dt">x =</span> pc, <span class="dt">y =</span> pve)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Principal Component&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Percent of Variance Explained&quot;</span>) </code></pre></div>
-<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
-</section><section id="section-5" class="slide level2">
-<h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
-<pre><code>##                 PC1        PC2        PC3         PC4
-## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
-## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
-## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
-## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
-<p></br></p>
-<ul>
-<li>PC1 places similar weights on <code>Assault</code>, <code>Murder</code>, and <code>Rape</code> variables, and a much smaller one on <code>UrbanPop</code>. Therefore, <strong>PC1 measures an overall measure of crime</strong>.</li>
-<li>The 2nd loading puts most weight on <code>UrbanPop</code>. Thus, <strong>PC2 measures a level of urbanization</strong>.</li>
-<li>The crime-related variables are <strong>correlated</strong> with each other, and therefore are close to each other on the biplot.</li>
-<li><code>UrbanPop</code> is <strong>independent</strong> of the crime rate, and so it is further away on the plot.</li>
-</ul>
-</section><section id="section-6" class="slide level2">
-<h2></h2>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="samples-plot" class="slide level2">
+<h2>Samples Plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">state =</span> <span class="kw">rownames</span>(USArrests), pca.res<span class="op">$</span>x[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> state)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC1, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">1</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC2, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">2</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(pve[<span class="dv">2</span>]<span class="op">/</span>pve[<span class="dv">1</span>])</code></pre></div>
-<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-13-1.png" width="768" style="display: block; margin: auto;" /></p>
-</section><section id="section-7" class="slide level2">
-<h2></h2>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-13-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="features-plot" class="slide level2">
+<h2>Features Plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">L &lt;-<span class="st"> </span><span class="kw">sweep</span>(pca.res<span class="op">$</span>rotation, <span class="dv">2</span>, pca.res<span class="op">$</span>sdev, <span class="st">&quot;*&quot;</span>)
 df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">features =</span> <span class="kw">colnames</span>(USArrests), L[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> features)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC1, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">1</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC2, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">2</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(pve[<span class="dv">2</span>]<span class="op">/</span>pve[<span class="dv">1</span>])</code></pre></div>
-<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
-</section><section id="section-8" class="slide level2">
-<h2></h2>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-14-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="biplot" class="slide level2">
+<h2>Biplot</h2>
 <p>A biplot allows information on both samples and variables of a data matrix to be displayed at the same time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(pca.res, <span class="dt">scale=</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-</section><section id="section-9" class="slide level2">
+</section><section id="section-7" class="slide level2">
 <h2></h2>
 <p>Each principal component loading and score vector is <strong>unique, up to a sign flip</strong>. So another software could return this plot instead:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation &lt;-<span class="st"> </span><span class="op">-</span>pca.res<span class="op">$</span>rotation
@@ -757,7 +761,7 @@ pca.res<span class="op">$</span>x &lt;-<span class="st"> </span><span class="op"
 <div style="text-align: center">
 <p><img src="Lecture8_Unsupervised_Learning_files/clusters.png" /></p>
 </div>
-</section><section id="section-10" class="slide level2">
+</section><section id="section-8" class="slide level2">
 <h2></h2>
 <ul>
 <li>To cluster the data we need a <strong>measure of similarity</strong> or <strong>dissimilarity</strong> between a pair of observations, e.g. an Euclidean distance.</li>
@@ -842,7 +846,7 @@ kmeans.2clust &lt;-<span class="st"> </span><span class="kw">kmeans</span>(imgRG
 <pre><code>## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
 ## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
 ## [9] &quot;ifault&quot;</code></pre>
-</section><section id="section-11" class="slide level2">
+</section><section id="section-9" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># k cluster centers</span>
 kmeans.2clust<span class="op">$</span>centers</code></pre></div>
@@ -860,14 +864,14 @@ kmeans.2colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <span class="kw">head</span>(kmeans.2colors, <span class="dv">10</span>)</code></pre></div>
 <pre><code>##  [1] &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot;
 ##  [8] &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot;</code></pre>
-</section><section id="section-12" class="slide level2">
+</section><section id="section-10" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> imgRGB, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> kmeans.2colors) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;k-Means Clustering with&quot;</span>, k, <span class="st">&quot;clusters (colors)&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;y&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
-</section><section id="section-13" class="slide level2">
+</section><section id="section-11" class="slide level2">
 <h2></h2>
 <p>Now add more colors, by increase the number of clusters to 6:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">348675</span>)
@@ -884,7 +888,7 @@ kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <li>If it’s difficult (or if you simply don’t want) to choose the number of clusters ahead, you can do <strong>hierarchical clustering</strong>.<br />
 </li>
 </ul>
-</section><section id="section-14" class="slide level2">
+</section><section id="section-12" class="slide level2">
 <h2></h2>
 <ul>
 <li><p>Hierarchical clustering can be performed using agglomerative (bottom-up) or divisive (top-down) approach.</p></li>
@@ -892,7 +896,7 @@ kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <li><p>The output of the method can be represented as a graphical tree-based representation of the data, called a <strong>dendogram</strong>.</p></li>
 <li><p>The tree allows you to evaluate where the cutoff for grouping should occur.</p></li>
 </ul>
-</section><section id="section-15" class="slide level2">
+</section><section id="section-13" class="slide level2">
 <h2></h2>
 <div style="float: left; width: 50%; height: 100%">
 <p><img src="Lecture8_Unsupervised_Learning_files/dogDendro.png" /></p>
@@ -904,7 +908,7 @@ kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <h2>Hierarchical clustering algorithm</h2>
 <p><img src="Lecture8_Unsupervised_Learning_files/hierarchicalClusteringAlgorithm.png" /></p>
 <p>Source: ISL</p>
-</section><section id="section-16" class="slide level2">
+</section><section id="section-14" class="slide level2">
 <h2></h2>
 <p>Results for hierarchical clustering differ depending on the choice of:</p>
 <ul>
@@ -915,7 +919,7 @@ kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <div style="text-align: center; height: 75%">
 <p><img src="Lecture8_Unsupervised_Learning_files/clustering_distances.png" /></p>
 </div>
-</section><section id="section-17" class="slide level2">
+</section><section id="section-15" class="slide level2">
 <h2></h2>
 <p>Different ways to compute dissimilarity between 2 clusters:</p>
 <p><img src="Lecture8_Unsupervised_Learning_files/linkages.png" /></p>
@@ -945,18 +949,18 @@ distMat &lt;-<span class="st"> </span><span class="kw">dist</span>(iris[, <span 
 
 <span class="co"># We use the &quot;complete&quot; linkage method for computing the cluster distances.</span>
 clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</code></pre></div>
-</section><section id="section-18" class="slide level2">
+</section><section id="section-16" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-27-1.png" width="1440" style="display: block; margin: auto;" /></p>
-</section><section id="section-19" class="slide level2">
+</section><section id="section-17" class="slide level2">
 <h2></h2>
 <p>The dendrogram suggests that a reasonable choice of the number of clusters is either 3 or 4.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.7</span>)
 <span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 <span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-28-1.png" width="1152" style="display: block; margin: auto;" /></p>
-</section><section id="section-20" class="slide level2">
+</section><section id="section-18" class="slide level2">
 <h2></h2>
 <ul>
 <li>We pick 3 clusters.</li>
@@ -974,12 +978,12 @@ clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <
 ##          1     50          0         0
 ##          2      0         21        50
 ##          3      0         29         0</code></pre>
-</section><section id="section-21" class="slide level2">
+</section><section id="section-19" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">labels =</span> clusterCut, <span class="dt">cex =</span> <span class="fl">0.9</span>)
 <span class="kw">rect.hclust</span>(clusters, <span class="dt">k =</span> <span class="dv">3</span>, <span class="dt">border=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-31-1.png" width="1440" style="display: block; margin: auto;" /></p>
-</section><section id="section-22" class="slide level2">
+</section><section id="section-20" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(clusterCut, iris<span class="op">$</span>Species)</code></pre></div>
 <pre><code>##           
@@ -991,7 +995,7 @@ clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <
 <li>From the table we see that the sentosa and virginica were correctly assigned to separate groups.</li>
 <li>However, the method had difficulty grouping the versicolorm flowers into a separate cluster.</li>
 </ul>
-</section><section id="section-23" class="slide level2">
+</section><section id="section-21" class="slide level2">
 <h2></h2>
 <p>Try another linkage method like “average” and see if it performs better.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the Euclidean distance for the dissimilarities between flowers</span>
@@ -1000,14 +1004,14 @@ distMat &lt;-<span class="st"> </span><span class="kw">dist</span>(iris[, <span 
 clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <span class="dt">method =</span> <span class="st">&quot;average&quot;</span>)
 <span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-33-1.png" width="1152" style="display: block; margin: auto;" /></p>
-</section><section id="section-24" class="slide level2">
+</section><section id="section-22" class="slide level2">
 <h2></h2>
 <p>Here we can choose 3 or 5 clusters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.6</span>)
 <span class="kw">abline</span>(<span class="dt">a =</span> <span class="fl">1.35</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 <span class="kw">abline</span>(<span class="dt">a =</span> <span class="fl">0.9</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-34-1.png" width="1152" style="display: block; margin: auto;" /></p>
-</section><section id="section-25" class="slide level2">
+</section><section id="section-23" class="slide level2">
 <h2></h2>
 <p>Again we choose 3 clusters</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clusterCut &lt;-<span class="st"> </span><span class="kw">cutree</span>(clusters, <span class="dv">3</span>)
@@ -1018,12 +1022,12 @@ clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <
 ##          2      0         45         1
 ##          3      0          5        49</code></pre>
 <p>We see that this time the results are better in terms of the cluster assignement agreement with the flower species classfication.</p>
-</section><section id="section-26" class="slide level2">
+</section><section id="section-24" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">labels =</span> clusterCut, <span class="dt">cex =</span> <span class="fl">0.7</span>)
 <span class="kw">rect.hclust</span>(clusters, <span class="dt">k =</span> <span class="dv">3</span>, <span class="dt">border=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-36-1.png" width="1440" style="display: block; margin: auto;" /></p>
-</section><section id="section-27" class="slide level2">
+</section><section id="section-25" class="slide level2">
 <h2></h2>
 <ul>
 <li>2D plot of the iris dataset using petal dimensions as coordinates.</li>
@@ -1038,7 +1042,7 @@ clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <
 <p></br></p>
 <ul>
 <li><p>Go to the “Lec8_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
-<li><p>Complete Exercise 1.</p></li>
+<li><p>Complete Exercise 2.</p></li>
 </ul>
 </section></section>
 <section><section id="extra-other-unsupervised-techniques" class="titleslide slide level1"><h1>Extra: Other unsupervised techniques</h1></section><section id="multidimensional-scaling" class="slide level2">
@@ -1058,13 +1062,13 @@ clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <
 <li>He collected survey data from 31 subjects, which included participants’ rating of the disimilarity between each pair of 14 colors on a 5-point scale.</li>
 <li>The ratings of all subjects were averaged, and the final mean dissimilarity matrix was used for constructing “map of colors”.</li>
 </ul>
-</section><section id="section-28" class="slide level2">
+</section><section id="section-26" class="slide level2">
 <h2></h2>
 <p>14 colors were studied with wavelengths in the range between 434 and 674 nm.</p>
 <div style="text-align: center">
 <p><img src="Lecture8_Unsupervised_Learning_files/colors.jpeg" /></p>
 </div>
-</section><section id="section-29" class="slide level2">
+</section><section id="section-27" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># color similarity scores </span>
 ekmanSim &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Lecture8_Unsupervised_Learning_files/ekman.rds&quot;</span>)
@@ -1101,7 +1105,7 @@ res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ekmanMDS)
 ## 472 -0.4369586 -0.27266935
 ## 490 -0.4388604  0.07518594
 ## 504 -0.3364868  0.37262279</code></pre>
-</section><section id="section-30" class="slide level2">
+</section><section id="section-28" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)
 wavelengths &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">seq</span>( <span class="dv">434</span>, <span class="dv">674</span>, <span class="dt">length.out =</span> <span class="dv">14</span>))
@@ -1109,7 +1113,7 @@ res<span class="op">$</span>wavelength &lt;-<span class="st"> </span><span class
 <span class="kw">ggplot</span>(res, <span class="kw">aes</span>(X1, X2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> wavelength), <span class="dt">vjust=</span><span class="op">-</span><span class="dv">1</span>)</code></pre></div>
 <p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-40-1.png" width="480" style="display: block; margin: auto;" /></p>
-</section><section id="section-31" class="slide level2">
+</section><section id="section-29" class="slide level2">
 <h2></h2>
 <p>The wavelengths were converted to hexadecimal colors using this <a href="https://academo.org/demos/wavelength-to-colour-relationship/">website</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#2800ff&quot;</span>, <span class="st">&quot;#0051ff&quot;</span>, <span class="st">&quot;#00aeff&quot;</span>, <span class="st">&quot;#00fbff&quot;</span>, <span class="st">&quot;#00ff28&quot;</span>, <span class="st">&quot;#4eff00&quot;</span>, <span class="st">&quot;#92ff00&quot;</span>, 
@@ -1135,7 +1139,7 @@ res<span class="op">$</span>wavelength &lt;-<span class="st"> </span><span class
 <li>Mass cytometry measures the expression levels of up to 40 proteins per cell and hundreds of cells per second.</li>
 <li>In this example t-SNE is very effective at displaying groups of different cell populations (types).</li>
 </ul>
-</section><section id="section-32" class="slide level2">
+</section><section id="section-30" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  here we use a subset of the data</span>
 path &lt;-<span class="st"> &quot;./Lecture8_Unsupervised_Learning_files/healthyHumanBoneMarrow_small.csv&quot;</span>
@@ -1165,7 +1169,7 @@ dat &lt;-<span class="st"> </span>dat[, colnames_proj]
 ## 4 155.2028503  8.284868
 ## 5   2.1295056 10.848905
 ## 6  14.1040640  6.430328</code></pre>
-</section><section id="section-33" class="slide level2">
+</section><section id="section-31" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># arcsinh transformation </span>
 <span class="co"># (see Amir et al. 2013, Online Methods, &quot;Processing of mass cytometry data&quot;)</span>
@@ -1181,7 +1185,7 @@ dat &lt;-<span class="st"> </span>dat[<span class="op">!</span><span class="kw">
 <span class="kw">set.seed</span>(<span class="dv">123</span>)  
 rtsne_out &lt;-<span class="st"> </span><span class="kw">Rtsne</span>(<span class="kw">as.matrix</span>(dat), <span class="dt">perplexity =</span> <span class="dv">20</span>,
                    <span class="dt">pca =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
-</section><section id="section-34" class="slide level2">
+</section><section id="section-32" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot 2D t-SNE projection</span>
 <span class="kw">plot</span>(rtsne_out<span class="op">$</span>Y, <span class="dt">asp =</span> <span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, 
