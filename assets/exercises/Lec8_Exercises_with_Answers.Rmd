@@ -209,8 +209,7 @@ Download the data from the course repository:
 
 ```{r}
 # load the already subsetted MNIST data.
-mnist.url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
-                    "master/assets/data/EconomistData.csv/mnist_small.csv")
+mnist.url <- "https://github.com/cme195/cme195.github.io/raw/master/assets/data/mnist_small.csv"
 train <- read.csv(mnist.url, row.names = 1)
 dim(train)
 train[1:10, 1:10]
@@ -247,17 +246,19 @@ coord.tsne$label <- factor(train$label)
 d. Visualize the tSNE 2D projection.
 
 ```{r}
-# visualizing
 ggplot(coord.tsne, aes(x= X1, y = X2)) + ggtitle("tSNE") +
   geom_text(aes(label = label, color = label), alpha = 0.8)
 ```
 
 e. What do you observe? How does tSNE compare with PCA in this case?
 
+tSNE seems to be much better at separating digits from each other
 
 
 
-
+```{r}
+sessionInfo()
+```
 
 
 

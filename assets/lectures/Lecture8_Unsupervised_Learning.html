@@ -698,11 +698,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="section-5" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
-<pre><code>##                PC1        PC2        PC3         PC4
-## Murder   0.5358995 -0.4181809  0.3412327 -0.64922780
-## Assault  0.5831836 -0.1879856  0.2681484  0.74340748
-## UrbanPop 0.2781909  0.8728062  0.3780158 -0.13387773
-## Rape     0.5434321  0.1673186 -0.8177779 -0.08902432</code></pre>
+<pre><code>##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
 <p></br></p>
 <ul>
 <li>PC1 places similar weights on <code>Assault</code>, <code>Murder</code>, and <code>Rape</code> variables, and a much smaller one on <code>UrbanPop</code>. Therefore, <strong>PC1 measures an overall measure of crime</strong>.</li>
@@ -725,8 +725,8 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> features)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC1, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">1</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="kw">paste0</span>(<span class="st">&quot;PC2, &quot;</span>, <span class="kw">round</span>(pve[<span class="dv">2</span>], <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot;%&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_classic</span>() </code></pre></div>
-<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(pve[<span class="dv">2</span>]<span class="op">/</span>pve[<span class="dv">1</span>])</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;" /></p>
 </section><section id="section-8" class="slide level2">
 <h2></h2>
 <p>A biplot allows information on both samples and variables of a data matrix to be displayed at the same time.</p>
@@ -908,7 +908,7 @@ kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.
 <h2></h2>
 <p>Results for hierarchical clustering differ depending on the choice of:</p>
 <ul>
-<li><p>a distance metric used for pairs of observations, e.g. Euclidean (L2), Manhattan (L1), Jaccard (Binary), <a href="http://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/">etc</a></p></li>
+<li><p>A distance metric used for pairs of observations, e.g. Euclidean (L2), Manhattan (L1), Jaccard (Binary), <a href="http://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/">etc</a></p></li>
 <li><p>The rule used for grouping clusters that are already generated, e.g. minimum, maximum, average, or centroid cluster linkages.</p></li>
 </ul>
 <p></br></p>

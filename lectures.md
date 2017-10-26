@@ -24,7 +24,9 @@ layout: cme195
 7. [Classification](./assets/lectures/Lecture7_Classification.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture7_Classification.Rmd)]
 [[pdf](./assets/lectures/Lecture 7_ Classification.pdf)].
-8. Unsupervised Learning
+8. [Unsupervised Learning](./assets/lectures/Lecture8_Unsupervised_Learning.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture8_Unsupervised_Learning.Rmd)]
+[[pdf](./assets/lectures/Lecture 8_ Unsupervised Learning.pdf)].
 
 Disclaimer: these lecture slides are subject to change and can be updated
 any time. Please check regularly.
@@ -55,6 +57,11 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)].
 [Answers](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises_with_Answers.Rmd)].
+* [Exercises for lecture 8](./assets/exercises/Lec8_Exercises.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)].
+Answers.
+
+
 
 ## [](#tut) Extra Tutorials
 

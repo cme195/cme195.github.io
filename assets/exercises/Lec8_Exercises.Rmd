@@ -42,6 +42,7 @@ objects to generate easily ggplots.
 ## Part 1: k-means clustering
 
 We will generate synthetic clustered data to use for k-means clustering.
+
 ```{r}
 set.seed(489576)
 N <- 1000
@@ -91,6 +92,7 @@ gene.expression <- Khan$xtrain
 dim(gene.expression)
 ```
 
+
 a. Compute a (Euclidean) distance matrix between each pair of samples.
 
 b. Perform hierarchical clustering using average linkage.
@@ -122,8 +124,7 @@ Download the data from the course repository:
 
 ```{r}
 # load the already subsetted MNIST data.
-mnist.url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
-                    "master/assets/data/EconomistData.csv/mnist_small.csv")
+mnist.url <- "https://github.com/cme195/cme195.github.io/raw/master/assets/data/mnist_small.csv"
 train <- read.csv(mnist.url, row.names = 1)
 dim(train)
 train[1:10, 1:10]
