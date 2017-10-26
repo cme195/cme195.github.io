@@ -48,8 +48,8 @@ Date: 10/11/2017
 /*********************************************
  * R Code
  *********************************************/
-
-.reveal pre {
+/* code */
+.reveal pre { 
   display: block;
   position: relative;
   word-wrap: break-word;
@@ -63,18 +63,20 @@ Date: 10/11/2017
   max-width: 95%;               
   max-height: 95%;
 }
-
-.reveal code {
+/* inline code */
+.reveal code { 
   font-family: monospace; 
   font-size: 1em;
   line-height: 1;
   max-width: 90%;
 }
 
-.reveal pre code {
+/* code output */
+.reveal pre code { 
   display: block;
   overflow: auto;
   word-wrap: normal; 
+  margin: 20px auto;
   font-size: 0.8em;
   text-align: left;
   white-space: pre;
@@ -130,6 +132,9 @@ Date: 10/11/2017
   line-height: 1.5;
   max-width: 90%;}
 
+.reveal ul li {
+    margin-left: 30px;
+}
 /*********************************************
  * IMAGES
  *********************************************/

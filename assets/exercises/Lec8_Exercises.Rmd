@@ -1,0 +1,141 @@
+---
+title: "Lecture 8: Exercises with Answers"
+date: October 26th, 2017
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+
+# Exercise I: Principal Component Analysis
+
+Recall the `mtcars` dataset we work with before, which compirses fuel 
+consumption and other aspects of design and performance for 32 cars from 1974.
+The dataset has 11 dimensions, that is more than it is possible to visualize at 
+the same.
+
+```{r}
+head(mtcars)
+```
+
+a. Use `prcomp()` to compute a PCA for `mtcars`. Remember to set the
+scale parameter, as the variables are in different units and have different
+ranges
+
+b. Generate a scree plot and note how many dimensions should you retain.
+
+c. Compute the percentage of variance explained by each of the principal
+components.
+
+d. Generate a biplot for the PCA projection. Use the loadings matrix to inspect
+which variables contributes most to PC1 and which to PC2. What do the PC1 and
+PC2 correspond to? How are the cars distributed on this representation?
+Does the "car map" make sense?
+
+e. You can install the package `ggfortify` and use `autoplot` on `prcomp`
+objects to generate easily ggplots.
+
+
+# Exercise 2: Cluster Analysis
+
+## Part 1: k-means clustering
+
+We will generate synthetic clustered data to use for k-means clustering.
+```{r}
+set.seed(489576)
+N <- 1000
+C1 <- data.frame(cluster = "C1", x = rnorm(n = N, mean = 1), y = rnorm(n = N, mean = 1))
+C2 <- data.frame(cluster = "C2", x = rnorm(n = N, mean = -2), y = rnorm(n = N, mean = -5))
+C3 <- data.frame(cluster = "C3", x = rnorm(n = N, mean = 5), y = rnorm(n = N, mean = 1))
+DF <- rbind(C1, C2, C3)
+```
+
+```{r}
+ggplot(DF, aes(x, y, color = cluster)) + 
+  geom_point()
+```
+
+a. Apply k-means with k = 3 (as you know the true number of clusters).
+Pring the cluster centers.
+
+b. Print a confusion map to compare k-means cluster assignment with
+the true cluster labels.
+
+c. Generate a scatter plot of points, now colored by the cluster assignment.
+
+d. Now pretend that you don't know the real number of clusters. Use k = 4
+and recompute kmeans. Plot the results and see what happened.
+
+
+## Part 2: Hierarchical Clustering
+
+In this exercise you will you use a dataset published in a study by
+[Khan et al. 2001](https://www.nature.com/articles/nm0601_673)
+to perform a hierarchical clustering of the patients in the study based
+on their overall gene expression data.
+
+This data set consists of expression levels for 2,308 genes.
+The training and test sets consist of 63 and 20 observations (tissue samples) 
+respectively.
+
+Here, we will use the train set, as we now are only interested in
+learning how `hclust()` works. First, load the `ISLR` where the
+data is available. The gene expression data is available in an object
+`Khan$xtrain`; you can learn more about the data set by typing in `?Khan`
+after loading `ISLR` package.
+
+```{r}
+library(ISLR)
+gene.expression <- Khan$xtrain
+dim(gene.expression)
+```
+
+a. Compute a (Euclidean) distance matrix between each pair of samples.
+
+b. Perform hierarchical clustering using average linkage.
+
+c. Plot a dendrogram associated with the hierarchical clustering you just
+computed. In this example, you actually have the lables of the tissue samples,
+however, the algorithms was blinded to them. By adding labels to the dendrogram
+corresponding to `Khan$ytrain`, check if the clustering performed groups the 
+observations from same tumor class nearby. 
+
+
+# Exercise Extra: 2D visualization of MNIST data
+
+* Download MNIST data of the digits images from 
+[Kaggle competition](https://www.kaggle.com/c/digit-recognizer).
+* The code is adapted from the one found [here](https://www.kaggle.com/gospursgo/digit-recognizer/clusters-in-2d-with-tsne-vs-pca/code). 
+
+The files are data on the 28x28 pixel
+images of digits (0-9). The data is composed of:
+
+* `label` column denoting the digit on the image
+* `pixel0` through `pixel783` contain information on the pixel intensity
+(on the scale of 0-255), and together form the vectorized version of 
+the 28x28 pixel digit image
+
+![](../lectures/Lecture8_Unsupervised_Learning_files/mnistExamples.png)
+
+Download the data from the course repository:
+
+```{r}
+# load the already subsetted MNIST data.
+mnist.url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
+                    "master/assets/data/EconomistData.csv/mnist_small.csv")
+train <- read.csv(mnist.url, row.names = 1)
+dim(train)
+train[1:10, 1:10]
+```
+
+a. Compute and the PCA for the data. Then, extract the first two principal
+component scores for the data.
+
+b. Plot the 2D principal component scores matrix.
+
+c. Compute a tSNE embedding.
+
+d. Visualize the tSNE 2D projection.
+
+e. What do you observe? How does tSNE compare with PCA in this case?

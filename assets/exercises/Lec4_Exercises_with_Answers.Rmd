@@ -13,8 +13,7 @@ For practice, you will try to recreate
 a plot published in the Economist issue of July 20th, 2016 showing
 the relationship between well-being and financial inclusion.
 
-![](./economist.png)
-
+![](../data/economist.png)
 
 * The original graph was taken from this 
 [article](http://www.economist.com/blogs/graphicdetail/2016/07/daily-chart-13)
@@ -280,7 +279,7 @@ Use "grid.text()" to add notes
 
 ```{r}
 library(grid)
-png(file = "./econScatter.png", width = 750, height = 400)
+png(file = "../data/econScatter.png", width = 750, height = 400)
 p
 grid.text("Source: Boston Consulting Group",
           x = 0.02, y = 0.02, just = "left",
@@ -290,9 +289,11 @@ grid.text("*Data available for 123 countries \n Sustainable economic development
           gp = gpar(fontsize = 10, col = "grey37"))
 dev.off()
 ```
-![](./econScatter.png)
+
+
+![](../data/econScatter.png)
 
 
 Similar to the original:
 
-![](./economist.png)
+![](../data/economist.png)
