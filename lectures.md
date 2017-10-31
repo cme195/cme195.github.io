@@ -59,7 +59,8 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises_with_Answers.Rmd)].
 * [Exercises for lecture 8](./assets/exercises/Lec8_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)].
-Answers.
+[Answers](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises_with_Answers.Rmd)].
 
 
 

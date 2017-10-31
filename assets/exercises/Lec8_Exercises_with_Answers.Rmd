@@ -122,10 +122,14 @@ table(kmeans = kmeans.res$cluster, true = DF$cluster)
 
 c. Generate a scatter plot of points, now colored by the cluster assignment.
 
+
 ```{r}
+library(ggplot2)
 DF$kmeans <- factor(kmeans.res$cluster)
-ggplot(DF, aes(x, y, color = kmeans)) + 
-  geom_point(alpha = 0.5)
+ggplot(DF, aes(x, y)) + 
+  geom_point(alpha = 0.5, aes( color = kmeans)) + 
+  geom_point(data = data.frame(x = kmeans.res$centers[, 1], 
+                               y = kmeans.res$centers[, 2]), size = 3, aes(x, y), color = "Black")
 ```
 
 d. Now pretend that you don't know the real number of clusters. Use k = 4
