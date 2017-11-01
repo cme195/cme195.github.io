@@ -3,8 +3,6 @@ title: "Homework 2"
 author: "Lan Huong Nguyen"
 date: "October 25, 2017"
 output:
-  pdf_document:
-    number_sections: no
   html_notebook:
     toc: yes
     toc_float: yes
@@ -157,7 +155,7 @@ If not refit the model including only the features found significant.
 Which of the models should you choose? 
 
 
-# Exercise 4: classification [20pt]
+# Exercise 5: classification [20pt]
 
 We load the following datsets including characteristics of emails
 and spams:
@@ -219,7 +217,7 @@ d. Use random forest to train a model on the same train set. Report which
 variables have high importance scores. Then, evaluate the RF model's 
 accurasy on the test set.
 
-# Exercise 5: `ggmap` [20pt]
+# Exercise 6: `ggmap` [10pt]
 
 a. Consider the two following locations:
 `from <-  c(lon = -122.169719, lat = 37.4274745)`
