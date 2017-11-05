@@ -3,8 +3,6 @@ title: "Homework 2"
 author: "Lan Huong Nguyen"
 date: "October 25, 2017"
 output:
-  pdf_document:
-    toc: yes
   html_notebook:
     toc: yes
     toc_float: yes
