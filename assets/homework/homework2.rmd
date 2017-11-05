@@ -3,6 +3,8 @@ title: "Homework 2"
 author: "Lan Huong Nguyen"
 date: "October 25, 2017"
 output:
+  pdf_document:
+    toc: yes
   html_notebook:
     toc: yes
     toc_float: yes
@@ -239,5 +241,14 @@ c. In this exercise we will generate a map of San Francisco and include the
 information on the housing prices. The dataset with housing prices
 can be downloaded from github as follows:
 
+```{r}
+url.housing <- "https://raw.githubusercontent.com/simonkassel/Visualizing_SF_home_prices_R/master/Data/SF_home_sales_demo_data.csv"
+sf.housing <- read.csv(url.housing, row.names = 1)
+head(sf.housing)
+```
 
+Use `get_map()` and `ggmap()` to plot a map of San Francisco using
+source = "google", maptype = "toner-lite" and zoom = 13. Then,
+use the data on housing prices above to add a layer of points
+colored by the SalePrice (use a good color scheme).
 
