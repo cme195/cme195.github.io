@@ -1,7 +1,7 @@
 ---
 title: "Homework 1 Solution"
 author: "Lan Huong Nguyen"
-date: "October 11, 2017"
+date: "`r Sys.Date()`"
 output: 
   html_notebook:
     toc: true
@@ -53,7 +53,7 @@ element of $B$ in the 5th row and 4th column.
 
 ```{r}
 set.seed(1234)
-(A <- matrix(rnorm(60), ncol = 6))
+(A <- matrix(runif(60), ncol = 6))
 (B <- matrix(sample(10:30, 30, replace = TRUE), 
              ncol = 5))
 ```
@@ -318,7 +318,8 @@ with the highest share of "happy" people in 2014.
 ```{r}
 url <- "https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/data/share-of-people-who-say-they-are-happy.txt"
 happiness <- read.table(file = url, sep = ";", header = TRUE, row.names = 1)
-happiness[which.max(happiness[happiness$Year == "2014", "ShareOfHappyPeople"]), ]
+happiness %>% filter(Year == "2014") %>% 
+  top_n(n = 1, wt = ShareOfHappyPeople)
 ```
 
 
