@@ -3,6 +3,8 @@ title: "Homework 2"
 author: "Lan Huong Nguyen"
 date: "October 25, 2017"
 output:
+  pdf_document:
+    toc: yes
   html_notebook:
     toc: yes
     toc_float: yes
@@ -98,7 +100,7 @@ for certain groups? No need for long answers just look at the heatmap
 state what you see.
 
 
-# Exercise 3: Hypothesis testing [20pt]
+# Exercise 3: Hypothesis testing [10pt]
 
 Recall the movies data-frame we used in for lecture 3 exercises. It contains
 information on movies from the last three decates, which was scrapped from
@@ -215,7 +217,7 @@ Evaluate and report your model's accuracy on the test set.
 
 d. Use random forest to train a model on the same train set. Report which
 variables have high importance scores. Then, evaluate the RF model's 
-accurasy on the test set.
+accuracy on the test set.
 
 # Exercise 6: `ggmap` [10pt]
 
@@ -231,7 +233,7 @@ zoom = 15.
 
 b. Use the function `route()` from the `ggmap` to generate a data-frame 
 corresponding to the route from one location to the other. 
-Then, use `geom_map()` to add the path corresponding to the
+Then, use `geom_path()` to add the path corresponding to the
 route generated with the `route()` function. You can use a function
 `revgeocode()` to look up the addresses of the `from` and `to` locations.
 
