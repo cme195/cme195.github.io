@@ -1,0 +1,176 @@
+---
+title: "Lecture 6: Exercises with answers"
+date: October 19th, 2017
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Exercise 1: Hypothesis testing
+
+Similarly to dataset `mtcars`, the dataset `mpg` from `ggplot` package 
+includes data on automobiles. However, `mpg` includes data for newer
+cars from year 1999 and 2008. The variables measured for each car is slighly 
+different. Here we are interested in the variable, `hwy`, the highway miles per 
+gallon.
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+mpg
+# We create a new culumn with manual/automatic data only
+mpg <- mpg %>% 
+  mutate(
+    transmission = factor(gsub("\\((.*)", "", trans), levels = c("auto", "manual"))
+  )
+mpg
+```
+
+## Part 2: One-sample test
+
+a. Subset the `mpg` dataset to inlude only cars from  year 2008.
+
+```{r}
+mpg2008 <- mpg %>% 
+  filter(year == 2008)
+```
+
+b. Test whether cars from 2008 have mean the highway miles per gallon, `hwy`, 
+equal to 30 mpg.
+
+```{r}
+t.test(mpg2008$hwy, mu = 30, alternative = "two.sided")
+```
+
+c. Test whether cars from 2008 with 4 cylinders have mean `hwy` equal to 30 mpg.
+
+```{r}
+mpg2008_4cyl <- mpg %>% 
+  filter(year == 2008, cyl == 4)
+
+t.test(mpg2008_4cyl$hwy, mu = 30, alternative = "two.sided")
+```
+
+## Part 2: Two-sample test
+
+a. Test if the mean `hwy` for automatic is **less than** that for manual cars
+**in 2008**. Generate a boxplot with jittered points for `hwy` for each 
+transmission group.
+
+```{r}
+t.test(data = mpg2008, hwy ~ transmission, alternative = "less")
+# or
+# t.test(x = mpg2008 %>% filter(transmission == "auto") %>% pull(hwy),
+#        y = mpg2008 %>% filter(transmission == "manual") %>% pull(hwy), 
+#        alternative = "less")
+```
+
+```{r}
+ggplot(mpg2008, aes(x = transmission, y = hwy)) +
+  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
+```
+
+b. Test if the mean `hwy` for cars from 1999 and is greater than that for
+cars from 2008. Generate a boxplot with jittered points
+for `hwy` for each year group.
+
+```{r}
+t.test(data = mpg, hwy ~ year, alternative = "greater")
+```
+
+```{r}
+ggplot(mpg, aes(x = factor(year), y = hwy)) +
+  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
+```
+
+
+# Exercise 2: Linear Regression
+
+## Part 1
+
+The data in the following URL "http://www-bcf.usc.edu/~gareth/ISL/Income1.csv"
+includes observation on income levels (in tens of thousands of dollars)
+and years of education. *The data is not real and was actually simulated*.
+
+a. Read the data into R.
+```{r}
+income <- read.csv("http://www-bcf.usc.edu/~gareth/ISL/Income1.csv", row.names = 1)
+income
+```
+b. Generate a ggplot with a fitted line.
+
+```{r}
+library(ggplot2)
+ggplot(income, aes(x = Education, y = Income)) +
+  geom_point() + geom_smooth(method = "lm")
+```
+
+
+c. Fit a linear model with education as input variable and income as response 
+variable. Then, print the model summary
+
+```{r}
+fit <- lm(data = income, formula = Income ~ Education)
+summary(fit)
+```
+
+
+d. Print out just the model coefficients.
+
+```{r}
+coef(fit)
+```
+
+d. Print out the predicted values of income for the observations
+included in the dataset.
+
+```{r}
+predict(fit)
+```
+
+
+e. Predict the income for new observations, for people with 
+16.00, 12.52, 15.55, 21.09, and 18.36 years of education.
+
+```{r}
+predict(fit, data.frame(Education = c(16.00, 12.52, 15.55, 21.09, 18.36)))
+```
+
+
+## Part 2
+
+a. Now download data from "http://www-bcf.usc.edu/~gareth/ISL/Income2.csv"
+which include the same observations but also records data on "senority".
+
+```{r}
+income2 <- read.csv("http://www-bcf.usc.edu/~gareth/ISL/Income2.csv", row.names = 1)
+income2
+```
+
+b. Fit a new model including a new variable and print the model summary.
+
+```{r}
+mfit <- lm(data = income2, formula = Income ~ Education + Seniority)
+summary(mfit)
+```
+
+c. Print the predicted values of income for the existing observations.
+
+```{r}
+predict(mfit)
+```
+
+
+d. Predict the income levels for new observations with years of education
+equal to 16.00, 12.52, 15.55, 21.09, 18.36 and seniority to
+123.74, 83.63,  90.94, 178.96, 125.17.
+
+```{r}
+newobs <- data.frame(Education = c(16.00, 12.52, 15.55, 21.09, 18.36),
+                     Seniority = c(123.74, 83.63,  90.94, 178.96, 125.17))
+predict(mfit, newobs)
+```
+

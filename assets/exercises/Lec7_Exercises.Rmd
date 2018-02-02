@@ -1,0 +1,124 @@
+---
+title: "Lecture 7: Exercises"
+date: October 24th, 2017
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Exercise 1: Logistic Regression
+
+In this you will use a dataset `Default`, on customer default records for 
+a credit card company, which is included in [ISL book](www.statlearning.com). 
+To obtain the data you will need to install a package `ISLR`.
+
+```{r}
+# install.packages("ISLR")
+library(ISLR)
+library(dplyr)
+(Default <- tbl_df(Default))
+```
+
+a. First, divide your dataset into a train and test set. Randomly sample
+6000 observations and include them in the train set, and the remaining use
+as a test set.
+
+b. Fit a logistic regression including all the features to predict
+whether a customer defaulted or not.
+
+c. Note if any variables seem not significant. Then, adjust your model
+accordingly (by removing them).
+
+
+d. Compute the predicted probabilities of 'default' for the observations
+in the test set. Then evaluate the model accuracy.
+
+e. For the test set, generate a scatterplot of 'balance' vs 'default' 
+with points colored by 'student' factor. Then, overlay a line plot 
+of the predicted probability of default as computed in the previous question.
+You should plot two lines for student and non student separately by setting 
+the 'color = student'.
+
+
+# Exercise 2: Random Forest
+
+In this exercise we will build a random forest model based
+on the data used to create the visualization [here](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/).
+
+```{r}
+library(dplyr)
+# Skip first 2 lines since they were comments
+url <- "https://raw.githubusercontent.com/jadeyee/r2d3-part-1-data/master/part_1_data.csv"
+houses <- read.csv(url, skip = 2)
+houses <- tbl_df(houses)
+houses <- mutate(houses, city = factor(in_sf, levels = c(1, 0), labels = c("SF", "NYC")))
+houses 
+```
+
+a. Using `pairs()` function plot the relationship between every variable pairs.
+You can color the points by the city the observation corresponds to; set the color argument 
+in `pairs()` as follows: `col = houses$in_sf + 3L` 
+
+b. Split the data into (70%-30%) train and test set.
+How many observations are in your train and test sets?
+
+c. Train a random forest on the train set, using all the variables in the model,
+to classify houses into the ones from San Francisco and from New York.
+Remember to remove 'in_sf', as it is the same variable as 'city'. 
+
+d. Compute predictions and print out 
+[the confusion (error) matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
+for the test set to asses the model accuracy. Also, compute the model 
+accuracy.
+
+e. Which features were the most predictive for classifying houses into SF vs NYC groups?
+Use importance measures to answer the question.
+
+
+# Exercise 3: Support Vector Machines
+
+In this exercise you will use SVM to classify cases included in a dataset 
+on breast cancer into malignant and begnign tumors.  
+
+In this dataset, the first column indicates the diagnosis (M = malignant, 
+B = benign), the remaining 30 columns are real-valued input attributes of the 
+cancer tissue computed from a digitized image of a fine needle aspirate (FNA) 
+of the breast mass.
+
+First read the data into R using the following commands, and rename the 
+columns.
+
+```{r}
+url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
+cancer <- read.csv(url, header = F, row.names = 1)
+head(cancer)
+colnames(cancer) <- c("diagnosis", paste0("FNA", 1:(ncol(cancer)-1)))
+cancer <- tbl_df(cancer)
+cancer
+```
+
+a. Check if the classes are balanced by inspecting the frequency of observations 
+in each malignant and begnign cases.
+
+b. Divide the observations into the train and the test set, with 60%-40% split.
+How many observations are in your train and test sets?
+
+c. Load the `e1071` package, and use SVM with a "radial" (default) kernel to 
+classify the tumors in  the train set. Set `scale = FALSE` to supress scaling 
+of the variables, as they already are in the same units. Evaluate your 
+prediction accuracy on the test set.
+
+d. Now, train a "radial" SVM again but tune the model parameters 
+("gamma" and "cost") using `tune.svm`. You should input a set of
+values for the two parameters for `tune.svm()` to use. Print
+the summary of the best model you obtained. What were the parameters used?
+
+e. Compute the test accuracy of your best model after tuning and compare it
+to the accuracy of your initial model. Did tuning improve your predictions?
+
+
+```{r}
+sessionInfo()
+```
+

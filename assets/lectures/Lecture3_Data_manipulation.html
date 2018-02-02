@@ -1,0 +1,2504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="dcterms.date" content="2017-10-10" />
+  <title>Lecture 3: Data Manipulation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 3: Data Manipulation</h1>
+    <h3 class="date">October 10, 2017</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h1>Contents</h1>
+<ul>
+<li><code>apply</code> family functions</li>
+<li>Intro to <code>dplyr</code> package</li>
+<li>Data manipulation functions</li>
+<li>Chaining operations</li>
+<li>Joining &amp; appending datasets</li>
+<li>Extras</li>
+</ul>
+</section>
+<section><section id="apply-family" class="titleslide slide level1"><h1>apply family</h1></section><section id="apply-lapply-sapply-functions" class="slide level2">
+<h1>apply, lapply, sapply functions</h1>
+<ul>
+<li><p>The <code>apply</code> family functions, are <strong>functions which manipulate slices of data</strong> stored as matrices, arrays, lists and data-frames <strong>in a repetitive way</strong>.</p></li>
+<li><p>These functions <strong>avoid the explicit use of loops</strong>, and might be <strong>more computationally efficient</strong>, depending on how big a dataset is. For more details on runtimes see this <a href="https://www.r-bloggers.com/gnu-r-loop-speed-comparison/">link</a>.</p></li>
+<li><p><code>apply</code> allow you to perform operations with <strong>very few lines of code.</strong></p></li>
+<li><p>The family comprises: <strong>apply, lapply , sapply, vapply, mapply, rapply, and tapply</strong>. The difference lies in the structure of input data and the desired format of the output).</p></li>
+</ul>
+</section><section id="apply-function" class="slide level2">
+<h1>apply function</h1>
+<p><code>apply</code> operates on arrays/matrices.</p>
+<p>In the example below we obtain column sums of matrix <code>X</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]   23   25   29    1   13    8
+## [2,]    3    4    6   12   22    2
+## [3,]    5   21   26   17   19   14
+## [4,]    7   10   15   27   16   28
+## [5,]   24   18   20    9   30   11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
+<pre><code>## [1]  62  78  96  66 100  63</code></pre>
+<p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
+</section><section id="apply-function-1" class="slide level2">
+<h1>apply function</h1>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]   23   25   29    1   13    8
+## [2,]    3    4    6   12   22    2
+## [3,]    5   21   26   17   19   14
+## [4,]    7   10   15   27   16   28
+## [5,]   24   18   20    9   30   11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
+<span class="kw">apply</span>(X, <span class="dv">2</span>, function(x) <span class="dv">10</span>*x +<span class="st"> </span><span class="dv">2</span>) </code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]  232  252  292   12  132   82
+## [2,]   32   42   62  122  222   22
+## [3,]   52  212  262  172  192  142
+## [4,]   72  102  152  272  162  282
+## [5,]  242  182  202   92  302  112</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<ul>
+<li>The function can be defined outside <code>apply()</code>,</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span>function(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
+  if (!<span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x +<span class="st"> </span>eps
+  <span class="kw">return</span>(<span class="kw">mean</span>(x))
+}
+<span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
+<pre><code>## [1] 12.4 15.6 19.2 13.2 20.0 12.6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
+<pre><code>## [1] 12.5 15.7 19.3 13.3 20.1 12.7</code></pre>
+</div>
+</section><section id="lapplysapply-functions" class="slide level2">
+<h1>lapply/sapply functions</h1>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to elements of a sequential object</strong> such as a vector, list, or data-frame (applies to columns).</p></li>
+<li><p>The <strong>output is a list</strong> with the same number of elements as the input object.</p></li>
+<li><p><code>sapply</code> is the same as <code>lapply</code> but <strong>returns a “simplified” output</strong>.</p></li>
+<li><p>user-defined functions can be used with <code>sapply/lapply</code></p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lapply returns a list</span>
+<span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 4
+## 
+## [[3]]
+## [1] 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which you can &#39;simplify&#39; with unlist()</span>
+<span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or you could use sapply() instead</span>
+<span class="kw">sapply</span>(<span class="dv">1</span>:<span class="dv">3</span>, function(x) x^<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+</div>
+</section><section id="mapply-functions" class="slide level2">
+<h1>mapply functions</h1>
+<ul>
+<li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
+<li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
+word &lt;-<span class="st"> </span>function(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
+<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span>:<span class="dv">6</span>], <span class="dv">6</span>:<span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## $A
+## [1] &quot;AAAAAA&quot;
+## 
+## $B
+## [1] &quot;BBBBB&quot;
+## 
+## $C
+## [1] &quot;CCCC&quot;
+## 
+## $D
+## [1] &quot;DDD&quot;
+## 
+## $E
+## [1] &quot;EE&quot;
+## 
+## $F
+## [1] &quot;F&quot;</code></pre>
+</section><section id="exercise-1" class="slide level2">
+<h1>Exercise 1</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec3_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="dplyr-package" class="titleslide slide level1"><h1><code>dplyr</code> package</h1></section><section id="dplyr" class="slide level2">
+<h1><code>dplyr</code></h1>
+<ul>
+<li>Introduces <strong>a grammar of data manipulation</strong>.</li>
+<li><strong>Code-efficient</strong> for data exploration and transformation.</li>
+<li><strong>Fast on data frames</strong> (written in C++): has speed of C and ease of R.</li>
+<li><strong>Intuitive to write and easy to read</strong>, esp. when using the <em>chaining</em> syntax.</li>
+<li>You should use <code>dplyr</code> even as a beginner R user, and <a href="http://varianceexplained.org/r/teach-tidyverse/">here is why</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To install dplyr with latest updates</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;tidyverse/dplyr&quot;</span>)
+
+<span class="co"># Or you could use CRAN</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+</section><section id="tibbles" class="slide level2">
+<h1>tibbles</h1>
+<blockquote>
+<p>Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors).</p>
+</blockquote>
+<ul>
+<li>A tibble, <code>tbl</code>, is <strong>a wrapper for a data frame that prints nicely</strong>.</li>
+<li>The print method for <code>tbl</code> shows only the <strong>first 10 rows, and all the columns that fit on screen</strong>.</li>
+<li>Each column is also reported together its type.</li>
+<li>Tibbles (and <code>dplyr</code>) <strong>do NOT preserve the row names</strong>.</li>
+<li><strong>Subsetting <code>tbl</code> is strickter</strong> than subsetting <code>data.frames</code>, and ALWAYS returns objects with expected class, i.e. with a single <code>[</code> you get back a tibble, and with double<code>[[</code> you get a vector.</li>
+</ul>
+</section><section id="movie-industry-dataset" class="slide level2">
+<h1>Movie industry dataset</h1>
+<p><code>movies.csv</code> contains information on last three decades of movies. The data has been scraped from the IMDb website and can be accessed from a <a href="https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv">github repo</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv&quot;</span>
+movies.df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)
+<span class="kw">rownames</span>(movies.df) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span>:<span class="kw">nrow</span>(movies.df))
+<span class="kw">dim</span>(movies.df)</code></pre></div>
+<pre><code>## [1] 6820   15</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(movies.df)</code></pre></div>
+<pre><code>##  [1] &quot;budget&quot;   &quot;company&quot;  &quot;country&quot;  &quot;director&quot; &quot;genre&quot;    &quot;gross&quot;   
+##  [7] &quot;name&quot;     &quot;rating&quot;   &quot;released&quot; &quot;runtime&quot;  &quot;score&quot;    &quot;star&quot;    
+## [13] &quot;votes&quot;    &quot;writer&quot;   &quot;year&quot;</code></pre>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(movies.df)</code></pre></div>
+<pre><code>##      budget                                company country       director
+## M1  8000000          Columbia Pictures Corporation     USA     Rob Reiner
+## M2  6000000                     Paramount Pictures     USA    John Hughes
+## M3 15000000                     Paramount Pictures     USA     Tony Scott
+## M4 18500000 Twentieth Century Fox Film Corporation     USA  James Cameron
+## M5  9000000                   Walt Disney Pictures     USA Randal Kleiser
+## M6  6000000                                Hemdale      UK   Oliver Stone
+##        genre     gross                     name rating   released runtime score
+## M1 Adventure  52287414              Stand by Me      R 1986-08-22      89   8.1
+## M2    Comedy  70136369 Ferris Bueller&#39;s Day Off  PG-13 1986-06-11     103   7.8
+## M3    Action 179800601                  Top Gun     PG 1986-05-16     110   6.9
+## M4    Action  85160248                   Aliens      R 1986-07-18     137   8.4
+## M5 Adventure  18564613  Flight of the Navigator     PG 1986-08-01      90   6.9
+## M6     Drama 138530565                  Platoon      R 1987-02-06     120   8.1
+##                 star  votes        writer year
+## M1       Wil Wheaton 299174  Stephen King 1986
+## M2 Matthew Broderick 264740   John Hughes 1986
+## M3        Tom Cruise 236909      Jim Cash 1986
+## M4  Sigourney Weaver 540152 James Cameron 1986
+## M5       Joey Cramer  36636 Mark H. Baker 1986
+## M6     Charlie Sheen 317585  Oliver Stone 1986</code></pre>
+</section><section id="convert-to-tibble" class="slide level2">
+<h1>Convert to tibble</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+
+<span class="co"># convert to tibble</span>
+movies &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(movies.df)
+<span class="kw">class</span>(movies)</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># printing only shows 10 rows and as many columns as can fit on your screen</span>
+movies</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 15
+##      budget                                 company country         director
+##  *    &lt;dbl&gt;                                  &lt;fctr&gt;  &lt;fctr&gt;           &lt;fctr&gt;
+##  1  8000000           Columbia Pictures Corporation     USA       Rob Reiner
+##  2  6000000                      Paramount Pictures     USA      John Hughes
+##  3 15000000                      Paramount Pictures     USA       Tony Scott
+##  4 18500000  Twentieth Century Fox Film Corporation     USA    James Cameron
+##  5  9000000                    Walt Disney Pictures     USA   Randal Kleiser
+##  6  6000000                                 Hemdale      UK     Oliver Stone
+##  7 25000000                  Henson Associates (HA)      UK       Jim Henson
+##  8  6000000 De Laurentiis Entertainment Group (DEG)     USA      David Lynch
+##  9  9000000                      Paramount Pictures     USA    Howard Deutch
+## 10 15000000                    SLM Production Group     USA David Cronenberg
+## # ... with 6,810 more rows, and 11 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;,
+## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
+## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
+<p><small> <strong>Note:</strong> Tibbles and dplyr <strong>do NOT preserve the row names</strong>, you need to create an “id” column instead. </small></p>
+</section><section id="section-1" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(movies)</code></pre></div>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    6820 obs. of  15 variables:
+##  $ budget  : num  8000000 6000000 15000000 18500000 9000000 6000000 25000000 6000000 9000000 15000000 ...
+##  $ company : Factor w/ 2179 levels &quot;101st Street Films&quot;,..: 663 1683 1683 2068 2124 1158 1160 766 1683 1936 ...
+##  $ country : Factor w/ 57 levels &quot;Argentina&quot;,&quot;Aruba&quot;,..: 56 56 56 56 56 54 54 56 56 56 ...
+##  $ director: Factor w/ 2759 levels &quot;Aamir Khan&quot;,&quot;Aaron Blaise&quot;,..: 2246 1295 2651 1058 2124 1951 1204 587 1005 556 ...
+##  $ genre   : Factor w/ 17 levels &quot;Action&quot;,&quot;Adventure&quot;,..: 2 5 1 1 2 7 2 7 5 7 ...
+##  $ gross   : num  5.23e+07 7.01e+07 1.80e+08 8.52e+07 1.86e+07 ...
+##  $ name    : Factor w/ 6731 levels &quot;10,000 BC&quot;,&quot;101 Dalmatians&quot;,..: 4667 1819 6207 212 1870 3903 2842 772 3961 5310 ...
+##  $ rating  : Factor w/ 13 levels &quot;B&quot;,&quot;B15&quot;,&quot;G&quot;,..: 9 8 7 9 7 9 7 9 8 9 ...
+##  $ released: Factor w/ 2403 levels &quot;1986-01-10&quot;,&quot;1986-01-17&quot;,..: 40 28 24 34 37 76 31 52 10 39 ...
+##  $ runtime : int  89 103 110 137 90 120 101 120 96 96 ...
+##  $ score   : num  8.1 7.8 6.9 8.4 6.9 8.1 7.4 7.8 6.8 7.5 ...
+##  $ star    : Factor w/ 2504 levels &quot;50 Cent&quot;,&quot;Aaliyah&quot;,..: 2474 1605 2348 2195 1139 369 526 924 1733 1039 ...
+##  $ votes   : int  299174 264740 236909 540152 36636 317585 102879 146768 60565 129698 ...
+##  $ writer  : Factor w/ 4199 levels &quot;A.A. Milne&quot;,&quot;Aaron Guzikowski&quot;,..: 3723 1965 1839 1605 2557 2992 975 894 1965 1333 ...
+##  $ year    : int  1986 1986 1986 1986 1986 1986 1986 1986 1986 1986 ...</code></pre>
+</section></section>
+<section><section id="data-manipulation-functions" class="titleslide slide level1"><h1>Data manipulation functions</h1></section><section id="dplyr-verbs" class="slide level2">
+<h1><code>dplyr</code> verbs</h1>
+<p>The most commonly used <code>dplyr</code> functions (or basic verbs) are:</p>
+<ul>
+<li><code>filter()</code>: keep rows matching criteria,</li>
+<li><code>select()</code>: pick columns by name,</li>
+<li><code>arrange()</code>: reorder rows,</li>
+<li><code>mutate()</code>: add new variables,</li>
+<li><code>summarise()</code>: reduce variables to values</li>
+</ul>
+<p></br></p>
+<p>Operations performed with the above functions can be done using <strong>base R functions, but they would be less computationally efficient, and require writing more lines of (ugly) code.</strong></p>
+<p></br></p>
+<p>Learn about <code>dplyr</code> from the <a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a?preview=dplyr-tutorial.pdf">turtorial written by its creator, Hadley Wickham</a></p>
+</section><section id="structure-of-dplyr-functions" class="slide level2">
+<h1>Structure of <code>dplyr</code> functions</h1>
+<ul>
+<li>the first argument is a data frame</li>
+<li>subsequent argument specify what to do</li>
+<li>always return a data frame</li>
+</ul>
+</section><section id="filter-keep-rows-matching-criteria" class="slide level2">
+<h1><code>filter()</code>: keep rows matching criteria</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to find all comedies by Woody Allen</span>
+movies[movies$genre ==<span class="st"> &quot;Comedy&quot;</span> &amp;<span class="st"> </span>movies$director ==<span class="st"> &quot;Woody Allen&quot;</span>, ]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
+<span class="co"># note: both comma or ampersand represent AND condition</span>
+<span class="kw">filter</span>(movies, genre ==<span class="st"> &quot;Comedy&quot;</span>, director ==<span class="st"> &quot;Woody Allen&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 27 x 15
+##      budget                                     company country    director
+##       &lt;dbl&gt;                                      &lt;fctr&gt;  &lt;fctr&gt;      &lt;fctr&gt;
+##  1  6400000                              Orion Pictures     USA Woody Allen
+##  2 16000000                              Orion Pictures     USA Woody Allen
+##  3 19000000 Jack Rollins &amp; Charles H. Joffe Productions     USA Woody Allen
+##  4 15000000                         Touchstone Pictures     USA Woody Allen
+##  5 12000000                              Orion Pictures     USA Woody Allen
+##  6 14000000                              Orion Pictures     USA Woody Allen
+##  7 20000000                            TriStar Pictures     USA Woody Allen
+##  8 13500000                            TriStar Pictures     USA Woody Allen
+##  9 20000000                                     Miramax     USA Woody Allen
+## 10 15000000                             Sweetland Films     USA Woody Allen
+## # ... with 17 more rows, and 11 more variables: genre &lt;fctr&gt;, gross &lt;dbl&gt;,
+## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
+## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
+</section><section id="section-2" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use pipe for OR condition</span>
+<span class="kw">filter</span>(movies, country ==<span class="st"> &quot;Greece&quot;</span> |<span class="st"> </span>country ==<span class="st"> &quot;Chile&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 9 x 15
+##    budget                  company country               director     genre
+##     &lt;dbl&gt;                   &lt;fctr&gt;  &lt;fctr&gt;                 &lt;fctr&gt;    &lt;fctr&gt;
+## 1 0.0e+00            Paradis Films  Greece Theodoros Angelopoulos     Drama
+## 2 0.0e+00          Boo Productions  Greece       Yorgos Lanthimos     Drama
+## 3 0.0e+00                Haos Film  Greece Athina Rachel Tsangari     Drama
+## 4 0.0e+00                Haos Film  Greece       Yorgos Lanthimos     Drama
+## 5 0.0e+00        Participant Media   Chile     &quot;Pablo Larra\xedn&quot;     Drama
+## 6 0.0e+00                    Film4  Greece       Yorgos Lanthimos    Comedy
+## 7 2.6e+07      Alcon Entertainment   Chile        Patricia Riggen Biography
+## 8 9.0e+06 Fox Searchlight Pictures   Chile     &quot;Pablo Larra\xedn&quot; Biography
+## 9 0.0e+00                 AZ Films   Chile     &quot;Pablo Larra\xedn&quot; Biography
+## # ... with 10 more variables: gross &lt;dbl&gt;, name &lt;fctr&gt;, rating &lt;fctr&gt;,
+## #   released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;,
+## #   writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
+</section><section id="section-3" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you can also use %in% operator</span>
+<span class="kw">print</span>(<span class="kw">filter</span>(movies, country %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Argentina&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Chile&quot;</span>)), <span class="dt">n =</span> <span class="ot">Inf</span>)</code></pre></div>
+<pre><code>## # A tibble: 19 x 15
+##     budget                                                  company   country
+##      &lt;dbl&gt;                                                   &lt;fctr&gt;    &lt;fctr&gt;
+##  1 0.0e+00                                               Cinequanon Argentina
+##  2 0.0e+00                                 &quot;GEA Cinematogr\xe1fica&quot; Argentina
+##  3 0.0e+00                                            Not specified Argentina
+##  4 0.0e+00                                  Aleph Producciones S.A. Argentina
+##  5 1.5e+06                                                 FX Sound Argentina
+##  6 0.0e+00 Instituto Nacional de Cine y Artes Audiovisuales (INCAA) Argentina
+##  7 0.0e+00                                                 4k Films Argentina
+##  8 0.0e+00                                                 FilmFour Argentina
+##  9 3.0e+06                                                HBO Films  Colombia
+## 10 0.0e+00                                                 Cinefarm Argentina
+## 11 0.0e+00                                               Aura Films Argentina
+## 12 0.0e+00                     Historias Cinematograficas Cinemania Argentina
+## 13 2.0e+06                                           Tornasol Films Argentina
+## 14 0.0e+00                                        Participant Media     Chile
+## 15 3.3e+06                                      Corner Producciones Argentina
+## 16 2.6e+07                                      Alcon Entertainment     Chile
+## 17 1.4e+06                                            Buffalo Films  Colombia
+## 18 9.0e+06                                 Fox Searchlight Pictures     Chile
+## 19 0.0e+00                                                 AZ Films     Chile
+## # ... with 12 more variables: director &lt;fctr&gt;, genre &lt;fctr&gt;, gross &lt;dbl&gt;,
+## #   name &lt;fctr&gt;, rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;,
+## #   star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;</code></pre>
+</section><section id="select-pick-columns-by-name" class="slide level2">
+<h1><code>select()</code>: pick columns by name</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to select columns</span>
+movies[, <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;genre&quot;</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
+movies.sub &lt;-<span class="st"> </span><span class="kw">select</span>(movies, name, country, year, genre)
+movies.sub</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##                        name country  year     genre
+##  *                   &lt;fctr&gt;  &lt;fctr&gt; &lt;int&gt;    &lt;fctr&gt;
+##  1              Stand by Me     USA  1986 Adventure
+##  2 Ferris Bueller&#39;s Day Off     USA  1986    Comedy
+##  3                  Top Gun     USA  1986    Action
+##  4                   Aliens     USA  1986    Action
+##  5  Flight of the Navigator     USA  1986 Adventure
+##  6                  Platoon      UK  1986     Drama
+##  7                Labyrinth      UK  1986 Adventure
+##  8              Blue Velvet     USA  1986     Drama
+##  9           Pretty in Pink     USA  1986    Comedy
+## 10                  The Fly     USA  1986     Drama
+## # ... with 6,810 more rows</code></pre>
+</section><section id="section-4" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use colon to select multiple contiguous columns, </span>
+<span class="kw">select</span>(movies, name, genre:score)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 7
+##                        name     genre     gross rating   released runtime score
+##  *                   &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt; &lt;fctr&gt;     &lt;fctr&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1              Stand by Me Adventure  52287414      R 1986-08-22      89   8.1
+##  2 Ferris Bueller&#39;s Day Off    Comedy  70136369  PG-13 1986-06-11     103   7.8
+##  3                  Top Gun    Action 179800601     PG 1986-05-16     110   6.9
+##  4                   Aliens    Action  85160248      R 1986-07-18     137   8.4
+##  5  Flight of the Navigator Adventure  18564613     PG 1986-08-01      90   6.9
+##  6                  Platoon     Drama 138530565      R 1987-02-06     120   8.1
+##  7                Labyrinth Adventure  12729917     PG 1986-06-27     101   7.4
+##  8              Blue Velvet     Drama   8551228      R 1986-10-23     120   7.8
+##  9           Pretty in Pink    Comedy  40471663  PG-13 1986-02-28      96   6.8
+## 10                  The Fly     Drama  40456565      R 1986-08-15      96   7.5
+## # ... with 6,810 more rows</code></pre>
+</section><section id="select-helpers" class="slide level2">
+<h1><code>select()</code> helpers</h1>
+<p>You can use the following functions to help select the columns:</p>
+<ul>
+<li><code>starts_with()</code></li>
+<li><code>ends_with()</code></li>
+<li><code>contains()</code></li>
+<li><code>matches()</code> (matches a regular expression)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="kw">starts_with</span>(<span class="st">&quot;r&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 3
+##    rating   released runtime
+##  * &lt;fctr&gt;     &lt;fctr&gt;   &lt;int&gt;
+##  1      R 1986-08-22      89
+##  2  PG-13 1986-06-11     103
+##  3     PG 1986-05-16     110
+##  4      R 1986-07-18     137
+##  5     PG 1986-08-01      90
+##  6      R 1987-02-06     120
+##  7     PG 1986-06-27     101
+##  8      R 1986-10-23     120
+##  9  PG-13 1986-02-28      96
+## 10      R 1986-08-15      96
+## # ... with 6,810 more rows</code></pre>
+</section><section id="section-5" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="kw">ends_with</span>(<span class="st">&quot;e&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##        genre                     name runtime score
+##  *    &lt;fctr&gt;                   &lt;fctr&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1 Adventure              Stand by Me      89   8.1
+##  2    Comedy Ferris Bueller&#39;s Day Off     103   7.8
+##  3    Action                  Top Gun     110   6.9
+##  4    Action                   Aliens     137   8.4
+##  5 Adventure  Flight of the Navigator      90   6.9
+##  6     Drama                  Platoon     120   8.1
+##  7 Adventure                Labyrinth     101   7.4
+##  8     Drama              Blue Velvet     120   7.8
+##  9    Comedy           Pretty in Pink      96   6.8
+## 10     Drama                  The Fly      96   7.5
+## # ... with 6,810 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="kw">contains</span>(<span class="st">&quot;re&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##            director     genre   released score
+##  *           &lt;fctr&gt;    &lt;fctr&gt;     &lt;fctr&gt; &lt;dbl&gt;
+##  1       Rob Reiner Adventure 1986-08-22   8.1
+##  2      John Hughes    Comedy 1986-06-11   7.8
+##  3       Tony Scott    Action 1986-05-16   6.9
+##  4    James Cameron    Action 1986-07-18   8.4
+##  5   Randal Kleiser Adventure 1986-08-01   6.9
+##  6     Oliver Stone     Drama 1987-02-06   8.1
+##  7       Jim Henson Adventure 1986-06-27   7.4
+##  8      David Lynch     Drama 1986-10-23   7.8
+##  9    Howard Deutch    Comedy 1986-02-28   6.8
+## 10 David Cronenberg     Drama 1986-08-15   7.5
+## # ... with 6,810 more rows</code></pre>
+</section><section id="dropping-columns" class="slide level2">
+<h1>Dropping columns</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># remove budget and company columns</span>
+<span class="kw">print</span>(<span class="kw">select</span>(movies, -budget, -company), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 13
+##   country       director     genre     gross                     name rating
+## *  &lt;fctr&gt;         &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt;                   &lt;fctr&gt; &lt;fctr&gt;
+## 1     USA     Rob Reiner Adventure  52287414              Stand by Me      R
+## 2     USA    John Hughes    Comedy  70136369 Ferris Bueller&#39;s Day Off  PG-13
+## 3     USA     Tony Scott    Action 179800601                  Top Gun     PG
+## 4     USA  James Cameron    Action  85160248                   Aliens      R
+## 5     USA Randal Kleiser Adventure  18564613  Flight of the Navigator     PG
+## 6      UK   Oliver Stone     Drama 138530565                  Platoon      R
+## # ... with 6,814 more rows, and 7 more variables: released &lt;fctr&gt;,
+## #   runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;, writer &lt;fctr&gt;,
+## #   year &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Selecting and renaming in one</span>
+<span class="kw">print</span>(<span class="kw">select</span>(movies, name, <span class="dt">gross_revenue =</span> gross), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 2
+##                       name gross_revenue
+## *                   &lt;fctr&gt;         &lt;dbl&gt;
+## 1              Stand by Me      52287414
+## 2 Ferris Bueller&#39;s Day Off      70136369
+## 3                  Top Gun     179800601
+## 4                   Aliens      85160248
+## 5  Flight of the Navigator      18564613
+## 6                  Platoon     138530565
+## # ... with 6,814 more rows</code></pre>
+</section><section id="arrange-reorder-rows" class="slide level2">
+<h1><code>arrange()</code>: reorder rows</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
+<span class="kw">print</span>(<span class="kw">arrange</span>(movies.sub, name), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##                         name country  year     genre
+##                       &lt;fctr&gt;  &lt;fctr&gt; &lt;int&gt;    &lt;fctr&gt;
+## 1                  10,000 BC     USA  2008    Action
+## 2             101 Dalmatians     USA  1996 Adventure
+## 3             102 Dalmatians     USA  2000 Adventure
+## 4        10 Cloverfield Lane     USA  2016     Drama
+## 5 10 Things I Hate About You     USA  1999    Comedy
+## 6                   10 Years     USA  2011    Comedy
+## # ... with 6,814 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use `desc` for descending</span>
+<span class="kw">print</span>(<span class="kw">arrange</span>(movies.sub, <span class="kw">desc</span>(year)), <span class="dt">n =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##                                      name country  year     genre
+##                                    &lt;fctr&gt;  &lt;fctr&gt; &lt;int&gt;    &lt;fctr&gt;
+## 1                           The Bad Batch     USA  2016     Drama
+## 2                        Assassin&#39;s Creed     USA  2016    Action
+## 3                              La La Land     USA  2016    Comedy
+## 4                           Suicide Squad     USA  2016    Action
+## 5                                    Sing     USA  2016 Animation
+## 6 Fantastic Beasts and Where to Find Them      UK  2016 Adventure
+## # ... with 6,814 more rows</code></pre>
+</section><section id="mutate-add-new-variables" class="slide level2">
+<h1><code>mutate()</code>: add new variables</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to create a new variable &#39;profit&#39;</span>
+movies$profit &lt;-<span class="st"> </span>movies$gross -<span class="st"> </span>movies$budget</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
+movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <span class="dt">profit =</span> gross -<span class="st"> </span>budget)
+<span class="kw">select</span>(movies, name, gross, budget, profit)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##                        name     gross   budget    profit
+##                      &lt;fctr&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+##  1              Stand by Me  52287414  8000000  44287414
+##  2 Ferris Bueller&#39;s Day Off  70136369  6000000  64136369
+##  3                  Top Gun 179800601 15000000 164800601
+##  4                   Aliens  85160248 18500000  66660248
+##  5  Flight of the Navigator  18564613  9000000   9564613
+##  6                  Platoon 138530565  6000000 132530565
+##  7                Labyrinth  12729917 25000000 -12270083
+##  8              Blue Velvet   8551228  6000000   2551228
+##  9           Pretty in Pink  40471663  9000000  31471663
+## 10                  The Fly  40456565 15000000  25456565
+## # ... with 6,810 more rows</code></pre>
+</section><section id="section-6" class="slide level2">
+<h1></h1>
+<p>Generating multiple new variables</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, 
+                 <span class="dt">profit =</span> gross -<span class="st"> </span>budget, 
+                 <span class="dt">gross_in_mil =</span> gross/<span class="dv">10</span>^<span class="dv">6</span>,
+                 <span class="dt">budget_in_mil =</span> budget/<span class="dv">10</span>^<span class="dv">6</span>,
+                 <span class="dt">profit_in_mil =</span> profit/<span class="dv">10</span>^<span class="dv">6</span>)
+<span class="kw">select</span>(movies, name, <span class="kw">contains</span>(<span class="st">&quot;_in_mil&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##                        name gross_in_mil budget_in_mil profit_in_mil
+##                      &lt;fctr&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1              Stand by Me    52.287414           8.0     44.287414
+##  2 Ferris Bueller&#39;s Day Off    70.136369           6.0     64.136369
+##  3                  Top Gun   179.800601          15.0    164.800601
+##  4                   Aliens    85.160248          18.5     66.660248
+##  5  Flight of the Navigator    18.564613           9.0      9.564613
+##  6                  Platoon   138.530565           6.0    132.530565
+##  7                Labyrinth    12.729917          25.0    -12.270083
+##  8              Blue Velvet     8.551228           6.0      2.551228
+##  9           Pretty in Pink    40.471663           9.0     31.471663
+## 10                  The Fly    40.456565          15.0     25.456565
+## # ... with 6,810 more rows</code></pre>
+</section><section id="summarise-reduce-variables-to-values" class="slide level2">
+<h1><code>summarise()</code>: reduce variables to values</h1>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><code>summarize()</code> can be used to aggregate data or to compute a summarizing value of interest.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Total gross revenue for all movies in 30 years:</span>
+<span class="kw">summarise</span>(movies, 
+          <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)/<span class="dv">10</span>^<span class="dv">9</span>)</code></pre></div>
+<pre><code>## # A tibble: 1 x 1
+##   tot_gross_in_bil
+##              &lt;dbl&gt;
+## 1         228.4552</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<ul>
+<li><code>summarize()</code> is <strong>primarily useful on data previously grouped by one or more variables</strong> using <code>group_by()</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_genre &lt;-<span class="st"> </span><span class="kw">group_by</span>(movies, genre)
+<span class="kw">summarize</span>(by_genre, <span class="dt">total =</span> <span class="kw">sum</span>(gross)/<span class="dv">10</span>^<span class="dv">9</span>)</code></pre></div>
+<pre><code>## # A tibble: 17 x 2
+##        genre        total
+##       &lt;fctr&gt;        &lt;dbl&gt;
+##  1    Action 74.792634664
+##  2 Adventure 20.895092830
+##  3 Animation 25.342203262
+##  4 Biography  8.617526666
+##  5    Comedy 53.543423603
+##  6     Crime 10.217836159
+##  7     Drama 25.204622256
+##  8    Family  0.118110208
+##  9   Fantasy  0.644653115
+## 10    Horror  7.117846856
+## 11   Musical  0.008094993
+## 12   Mystery  1.379951556
+## 13   Romance  0.145764206
+## 14    Sci-Fi  0.307801697
+## 15  Thriller  0.099600218
+## 16       War  0.001509775
+## 17   Western  0.018519094</code></pre>
+</div>
+</section><section id="useful-summary-functions" class="slide level2">
+<h1>Useful summary functions</h1>
+<ul>
+<li><code>min(x)</code>, <code>median(x)</code>,<code>max(x)</code>, <code>quantile(x, p)</code></li>
+<li><code>n()</code>, <code>n_distinct()</code>, <code>sum(x)</code>, <code>mean(x)</code></li>
+<li><code>sum(x &gt; 10)</code>, <code>mean(x &gt; 0)</code></li>
+<li><code>sd(x)</code>, <code>var(x)</code></li>
+</ul>
+</section></section>
+<section><section id="chaining-operations" class="titleslide slide level1"><h1>Chaining operations</h1></section><section id="pipe-operator" class="slide level2">
+<h1>Pipe operator: <code>%&gt;%</code></h1>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li>The <code>%&gt;%</code> operator was intoduced in <code>magrittr</code> package to <strong>pipe values forward into an expression or function call</strong>.</li>
+<li>In the pipe notation we have something like <code>x %&gt;% f(y)</code>, rather than <code>f(x, y)</code></li>
+<li>This is similar to the <a href="http://www.linfo.org/pipe.html">Unix pipes</a>: <code>|</code> used to <strong>send the output of one program to another program for further processing</strong>.</li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">500</span>) %&gt;%
+<span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">50</span>) %&gt;%
+<span class="st">  </span><span class="kw">colSums</span>() %&gt;%
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span>:<span class="dv">50</span>)</code></pre></div>
+<p><img src="Lecture3_Data_manipulation_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" /></p>
+</div>
+</section><section id="chaining-operations-1" class="slide level2">
+<h1>Chaining operations</h1>
+<ul>
+<li><p>Pipe operators used together with <code>dplyr</code> functions make a large difference as they semantically change your code in a way that <strong>makes it more intuitive to both read and write</strong>.</p></li>
+<li><p>The pipes allow users to chain operators which reflects the <strong>sequential nature of data-processing tasks</strong>.</p></li>
+<li><p><strong>Chaining increases readability</strong> significantly when there are many commands</p></li>
+<li><p><code>%&gt;%</code> operator is automatically imported into <code>dplyr</code></p></li>
+</ul>
+</section><section id="section-7" class="slide level2">
+<h1></h1>
+<p><small> Find movies from USA produced after 2010. Group by genre and compute the group mean gross revenue in million dollars. Then print the genre mean ‘gross’ revenue arranged in a descending order: </small></p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting </span>
+<span class="kw">arrange</span>(
+  <span class="kw">summarise</span>(
+    <span class="kw">group_by</span>(
+      <span class="kw">filter</span>(movies, 
+             year &gt;<span class="st"> </span><span class="dv">2010</span>, country ==<span class="st"> &quot;USA&quot;</span>
+      ),
+      genre
+    ),
+    <span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)/<span class="dv">10</span>^<span class="dv">6</span>
+  ),
+  mean_gross
+)</code></pre></div>
+<pre><code>## # A tibble: 13 x 2
+##        genre mean_gross
+##       &lt;fctr&gt;      &lt;dbl&gt;
+##  1  Thriller   0.016458
+##  2     Drama  23.252067
+##  3    Horror  27.714873
+##  4    Sci-Fi  29.169033
+##  5   Fantasy  30.657051
+##  6     Crime  32.128370
+##  7    Comedy  35.152773
+##  8 Biography  40.552788
+##  9   Mystery  49.457150
+## 10   Romance  62.495645
+## 11 Adventure  81.227901
+## 12    Action  97.285930
+## 13 Animation 151.960486</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># chaining </span>
+movies %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(year &gt;<span class="st"> </span><span class="dv">2010</span>, country ==<span class="st"> &quot;USA&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(genre) %&gt;%
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)/<span class="dv">10</span>^<span class="dv">6</span>) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(mean_gross)</code></pre></div>
+<pre><code>## # A tibble: 13 x 2
+##        genre mean_gross
+##       &lt;fctr&gt;      &lt;dbl&gt;
+##  1  Thriller   0.016458
+##  2     Drama  23.252067
+##  3    Horror  27.714873
+##  4    Sci-Fi  29.169033
+##  5   Fantasy  30.657051
+##  6     Crime  32.128370
+##  7    Comedy  35.152773
+##  8 Biography  40.552788
+##  9   Mystery  49.457150
+## 10   Romance  62.495645
+## 11 Adventure  81.227901
+## 12    Action  97.285930
+## 13 Animation 151.960486</code></pre>
+</div>
+</section><section id="exercises-2" class="slide level2">
+<h1>Exercises 2</h1>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec3_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 2.</p></li>
+</ul>
+</section></section>
+<section><section id="joining-appending-datasets" class="titleslide slide level1"><h1>Joining &amp; appending datasets</h1></section><section id="merging-two-tables" class="slide level2">
+<h1>Merging two tables</h1>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">item =</span> <span class="kw">c</span>(<span class="st">&quot;cherries&quot;</span>, <span class="st">&quot;orange&quot;</span>, 
+           <span class="st">&quot;broccoli&quot;</span>, <span class="st">&quot;blueberries&quot;</span>, 
+           <span class="st">&quot;cabbage&quot;</span>, <span class="st">&quot;lemon&quot;</span>, <span class="st">&quot;spinach&quot;</span>, 
+           <span class="st">&quot;eggplants&quot;</span>),
+  <span class="dt">color =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;green&quot;</span>, 
+            <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;yellow&quot;</span>, 
+            <span class="st">&quot;green&quot;</span>, <span class="st">&quot;purple&quot;</span>),
+  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+
+y &lt;-<span class="st">  </span><span class="kw">data.frame</span>(
+  <span class="dt">item =</span> <span class="kw">c</span>(<span class="st">&quot;carrot&quot;</span>, <span class="st">&quot;cherries&quot;</span>, 
+           <span class="st">&quot;broccoli&quot;</span>, <span class="st">&quot;blueberries&quot;</span>, 
+           <span class="st">&quot;cabbage&quot;</span>, <span class="st">&quot;lemon&quot;</span>, <span class="st">&quot;tomato&quot;</span>),
+  <span class="dt">class =</span> <span class="kw">c</span>(<span class="st">&quot;vegetable&quot;</span>, <span class="st">&quot;fruit&quot;</span>, 
+            <span class="st">&quot;vegetable&quot;</span>, <span class="st">&quot;fruit&quot;</span>, 
+            <span class="st">&quot;vegetable&quot;</span>, <span class="st">&quot;fruit&quot;</span>, <span class="st">&quot;fruit&quot;</span>), 
+  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+</div>
+<div class="right" ,="" style="width: 50%">
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cherries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+broccoli
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+blueberries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cabbage
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+lemon
+</td>
+<td style="text-align:left;background-color: royalblue;">
+yellow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+spinach
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+eggplants
+</td>
+<td style="text-align:left;background-color: royalblue;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+carrot
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cherries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+broccoli
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+blueberries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cabbage
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+lemon
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+tomato
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="inner_joinx-y" class="slide level2">
+<h1><code>inner_join(x, y)</code></h1>
+<ul>
+<li>Include only rows in both x and y</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inner_join</span>(x, y) <span class="co"># or x %&gt;% inner_join(y)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;item&quot;</code></pre>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+x
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cherries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+broccoli
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+blueberries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cabbage
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+lemon
+</td>
+<td style="text-align:left;background-color: royalblue;">
+yellow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+spinach
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+eggplants
+</td>
+<td style="text-align:left;background-color: royalblue;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+y
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+carrot
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cherries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+broccoli
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+blueberries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cabbage
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+lemon
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+tomato
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: right; margin-left: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+inner_join(x, y)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cherries
+</td>
+<td style="text-align:left;background-color: bisque;">
+red
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+broccoli
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+<td style="text-align:left;background-color: bisque;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+blueberries
+</td>
+<td style="text-align:left;background-color: bisque;">
+blue
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cabbage
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+<td style="text-align:left;background-color: bisque;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+lemon
+</td>
+<td style="text-align:left;background-color: bisque;">
+yellow
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+</section><section id="left_joinx-y" class="slide level2">
+<h1><code>left_join(x, y)</code>:</h1>
+<ul>
+<li>Include all of x, and matching rows of y</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">left_join</span>(x, y) <span class="co"># or x %&gt;% left_join(y)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;item&quot;</code></pre>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+x
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cherries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+broccoli
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+blueberries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cabbage
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+lemon
+</td>
+<td style="text-align:left;background-color: royalblue;">
+yellow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+spinach
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+eggplants
+</td>
+<td style="text-align:left;background-color: royalblue;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+y
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+carrot
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cherries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+broccoli
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+blueberries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cabbage
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+lemon
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+tomato
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: right; margin-left: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+left_join(x, y)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cherries
+</td>
+<td style="text-align:left;background-color: bisque;">
+red
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+orange
+</td>
+<td style="text-align:left;background-color: bisque;">
+orange
+</td>
+<td style="text-align:left;background-color: bisque;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+broccoli
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+<td style="text-align:left;background-color: bisque;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+blueberries
+</td>
+<td style="text-align:left;background-color: bisque;">
+blue
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cabbage
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+<td style="text-align:left;background-color: bisque;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+lemon
+</td>
+<td style="text-align:left;background-color: bisque;">
+yellow
+</td>
+<td style="text-align:left;background-color: bisque;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+spinach
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+<td style="text-align:left;background-color: bisque;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+eggplants
+</td>
+<td style="text-align:left;background-color: bisque;">
+purple
+</td>
+<td style="text-align:left;background-color: bisque;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+</section><section id="semi_joinx-y" class="slide level2">
+<h1><code>semi_join(x, y)</code>:</h1>
+<ul>
+<li>Include rows of x that match y</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">semi_join</span>(x, y) <span class="co"># or x %&gt;% semi_join(y)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;item&quot;</code></pre>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+x
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cherries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+broccoli
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+blueberries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cabbage
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+lemon
+</td>
+<td style="text-align:left;background-color: royalblue;">
+yellow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+spinach
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+eggplants
+</td>
+<td style="text-align:left;background-color: royalblue;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+y
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+carrot
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cherries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+broccoli
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+blueberries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cabbage
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+lemon
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+tomato
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: right; margin-left: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+semi_join(x, y)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cherries
+</td>
+<td style="text-align:left;background-color: bisque;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+broccoli
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+blueberries
+</td>
+<td style="text-align:left;background-color: bisque;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+cabbage
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+lemon
+</td>
+<td style="text-align:left;background-color: bisque;">
+yellow
+</td>
+</tr>
+</tbody>
+</table>
+</section><section id="anti_joinx-y" class="slide level2">
+<h1><code>anti_join(x, y)</code>:</h1>
+<ul>
+<li>Include rows of x that don’t match y</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anti_join</span>(x, y) <span class="co"># or x %&gt;% anti_join(y)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;item&quot;</code></pre>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+x
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cherries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+red
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+<td style="text-align:left;background-color: royalblue;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+broccoli
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+blueberries
+</td>
+<td style="text-align:left;background-color: royalblue;">
+blue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+cabbage
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+lemon
+</td>
+<td style="text-align:left;background-color: royalblue;">
+yellow
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+spinach
+</td>
+<td style="text-align:left;background-color: royalblue;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: royalblue;">
+eggplants
+</td>
+<td style="text-align:left;background-color: royalblue;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: left; margin-right: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+y
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+class
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+carrot
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cherries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+broccoli
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+blueberries
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+cabbage
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+vegetable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+lemon
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: darkolivegreen;">
+tomato
+</td>
+<td style="text-align:left;background-color: darkolivegreen;">
+fruit
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; float: right; margin-left: 10px;">
+<thead>
+<tr>
+<th style="text-align:center; border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+anti_join(x, y)
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+item
+</th>
+<th style="text-align:left;">
+color
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+orange
+</td>
+<td style="text-align:left;background-color: bisque;">
+orange
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+spinach
+</td>
+<td style="text-align:left;background-color: bisque;">
+green
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: bisque;">
+eggplants
+</td>
+<td style="text-align:left;background-color: bisque;">
+purple
+</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section><section id="extra-functions" class="titleslide slide level1"><h1>Extra functions</h1></section><section id="renaming" class="slide level2">
+<h1>Renaming</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies.sub &lt;-<span class="st"> </span>movies %&gt;%<span class="st"> </span><span class="kw">select</span>(name, director, year, score, gross)
+<span class="kw">print</span>(movies.sub, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 5
+##                       name    director  year score     gross
+##                     &lt;fctr&gt;      &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt;
+## 1              Stand by Me  Rob Reiner  1986   8.1  52287414
+## 2 Ferris Bueller&#39;s Day Off John Hughes  1986   7.8  70136369
+## 3                  Top Gun  Tony Scott  1986   6.9 179800601
+## # ... with 6,817 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Renaming variable</span>
+movies.sub %&gt;%<span class="st"> </span><span class="kw">rename</span>(<span class="dt">gross_revenue =</span> gross)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 5
+##                        name         director  year score gross_revenue
+##                      &lt;fctr&gt;           &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt;         &lt;dbl&gt;
+##  1              Stand by Me       Rob Reiner  1986   8.1      52287414
+##  2 Ferris Bueller&#39;s Day Off      John Hughes  1986   7.8      70136369
+##  3                  Top Gun       Tony Scott  1986   6.9     179800601
+##  4                   Aliens    James Cameron  1986   8.4      85160248
+##  5  Flight of the Navigator   Randal Kleiser  1986   6.9      18564613
+##  6                  Platoon     Oliver Stone  1986   8.1     138530565
+##  7                Labyrinth       Jim Henson  1986   7.4      12729917
+##  8              Blue Velvet      David Lynch  1986   7.8       8551228
+##  9           Pretty in Pink    Howard Deutch  1986   6.8      40471663
+## 10                  The Fly David Cronenberg  1986   7.5      40456565
+## # ... with 6,810 more rows</code></pre>
+</section><section id="distinct-values" class="slide level2">
+<h1>Distinct values</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Unique values</span>
+movies %&gt;%<span class="st"> </span><span class="kw">distinct</span>(rating)</code></pre></div>
+<pre><code>## # A tibble: 13 x 1
+##           rating
+##           &lt;fctr&gt;
+##  1             R
+##  2         PG-13
+##  3            PG
+##  4       UNRATED
+##  5 Not specified
+##  6             G
+##  7         NC-17
+##  8     NOT RATED
+##  9         TV-PG
+## 10         TV-MA
+## 11             B
+## 12           B15
+## 13         TV-14</code></pre>
+<p><strong>Note that</strong> can take on multiple variables, and would return distinct variable combinations.</p>
+</section><section id="group-counts" class="slide level2">
+<h1>Group counts</h1>
+<p>Use a <code>tally()</code> function to generate a group frequency table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies %&gt;%<span class="st"> </span><span class="kw">group_by</span>(genre) %&gt;%<span class="st"> </span><span class="kw">tally</span>()</code></pre></div>
+<pre><code>## # A tibble: 17 x 2
+##        genre     n
+##       &lt;fctr&gt; &lt;int&gt;
+##  1    Action  1331
+##  2 Adventure   392
+##  3 Animation   277
+##  4 Biography   359
+##  5    Comedy  2080
+##  6     Crime   522
+##  7     Drama  1444
+##  8    Family    14
+##  9   Fantasy    32
+## 10    Horror   277
+## 11   Musical     4
+## 12   Mystery    38
+## 13   Romance    15
+## 14    Sci-Fi    13
+## 15  Thriller    18
+## 16       War     2
+## 17   Western     2</code></pre>
+</section><section id="window-functions" class="slide level2">
+<h1>Window Functions</h1>
+<ul>
+<li>Aggregation functions such as <code>mean()</code>, <code>n()</code> return 1 value per group.</li>
+<li><strong>Window functions return multiple values per group</strong>. Examples include: ranking and ordering functions (like <code>min_rank</code>, <code>top_n()</code>), offset functions (<code>lead</code> and <code>lag</code>), and cumulative aggregates (like <code>cummean</code>).</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rewrite more simply with the `top_n` function</span>
+movies %&gt;%
+<span class="st">  </span><span class="kw">select</span>(name, genre, year, score) %&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(genre) %&gt;%<span class="st">  </span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dv">2</span>, <span class="dt">wt =</span> score) %&gt;%<span class="st">      </span><span class="co"># if &#39;wt&#39; argument in top_n() is not specified</span>
+<span class="st">  </span><span class="kw">arrange</span>(genre, year, score)   <span class="co"># the last variable is taken for ordering</span></code></pre></div>
+<pre><code>## # A tibble: 35 x 4
+## # Groups:   genre [17]
+##                                                 name     genre  year score
+##                                               &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt; &lt;dbl&gt;
+##  1                                   The Dark Knight    Action  2008   9.0
+##  2                                         Inception    Action  2010   8.8
+##  3 The Lord of the Rings: The Fellowship of the Ring Adventure  2001   8.8
+##  4     The Lord of the Rings: The Return of the King Adventure  2003   8.9
+##  5                                     The Lion King Animation  1994   8.5
+##  6                                     Spirited Away Animation  2001   8.6
+##  7                                         Your name Animation  2016   8.5
+##  8                                  Schindler&#39;s List Biography  1993   8.9
+##  9                                  The Intouchables Biography  2011   8.6
+## 10                                      Forrest Gump    Comedy  1994   8.8
+## # ... with 25 more rows</code></pre>
+</section><section id="sampling-functions" class="slide level2">
+<h1>Sampling functions</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fixed number of rows, without replacement</span>
+movies %&gt;%<span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">15</span>)</code></pre></div>
+<pre><code>## # A tibble: 15 x 19
+##      budget                       company country            director     genre
+##       &lt;dbl&gt;                        &lt;fctr&gt;  &lt;fctr&gt;              &lt;fctr&gt;    &lt;fctr&gt;
+##  1 4.50e+06      Keystone Family Pictures  Canada        Robert Vince    Comedy
+##  2 0.00e+00 Raajkamal Films International   India        Kamal Haasan     Crime
+##  3 1.75e+07                United Artists      UK        Terry George Biography
+##  4 1.60e+07               New Line Cinema     USA  Jonathan Liebesman    Horror
+##  5 0.00e+00                  Warner Bros.     USA           John Gray Adventure
+##  6 2.00e+08                    DreamWorks     USA         Michael Bay    Action
+##  7 3.20e+06                   ContentFilm     USA        Wayne Kramer     Crime
+##  8 0.00e+00                Orion Pictures     USA            Jim Kouf    Action
+##  9 1.05e+08                  Warner Bros.     USA     Roland Emmerich    Action
+## 10 1.70e+06             Magnolia Pictures     USA   Steven Soderbergh     Drama
+## 11 1.50e+07                    Fox Atomic     USA        Martin Weisz    Action
+## 12 1.60e+07              DC Entertainment     USA     Kenneth Johnson    Action
+## 13 0.00e+00      Colorado Film Production   Italy Gabriele Salvatores     Crime
+## 14 0.00e+00              Caravan Pictures     USA     Martha Coolidge    Comedy
+## 15 2.00e+07             Magnolia Pictures      UK     Michael Radford     Crime
+## # ... with 14 more variables: gross &lt;dbl&gt;, name &lt;fctr&gt;, rating &lt;fctr&gt;,
+## #   released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;, votes &lt;int&gt;,
+## #   writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
+## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
+</section><section id="section-8" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># randomly sample a fraction of rows, with replacement</span>
+movies %&gt;%<span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.01</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # A tibble: 68 x 19
+##     budget                    company country          director     genre
+##      &lt;dbl&gt;                     &lt;fctr&gt;  &lt;fctr&gt;            &lt;fctr&gt;    &lt;fctr&gt;
+##  1 2.5e+07          Exodus Film Group     USA      Tony Leondis Animation
+##  2 0.0e+00     Chroma III Productions     USA    Mark Griffiths    Comedy
+##  3 0.0e+00                Marble Hall     USA James Glickenhaus    Action
+##  4 1.2e+05         Chango Productions     USA     Bryan Johnson     Crime
+##  5 1.0e+08      Beacon Communications     USA       Peter Hyams    Action
+##  6 7.4e+07 Illumination Entertainment     USA        Kyle Balda Animation
+##  7 1.1e+08          Columbia Pictures     USA     Morten Tyldum Adventure
+##  8 0.0e+00          Fox 2000 Pictures     USA       Adam Collis    Comedy
+##  9 1.8e+07   Morgan Creek Productions     USA       John Warren    Comedy
+## 10 4.9e+07           Carolco Pictures  France    Paul Verhoeven     Drama
+## # ... with 58 more rows, and 14 more variables: gross &lt;dbl&gt;, name &lt;fctr&gt;,
+## #   rating &lt;fctr&gt;, released &lt;fctr&gt;, runtime &lt;int&gt;, score &lt;dbl&gt;, star &lt;fctr&gt;,
+## #   votes &lt;int&gt;, writer &lt;fctr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
+## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
+</section></section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

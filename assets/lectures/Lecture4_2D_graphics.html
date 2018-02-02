@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="dcterms.date" content="2016-10-12" />
+  <title>Lecture 4: Generating 2D graphics with R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 4: Generating 2D graphics with R</h1>
+    <h3 class="date">October 12, 2016</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<ul>
+<li>Intro to <code>ggplot2</code> package</li>
+<li>Comparison with base-graphics</li>
+<li>Geometric objects and aesthetics</li>
+<li>Statistical transformations</li>
+<li>Scales</li>
+<li>Faceting</li>
+</ul>
+</section>
+<section id="installation" class="slide level2">
+<h2>Installation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)
+<span class="kw">install.packages</span>(<span class="st">&quot;ggrepel&quot;</span>)
+<span class="kw">install.packages</span>(<span class="st">&quot;gridExtra&quot;</span>)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(ggrepel)
+<span class="kw">library</span>(gridExtra)</code></pre></div>
+</section>
+<section><section id="intro-to-ggplot2-package" class="titleslide slide level1"><h1>Intro to <code>ggplot2</code> package</h1></section><section id="what-is-ggplot2" class="slide level2">
+<h2>What is <code>ggplot2</code>?</h2>
+<blockquote>
+<p>“<code>ggplot2</code> is <strong>a plotting system for R, based on the grammar of graphics</strong>. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics”[1].</p>
+</blockquote>
+<footer>
+[1] <a href="http://ggplot2.org/" class="uri">http://ggplot2.org/</a>
+</footer>
+</section><section id="advantages-of-ggplot2" class="slide level2">
+<h2>Advantages of <code>ggplot2</code></h2>
+<ul>
+<li>Graphics are defined at <strong>a high level of abstraction</strong>.</li>
+<li>Plots are broken down into <strong>layers</strong>.</li>
+<li>The package is <strong>flexible</strong> and offers extensive <strong>customization</strong> options.</li>
+<li>The <strong>documentation</strong> is well-written.</li>
+<li><code>ggplot2</code> has a large user base =&gt; <strong>it’s easy find to help</strong>.</li>
+</ul>
+</section><section id="weaknesses-of-ggplot2" class="slide level2">
+<h2>Weaknesses of <code>ggplot2</code></h2>
+<p>You should not or cannot use <code>ggplot2</code> for:</p>
+<ul>
+<li>3D graphics
+<ul>
+<li>use <a href="https://cran.r-project.org/web/packages/rgl/vignettes/rgl.html"><code>rgl</code></a> or <a href="http://blog.revolutionanalytics.com/2014/11/3-d-plots-with-plotly.html"><code>ggplot2</code> + <code>plotly</code></a> instead,</li>
+</ul></li>
+<li>graph/network plots with nodes and edges
+<ul>
+<li>use <a href="http://igraph.org/r/"><code>igraph</code></a> instead</li>
+</ul></li>
+<li>interactive graphics:
+<ul>
+<li>use <a href="http://ggvis.rstudio.com/ggvis-basics.html"><code>ggvis</code></a>, <a href="https://github.com/ropensci/plotly"><code>plotly</code></a> instead</li>
+</ul></li>
+</ul>
+</section><section id="what-is-a-grammar-of-graphics" class="slide level2">
+<h2>What is a grammar of graphics?</h2>
+<ul>
+<li>It is a concept <strong>coined by Leland Wilkinson in 2005</strong>.</li>
+<li>An <strong>abstraction</strong> which facilitates reasoning and communicating graphics.</li>
+<li><code>ggplot2</code> is <strong>a layered grammar of graphics</strong> which allow users to</li>
+</ul>
+<p><em>independently specify the building blocks of a plot and combine them to create just about any kind of graphical display</em></p>
+</section><section id="building-blocks-of-a-ggplot2-graphs" class="slide level2">
+<h2>Building blocks of a <code>ggplot2</code> graphs</h2>
+<ul>
+<li>data</li>
+<li>aesthetic mapping</li>
+<li>geometric objects</li>
+<li>statistical transformations</li>
+<li>scales</li>
+<li>coordinate system</li>
+<li>positioning adjustments</li>
+<li>faceting</li>
+</ul>
+</section><section id="ggplot-function" class="slide level2">
+<h2><code>ggplot()</code> function</h2>
+<ul>
+<li><code>ggplot()</code> is used to <strong>initialize the basic graph structure</strong>.</li>
+<li>It <strong>cannot produce a plot</strong> alone by itself.</li>
+<li>Instead, we need to <strong>add extra components</strong> to generate a graph.</li>
+<li>You need to <strong>specify different parts</strong> of a plot, and <em>add them all together</em> using an <code>+</code> operator.</li>
+</ul>
+</section><section id="the-structure-of-ggplot-object" class="slide level2">
+<h2>The structure of ggplot object</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>default data set<span class="op">&gt;</span>, 
+       <span class="kw">aes</span>(<span class="dt">x =</span> <span class="op">&lt;</span>default x axis variable<span class="op">&gt;</span>,
+           <span class="dt">y =</span> <span class="op">&lt;</span>default y axis variable<span class="op">&gt;</span>,
+           ... <span class="op">&lt;</span>other default aesthetic mappings<span class="op">&gt;</span>),
+       ... <span class="op">&lt;</span>other plot defaults<span class="op">&gt;</span>) <span class="op">+</span>
+<span class="st">  </span>
+<span class="st">  </span>geom_<span class="op">&lt;</span>geom type<span class="op">&gt;</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="op">&lt;</span>size variable <span class="cf">for</span> this geom<span class="op">&gt;</span>, 
+                       ... <span class="op">&lt;</span>other aesthetic mappings<span class="op">&gt;</span>),
+                   <span class="dt">data =</span> <span class="op">&lt;</span>data <span class="cf">for</span> this point geom<span class="op">&gt;</span>,
+                   <span class="dt">stat =</span> <span class="op">&lt;</span>statistic string or <span class="cf">function</span><span class="op">&gt;</span>,
+                   <span class="dt">position =</span> <span class="op">&lt;</span>position string or <span class="cf">function</span><span class="op">&gt;</span>,
+                   <span class="dt">color =</span> <span class="op">&lt;</span><span class="st">&quot;fixed color specification&quot;</span><span class="op">&gt;</span>,
+                  ... <span class="op">&lt;</span>other arguments, possibly passed to the _stat_ <span class="cf">function</span>) <span class="op">+</span>
+
+<span class="st">  </span>scale_<span class="op">&lt;</span>aesthetic<span class="op">&gt;</span>_<span class="op">&lt;</span>type<span class="op">&gt;</span>(<span class="dt">name =</span> <span class="op">&lt;</span><span class="st">&quot;scale label&quot;</span><span class="op">&gt;</span>,
+                           <span class="dt">breaks =</span> <span class="op">&lt;</span>where to put tick marks<span class="op">&gt;</span>,
+                           <span class="dt">labels =</span> <span class="op">&lt;</span>labels <span class="cf">for</span> tick marks<span class="op">&gt;</span>,
+                           ... <span class="op">&lt;</span>other options <span class="cf">for</span> the scale<span class="op">&gt;</span>) <span class="op">+</span>
+
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>),
+        ... <span class="op">&lt;</span>other theme elements<span class="op">&gt;</span>)</code></pre></div>
+</div>
+</section></section>
+<section><section id="comparison-with-base-graphics" class="titleslide slide level1"><h1>Comparison with base-graphics</h1></section><section id="ggplot2-compared-to-base-graphics-is" class="slide level2">
+<h2>ggplot2 compared to base graphics is</h2>
+<ul>
+<li>more verbose for <strong>simple / out of the box</strong> graphics</li>
+<li>less verbose for <strong>complex / custom</strong> graphics</li>
+<li>uses a different system for <strong>adding plot elements</strong> instead of calling new functions.</li>
+<li>more details on why to use <code>ggplot2</code> over base plot can be found in this <a href="http://varianceexplained.org/r/why-I-use-ggplot2/">blog</a>.</li>
+</ul>
+</section><section id="example-1-history-of-unemployment" class="slide level2">
+<h2>Example 1: History of unemployment</h2>
+<p><code>ggplot2</code> has a built-in <strong><code>economics</code></strong> dataset, which inclides time series data on US unemployment from 1967 to 2015.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">economics</code></pre></div>
+<pre><code>## # A tibble: 574 x 6
+##          date   pce    pop psavert uempmed unemploy
+##        &lt;date&gt; &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt;
+##  1 1967-07-01 507.4 198712    12.5     4.5     2944
+##  2 1967-08-01 510.5 198911    12.5     4.7     2945
+##  3 1967-09-01 516.3 199113    11.7     4.6     2958
+##  4 1967-10-01 512.9 199311    12.5     4.9     3143
+##  5 1967-11-01 518.1 199498    12.5     4.7     3066
+##  6 1967-12-01 525.8 199657    12.1     4.8     3018
+##  7 1968-01-01 531.5 199808    11.7     5.1     2878
+##  8 1968-02-01 534.2 199920    12.2     4.5     3001
+##  9 1968-03-01 544.9 200056    11.6     4.1     2877
+## 10 1968-04-01 544.6 200208    12.2     4.6     2709
+## # ... with 564 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">economics &lt;-<span class="st"> </span><span class="kw">mutate</span>(economics, <span class="dt">unemp_rate =</span> unemploy<span class="op">/</span>pop)</code></pre></div>
+</section><section id="r-base-graphics" class="slide level2">
+<h2>R base graphics</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(unemploy<span class="op">/</span>pop <span class="op">~</span><span class="st"> </span>date, <span class="dt">data =</span> economics,  <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" /></p>
+</section><section id="ggplot2-package" class="slide level2">
+<h2><code>ggplot2</code> package</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> economics, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" /></p>
+</section><section id="ggplot-by-itself-does-not-plot-the-data" class="slide level2">
+<h2>ggplot() by itself does not plot the data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> economics, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> unemp_rate))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" /></p>
+</section><section id="you-need-to-add-a-line-layer" class="slide level2">
+<h2>You need to add a line-layer</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> economics, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" /></p>
+</section><section id="change-the-background-color-to-white" class="slide level2">
+<h2>Change the background color to white</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> economics, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" /></p>
+</section><section id="what-about-comparing-2009-to-2014" class="slide level2">
+<h2>What about comparing 2009 to 2014?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add new variables for plotting</span>
+economics &lt;-<span class="st"> </span>economics <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span>  <span class="kw">as.numeric</span>(<span class="kw">format</span>(date, <span class="dt">format=</span><span class="st">&quot;%m&quot;</span>)),
+         <span class="dt">year =</span> <span class="kw">as.numeric</span>(<span class="kw">format</span>(date, <span class="dt">format=</span><span class="st">&quot;%Y&quot;</span>)))
+economics <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(date, month, year, unemp_rate)</code></pre></div>
+<pre><code>## # A tibble: 574 x 4
+##          date month  year unemp_rate
+##        &lt;date&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+##  1 1967-07-01     7  1967 0.01481541
+##  2 1967-08-01     8  1967 0.01480562
+##  3 1967-09-01     9  1967 0.01485589
+##  4 1967-10-01    10  1967 0.01576933
+##  5 1967-11-01    11  1967 0.01536858
+##  6 1967-12-01    12  1967 0.01511592
+##  7 1968-01-01     1  1968 0.01440383
+##  8 1968-02-01     2  1968 0.01501100
+##  9 1968-03-01     3  1968 0.01438097
+## 10 1968-04-01     4  1968 0.01353093
+## # ... with 564 more rows</code></pre>
+</section><section id="using-base-graphics" class="slide level2">
+<h2>Using base graphics</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data09 &lt;-<span class="st"> </span><span class="kw">subset</span>(economics, year <span class="op">==</span><span class="st"> </span><span class="dv">2009</span>)
+data14 &lt;-<span class="st"> </span><span class="kw">subset</span>(economics, year <span class="op">==</span><span class="st"> </span><span class="dv">2014</span>)
+<span class="kw">plot</span>(unemp_rate <span class="op">~</span><span class="st"> </span>month, <span class="dt">data =</span> data09, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.05</span>), <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)
+<span class="kw">lines</span>(unemp_rate <span class="op">~</span><span class="st"> </span>month, <span class="dt">data =</span> data14, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
+<span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;2009&quot;</span>, <span class="st">&quot;2014&quot;</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" /></p>
+</div>
+</section><section id="using-ggplot2" class="slide level2">
+<h2>Using ggplot2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2009_<span class="dv">2014</span> &lt;-<span class="st"> </span><span class="kw">subset</span>(economics, year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2014</span>, <span class="dv">2009</span>))
+<span class="kw">ggplot</span>(<span class="dt">data =</span> data2009_<span class="dv">2014</span>, <span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> year, <span class="dt">color =</span> year)) <span class="co"># No need to specify a legend</span></code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" /></p>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> data2009_<span class="dv">2014</span>, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(month), <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> year, <span class="dt">color =</span> <span class="kw">factor</span>(year))) </code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" /></p>
+</section><section id="plotting-all-the-years-together-is-easy" class="slide level2">
+<h2>Plotting all the years together is easy</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> economics, <span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> unemp_rate)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> year, <span class="dt">color =</span> <span class="kw">factor</span>(year))) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" /></p>
+</section><section id="example-2-diamonds-dataset" class="slide level2">
+<h2>Example 2: diamonds dataset</h2>
+<p>The dataset contains the prices and other attributes of almost 54,000 diamonds. You can call <code>?diamonds</code> to learn more about the available attributes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds</code></pre></div>
+<pre><code>## # A tibble: 53,940 x 10
+##    carat       cut color clarity depth table price     x     y     z
+##    &lt;dbl&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;ord&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  0.23     Ideal     E     SI2  61.5    55   326  3.95  3.98  2.43
+##  2  0.21   Premium     E     SI1  59.8    61   326  3.89  3.84  2.31
+##  3  0.23      Good     E     VS1  56.9    65   327  4.05  4.07  2.31
+##  4  0.29   Premium     I     VS2  62.4    58   334  4.20  4.23  2.63
+##  5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
+##  6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
+##  7  0.24 Very Good     I    VVS1  62.3    57   336  3.95  3.98  2.47
+##  8  0.26 Very Good     H     SI1  61.9    55   337  4.07  4.11  2.53
+##  9  0.22      Fair     E     VS2  65.1    61   337  3.87  3.78  2.49
+## 10  0.23 Very Good     H     VS1  59.4    61   338  4.00  4.05  2.39
+## # ... with 53,930 more rows</code></pre>
+</section><section id="distribution-of-the-diamonds-prices-with-base-graphics" class="slide level2">
+<h2>Distribution of the diamonds prices with base graphics</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(diamonds<span class="op">$</span>price)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" /></p>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># breaks can be a vector, a function or a single number</span>
+<span class="kw">hist</span>(diamonds<span class="op">$</span>price, <span class="dt">breaks =</span> <span class="dv">5</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" /></p>
+</section><section id="histograms-with-ggplot2" class="slide level2">
+<h2>Histograms with ggplot2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you can set bins= or binwidths = </span>
+<span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> price)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">5</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" /></p>
+</section><section id="subset-the-data" class="slide level2">
+<h2>Subset the data</h2>
+<ul>
+<li>We select a random subset of the data to use for plotting the relationship between the weights (carat = 200 mg) and prices ($) of diamonds</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12345</span>) <span class="co"># Make the sample reproducible</span>
+dsmall &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), <span class="dv">200</span>), ]</code></pre></div>
+</section><section id="scatter-plot-with-base-graphics" class="slide level2">
+<h2>Scatter plot with base graphics</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">colorMap &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> <span class="kw">unique</span>(dsmall<span class="op">$</span>color),
+                       <span class="dt">color =</span> <span class="kw">rainbow</span>(<span class="kw">length</span>(<span class="kw">unique</span>(dsmall<span class="op">$</span>color))))
+<span class="kw">plot</span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">data =</span> dsmall, <span class="dt">col =</span> colorMap[dsmall<span class="op">$</span>color, <span class="st">&quot;color&quot;</span>])
+<span class="kw">legend</span>(<span class="dt">x =</span> <span class="st">&#39;bottomright&#39;</span>, <span class="dt">legend =</span> <span class="kw">rownames</span>(colorMap), <span class="dt">col =</span> colorMap<span class="op">$</span>color, <span class="dt">pch =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" /></p>
+</section><section id="scatter-plot-with-ggplot2" class="slide level2">
+<h2>Scatter plot with ggplot2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price, <span class="dt">color =</span> color)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" /></p>
+</section></section>
+<section><section id="geometric-objects-and-aesthetics" class="titleslide slide level1"><h1>Geometric objects and aesthetics</h1></section><section id="geometic-objects---actual-items-on-the-plot" class="slide level2">
+<h2>Geometic objects - actual items on the plot</h2>
+<ul>
+<li>points (<code>geom_point()</code>, used for scatter plots)</li>
+<li>lines (<code>geom_line()</code>, used for time series, trend lines, etc.)</li>
+<li>boxplot (<code>geom_boxplot()</code> used for, well, boxplots!)</li>
+</ul>
+<p>There is no upper limit to how many geom objects you can use. You can add a geom objects to a plot using an <code>+</code> operator.</p>
+<p>To get a list of available geometric objects use the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;geom_&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
+</section><section id="aesthetic-mapping" class="slide level2">
+<h2>Aesthetic mapping</h2>
+<ul>
+<li>In ggplot an <strong>aesthetic mapping</strong>, defined with aes(), describes how variables are mapped to visual properties or aesthetics.</li>
+<li>For example, we might map weight to x weigth, height to y price, and cut to color for the diamonds dataset.</li>
+<li>The details of the mapping are described by the scales.</li>
+</ul>
+</section><section id="examples-of-aesthetics-are" class="slide level2">
+<h2>Examples of aesthetics are:</h2>
+<ul>
+<li>position (i.e., on the x and y axes)</li>
+<li>shape</li>
+<li>linetype</li>
+<li>size</li>
+<li>color (“outside” color)</li>
+<li>fill (“inside” color)</li>
+</ul>
+<p>Each type of geom objects accepts only a subset of aesthetics.</p>
+<p>Refer to the geom help pages to see what mappings each geom accepts.</p>
+</section><section id="scatter-plots-with-geom_points" class="slide level2">
+<h2>Scatter plots with geom_points</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" /></p>
+</section><section id="color-points" class="slide level2">
+<h2>Color points</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># color by diamonds color</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> color))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" /></p>
+</section><section id="set-the-shape-of-the-points" class="slide level2">
+<h2>Set the shape of the points</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set shape by diamond cut</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> cut))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" /></p>
+</section><section id="set-color-and-shape" class="slide level2">
+<h2>Set color and shape</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> cut, <span class="dt">color =</span> color))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" /></p>
+</section><section id="variable-vs-fixed-aesthetics" class="slide level2">
+<h2>Variable vs fixed aesthetics</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="dv">2</span>), <span class="dt">color =</span> <span class="st">&quot;darkgreen&quot;</span>) </code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" /></p>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cut), <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">25</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" /></p>
+</section><section id="all-25-shape-configurations" class="slide level2">
+<h2>All 25 shape configurations</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span> , <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">z =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> z), <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">colour =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_shape_identity</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" /></p>
+</section><section id="data-transformations" class="slide level2">
+<h2>Data transformations</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(carat), <span class="dt">y =</span> <span class="kw">log</span>(price))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" /></p>
+</section><section id="text-labels" class="slide level2">
+<h2>Text labels</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(carat), <span class="dt">y =</span> <span class="kw">log</span>(price)))
+p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> color))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" /></p>
+</section><section id="text-with-rectangle-plates" class="slide level2">
+<h2>Text with rectangle plates</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> color))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" /></p>
+</section><section id="ggrepel-package-for-annotation" class="slide level2">
+<h2>ggrepel package for annotation</h2>
+<p><code>ggrepel</code> helps annotating <strong>overlapping labels</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggrepel)
+p2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label=</span>color), <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" /></p>
+</section><section id="exercise-1" class="slide level2">
+<h2>Exercise 1</h2>
+<ul>
+<li><p>Go to “Lec4_Exercises.Rmd” on the class website.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="statistical-transformations" class="titleslide slide level1"><h1>Statistical Transformations</h1></section><section id="types-of-statistical-transformations" class="slide level2">
+<h2>Types of statistical transformations</h2>
+<p>Plots often require some statistical data transformation or computation before they can be plotted:</p>
+<ul>
+<li><strong>boxplots:</strong> the the median, lower and upper quartiles,</li>
+<li><strong>histograms:</strong> group the values into bins,</li>
+<li><strong>smoothers:</strong> prediction lines / predicted y-values,</li>
+<li><strong>bar charts:</strong> number of class occurrences.</li>
+</ul>
+</section><section id="jittered-points" class="slide level2">
+<h2>Jittered points</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span>price<span class="op">/</span>carat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_jitter</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" /></p>
+</section><section id="alpha-parameter-for-transparency" class="slide level2">
+<h2>Alpha parameter for transparency</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">j1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> price<span class="op">/</span>carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)
+j2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> price<span class="op">/</span>carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">50</span>)
+j3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> price<span class="op">/</span>carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">200</span>)
+<span class="co"># We use grid.arrange from gridExtra to display multiple plots</span>
+<span class="kw">grid.arrange</span>(j1, j2, j3, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-33-1.png" width="1440" /></p>
+</div>
+</section><section id="box-plot-transformation" class="slide level2">
+<h2>Box plot transformation</h2>
+<p>Plotting a summary (less data) can be more insightful.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span>price<span class="op">/</span>carat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" /></p>
+</section><section id="histogram-and-density-plots" class="slide level2">
+<h2>Histogram and density plots</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Distribution of the carats (weights) of the diamonds.</span>
+h &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()
+d &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>()
+<span class="kw">grid.arrange</span>(h, d, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-35-1.png" width="1440" /></p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<ul>
+<li><p>For the histogram, the smoothness is controlled with <strong><code>bins</code></strong> and <strong><code>binwidth</code></strong> arguments. (Break points can also be specified explicitly, using the <strong><code>breaks</code></strong> argument.)</p></li>
+<li><p>For the density plot, the <strong><code>bw</code></strong> (the smoothing bandwidth) and <strong><code>adjust</code></strong> argument controls <strong>the degree of smoothness</strong> (high values of adjust produce smoother plots).</p></li>
+</ul>
+<!-- It is very important to experiment with the level of smoothing. With a histogram -->
+<!-- you should try many bin widths: You may find that gross features of the data -->
+<!-- show up well at a large bin width, while finer features require a very narrow -->
+<!-- width. -->
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">3</span>)
+h1 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) 
+h2 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.1</span>) 
+h3 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.05</span>) 
+<span class="kw">grid.arrange</span>(h1, h2, h3, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-36-1.png" width="1440" /></p>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d1 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">5</span>) 
+d2 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">1</span>) 
+d3 &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>) 
+<span class="kw">grid.arrange</span>(d1, d2, d3, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-37-1.png" width="1440" /></p>
+</section><section id="histograms-for-separate-groups" class="slide level2">
+<h2>Histograms for separate groups</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Here we show grouping by diamonds cut.</span>
+h &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cut), <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="dt">bins =</span> <span class="dv">10</span>)
+d &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">color =</span> cut))
+<span class="kw">grid.arrange</span>(h, d, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-38-1.png" width="1440" /></p>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<p>Instead of marginal distributions, we can plot distribution of components <strong>stacked</strong> on top of each other to see the contribution from each of group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cut), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)
+d &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> cut), <span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)
+<span class="kw">grid.arrange</span>(h, d, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-39-1.png" width="1440" /></p>
+</section><section id="bar-charts" class="slide level2">
+<h2>Bar charts</h2>
+<ul>
+<li><p>A discrete analogue of a histogram is the bar chart, <code>geom_bar()</code>.</p></li>
+<li><p>Instead of partitioning the values into bins like histograms, the bar geom <strong>counts the number of instances of each discrete class</strong>. The counts are then plotted as columns for each distinct class.</p></li>
+<li><p>If you’d like include <strong>unequal weights</strong> for different observations, you can use the <code>weight</code> aesthetic.</p></li>
+</ul>
+</section><section id="section-7" class="slide level2">
+<h2></h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()
+b2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> color)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">weight =</span> carat)) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;carat&quot;</span>)
+<span class="kw">grid.arrange</span>(b1, b2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-40-1.png" width="1440" /></p>
+</div>
+<p>The left plot shows the number of diamonds in each color group, and the right plot shows the count weighted by carat, which is equivalent to showing the total weight of diamonds in each color group.</p>
+</section><section id="section-8" class="slide level2">
+<h2></h2>
+<ul>
+<li><p>As you see, in <code>ggplot2</code> (unlike base graphics) it is <strong>not necessary tabulate the values</strong>, i.e. compute the counts of each category beforehand. The computation is done automatically for you.</p></li>
+<li><p>However, if you have already summarized data, you can still use <code>geom_bar</code> but you need to specify an identity transformation, <code>stat = &quot;identity</code> rather than the default <code>stat = &quot;count&quot;</code>.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamond.counts &lt;-<span class="st"> </span><span class="kw">table</span>(diamonds[<span class="st">&quot;color&quot;</span>])
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(diamond.counts)
+<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;color&quot;</span>, <span class="st">&quot;count&quot;</span>)
+df</code></pre></div>
+<pre><code>##   color count
+## 1     D  6775
+## 2     E  9797
+## 3     F  9542
+## 4     G 11292
+## 5     H  8304
+## 6     I  5422
+## 7     J  2808</code></pre>
+</section><section id="section-9" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The default option generates an error:</span>
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>color, <span class="dt">y=</span>count)) <span class="op">+</span><span class="st">  </span><span class="kw">geom_bar</span>()
+<span class="co"># Error: stat_count() must not be used with a y aesthetic.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You need to do the following:</span>
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>color, <span class="dt">y=</span>count)) <span class="op">+</span><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-43-1.png" width="960" /></p>
+</section><section id="regression-lines" class="slide level2">
+<h2>Regression lines</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can fit a linear model with lm(y ~ x, data) and use it for prediction.</span>
+dsmall<span class="op">$</span>pred.price &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="kw">lm</span>(price <span class="op">~</span><span class="st"> </span>carat, <span class="dt">data =</span> dsmall))
+<span class="co"># And add the regression line in a standard way</span>
+p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> color)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred.price))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-44-1.png" width="960" /></p>
+</div>
+</section><section id="regression-lines-with-ggplot2" class="slide level2">
+<h2>Regression lines with ggplot2</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or you can simply use geom_smooth()!</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> color)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-45-1.png" width="960" /></p>
+</section><section id="smoothers-are-trend-lines" class="slide level2">
+<h2>Smoothers are trend lines</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Smoothers help discern patterns in the data</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-46-1.png" width="960" /></p>
+</div>
+</section><section id="section-10" class="slide level2">
+<h2></h2>
+<p>For the small subset of the diamonds dataset we have:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-47-1.png" width="960" /></p>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
+<p>‘<code>span</code>’ determines the wigglyness of the curve (smaller <code>span</code> =&gt; more wiggly)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grid.arrange</span>(p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">0.2</span>),
+             p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">0.7</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;
+## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-48-1.png" width="1344" /></p>
+</section><section id="section-12" class="slide level2">
+<h2></h2>
+<ul>
+<li><p>By default, when applied to datasets with a few observations (<code>n &lt; 1000</code>) <code>geom_smooth()</code> uses a <code>method = &quot;loess&quot;</code> for fitting a curve.</p></li>
+<li><p>This method uses a smooth local regression. More details about the algorithm used can be found in <code>?loess</code>.</p></li>
+<li><p>Loess does not work well for large datasets (it’s <span class="math inline">\(O(n^2)\)</span> in memory), and so an alternative smoothing algorithm is used when n is greater than 1,000.</p></li>
+</ul>
+</section><section id="exercise-2-the-economist-data" class="slide level2">
+<h2>Exercise 2: The Economist Data</h2>
+<ul>
+<li><p>Go back to “Lec4_Exercises.Rmd”</p></li>
+<li><p>Complete the exercise 2</p></li>
+</ul>
+</section></section>
+<section><section id="scales" class="titleslide slide level1"><h1>Scales</h1></section><section id="aesthetic-mapping-vs-variable-scaling" class="slide level2">
+<h2>Aesthetic mapping vs variable scaling</h2>
+<ul>
+<li><code>aes()</code> is responsible for assigning an aesthetic to a variable; it doesn’t determine how mapping should be done.</li>
+<li>For example, <code>aes(shape = x)</code> or <code>aes(color = z)</code> do not specify what shapes or what colors should be used. To choose colors/shapes/sizes etc. you need to <strong>modify the corresponding scale</strong>.</li>
+<li><code>ggplot2</code> includes scales for:
+<ul>
+<li>position</li>
+<li>color and fill</li>
+<li>size</li>
+<li>shape</li>
+<li>line type</li>
+</ul></li>
+</ul>
+</section><section id="section-13" class="slide level2">
+<h2></h2>
+<p>Scales can be modified with functions of the form: <code>scale_&lt;aesthetic&gt;_&lt;type&gt;()</code>, e.g. <code>scale_color_discrete()</code>. </br></p>
+<p>Try typing <code>scale_&lt;tab&gt;()</code> to see a list of scale modification functions. </br></p>
+<ul>
+<li class="fragment"><strong>Common Scale Arguments:</strong></li>
+</ul>
+<ul>
+<li class="fragment"><strong>name</strong>: the first argument gives the axis or legend title</li>
+<li class="fragment"><strong>limits</strong>: the minimum and maximum of the scale</li>
+<li class="fragment"><strong>breaks</strong>: the points along the scale where labels should appear</li>
+<li class="fragment"><strong>labels</strong>: the labels that appear at each break</li>
+</ul>
+</section><section id="scale-for-axes" class="slide level2">
+<h2>Scale for axes</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Square root y-axis transformation</span>
+p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()  
+psqrt &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_sqrt</span>()
+<span class="co"># Log base 10 y-axis transformation</span>
+plog10 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_log10</span>()
+<span class="kw">grid.arrange</span>(psqrt, plog10, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-49-1.png" width="1344" /></p>
+</section><section id="section-14" class="slide level2">
+<h2></h2>
+<p>Log base 10 transformation of x and y axes. Note the differences.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ploglog1 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_log10</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_log10</span>()
+ploglog2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(carat), <span class="dt">y =</span> <span class="kw">log</span>(price))) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+<span class="kw">grid.arrange</span>(ploglog1, ploglog2, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-50-1.png" width="1344" /></p>
+</section><section id="scale-for-shapes" class="slide level2">
+<h2>Scale for shapes</h2>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p11 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>)  
+p12 &lt;-<span class="st"> </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>))
+<span class="kw">grid.arrange</span>(p11, p12, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-51-1.png" width="1344" /></p>
+</div>
+</section><section id="scale-for-colors" class="slide level2">
+<h2>Scale for colors</h2>
+<p>To choose specific colors for <strong>discrete</strong> variables we use <code>scale_color_manual</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-52-1.png" width="960" /></p>
+</section><section id="section-15" class="slide level2">
+<h2></h2>
+<p>For <strong>continuous</strong> variables we use <code>scale_color_gradient</code>, and specify the ends of the color spectrum.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-53-1.png" width="960" /></p>
+</section><section id="section-16" class="slide level2">
+<h2></h2>
+<p><code>scale_color_brewer</code> lets you choose <strong>nice color palettes for discrete variables</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set2&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-54-1.png" width="960" /></p>
+</section><section id="section-17" class="slide level2">
+<h2></h2>
+<p>Unfortunately, <code>scale_color_brewer</code> doesn’t work for continuous variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># scale_color_brewer() does not work with continuous variables </span>
+<span class="co"># and will result in an error</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)
+<span class="co"># Error: A continuous variable can not be mapped to shape</span></code></pre></div>
+<p>We can get around this issue using the <code>RColorBrewer</code> package and <code>scale_color_gradientn</code> function, which <strong>interpolates colors</strong> from the brewer palettes.</p>
+</section><section id="section-18" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;RColorBrewer&quot;)</span>
+<span class="kw">library</span>(RColorBrewer)
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">brewer.pal</span>(<span class="dt">name =</span> <span class="st">&quot;Spectral&quot;</span>, <span class="dt">n =</span> <span class="dv">10</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-56-1.png" width="960" /></p>
+</section><section id="section-19" class="slide level2">
+<h2></h2>
+<p>Another popular color scheme package, <code>viridis</code>, supports both discrete and continuous variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;viridis&quot;)</span>
+<span class="kw">library</span>(viridis)
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_viridis</span>()</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-57-1.png" width="960" /></p>
+</section><section id="section-20" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>, <span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-58-1.png" width="960" /></p>
+</section><section id="section-21" class="slide level2">
+<h2></h2>
+<p>… there are also other unconventional schemes such as, <a href="http://wesandersonpalettes.tumblr.com/">one based on Wes Anderson movies</a> :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;wesanderson&quot;)</span>
+<span class="kw">library</span>(wesanderson)
+<span class="kw">names</span>(wes_palettes)</code></pre></div>
+<pre><code>##  [1] &quot;GrandBudapest&quot;  &quot;Moonrise1&quot;      &quot;Royal1&quot;         &quot;Moonrise2&quot;     
+##  [5] &quot;Cavalcanti&quot;     &quot;Royal2&quot;         &quot;GrandBudapest2&quot; &quot;Moonrise3&quot;     
+##  [9] &quot;Chevalier&quot;      &quot;Zissou&quot;         &quot;FantasticFox&quot;   &quot;Darjeeling&quot;    
+## [13] &quot;Rushmore&quot;       &quot;BottleRocket&quot;   &quot;Darjeeling2&quot;</code></pre>
+</section><section id="wes-anderson-color-palette" class="slide level2">
+<h2>Wes Anderson color palette:</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># For discrete variables</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> cut), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Darjeeling&quot;</span>, <span class="dt">n =</span> <span class="dv">5</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-60-1.png" width="960" /></p>
+</section><section id="section-22" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># For continuous variables:</span>
+p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradientn</span>(<span class="dt">colours =</span> <span class="kw">wes_palette</span>(<span class="st">&quot;Darjeeling&quot;</span>, <span class="dv">100</span>, <span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>))</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-61-1.png" width="960" /></p>
+</section><section id="section-23" class="slide level2">
+<h2></h2>
+<p>You can also <strong>scale the values of the variable corresponding to color</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">trans =</span> <span class="st">&quot;log10&quot;</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-62-1.png" width="960" /></p>
+</section><section id="section-24" class="slide level2">
+<h2></h2>
+<p>Or and add your own breaks</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> price), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">trans =</span> <span class="st">&quot;log10&quot;</span>,
+                       <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">5000</span>, <span class="dv">10000</span>),
+                       <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;  1000&quot;</span>, <span class="st">&quot;  2000&quot;</span>, <span class="st">&quot;  5000&quot;</span>, <span class="st">&quot;10000&quot;</span>)) </code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-63-1.png" width="960" /></p>
+</section><section id="exercise-3" class="slide level2">
+<h2>Exercise 3</h2>
+<ul>
+<li><p>Go to back “Lec4_Exercises.Rmd”</p></li>
+<li><p>Complete Exercise 3</p></li>
+</ul>
+</section></section>
+<section><section id="faceting" class="titleslide slide level1"><h1>Faceting</h1></section><section id="section-25" class="slide level2">
+<h2></h2>
+<p><strong>Facettng</strong> allows you to split up your data by one or more variables and plot the subsets of data together.</p>
+<div style="font-size: 36px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dsmall &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), <span class="dv">1000</span>), ]
+p0 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> dsmall, <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut, <span class="dt">fill =</span> cut)) 
+p1 &lt;-<span class="st"> </span>p0 <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>cut)
+<span class="kw">grid.arrange</span>(p0, p1, <span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-64-1.png" width="1344" /></p>
+</div>
+</section><section id="section-26" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(color <span class="op">~</span><span class="st"> </span>cut)</code></pre></div>
+<p><img src="Lecture4_2D_graphics_files/figure-revealjs/unnamed-chunk-65-1.png" width="960" /></p>
+</section><section id="exercise-45" class="slide level2">
+<h2>Exercise 4,5</h2>
+<ul>
+<li><p>Go to back “Lec4_Exercises.Rmd”</p></li>
+<li><p>Complete Exercise 4,5</p></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

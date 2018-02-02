@@ -1,0 +1,231 @@
+---
+title: "Lecture 7: Exercises with Answers"
+date: October 24th, 2017
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Exercise 1: Logistic Regression
+
+In this you will use a dataset `Default`, on customer default records for 
+a credit card company, which is included in [ISL book](www.statlearning.com). 
+To obtain the data you will need to install a package `ISLR`.
+
+```{r}
+# install.packages("ISLR")
+library(ISLR)
+library(dplyr)
+(Default <- tbl_df(Default))
+```
+
+a. First, divide your dataset into a train and test set. Randomly sample
+6000 observations and include them in the train set, and the remaining use
+as a test set.
+
+```{r}
+train.idx <- sample(1:nrow(Default), 6000, replace = FALSE)
+train <- Default[train.idx, ]
+test <- Default[-train.idx, ]
+```
+
+b. Fit a logistic regression including all the features to predict
+whether a customer defaulted or not.
+
+```{r}
+fit.logit <- glm(default ~ student + balance + income, data = train, 
+                 family = "binomial")
+summary(fit.logit)
+```
+
+c. Note if any variables seem not significant. Then, adjust your model
+accordingly (by removing them).
+
+```{r}
+fit.logit <- glm(default ~ student + balance, data = train, 
+                 family = "binomial")
+summary(fit.logit)
+```
+
+d. Compute the predicted probabilities of 'default' for the observations
+in the test set. Then evaluate the model accuracy.
+
+```{r}
+pred.prob.default <- predict(fit.logit, test, type = "response")
+pred.default <- factor(pred.prob.default > 0.5, levels = c(FALSE, TRUE),
+                       labels = c( "No", "Yes"))
+(tab <- table(pred = pred.default, true = test$default))
+(accuracy <- sum(diag(tab))/nrow(test))
+```
+
+
+d. For the test set, generate a scatterplot of 'balance' vs 'default' 
+with points colored by 'student' factor. Then, overlay a line plot 
+of the predicted probability of default as computed in the previous question.
+You should plot two lines for student and non student separately by setting 
+the 'color = student'.
+
+
+```{r}
+train$default.numeric <- as.numeric(train$default) - 1
+test$default.numeric <- as.numeric(test$default) - 1
+library(ggplot2)
+ggplot(test, aes(x = balance, color = student)) +
+  geom_point(aes(y = default.numeric)) + 
+  geom_line(aes(y = pred.prob.default), lwd = 1)
+```
+
+
+
+
+# Exercise 2: Random Forest
+
+In this exercise we will build a random forest model based
+on the data used to create the visualization [here](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/).
+
+```{r}
+library(dplyr)
+# Skip first 2 lines since they were comments
+url <- "https://raw.githubusercontent.com/jadeyee/r2d3-part-1-data/master/part_1_data.csv"
+houses <- read.csv(url, skip = 2)
+houses <- tbl_df(houses)
+houses <- mutate(houses, city = factor(in_sf, levels = c(1, 0), labels = c("SF", "NYC")))
+houses 
+```
+
+a. Using `pairs()` function plot the relationship between every variable pairs.
+You can color the points by the city the observation corresponds to; set the color argument 
+in `pairs()` as follows: `col = houses$in_sf + 3L` 
+
+```{r, fig.width=8, fig.height=7}
+city.colors <- houses$in_sf + 3L
+pairs(houses[, -1], col = city.colors, pch = 16)
+```
+
+b. Split the data into (70%-30%) train and test set.
+How many observations are in your train and test sets?
+
+
+```{r}
+set.seed(123)
+train.idx <- sample(nrow(houses), 0.7 * nrow(houses))
+train <- houses[train.idx, ]
+test <- houses[-train.idx, ]
+dim(train)
+dim(test)
+```
+
+c. Train a random forest on the train set, using all the variables in the model,
+to classify houses into the ones from San Francisco and from New York.
+Remember to remove 'in_sf', as it is the same variable as 'city'. 
+
+```{r}
+library(randomForest)
+houses.rf <- randomForest(city ~ . -in_sf, data = train, importance = TRUE, proximity = TRUE)
+houses.rf
+```
+
+d. Compute predictions and print out 
+[the confusion (error) matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
+for the test set to asses the model accuracy. Also, compute the model 
+accuracy.
+
+```{r}
+pred <- predict(houses.rf, newdata = test)
+(confusion.mat <- table(pred, truth = test$city))
+(accuracy <- sum(diag(confusion.mat))/nrow(test))
+```
+
+e. Which features were the most predictive for classifying houses into SF vs NYC groups?
+Use importance measures to answer the question.
+
+```{r}
+varImpPlot(houses.rf)
+```
+
+
+
+# Exercise 3: Support Vector Machines
+
+In this exercise you will use SVM to classify cases included in a dataset 
+on breast cancer into malignant and begnign tumors.  
+
+In this dataset, the first column indicates the diagnosis (M = malignant, 
+B = benign), the remaining 30 columns are real-valued input attributes of the 
+cancer tissue computed from a digitized image of a fine needle aspirate (FNA) 
+of the breast mass.
+
+First read the data into R using the following commands, and rename the 
+columns.
+
+```{r}
+url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
+cancer <- read.csv(url, header = F, row.names = 1)
+head(cancer)
+colnames(cancer) <- c("diagnosis", paste0("FNA", 1:(ncol(cancer)-1)))
+cancer <- tbl_df(cancer)
+cancer
+```
+
+a. Check if the classes are balanced by inspecting the frequency of observations 
+in each malignant and begnign cases.
+
+```{r}
+table(cancer$diagnosis)
+```
+b. Divide the observations into the train and the test set, with 60%-40% split.
+How many observations are in your train and test sets?
+
+```{r}
+set.seed(123)
+train.idx <- sample(nrow(cancer), 0.6 * nrow(cancer))
+train <- cancer[train.idx, ]
+test <- cancer[-train.idx, ]
+dim(train)
+dim(test)
+```
+
+c. Load the `e1071` package, and use SVM with a "radial" (default) kernel to 
+classify the tumors in  the train set. Set `scale = FALSE` to supress scaling 
+of the variables, as they already are in the same units. Evaluate your 
+prediction accuracy on the test set.
+
+
+```{r}
+library(e1071)
+svm1 <- svm(diagnosis ~ ., data = train, kernel="radial", scale = FALSE)
+summary(svm1)
+```
+
+```{r}
+prediction <- predict(svm1, test[, -1])
+(tab <- table(pred = prediction, true = test$diagnosis))
+(accuracy <- sum(diag(tab))/nrow(test))
+```
+
+d. Now, train a "radial" SVM again but tune the model parameters 
+("gamma" and "cost") using `tune.svm`. You should input a set of
+values for the two parameters for `tune.svm()` to use. Print
+the summary of the best model you obtained. What were the parameters used?
+
+```{r}
+tuned <- tune.svm(diagnosis ~., data = train, 
+                  gamma = 10^(-6:-1), cost = 10^(-1:1))
+summary(tuned)
+```
+
+```{r}
+summary(tuned$best.model)
+```
+
+e. Compute the test accuracy of your best model after tuning and compare it
+to the accuracy of your initial model. Did tuning improve your predictions?
+
+```{r}
+pred.tuned <- predict(tuned$best.model, test[, -1])
+(tab.tuned <- table(pred = pred.tuned, true = test$diagnosis))
+(accuracy.tuned <- sum(diag(tab.tuned))/nrow(test))
+```
+
+
