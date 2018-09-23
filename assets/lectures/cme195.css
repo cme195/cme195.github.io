@@ -49,42 +49,48 @@ Date: 10/11/2017
  * R Code
  *********************************************/
 /* code */
-.reveal pre { 
+ .reveal pre {   
   display: block;
+  justify-content: center;
   position: relative;
   word-wrap: break-word;
-  margin: 20px auto;
-  text-align: left;
+  margin-top: 0;
+  margin-bottom: 1em; 
+  /*margin: 20px auto; */
+  max-width: 100%;
   font-size: 0.8em;
-  font-family: monospace;
-  line-height: 1.2em;
-  background-color: #f5f5f5;
+  white-space: pre-wrap;
+  vertical-align: middle;
+  border: 1px solid #ccc;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); 
-  max-width: 95%;               
-  max-height: 95%;
-}
-/* inline code */
-.reveal code { 
-  font-family: monospace; 
-  font-size: 1em;
-  line-height: 1;
-  max-width: 90%;
 }
 
 /* code output */
-.reveal pre code { 
-  display: block;
+.reveal pre code {
+  max-width: 100%;
+  display: block; 
+  font-size: 0.7em;
+  line-height: 1em;
+  background-color: white;
   overflow: auto;
-  word-wrap: normal; 
-  margin: 20px auto;
-  font-size: 0.8em;
-  text-align: left;
-  white-space: pre;
-  max-width: 95%;                    
-  max-height: 95%;
-  background-color: #f5f5f5;
-
+  max-height: none;
+  word-wrap: normal;
 }
+
+/* inline code */
+.reveal code {
+  overflow: visible;
+  max-height: none;
+}
+
+.reveal code.r {
+  background-color: #F8F8F8;
+}
+
+.reveal code.cpp {
+  background-color: #F8F8F8;
+}
+
 
 
 /*********************************************
@@ -129,7 +135,7 @@ Date: 10/11/2017
 .reveal ul {
   display: block;
   text-align: left;
-  line-height: 1.5;
+  line-height: 1.2;
   max-width: 90%;}
 
 .reveal ul li {
@@ -139,7 +145,11 @@ Date: 10/11/2017
  * IMAGES
  *********************************************/
 .reveal section img {
-   border: 0px; /* no border but still shadow */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px; /* no border but still shadow */
+    box-shadow: none !important; /* remove shadow */
   /* border: 1px solid #000; */
 }
 

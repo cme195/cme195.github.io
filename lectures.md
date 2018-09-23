@@ -6,11 +6,11 @@ layout: cme195
 
 ## [](#slides) Slides
 
-1. [Introduction and R Basics](./assets/lectures/Lecture1_Intro.html)
+Lecture 1: Introduction and R Basics [html](./assets/lectures/Lecture1_Intro.html)
 [[pdf](./assets/lectures/Lecture 1_ Introduction to R.pdf)].
-2. [Control Flow and Functions](./assets/lectures/Lecture2_Syntax_and_Functions.html)
+<!---2. Control Flow and Functions [html](./assets/lectures/Lecture2_Syntax_and_Functions.html)
 [[pdf](./assets/lectures/Lecture 2_ Syntax, control flow, functions.pdf)].
-3. [Data pre-processing](./assets/lectures/Lecture3_Data_manipulation.html)
+3. [Data pre-processing (./assets/lectures/Lecture3_Data_manipulation.html)
 [[pdf](./assets/lectures/Lecture 3_ Data Manipulation.pdf)].
 4. [2D plotting with ggplot2](./assets/lectures/Lecture4_2D_graphics.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.Rmd)]
@@ -26,14 +26,14 @@ layout: cme195
 [[pdf](./assets/lectures/Lecture 7_ Classification.pdf)].
 8. [Unsupervised Learning](./assets/lectures/Lecture8_Unsupervised_Learning.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture8_Unsupervised_Learning.Rmd)]
-[[pdf](./assets/lectures/Lecture 8_ Unsupervised Learning.pdf)].
+[[pdf](./assets/lectures/Lecture 8_ Unsupervised Learning.pdf)].  -->
 
 Disclaimer: these lecture slides are subject to change and can be updated
 any time. Please check regularly.
 
 ## [](#exe) Exercises
 
-* [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
+<!--- * [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd)].
 [Answers](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises_with_Answers.Rmd)].
@@ -61,10 +61,11 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)].
 [Answers](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises_with_Answers.Rmd)].
+-->
 
 
 
-## [](#tut) Extra Tutorials
+## [](#tut) Introductory Tutorials
 
 * Lecture 1 related:
     + [vectors and matrices](https://cme195.shinyapps.io/vectors_and_matrices/),

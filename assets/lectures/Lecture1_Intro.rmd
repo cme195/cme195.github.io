@@ -1,6 +1,8 @@
 --- 
-title: 'Lecture 1: Introduction to R'
-date: "October 3, 2017" 
+title: 'CME/STATS 195'
+subtitle: 'Lecture 1: Introduction to R'
+date: "September 27, 2018" 
+author: "Lan Huong Nguyen"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -19,69 +21,165 @@ output:
 
 ```{r global_options, echo = FALSE, include = FALSE}
 options(width = 999)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE,
-                      cache = FALSE, tidy = FALSE, size = "small")
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  cache = FALSE, tidy = FALSE, size = "small")
 ```
 
 ## Contents
 
-* R language
-* How to get and use R?
-* R Basics 
-* Course Objectives & Organization 
+</br>
+
+- Course Objectives & Organization 
+
+- The R language
+
+- Setting up R environment
+
+- Basics of coding in R
+
+#  Course Objectives & Organization
 
 
-# R language
+## Course Logistics
+
+</br>
+
+CME/STATS 195 will run for 4 weeks: 09/27-10/23/2018
+
+- Lectures: Tue, Thu 12:00 PM - 1:20 PM, Building 200 room 034
+- Office hours: Mon 3PM, Huang (Basement) Student Area
+- Class website: https://cme195.github.io/
+- Homework submission: https://canvas.stanford.edu/
+- Questions/Communication: https://canvas.stanford.edu/
+
+Grading (Satisfactory/No Credit):
+
+- Homework assignments (40%) 
+- (Group) final project (40%)
+- Participation (20%)
+
+## Assignments
+
+**To pass the class you can either submit two homework assignments 
+or one homework and a final project.**
+
+Homework:
+
+- work individually
+- due the second and the last week of class
+
+Final project:
+
+- work in groups up to 4 students
+- title and abstract due the 3rd week of class
+- final report and R code due one week after the last class
+- details can be found on [class website](https://cme195.github.io/project)
+
+Late day policy:
+
+- no later than 5 days post due date; 10% penalty per day 
+
+
+## Pre-requisites and expectations
+
+No formal pre-requisites, but you should have some prior
+knowledge of statistics and some programming experience.
+
+The goal of this course is for you to:
+
+- familiarize yourself with R
+- learn how to do interesting and practical things quickly in R
+- start using R as a powerful tool for data science
+
+We will NOT learn:
+
+- computer programming
+- statistics
+- big data
+
+This is a short course, so you will not learn everything about R.
+
+
+## Topics Covered
+
+* R Basics: data types and structures, variable assignment etc.
+* R as a programming language: syntax, flow control, iteration, functions.
+* Importing and tidying data.
+* Processing and transforming data with `dplyr`.
+* Visualizing data with `ggplot2`.
+* Exploratory data analysis (EDA)
+* Elements of statics: modeling, predicting and testing.
+* Some R tools for supervised & unsupervised learning.
+* Generating R Markdown reports for efficient communication.
+
+
+# The R language
 
 ## What is R?
 
-- R is **a language and environment** for statistical computing and graphics.
-
-> - It was created by Rob Gentleman and Ross Ihaka in 1994; it is based on 
+- R was created by Rob Gentleman and Ross Ihaka in 1994; it is based on 
 the S language developed at Bell Labs by John Chambers (Stanford Statistics).
 
-> - R is a GNU package, which means it is **freely distributed software**.
+- It is **an open-source language and environment** for statistical computing 
+and graphics.
 
-> - R is **an integrated suite of software facilities** for data manipulation, 
-statistical calculation and graphical display, and is 
-**highly extensible**.
+<img src="./Lecture1-figure/r_word_cloud.png", height="500", width="750",
+class="center"></img> 
 
-> - It is, however, **a fully planned and coherent system**, rather than an incremental
+##
+
+> - R offers:
+>       + A simple and effective programming language.
+>       + A data handling and storage facility.
+>       + A suite of libraries for matrix computations.
+>       + A large collection of tools for data analysis.
+>       + Facilities for generating high-quality graphics and data display.
+
+</br>
+
+> - R is **highly extensible**, but remains 
+**a fully planned and coherent system**, rather than an incremental
 accumulation of specific and inflexible tools.
 
 
+## Who uses R?
+
+Traditionally, academics and researchers. However, recently R has expanded also 
+to industry and enterprise market. Worldwide usage on log-scale:
+
+<img src="./Lecture1-figure/language_popularity.png", height="500", width="1000",
+class="center"></img> 
+
+Source: http://pypl.github.io/PYPL.html
+
+The PYPL Index is created by analyzing how often language tutorials are 
+searched on Google (generated using raw data from Google Trends).
+
+
 ## Why should you learn R?
 
-<div style="float: center; height: 650px">
-  <img src="./Lecture1-figure/IEEE_top_languages.png", height="600", width="1000"></img> 
-  <p style="text-align: center;"> 
-  Source: [https://spectrum.ieee.org/](https://spectrum.ieee.org/computing/software/the-2017-top-programming-languages) 
-  </p>
-</div>
+Pros: 
+
+- Open source and cross-platform.
+- Created with statistics and data in mind; new ideas and methods in statistics
+usually appear in R first.
+- Provides a wide range of high-quality packages for data analysis and visualization.
+- Arguably, the most commonly used language by data scientists
+
+Cons:
+
+- Performance/Scalability: low speed, poor memory managment.
+- Some packages are low-quality and provide no support.
+- A unconventional syntax and a few unusual features compared to other languages.
 
 
-## Why should you learn R?
+## A few alternatives to R:
 
-<div style="float: left; margin-left: 120px; height: 650px">
-  <img src="./Lecture1-figure/indeed_jobtrends.png", height="600", width="900"></img> 
-  <p> Source: [https://indeed.com/jobtrends](https://www.indeed.com/jobtrends/q-Python-q-R-q-c++-q-java-q-sql.html) </p>
-</div>
-<div style="float: left; height: 250px; width:250px">
-  <img src="./Lecture1-figure/indeed_jobtrends_legend.png", height="250", width="200"></img> 
-</div>
-
-
-## When should you use R?
-
-- R can be used for **data analysis and visualization**. 
-
-> - It provides efficient **exploration and prototyping** tools, 
-but also offers powerful frameworks for **building and fitting statistical models**.
-
-> - R is very good when working with **data that fits in the computer’s memory**.
-
-> - It’s NOT as good for working with massive datasets whose elements 
-need to be continuously accessed.
+- **Python:** fastest growing, general-purpose programming, with data science libraries.
+- **SAS:** used for statistical analysis; commercial and expensive, slower development.
+- **SQL:** designed for managing data held in a relational database management system.
+- **MATLAB:** proprietary, mostly for numerical computing, and matrix computations.
 
 
 ## What makes R good?
@@ -103,49 +201,71 @@ and **interactive graphics**.
 
 ## What makes R good?
 
+As of September 29, there are 13,083 packages on [CRAN](https://cran.r-project.org/web/packages/index.html),
+1,560  on [Bioconductor](https://www.bioconductor.org/), and many others on [github](https://github.com/trending/r?since=weekly))
 
- As of September 29, there are 11,502 packages on [CRAN](https://cran.r-project.org/), 1,383 on [Bioconductor](https://www.bioconductor.org/), and many others on [github](https://github.com/trending/r?since=weekly))
+<img src="./Lecture1-figure/cran_packages.png", height="600", width="800"></img> 
 
-<div style="float: center; height: 650px">
-  <img src="./Lecture1-figure/cran_packages.png", height="600", width="800"></img> 
-  <a style="text-align: center;"> 
-  Source: [http://blog.revolutionanalytics.com/](http://blog.revolutionanalytics.com/2017/01/cran-10000.html) 
-  </a>
-</div>
+Source: [http://blog.revolutionanalytics.com/](http://blog.revolutionanalytics.com/2017/01/cran-10000.html)
 
 
-# How to get and use R?
+## "Textbook"
 
-## How to install R?
+We will use *R for Data Science* as a primary reference.
 
+<img src="./Lecture1-figure/r_textbook.png", height="600"></img> 
+
+
+<small2>Freely available at: http://r4ds.had.co.nz/ </small2>
+
+
+## Other useful resources for learning R 
+
+- *R in a nutshell* and introductory book by Joseph Adler - *R tutorial*
+  (https://www.tutorialspoint.com/r/r_packages.htm) 
+
+- *Advanced R* book by Hadley Wickham for intermediate programmers 
+(http://adv-r.had.co.nz/Introduction.html)
+
+- `swirl` R-package for interactive learning for beginners (http://swirlstats.com/) 
+
+- `Data Camp` courses for data science, R, python and more (https://www.datacamp.com/courses) 
+
+
+# Setting up an R environment
+
+## Installing R
+
+</br>
 
 R is open sources and cross platform (Linux, Mac, Windows).
 
 </br>
 
-To install it just go to **the official R website**
-(https://www.r-project.org/), 
-download the latest version for your OS and follow the instructions.
-
-
-## How to run R? (interpreter mode) 
-
-<div class="left", style="width: 65%;"> 
-Start the R **console**:
-
-- by launching **the R graphical user interface**
-
-- by typing "R" in **the command line/terminal**. 
-
-Then, use the R commands interactively. To quit use `q()`.
+To download it, go to the Comprehensive R Archive Network 
+[CRAN](https://cran.cnr.berkeley.edu/) website.
+Download the latest version for your OS and follow the instructions.
 
 </br>
 
-To open a terminal window use: 
+Each year a new version of R is available, and 2-3 minor releases.
+You should update your software reqularly.
 
-- For linux: `Ctr + Alt + T`
-- For Mac: `Command + space`. Type "Terminal" and press `Enter`.  
-- For Windows: `WinKey + R`. Type "cmd" and press `Enter`.
+## Running R code
+
+<div class="left", style="width: 65%;"> 
+
+Interpreter mode:
+
+- open a terminal and launch R by calling "R" (or open an R console).
+- type R commands interactively in the command line, pressing `Enter` to execute.
+- use `q()` to quit R.
+
+Scripting mode:
+
+- write a text file containing all commands you want to run
+- save your script as an R script file (e.g. "myscript.R") 
+- execute your code from the terminal by calling "Rscript myscript.R"
 
 </div>
 
@@ -155,51 +275,38 @@ To open a terminal window use:
 </div>
 
 
-## How to run R? (scripting mode) 
+## R editors
 
-- A more convenient way to interact with R is **to write a script**.
-
-- A script should contains all code that you want to execute.
-
-- You should write your R code in **a suitable editor** (NOT in e.g. Microsoft Word).
-
-- After you finish writing your code, save is as an R script file, e.g. `script.R`.
-
-- Then, you can run/execute the code from the terminal by calling `Rscript script.R`
-
-
-
-## R Editors
-
-<div class="left", style="width: 40%">
 The most popular **R editors** are:
 
-- **Rstudio**, an integrated development environment (IDE) for R.
-- **Emacs** (a free, powerful, customizable editor for many languages).
+- [**Rstudio**](https://www.rstudio.com/products/RStudio/), 
+an integrated development environment (IDE) for R.
+- [**Emacs**](https://www.gnu.org/software/emacs/), a free, powerful, customizable 
+editor for many languages.
 
 </br>
 In this class, we will use **RStudio**, as it is more user-friendly. 
-</div>
-
-<div class="right", style="width: 60%">
-  <img src="./Lecture1-figure/rstudio.png", height="650", width="900"></img> 
-</div>
 
 
-## R packages 
+## Installing RStudio
 
-<div class="center" style="margin: auto"> 
-<img src="./Lecture1-figure/Rpackages.png", style="background-color:whiet;
-border:0px; box-shadow:none;" height="450", width="1000"></img> 
-</div>
+RStudio is open-source and cross-platform (Linux, Mac, Windows).
+
+Download and install the latest version for your OS from 
+[the official website](https://www.rstudio.com/products/rstudio/download/#download).
+
+<img src="./Lecture1-figure/rstudio.png", height="800", width="1000"></img> 
 
 
 ## R packages 
 
 - R packages are **a collection of R functions, complied code and sample data.**
 
-> - They are stored under a directory called **library** in the R environment. 
-> - Some packages are **installed by default** during R installation and are always automatically loaded at the beginning of an R session. 
+- They are stored under a directory called **library** in the R environment. 
+
+- Some packages are **installed by default** during R installation and are 
+always automatically loaded at the beginning of an R session. 
+
 > - Additional packages by the user from: 
 >     + [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html) The first and biggest R repository.
 >     + [Bioconductor](http://bioconductor.org/): Bioinformatics packages for the analysis of biological data. 
@@ -207,21 +314,7 @@ border:0px; box-shadow:none;" height="450", width="1000"></img>
 
 
 
-## Available R packages
-
-
-```{r} 
-# Get library locations containing R packages 
-.libPaths()
-# Get the info on all the packages installed 
-installed.packages()[1:5, 1:3]
-# Get all packages currently loaded in the R environment 
-search() 
-``` 
-
-
-
-## Installing R packages
+## Installing R packages from different repositories:
 
 - From CRAN: 
  
@@ -256,137 +349,40 @@ install_git("https://github.com/twitter/AnomalyDetection")
 ``` 
 
 
-## Useful resources for learning R 
-
-- *R in a nutshell* and introductory book by Joseph Adler - *R tutorial*
-(https://www.tutorialspoint.com/r/r_packages.htm) 
-
-- *Advanced R* book by Hadley Wickham for intermediate programmers 
-(http://adv-r.had.co.nz/Introduction.html)
-
-- `swirl` R-package for interactive learning for beginners (http://swirlstats.com/) 
-
-- `Data Camp` courses for data science, R, python and more (https://www.datacamp.com/courses) 
-
-
-
-# R Basics  
-
-
-## R as an extensible calculator 
-
-- R has allows you to **intuitively input and easily compute** elementary 
-mathematical expressions , e.g.
+## Where are R packages stored?
 
 ```{r} 
-23 + 8 
-abs(-10) 
+# Get library locations containing R packages 
+.libPaths()
+# Get the info on all the packages installed 
+installed.packages()[1:5, 1:3]
+# Get all packages currently loaded in the R environment 
+search() 
+``` 
+
+
+
+# Basics of coding in R  
+
+## R as a calculator 
+
+- R can be used as a calculator, e.g.
+
+```{r} 
+23 + sin(pi/2) 
+abs(-10) + (17-3)^4
 4 * exp(10) + sqrt(2) 
 ``` 
 
 - Intuitive arithmetic operators: addition (`+`), subtraction (`-`), multiplication (`*`), 
 division: (`/`), exponentiation: (`^`), modulus: (`%%`) 
 
-
-## Built-in constants
-
-```{r} 
-pi
-LETTERS 
-letters 
-month.abb 
-month.name 
-``` 
-
-
-## Special values in R 
-
-Some words are **reserved** in `R` and cannot be used as oject/variable/function names:
-
-- `Inf` and `–Inf` which respectively stand for positive and negative infinity. 
-R will returnm this value if results are numbers that are too big.
-
-```{r} 
-2^1024 
--1/0 
-``` 
-
-- `NULL` denotes a null object and is often used as a default value of 
-an argument in a function definition, e.g.: 
-
-```{r} 
-f1 <- function(arg1, arg2 = NULL) { 
-  print(paste("Argument 1 is:", arg1)) 
-  if(!is.null(arg2)) 
-    print(paste("Argument 2 is:", arg2)) 
-} 
-``` 
-
-
-
-## Special values in R 
-
-- `NA` represents a missing value ("not available"). 
-```{r} 
-v <- c(1,2,3) 
-length(v) <- 4 
-
-# R automatically fills a NA into the end of `v` as no value is provided.
-v 
-``` 
-
-- `NaN` means ‘Not a Number’, and can result from a computation that is undefined:
-
-```{r} 
-0/0 
-1/0 - 1/0 
-``` 
-
-
-## Values 
-
-In computer science a value is **an expression which cannot be evaluated any
-further**.
-
-</br>
-
-For example, an expression `2 + 3` is not a value as it can be reduced to
-expression `5`.
-
-</br>
-
-Examples of values: 
-
-`2, 1057, "Hello world!", "01/20/2016", Inf, TRUE`
-
-<br/>
-
-Values have types ...
-
-
-## Data types 
-
-The values in R are limited to **only 6 types**:
-
-- **Logical**: `TRUE/FALSE` 
-- **Numeric**: `12.4, 30, 2, 1009, 3.141593` 
-- **Integer**: `2L, 34L, -21L, 0L` 
-- **Complex**: `3 + 2i, -10 - 4i` 
-- **Character**: `'a', '23.5', "good", "Hello world!", "TRUE"` 
-- **Raw** (used to hold raw bytes): `as.raw(TRUE), as.raw(2), charToRaw("Hello")` 
-
-</br>
-
-**An atomic vector** (one-element vector) is the simplest object in R, 
-and it must belong to one of these 6 types.
-
-Fortunately, R supports more complicated, R-objects which are **built 
-upon these atomic vectors**.
+- Built-in constants: `pi, LETTERS, letters, month.abb, month.name`
 
 
 ## Variables 
 
->- In computer programs, **variables** are used to store various information.
+>- **Variables** are objects used to store various information.
 
 >- Variables are nothing but **reserved memory locations** for storing values.
 
@@ -395,24 +391,6 @@ variables are NOT declared as some data type/class** (e.g. vectors, lists, data-
 
 >- When variables are assigned with R-Objects, **the data type of the R-object
 becomes the data type of the variable**.
-
-
-## Naming variables 
-
-- A valid **variable name consists of letters, numbers and a dot or underline characters**. 
-
-- The variable name **must start with a letter or a dot not followed by a number**.
-
-Examples of: 
-
-- valid variable names:
-
-`var_name, _var2_name, .var_name , var.name3.`
-
-- invalid variable names:
-
-`var_name%, var.name!, 2var_name, .2var_name`
-
 
 
 ## Variable assignment 
@@ -441,6 +419,58 @@ cat("var.3 is ", var.3 ,"\n")
 ``` 
 
 
+## Naming variables 
+
+Variable names must start with a letter, and can only contain:
+
+<div class="left", style="width: 50%; height: 30%"> 
+- letters
+- numbers
+- the character _
+- the character .
+</div>
+
+<div class="right", style="width: 50%; height: 30%"> 
+```{r}
+a <- 0
+first.variable <- 1
+SecondVariable <- 2
+variable_2 <- 1 + first.variable
+very_long_name.3 <- 4
+```
+</div>
+
+<div class="left", style="width: 100%; height: 50%"> 
+Some words are reserved in R and cannot be used as object names:
+
+- `Inf` and `-Inf` which respectively stand for positive and negative infinity,
+R will return this when the value is too big, e.g. `2^1024`
+- `NULL` denotes a null object. Often used as undeclared function argument.
+- `NA` represents a missing value (“Not Available”).
+- `NaN` means “Not a Number”. R will return this when a computation 
+is undefined, e.g. `0/0`.
+</div>
+
+## Data types 
+
+Values in R are limited to **only 6 atomic classes**:
+
+- **Logical**: `TRUE/FALSE` or `T/F`
+- **Numeric**: `12.4, 30, 2, 1009, 3.141593` 
+- **Integer**: `2L, 34L, -21L, 0L` 
+- **Complex**: `3 + 2i, -10 - 4i` 
+- **Character**: `'a', '23.5', "good", "Hello world!", "TRUE"` 
+- **Raw** (holding raw bytes): `as.raw(2), charToRaw("Hello")` 
+
+Objects can have different structures based on atomic class and dimensions:
+
+|Dimensions	| Homogeneous	| Heterogeneous|
+|-----------|-------------|--------------|
+|1d         |	vector	    | list         |
+|2d         |	matrix	    | data.frame   |
+|nd	        | array	      |              |    
+
+R also supports more complicated objects built upon these.
 
 
 ## Variable class 
@@ -450,14 +480,14 @@ variable’s data type of the same variable again and again when using it in a
 program.
 
 ```{r} 
-var_x <- "Hello" 
-cat("The class of var_x is", class(var_x),"\n")
+a <- "Hello" 
+cat("The class of var_x is", class(a),"\n")
 
-var_x <- 34.5 
-cat("  Now the class of var_x is ",class(var_x),"\n")
+a <- 34.5 
+cat("  Now the class of var_x is ", class(a),"\n")
 
-var_x <- 27L 
-cat("   Next the class of var_x becomes ",class(var_x),"\n") 
+a <- 27L 
+cat("   Next the class of var_x becomes ", class(a),"\n") 
 ``` 
 
 
@@ -469,77 +499,52 @@ print(ls())
 ``` 
 
 
-## Data structures 
-
-There are many types/classes of R-objects, but **the most frequenly used data
-structures are**:
-
-- Vectors 
-- Matrices 
-- Arrays 
-- List 
-- Data frames 
-- Factors
-
 
 ## Vectors 
 
-<div class="left", style="width: 40%">
+Vectors are the simplest R data objects; there are no scalars in R. 
 
-- **Vectors are the most basic R data objects**. There is no simpler object,
-e.g. no scalars.
+<div class="left", style="width: 50%">
 
-- Even when you write **just one value in R, it becomes a vector of length 1** 
-and belongs to one of the vector types: logical, integer, double, complex,
-character and raw.
+```{r} 
+# Create a vector with "combine"
+x1 <- c(1, 3, 7:12) 
+x2 <- c('apple', 'banana', 'watermelon')
+# Look at content of a variable:
+x1
+print(x2)
+```
 
+```{r}
+# Including in () also prints content
+(x3 <- 1:5)
+```
 
 </div>
 
-<div class="right", style="width: 60%">
+<div class="right", style="width: 50%">
 
-- Vectors can be defined using a combine, `c()`, function: 
- 
-```{r} 
-# Create a vector 
-(vec1 <- c(1, 3, 7:12)) 
-(vec2 <- c('apple', 'banana', 'tangerine', 'watermelon')) 
-
-# Non-character values are coerced to character type if one of the elements is a character 
+```{r}
+# If mixed, on-character values are coerced 
+# to character type 
 (s <- c('apple', 123.56, 5, TRUE)) 
 ``` 
 
+
+```{r} 
+# Generate numerical sequence, e.g. sequence
+# from 5 to 7 with 0.4 increment. 
+(v <- seq(5, 7, by = 0.4))
+``` 
+
 </div>
 
 
-## Numerical sequences
-
-- Can be genereted with a `seq()` function:  
-
-```{r} 
-# Create vector with elements from 5 to 9 incrementing by 0.4. 
-(v <- seq(5, 9, by = 0.4))
-``` 
-
-- or using a colon operator:
- 
-```{r} 
-# Creating a sequence from 5 to 13. 
-(v <- 5:13) 
-# Colon can be used also for non-integers (still increments of 1) 
-(v <- 6.6:12.6) 
-# If the final element specified does not belong to the sequence then it is discarded. 
-(v <- 3.8:11.4) 
-``` 
-  
-
-
-## Accessing vector elements 
+## Vector indexing 
 
 <div class="left", style="width: 40%">
 
-
-- Elements of a vector can be accessed using indexing, with `[]` brackets.
+- Elements of a vector can be accessed using indexing, with square brackets, `[]`.
 
 - Unlike in many languages, in R **indexing starts with `1`**. 
 
@@ -547,13 +552,15 @@ character and raw.
 
 - Logical indexing (`TRUE/FALSE`) is allowed. 
 
-
 </div>
 
 <div class="right", style="width: 60%">
 
+</br>
+
 ```{r} 
 days <- c("Sun","Mon","Tue","Wed","Thurs","Fri","Sat") 
+(today <- days[5])
 
 # Accessing vector elements using position. 
 (weekend.days <- days[c(1, 7)])
@@ -562,17 +569,57 @@ days <- c("Sun","Mon","Tue","Wed","Thurs","Fri","Sat")
 (week.days <- days[c(-1,-7)])
 
 # Accessing vector elements using logical indexing. 
-(my.birthday <- days[c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE)])
+(birthday <- days[c(F, F, F, F, T, F, F)])
 ``` 
+
+</div>
+
+## Logical operations
+
+</br>
+
+<div class="left", style="width: 50%;"> 
+```{r}
+# Comparisons (==,!=,>,>=,<,<=)
+1 == 2
+
+# Check whether number is even
+# (%% is the modulus)
+(5 %% 2) == 0
+
+# Logical indexing
+x <- seq(1,10)
+x[(x%%2) == 0]
+```
+
+</div>
+
+<div class="right", style="width: 50%;"> 
+
+```{r}
+# Element-wise comparison
+c(1,2,3) > c(3,2,1)
+
+# Check whether numbers are even,
+# one by one
+(seq(1,4) %% 2) == 0
+
+# Logical indexing
+x <- seq(1,10)
+x[x>=5]
+```
 
 </div>
 
 ## Vector arithmetics 
 
-Two vectors of same length can be added, subtracted, multiplied or divided
-giving an output vector of the same length. 
+Two vectors of same length can be added, subtracted, multiplied or divided.
+Vectors can be concatenated with combine function `c()`.
 
- 
+
+<div class="left", style="width: 50%">
+
+
 ```{r} 
 # Create two vectors. 
 v1 <- c(1,4,7,3,8,15) 
@@ -586,30 +633,45 @@ v2 <- c(12,9,4,11,0,8)
 
 # Vector multiplication. 
 (vec.product <- v1*v2)
+```
 
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
 # Vector division. 
 (vec.ratio <- v1/v2)
+
+# Vector concatenation
+vec.concat <- c(v1, v2)
+# Size of vector
+length(vec.concat)
 ``` 
 
+</div>
 
 
 
 ## Recycling 
 
 - **Recycling** is an automatic lengthening of vectors in certain settings. 
-- If an operator (such as +, -, or ^) is applied to two vectors of different lengths,
-R will repeat the shorter vector until the length of the longer vector is reached. 
 
- 
-```{r, warning=TRUE} 
-# The number '3' can be thought of as a vector of length one. 
-3 + 1:6
+```{r} 
+# Element-wise multiplication
+v1 <- c(1,2,3,4,5,6,7,8,9,10)
+v1 * 2
+```
 
-# Add 1 to every other number from 1 to 6. 
-0:1 + 1:6
+- When two vectors of different lengths, R will repeat the shorter vector until
+the length of the longer vector is reached. 
 
-# Multiply two vectors of unequal lengths. 
-1:3 * 1:5 
+
+```{r}
+# Element-wise multiplication
+v1 * c(1,2)
+v1 + c(3, 7, 10)
 ``` 
 
 
@@ -620,47 +682,37 @@ continued to run, but perhaps it did not work as you intended.
 
 ## Matrices 
 
-- Matrices in R are objects whose elements are arranged in **a two-dimensional
-rectangular layout**.
 
-- **All elements must be of the same type** (numeric, logical, character, etc.).
-The most frequently used are **numeric matrices**.
+Matrices in R are objects with **homogeneous elements** (of the same type),
+**arranged in a 2D rectangular layout**. A matrix can be created with a function:
 
+`matrix(data, nrow, ncol, byrow, dimnames)`
 
-## Matrices 
-
-
-
-<div class="left", style ="width: 50%">
-
-A matrix can be created with a function
-
-<small>`matrix(data, nrow, ncol, byrow, dimnames)`</small>
-
+<small>
 where:
 
 - `data` is the input vector with elements of the matrix. 
 - `nrow` is the number of rows to be crated 
 - `byrow` is a logical value. If `FALSE` (the default) the matrix is 
 filled by columns, otherwise the matrix is filled by rows. 
-- `dimnames` is `NULL` or a list of length 2 giving the row and column names respectively
- 
+- `dimnames` is `NULL` or a list of length 2 giving the row and column 
+names respectively
+
+</small> 
+
+
+<div class="left", style ="width: 50%">
+```{r}
+# Elements are arranged sequentially by column. 
+(N <- matrix(seq(1,20), nrow = 4, byrow = FALSE))
+```
 </div>
 
 
 <div class="right", style="width: 50%">
 ```{r, warning=TRUE} 
 # Elements are arranged sequentially by row. 
-(M <- matrix(c(5:19), nrow = 3, byrow = TRUE))
-
-# Elements are arranged sequentially by column. 
-(N <- matrix(c(5:19), nrow = 3, byrow = FALSE))
-
-# Define the column and row names. 
-rownames <- c("row1", "row2", "row3") 
-colnames <- c("col1", "col2", "col3", "col4", "col5") 
-(P <- matrix(c(5:19), nrow = 3, byrow = TRUE, 
-             dimnames = list(rownames, colnames))) 
+(M <- matrix(seq(1,20), nrow = 5, byrow = TRUE))
 ``` 
  </div>
 
@@ -669,9 +721,12 @@ colnames <- c("col1", "col2", "col3", "col4", "col5")
 
 <div class="left", style="width: 50%">
 ```{r} 
-P
+# Define the column and row names. 
+rownames <- c("row1", "row2", "row3") 
+colnames <- c("col1", "col2", "col3", "col4", "col5") 
+(P <- matrix(c(5:19), nrow = 3, byrow = TRUE, 
+             dimnames = list(rownames, colnames))) 
 P[2, 5] # the element in 2nd column and 5th row. 
-
 
 P[2, ] # the 2nd row. 
 
@@ -702,68 +757,45 @@ Matrix **addition and subtraction** needs matrices of same dimensions:
 # Create two 2x3 matrices. 
 (A <- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)) 
 (B <- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2))
+A + B  # Element-wise sum; (A - B) difference
 ``` 
 </div>
 
 <div class="right", style="width: 50%">
 
 ```{r}
-# Add the matrices. 
-A + B
+A * B  # Element-wise multiplication
 
-# Subtract the matrices 
-A - B 
+A / B  # Element-wise division
+
+t(A)   # Matrix transpose
 ```
 
 </div>
-
-
-## Matrix Computations 
-
-
-Matrix **elementwise multiplication and division** needs matrices of same
-dimensions: 
-
- 
-```{r} 
-# Add the matrices. 
-A * B
-
-# Subtract the matrices 
-A / B 
-``` 
-
 
 
 ## Matrix Algebra 
 
 
-Linear algebra: *true matrix multiplication* `A x B`, with `A` (m x p) and `B`
-(p x n): \((AB)_{ij} = \sum_{k = 1}^p A_{ik}B_{kj} \) can be done using the
-`%*%` operator:
+True matrix multiplication `A x B`, with $A \in \mathbb{R}^{m \times n}$ and 
+$B \in \mathbb{R}^{m \times n}$:
 
- 
-<div class="left", style="width: 50%">
+\[
+(AB)_{ij} = \sum_{k = 1}^p A_{ik}B_{kj} 
+\]
+
 
 ```{r} 
-# A (2 x 3) matrix X 
-(X <- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)) 
-
-# A (3 x 4) matrix Y
-(Y <- matrix(c(5, 2, 0, 9, 3, 4, 5, 6, 7, 11, 3, 4), nrow = 3))
+# A is (2 x 3) and t(B) is (3 x 2)
+A %*% t(B)     # (2 x 2)-matrix
 ``` 
-</div>
 
-<div class="right", style="width: 50%">
 
 ```{r}
-# a matrix product is a (2 x 4) matrix 
-
-X %*% Y 
+# t(A) is (3 x 2) and B is (2 x 3)
+t(A) %*% B    # (3 x 3)-matrix
 ```
-More on matrix algebra operators:
-(http://www.statmethods.net/advstats/matrix.html)
-</div>
+More on matrix algebra [here](http://www.statmethods.net/advstats/matrix.html)
 
 
 
@@ -771,7 +803,6 @@ More on matrix algebra operators:
 
 ## Arrays 
 
-<div class="left", style="width: 50%">
 
 - Arrays are the R data objects which can store **data in more than two
 dimensions.**
@@ -786,160 +817,93 @@ columns and 2 tables.
 - Accessing and subsetting elements of an arrays is similar to accessing elements
 of a matrix.
 
-</div>
-
-<div class="right", style="width: 50%">
 
 ```{r} 
-vec <- sample(1:10000, 2*3*4) 
 row.names <- c("ROW1","ROW2","ROW3", "ROW4") 
 column.names <- c("COL1","COL2","COL3") 
 matrix.names <- c("Matrix1","Matrix2")
 
-(arr <- array(vec, dim = c(4,3,2), dimnames = list(row.names, column.names,
+(arr <- array(
+  seq(1, 24), dim = c(4,3,2), 
+  dimnames = list(row.names, column.names,
 matrix.names))) 
 ``` 
-</div>
 
 
 
 ## Lists 
 
-<div class="left", style="width: 40%">
+Lists can **contain elements of different types** e.g. numbers, strings, 
+vectors and/or another list. List is created using `list()` function.
 
-- In R lists can **contain elements of different types** e.g. numbers, strings, vectors and/or another list.
-
-- A list can also contain matrices or functions as its elements.
-
-- List is created using `list()` function.
-
-</div>
-
-<div class="right", style="width: 60%">
-
-
-
-```{r} 
-# Create a list containing heterogeneous elements 
-(my.list <- list(c("Jan","Feb","Mar"), TRUE, 
-                 matrix(c(3,9,5,1,-2,8), nrow =2), 
-                 list("green",12.3))) 
-```
-</div>
-
-
-
-## Lists
-
-<div class="left", style="width: 45%">
+<div class="left", style="width: 50%">
 
 ```{r}
-# Create named list 
-(named.list <- list(first = "Jane", 
-                    last = "Doe", 
-                    gender = "Female", 
-                    yearOfBirth = 1990)) 
-``` 
-
-</div>
-
-<div class="right", style="width: 55%">
-
-```{r} 
-student <- list("John", "Smith", "Bioengineering", 
-                2019, TRUE)
-
-# Name elements of grades 
-names(student) <- c("first", "last", "major",
-                    "grad_year", "enrolled") 
-student 
-``` 
-
-</div>
-
-
-## Accessing elements of a list 
-
-- Elements of the list can be accessed **by the index** of the element in the
-list.
-
-- In case of named lists it can also be accessed **using the names**.
-
- 
-```{r} 
-# Get the thrird element of the list 
-student[[3]]
+# Unnamed list
+v <- c("Jan","Feb","Mar")
+M <- matrix(c(1,2,3,4),nrow=2)
+lst <- list("green", 12.3)
+(u.list <- list(v, M, lst))
+# Access 2nd element
+u.list[[2]]
 ```
 
+</div>
+
+<div class="right", style="width: 50%">
 
 ```{r}
-# Get the same information using named alement 
-student$major
+# Named list 
+(n.list <- list(
+  first = "Jane", last = "Doe", 
+  gender = "Female", yearOfBirth = 1990)) 
+# Access 3rd element
+n.list[[3]]
+# Access "yearOfBirth" element
+n.list$yearOfBirth
 ``` 
 
-```{r} 
-# Get the first and the thrird element of the list 
-student[c(1, 3)]
-```
 
 
 ## Data-frames 
 
-<div class="left", style="width: 40%">
 
-A data frame is a table or a **2D array-like structure**.
-In data-frames:
+A data frame is a table or a **2D array-like structure**, whose:
 
-- Columns can be store data of different types e.g. logical, numeric, character. 
+- Columns can store data of different types e.g. numeric, character etc. 
 - Each column must contain the same number of data items.
 - The column names should be non-empty. 
 - The row names should be unique. 
 
-</div>
-
-<div class="right", style="width: 60%">
 
 ```{r} 
 # Create the data frame. 
-employees <- data.frame(row.names = c("E1", "E2", "E3","E4", "E5"),
-                        name = c("Rick","Dan","Michelle","Ryan","Gary"), 
-                        salary = c(623.3,515.2,611.0,729.0,843.25), 
-                        start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11", "2015-03-27")),
-                        stringsAsFactors = FALSE ) 
+employees <- data.frame(
+  row.names = c("E1", "E2", "E3","E4", "E5"),
+  name = c("Rick","Dan","Michelle","Ryan","Gary"), 
+  salary = c(623.3,515.2,611.0,729.0,843.25), 
+  start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11", "2015-03-27")),
+  stringsAsFactors = FALSE ) 
 # Print the data frame. 
 employees
+``` 
 
+
+## Useful functions for data-frames 
+
+```{r} 
 # Get the structure of the data frame. 
 str(employees) 
-``` 
-</div>
 
-
-## Data-frames 
-
-
-We can print the first few rows of a data matrix using a function `head()` 
-
- 
-```{r} 
-# Print first 2 rows of employees 
+# Print first few rows of the data frame. 
 head(employees, 2) 
 ``` 
 
 
-A very useful function `summary()` gives a statistical summary of the data
-stored in the data.frame objects 
- 
 ```{r} 
-# Print the summary. 
+# Print statistical summary of the data frame.
 summary(employees)
 ``` 
-
-
-The elements of a data frame can be accessed by indexing just like the elements 
-of a matrix.
-
-
 
 
 ## Subsetting data-frames
@@ -953,9 +917,9 @@ of a matrix.
 employees$name
 employees[, c("name", "salary")]
 
-# using integer indexing
-employees[, 1]
-employees[, c(1, 2)]
+# # or using integer indexing
+# employees[, 1]
+# employees[, c(1, 2)]
 ``` 
 
 ```{r echo = FALSE} 
@@ -967,7 +931,7 @@ employees[, c("name", "salary")]
 
 <div class="right", style="width: 50%">
 
-- We can extract specific row: 
+- We can extract specific rows: 
 
 ```{r eval = FALSE}
 # using row names. 
@@ -992,7 +956,7 @@ employees[c(2, 3), ]
 
 <div class="left", style="width: 50%">
 
-- We can add a column to a data matrix simply by assignment 
+- Add a new column using assignment operator:
 
 ```{r} 
 # Add the "dept" coulmn. 
@@ -1005,18 +969,18 @@ employees
 
 <div class="right", style="width: 50%">
 
-- Adding a row to a data fram can be done with `rbind()` function 
+- Adding a new row using `rbind()` function:
 
  
 ```{r} 
 # Create the second data frame 
-new.employees <- 
-  data.frame(row.names = paste0("E", 6:8), 
-             name = c("Rasmi","Pranab","Tusar"), 
-             salary = c(578.0,722.5,632.8), 
-             start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")), 
-             dept = c("IT","Operations","Fianance"), 
-             stringsAsFactors = FALSE )
+new.employees <- data.frame(
+  row.names = paste0("E", 6:8), 
+  name = c("Rasmi","Pranab","Tusar"), 
+  salary = c(578.0,722.5,632.8), 
+  start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")), 
+  dept = c("IT","Operations","Fianance"), 
+  stringsAsFactors = FALSE )
 
 # Concatenate two data frames. 
 (all.employees <- rbind(employees, new.employees)) 
@@ -1025,209 +989,169 @@ new.employees <-
 </div>
 
 
-
-
 ## Factors 
 
-<div class="left", style="width: 45%">
+Factors are used to **categorize the data and store it as levels**. 
+They are useful for variables which take on a limited number of unique values.
 
-- Factors are used to **categorize the data and store it as levels**. 
-- They are useful for variables which take on a limited number of unique values, e.g
-`c("bad", "average", "good")`,  `c("Male, "Female")`, `c("yes", "no")` etc. 
-- Factors are created using the `factor()` function. 
-
-</div>
-
-<div class="right", style="width: 55%">
 
 ```{r} 
-month.name 
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 is.factor(month.name) 
 ``` 
 
+```{r}
+class(days) # Indeed these are strings of characters
+```
+
+If not specified, R will order character type by alphabetical order. 
 
 ```{r}
-# Apply a factor() function. 
-(months.factor <- factor(month.name)) 
-is.factor(months.factor)
+( days <- factor(days) ) # Convert to factors
+is.factor(days)
 ```
 
  
-</div>
-
-
 
 ## Factors ordering
 
-- If not specified R will order character type by alphabetical order. 
-- Note that factor **labels are not the same as levels**.
-
 ```{r}
-months <- sample(month.name, 6)
-months
+days.sample <- sample(days, 5)
+days.sample
 ```
 
 ```{r}
-(months <- factor(months, levels = month.name)) 
+# Create factor with given levels
+(days.sample <- factor(days.sample, levels = days)) 
 ```
 
 ```{r}
-(months <- factor(months, levels = month.name, ordered = TRUE)) 
+# Create factor with ordered levels
+(days.sample <- factor(days.sample, levels = days, ordered = TRUE)) 
 ```
 
+Note that factor **labels are not the same as levels**.
+
 ```{r}
-(months <- factor(months, levels = month.name, labels = month.abb)) 
+day_names <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+(days <- factor(days, levels = days, labels = day_names))
 ```
 
 
 
 ## Dates 
 
-<div class="left", style="width: 50%">
 
-- R makes it easy to work with dates.  
+R makes it easy to work with dates.  
 
 ```{r} 
-x <- seq(from = as.Date('Jan 01, 2004', format = '%b %d, %Y'), 
-         to   = as.Date('2004-12-31'), by = 'day')
-
+# Define a sequence of dates
+x <- seq(from=as.Date("2018-01-01"),to=as.Date("2018-05-31"), by=1)
 table(months(x)) 
-which(x == '2004-09-01') 
-length(x)                  
-# Leap year! 
 ``` 
 
-
-
-</div>
-
-<div class="right", style="width: 50%">
-
-- You can check the presentdate/time by calling:  
 ```{r} 
-# What day  is it? 
-Sys.Date()     
-```
-
-```{r}
+Sys.Date()     # What day  is it? 
 Sys.time()     # What time is it? 
 ```
 
 ```{r}
-# Number of days until the end of the year. 
-as.Date('2017-12-31') - Sys.Date() 
+# Number of days until the New Year. 
+as.Date('2019-01-01') - Sys.Date() 
 ``` 
 
 
-- Look up `strptime()` function with `?strptime` command to see a list of 
-possible date formatting.
-
-</div>
+Type `?strptime` for a list of possible date formats.
 
 
-#  Course Objectives & Organization
+## Random numbers
+
+You can generate vectors of random numbers from different distributions.
+
+To make your results reproducible, provide a seed for the generator.
+
+```{r}
+set.seed(123456)
+
+sample(x = 20:100, size = 10) # Random integers
+
+runif(5, min = 0, max = 1)    # Uniform distribution
+
+rnorm(5, mean = 0, sd = 1)    # Normal distribution
+```
 
 
-## Course Logistics
+## Random sampling
 
-</br>
+You can generate a random sample from the elements of a vector using the 
+function sample.
 
-- Lectures: Tue, Thu 12:00 PM - 1:20 PM, 300-300 
+```{r}
+v <- seq(1, 10)
+sample(v, 5)                             # Sampling without replacement
+month.name
+sample(month.name, 10, replace = TRUE)   # Sampling with replacement
+```
 
-- Office hours: Thu 3PM, Huang 304
+Tables -- the contents of a discrete vector can be easily summarized in a table.
 
-- Class website: https://cme195.github.io/
-
-- Homework submission: https://canvas.stanford.edu/
-
-- Questions/Communication: https://canvas.stanford.edu/
-
-## Topics Covered
-
-
-* Data types (e.g. logical, numeric, character) 
-* Data structures (e.g. vector, matrix, lists, data frames)
-* Variable assignment and manipulations 
-* File input/output (reading and writing files).
-* Functions (function calling and definition) 
-* `apply, lapply, sapply, mapply` functions 
-* Data processing using `dplyr, tidyr`
-* 2D, 3D plotting 
-* interactive plotting 
-* Supervised learning methods 
-* Unsupervised learning methods 
-
-
-## Course Expectations
-
-</br>
-
-There are no formal pre-requisites, but some prior 
-**knowledge of statistics and programming experience** 
-is strongly encouraged.
-
-</br>
-
-During the course you will learn about some statistical methods. They will be
-briefly explained, but the mathathematics or the technical details on the
-algorithms won't be discussed.
-
-</br>
-
-Instead, I will show you how to perform the tasks using the R implementation of
-these methods. You will learn how to input the data, set parameters, and
-interpret the output of the methods.
-
-
-## Work Load 
-
-</br>
-
-
-- two homework assignments (due a week after posted)
-
-- a final group (up to 3 people) project
+```{r}
+x <- sample(v, 1000, replace=TRUE)          # Random sample
+table(x)
+```
 
 
 
-## Final Project 
+## Histograms
 
-</br>
-
-> - Choose a project that is interesting and allows you to practice your R skills.
-
-> - You are welcome to choose a project related to your own research.
-
-> - Your project should incorporate methods learnt from the course, but you are
-encouraged to use tools and packages not covered in class.
-
-> - Proposal (title and one-paragraph abstract) due **(10/24)** by the end of
-class.
-
-> - Final write-up due a week after the last class **(11/03)**.
+The contents of a discrete or continuous vector can be easily summarized 
+in a histogram.
 
 
-## Final Project 
+```{r}
+x <- rnorm(1000, mean = 5, sd = 3)
+hist(x)
+```
 
-Final project should involve **an extensive use of R**. Focus on the programming
-part, not on answering the research question. Project Ideas:
+# Exercises
 
-- **Sports data**. e.g. decide which basketball player would you want on your
-team?
+## Vectors
 
-- **Financial data**. Perform time-series analysis of stock returns, or
-construct optimal portfolios for a set of equities.
+1. Generate and print a vector of 10 random numbers between 5 and 500.
+2. Generate a random vector Z of 1000 letters (from "a" to "z"). Hint: the 
+variable `letters` is already defined in R.
+3. Print a summary of Z in the form of a frequency table.
+4. Print the list of letters that appear an even number of times in Z.
 
-- **Credit card data**. Detect fraudulent transactions.
+## Matrices
 
-- **Twitter data**. Use the content of the posts to perform activity and
-sentiment analysis.
+1. Create the following 5 by 5 matrix and store it as variable X.
+```{r echo = FALSE}
+matrix(1:30, nrow = 5, byrow = FALSE)
+```
 
-- **User preference data**. e.g. develop a movie recommender system.
+2. Create a matrix Y by adding an independent Gaussian noise (random numbers)
+with mean 0 and standard deviation 1 to each entry of X. e.g.
 
-- **Cities/States data**. e.g. identify the best and worst neighborhoods to live
-in, or predict when/where crimes occur.
+3. Find the inverse of Y.
 
-- **Biological data**. Tons of possibilities including differential gene
-expression, single cell, flow cytometry, mass spectronomy, image data analysis.
+4. Show numerically that the matrix product of Y and its inverse 
+is the identity matrix.
 
+
+## Data fames
+
+1. Create the following data frame and name it “exams”.
+
+```{r, echo = FALSE}
+data.frame(
+  student = c("Alice", "Sarah", "Harry", "Ron", "Kate"),
+  score = sample(80:100, 5),
+  letter = sample(c("A","B"), 5, replace = TRUE),
+  late = sample(c(T, F), 5, replace = TRUE)
+)
+```
+
+2. Compute the mean score for this exam and print it.
+3. Find the student with the highest score and print the corresponding 
+row of "exams". Hint: use the function `which.max()`.
