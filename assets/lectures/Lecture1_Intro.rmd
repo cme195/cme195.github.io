@@ -61,13 +61,11 @@ Grading (Satisfactory/No Credit):
 
 ## Assignments
 
-**To pass the class you can either submit two homework assignments 
-or one homework and a final project.**
 
 Homework:
 
 - work individually
-- due the second and the last week of class
+- due the 3rd week of class
 
 Final project:
 

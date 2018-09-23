@@ -523,11 +523,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section><section id="assignments" class="slide level2">
 <h2>Assignments</h2>
-<p><strong>To pass the class you can either submit two homework assignments or one homework and a final project.</strong></p>
 <p>Homework:</p>
 <ul>
 <li>work individually</li>
-<li>due the second and the last week of class</li>
+<li>due the 3rd week of class</li>
 </ul>
 <p>Final project:</p>
 <ul>
@@ -1362,15 +1361,15 @@ new.employees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 <h2>Factors ordering</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">days.sample &lt;-<span class="st"> </span><span class="kw">sample</span>(days, <span class="dv">5</span>)
 days.sample</code></pre></div>
-<pre><code>## [1] Thu Wed Tue Mon Sun
+<pre><code>## [1] Tue Fri Wed Sun Mon
 ## Levels: Fri Mon Sat Sun Thu Tue Wed</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with given levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days)) </code></pre></div>
-<pre><code>## [1] Thu Wed Tue Mon Sun
+<pre><code>## [1] Tue Fri Wed Sun Mon
 ## Levels: Mon Tue Wed Thu Fri Sat Sun</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with ordered levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] Thu Wed Tue Mon Sun
+<pre><code>## [1] Tue Fri Wed Sun Mon
 ## Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
 <p>Note that factor <strong>labels are not the same as levels</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)
@@ -1387,12 +1386,12 @@ x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">fro
 ##    April February  January    March      May 
 ##       30       28       31       31       31</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.Date</span>()     <span class="co"># What day  is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-22&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-23&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-22 19:53:09 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-23 14:38:34 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the New Year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2019-01-01&#39;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
-<pre><code>## Time difference of 101 days</code></pre>
+<pre><code>## Time difference of 100 days</code></pre>
 <p>Type <code>?strptime</code> for a list of possible date formats.</p>
 </section><section id="random-numbers" class="slide level2">
 <h2>Random numbers</h2>

@@ -1,0 +1,46 @@
+---
+title: "Final Project"
+subtitle: "CME/STATS 195, Fall 2018"
+date: "Due: November 1, 2018 at 11:59pm"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Guidelines
+
+The goal of this project is for you to practice the skills learned in this class
+and to apply them to a real dataset. You may consider working on a problem 
+related to your own research, or exploring one of the many open-access datasets 
+available on the web. Choose a project that interests and excites you. To get s
+tarted, you can refer to the non-exhaustive list of project ideas on the class 
+website. This is a chance for you to acquire more experience with R, so you 
+should focus more on coding and exploring the data, rather than on answering a 
+specific research question. Through the project you should demonstrate the 
+skills that you have learned by taking this class, but you are encouraged 
+to go beyond it and also use other R tools. Your project will be partially 
+graded based on the quality of exposition. You should use R Markdown to prepare 
+your writeup and make sure that everything looks beautiful and professional.
+Your methods and purpose should be well explained, and your conclusions be 
+convincingly motivated.
+
+# Instructions
+
+You can work with others in groups including up to 4 students. 
+In case of group projects, on your report, clearly indicate your team members' 
+names and contributions. You may send one submission per group.
+
+Submit a title and an abstract of your proposed project by Tuesday
+October 16, 2018 at 11:59pm.
+
+The final report is due on Thursday November 1, 2018 at 11:59pm.
+You must upload a writeup including all relevant code, plots and output 
+produced. Please make sure that you submit your writeup in the form of 
+a high-resolution PDF file. If you generate random numbers, set a seed and 
+report it. If you choose to work with open-access data, explain how you obtained
+it and make sure that all your work can be reproduced exactly, based solely on 
+the information contained in your submission. If your data is not openly 
+accessible, explain where it comes from and make sure that anyone with access 
+to the data would be able to reproduce your exact work.
