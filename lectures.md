@@ -6,7 +6,7 @@ layout: cme195
 
 ## [](#slides) Slides
 
-Lecture 1: Introduction and R Basics [html](./assets/lectures/Lecture1_Intro.html)
+Lecture 1: Introduction and R Basics [[html](./assets/lectures/Lecture1_Intro.html)]
 [[pdf](./assets/lectures/Lecture 1_ Introduction to R.pdf)].
 <!---2. Control Flow and Functions [html](./assets/lectures/Lecture2_Syntax_and_Functions.html)
 [[pdf](./assets/lectures/Lecture 2_ Syntax, control flow, functions.pdf)].
