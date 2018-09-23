@@ -1,0 +1,50 @@
+---
+title: "Lecture 1: Exercises"
+date: September 27th, 2018
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+---
+
+# Exercise 1: Vectors
+
+1. Generate and print a vector of 10 random numbers between 5 and 500.
+2. Generate a random vector Z of 1000 letters (from "a" to "z"). Hint: the 
+variable `letters` is already defined in R.
+3. Print a summary of Z in the form of a frequency table.
+4. Print the list of letters that appear an even number of times in Z.
+
+# Exercise 2: Matrices
+
+1. Create the following 5 by 5 matrix and store it as variable X.
+```{r echo = FALSE}
+matrix(1:30, nrow = 5, byrow = FALSE)
+```
+
+2. Create a matrix Y by adding an independent Gaussian noise (random numbers)
+with mean 0 and standard deviation 1 to each entry of X. e.g.
+
+3. Find the inverse of Y.
+
+4. Show numerically that the matrix product of Y and its inverse 
+is the identity matrix.
+
+
+# Exercise 3: Data fames
+
+1. Create the following data frame and name it “exams”.
+
+```{r, echo = FALSE}
+set.seed(123)
+data.frame(
+  student = c("Alice", "Sarah", "Harry", "Ron", "Kate"),
+  score = sample(80:100, 5),
+  letter = sample(c("A","B"), 5, replace = TRUE),
+  late = sample(c(T, F), 5, replace = TRUE)
+)
+```
+
+2. Compute the mean score for this exam and print it.
+3. Find the student with the highest score and print the corresponding 
+row of "exams". Hint: use the function `which.max()`.

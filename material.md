@@ -6,33 +6,39 @@ layout: cme195
 
 ## [](#slides) Slides
 
-**Lecture 1:** Introduction and R Basics [[html](./assets/lectures/Lecture1_Intro.html)]
-[[pdf](./assets/lectures/Lecture 1_ Introduction to R.pdf)].
+Communicating and Programming:
 
-<!---2. Control Flow and Functions [html](./assets/lectures/Lecture2_Syntax_and_Functions.html)
-[[pdf](./assets/lectures/Lecture 2_ Syntax, control flow, functions.pdf)].
-3. [Data pre-processing (./assets/lectures/Lecture3_Data_manipulation.html)
-[[pdf](./assets/lectures/Lecture 3_ Data Manipulation.pdf)].
-4. [2D plotting with ggplot2](./assets/lectures/Lecture4_2D_graphics.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture4_2D_graphics.Rmd)]
-[[pdf](./assets/lectures/Lecture 4_ Generating 2D graphics with R.pdf)]
-5. [3D and interactive plotting](./assets/lectures/Lecture5_Interactive_graphics.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture5_Interactive_graphics.Rmd)]
-[[pdf](./assets/lectures/Lecture 5_ 3D and Interactive graphics.pdf)].
-6. [Hypothesis testing, linear regression, lasso regression](./assets/lectures/Lecture6__Hypothesis_testing_and_linear_regression.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture6_%20Hypothesis_testing_and_linear_regression.Rmd)]
-[[pdf](./assets/lectures/Lecture 6_ Hypothesis testing and Linear Regression.pdf)].
-7. [Classification](./assets/lectures/Lecture7_Classification.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture7_Classification.Rmd)]
-[[pdf](./assets/lectures/Lecture 7_ Classification.pdf)].
-8. [Unsupervised Learning](./assets/lectures/Lecture8_Unsupervised_Learning.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/lectures/Lecture8_Unsupervised_Learning.Rmd)]
-[[pdf](./assets/lectures/Lecture 8_ Unsupervised Learning.pdf)].  -->
+**Lecture 1:** Introduction to R [[html](./assets/lectures/Lecture1_Intro.html)]
+[[pdf](./assets/lectures/Lecture 1_ Introduction to R.pdf)].
+**Lecture 2:** Communicating with R Markdown. Elements of programming in R.
+
+Exploratory Data Analysis:
+
+**Lecture 3:** Importing and manipulating data.
+**Lecture 4:** Visualizing data.
+**Lecture 5:** Tidying and exploring data.
+
+Data Modeling:
+
+**Lecture 6:** Hypothesis testing and linear regression.
+**Lecture 7:** Supervised techniques in R.
+**Lecture 8:** Unsupervised techniques in R.
 
 Disclaimer: these lecture slides are subject to change and can be updated
 any time. Please check regularly.
 
 ## [](#exe) Exercises
+
+**Exercise 1**: [[html](./assets/exercises/Lec1_Exercises.nb.html)]
+<!---[[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec1_Exercises_with_Answers.nb.html)] --->.
+**Exercise 2:**
+**Exercise 3:**
+**Exercise 4:**
+**Exercise 5:**
+**Exercise 6:**
+**Exercise 7:**
+**Exercise 8:**
 
 <!--- * [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd)].

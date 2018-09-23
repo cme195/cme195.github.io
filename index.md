@@ -54,8 +54,8 @@ of the methods presented.
 
 ## [](#textbook) Optional textbook
 
-“R for Data Science” by Garrett Grolemund and Hadley Wickham. 
-Available for free at http://r4ds.had.co.nz/.
+["R for Data Science"](http://r4ds.had.co.nz/) 
+by Garrett Grolemund and Hadley Wickham. 
 
 
 ## [](#prereq) Course prerequisites
@@ -66,8 +66,9 @@ programming experience is encouraged.
 
 ## [](#policy) Course Policy
 
-Grading: Satisfactory/No Credit (participation: 20%, homework: 40%, 
-final project: 40%).
+Grading: 
+
+Satisfactory/No Credit (participation: 20%, homework: 40%, final project: 40%).
 
 There will be one homework sets due the third week of class. 
 You are also expected to submit a final project (in groups up to 4 students).

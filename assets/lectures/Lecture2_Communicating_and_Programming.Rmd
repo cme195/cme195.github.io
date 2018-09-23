@@ -1,6 +1,8 @@
 --- 
-title: 'Lecture 2:  Syntax, control flow, functions'
-date: "October 5, 2017" 
+title: 'CME/STATS 195'
+subtitle: 'Lecture 2: Communicating using R Markdown & Elements of Programming'
+date: "October 2, 2018" 
+author: "Lan Huong Nguyen"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -25,60 +27,59 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 
 ## Contents
 
-* RStudio
-* Syntax
-* File input/output
-* Control flow statements
-* Functions
+<div class="left", style="width: 50%">
+  - Communicating: 
+    * RStudio
+    * R Markdown
+- Programming 
+    * Syntax
+    * File input/output
+    * Control flow statements
+    * Functions
+</div>
+  
+<div class="right", style="width: 50%">
+  <img src="./Lecture2-figure/data-science.png", width="950"></img> 
+</div>
+  
+
 
 # RStudio 
 
+
 ## RStudio window
 
-<div style="float: center; height: 600px">
-  <img src="./Lecture2-figure/RStudio_window.png", height="600", width="950"></img> 
-</div>
-
+<img src="./Lecture2-figure/RStudio_window.png",  width="1000"></img> 
 
 
 ## RStudio preferences
 
-
-<div style="float: center; height: 600px">
-  <img src="./Lecture2-figure/RStudio_preferences.png", height="600", width="950"></img> 
-</div>
+<img src="./Lecture2-figure/RStudio_preferences.png", width="1000"></img> 
 
 
 
 ## RStudio layout
 
-<div style="float: center; height: 600px">
-  <img src="./Lecture2-figure/RStudio_layout.png", height="600", width="950"></img> 
-</div>
+<img src="./Lecture2-figure/RStudio_layout.png", width="1000"></img> 
 
 
 
 ## RStudio apprearance
 
+<img src="./Lecture2-figure/RStudio_appearances.png", width="1000"></img> 
 
-<div style="float: center; height: 550px">
-  <img src="./Lecture2-figure/RStudio_appearances.png", height="500", width="900"></img> 
-</div>
 More on RStudio cuztomization can be found [here](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
 
 
 ## R document types
 
-<div style="float: center; height: 600px">
-  <img src="./Lecture2-figure/RStudio_documents.png", height="600", width="950"></img> 
-</div>
-
+<img src="./Lecture2-figure/RStudio_documents.png", width="1000"></img> 
 
 
 ## R document types
 
-- [R Script](https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html) **a text file** 
-containing R commands stored together.
+- [R Script](https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html) 
+**a text file** containing R commands stored together.
 
 - [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
 files can generate high quality reports contatining notes, code and code outputs.
@@ -96,6 +97,42 @@ as **straightforward** as possible.
 enables the embedding of **R code within LaTeX documents**.
 
 - [Other](http://rmarkdown.rstudio.com/formats.html) documents
+
+
+## R Markdown
+
+R Markdown provides an unified authoring framework for data science, combining 
+your code, its results, and your prose commentary.
+
+R Markdown was designed to be used:
+
+- for communicating your conclusions with people who do not want to focus on 
+the code behind the analysis.
+
+- for collaborating with other data scientists, interested in both conclusions,
+and the code.
+
+- as a modern day lab notebook for data science, where you can capture 
+both your work and your thought process.
+
+<div class="left", style="width: 50%">
+ ![](./Lecture2-figure/rmarkdown.png)
+</div>
+  
+<div class="right", style="width: 50%">
+  ![](./Lecture2-figure/data-science-communicate.png)
+</div>
+
+## R Markdown sourse files
+
+R Markdown files are a plain text files with ".Rmd" extension. 
+
+<img src="./Lecture2-figure/rmarkdown-source.png", width="800"></img> 
+
+The documents must contain **the front matter** marked with dashes.
+You can ass both **code chunks** and **plain text**. Sections and subsections 
+are marked with hashtags.
+
 
 ## Working with code chunks
 

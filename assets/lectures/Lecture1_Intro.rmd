@@ -167,7 +167,7 @@ usually appear in R first.
 
 Cons:
 
-- Performance/Scalability: low speed, poor memory managment.
+- Performance/Scalability: low speed, poor memory management.
 - Some packages are low-quality and provide no support.
 - A unconventional syntax and a few unusual features compared to other languages.
 
@@ -247,7 +247,7 @@ Download the latest version for your OS and follow the instructions.
 </br>
 
 Each year a new version of R is available, and 2-3 minor releases.
-You should update your software reqularly.
+You should update your software regularly.
 
 ## Running R code
 
@@ -1142,6 +1142,7 @@ is the identity matrix.
 1. Create the following data frame and name it “exams”.
 
 ```{r, echo = FALSE}
+set.seed(123)
 data.frame(
   student = c("Alice", "Sarah", "Harry", "Ron", "Kate"),
   score = sample(80:100, 5),
