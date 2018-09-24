@@ -20,87 +20,155 @@ but also offers powerful frameworks for **building and fitting statistical model
 need to be continuously accessed.
 
 
-## Working Directory
+# Joining & appending datasets
+
+## Merging two tables
 
 <div class="left", style="width: 50%">
+```{r}
+x <- data.frame(
+  item = c("cherries", "orange", 
+           "broccoli", "blueberries", 
+           "cabbage", "lemon", "spinach", 
+           "eggplants"),
+  color = c("red", "orange", "green", 
+            "blue", "green", "yellow", 
+            "green", "purple"),
+  stringsAsFactors = FALSE)
 
-- The **current working directory** (cmd) is the location
-which R is currently pointing to
-
-- Whenever you try to read or save a file without specifying 
-the path explicitly, the cmd will be used by default.
-
-- When are executing code from an R markdown/notebook code chunk, 
-the cmd is **the location of the document**.
+y <-  data.frame(
+  item = c("carrot", "cherries", 
+           "broccoli", "blueberries", 
+           "cabbage", "lemon", "tomato"),
+  class = c("vegetable", "fruit", 
+            "vegetable", "fruit", 
+            "vegetable", "fruit", "fruit"), 
+  stringsAsFactors = FALSE)
+```
 
 </div>
 
 <div class="right", style="width: 50%">
 
-- To see the current working directory use `getwd()`:
-```{r}
-getwd()   # with no arguments
+
+```{r, echo = FALSE}
+library(kableExtra); library(knitr)
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue")
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen")
 ```
 
-- To change the working directory use `setwd(path_name)` 
-with a specified path as na argument:
-```{r eval = FALSE}
-setwd("path/to/directory")
-```
 </div>
 
 
-## Paths and directory names
+## `inner_join(x, y)`
 
-- In Windows, a directory usually has an address of the following form: `C:\Users\lan\folder`.
+* Include only rows in both x and y
 
-- R inherits its file and folder naming conventions from unix, and instead uses forward slashes
-instead of backslashes, e.g. `C:/Users/lan/folder/`
-
-- The Mac OSX already uses the unix standards, the address is usually of the form: `/home/lan/folder/`.
-
-- So, when working in R use the forward slashes "/".
-
-- Actually for Windows, you can use either "`C:/Path/To/A/File`" or "`C:\\Path\\To\\A\\File`".
-
-
-## Paths and directory names
-
-- R uses forward slashes for the directories, because backslashes serve 
-a different purpose. They are used as escape characters to isolate special 
-characters and stop them from being immediately interpreted.
-
-- To avoid problems, directory names should NOT contain spaces and special characters.
-
--  Use a "`Tab`" for autocompletion to find file paths more easily. 
-
-
-
-## Data import 
-
-- **Text Files in a table format** can be read and saved 
-to a selected variable using a `read.table()` function.
-Use `?read.table` to learn more about the function.
-
-- A common text file format is a **comma delimited text file**,
-`.csv`. These files use a comma as column separators, e.g:
-
-```{r eval = FALSE}
-Year,Student,Major
-2009, John Doe,Statistics
-2009, Bart Simpson, Mathematics I
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+inner_join(x, y) # or x %>% inner_join(y)
 ```
 
-- To read these files use the following command:
 
-```{r eval=FALSE}
-mydata <- read.table("path/to/filename.csv", header=TRUE,  sep = ",")
-# read.csv() has covenient argument defaults for '.csv' files
-mydata <- read.csv("path/to/filename.csv")
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(inner_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:3, background = "bisque") %>%
+  add_header_above(c("inner_join(x, y)" = 3))
 ```
 
-- Optionally, use `row.names` or `col.names` arguments
-to set the row and column names.
+
+## `left_join(x, y)`: 
+
+* Include all of x, and matching rows of y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+left_join(x, y) # or x %>% left_join(y)
+```
+
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(left_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:3, background = "bisque") %>%
+  add_header_above(c("left_join(x, y)" = 3))
+```
+
+
+## `semi_join(x, y)`: 
+
+* Include rows of x that match y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+semi_join(x, y) # or x %>% semi_join(y)
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(semi_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:2, background = "bisque") %>%
+  add_header_above(c("semi_join(x, y)" = 2))
+```
+
+
+## `anti_join(x, y)`: 
+
+* Include rows of x that don’t match y
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE, results="hide"}
+anti_join(x, y) # or x %>% anti_join(y)
+```
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+kable(x, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "royalblue") %>%
+  add_header_above(c("x" = 2))
+
+kable(y, "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_left") %>%
+  column_spec(1:2, background = "darkolivegreen") %>%
+  add_header_above(c("y" = 2))
+
+kable(anti_join(x, y), "html") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right") %>%
+  column_spec(1:2, background = "bisque") %>%
+  add_header_above(c("anti_join(x, y)" = 2))
+```
 
 
 ## Data import 
@@ -139,7 +207,8 @@ mydata <- read.xport("path/to/filename.xpt")
 ```
 
 
-## Data export
+
+## Exporting Data
 
 - **Text files**:
 ```{r eval = FALSE}
@@ -166,82 +235,6 @@ write.foreign(mydata, datafile = "path/to/filename.txt",
 Here are links to more details on data 
 [import](http://www.statmethods.net/input/importingdata.html)
 and [export](http://www.statmethods.net/input/exportingdata.html). 
-
-## Saving the workspace
-
-- You can choose to **save all objects** currently in the workspace
-(variables, functions, etc.) into a file e.g. `filename.rda`.
-
-- The file `filename.rda` can be loaded next time you work with R.
-
-- You can also save a single object or a subset of specified
-objects currently in the workspace.
-
-```{r eval = FALSE}
-# save the workspace to file 
-save.image(file = "path/to/filename.rda")
-
-# save specific objects to a file
-save(object_list, file = "path/to/filename.rda")
-
-# save just a single object
-saveRDS(object, file = "path/to/filename.rds")
-```
-
-- Saved objects/workspace can be loaded back in a new R session.
-
-```{r eval = FALSE}
-# load a workspace into the current session
-load("path/to/filename.rda")
-
-# read just the previously saved 1 object
-object <- readRDS("path/to/filename.rds")
-```
-
-
-## Exercise 1
-
-- Download "Lec2_ex.Rmd" file from the Lectures tab on class website.
-
-- Open the file in RStudio.
-
-- Do Exercise 1.
-
-
-
-
-## `tidyverse`
-
-<div class="left", style="width: 65%;"> 
-  
-  From https://www.tidyverse.org/:
-  
-  > The `tidyverse` is an opinionated collection of R packages designed for data 
-science. All packages share an underlying design philosophy, grammar, and data 
-structures. 
-
-The system is intended to make data scientists more productive. To use
-`tidyverse` do the following:
-  
-  ```{r, eval = FALSE}
-# Install the package
-install.packages("tidyverse")
-# Load it into memory
-library("tidyverse")
-```
-</div>
-  
-  <div class="right", style="width: 35%;"> 
-  <img src="./Lecture1-figure/tidyverse.png", height="600"></img> 
-</div>
-  
-## Data science workflow
-
-
-
-
-##
-
 
 
 

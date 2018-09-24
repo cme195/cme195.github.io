@@ -8,15 +8,26 @@ layout: cme195
 
 Communicating and Programming:
 
-**Lecture 1:** Introduction to R [[html](./assets/lectures/Lecture1_Intro.html)]
+**Lecture 1:** Introduction to R 
+<!---
+[[html](./assets/lectures/Lecture1_Intro.html)]
 [[pdf](./assets/lectures/Lecture1_Intro.pdf)].
+--->
 **Lecture 2:** Communicating with R Markdown. Elements of programming in R.
+<!---
+[[html](./assets/lectures/Lecture2_Communicating_and_Programming.html)]
+[[pdf](./assets/lectures/Lecture2_Communicating_and_Programming.pdf)] 
+---->
 
 Exploratory Data Analysis:
 
-**Lecture 3:** Importing and manipulating data.
+**Lecture 3:** Importing and tidying data.
+<!---
+[[html](./assets/lectures/Lecture3_Importing_and_Tidying.html)]
+[[pdf](./assets/lectures/Lecture3_Importing_and_Tidying.pdf)] 
+---->
 **Lecture 4:** Visualizing data.
-**Lecture 5:** Tidying and exploring data.
+**Lecture 5:** Transforming data.
 
 Data Modeling:
 
@@ -30,46 +41,52 @@ any time. Please check regularly.
 ## [](#exe) Exercises
 
 **Exercise 1**: [[html](./assets/exercises/Lec1_Exercises.nb.html)]
-<!---[[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec1_Exercises_with_Answers.nb.html)] --->.
-**Exercise 2:**
+<!---
+[[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec1_Exercises_with_Answers.nb.html)] 
+--->.
+**Exercise 2:** 
+<!---
+[[html](./assets/exercises/Lec2_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec2_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec2_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 3:**
+<!---
+[[html](./assets/exercises/Lec3_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec3_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec3_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 4:**
+<!---
+[[html](./assets/exercises/Lec4_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec4_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 5:**
+<!---
+[[html](./assets/exercises/Lec5_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec5_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 6:**
+<!---
+[[html](./assets/exercises/Lec6_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec6_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 7:**
+<!---
+[[html](./assets/exercises/Lec7_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec7_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec7_Exercises_with_Answers.nb.html)] 
+--->.
 **Exercise 8:**
-
-<!--- * [Exercises for lecture 2](./assets/exercises/Lec2_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 3](./assets/exercises/Lec3_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 4](./assets/exercises/Lec4_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec4_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 5](./assets/exercises/Lec5_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec5_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 6](./assets/exercises/Lec6_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 7](./assets/exercises/Lec7_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises_with_Answers.Rmd)].
-* [Exercises for lecture 8](./assets/exercises/Lec8_Exercises.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)].
-[Answers](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises_with_Answers.Rmd)].
--->
-
+<!---
+[[html](./assets/exercises/Lec8_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec8_Exercises.nb.html)]
+[[solutions]] (./assets/exercises/Lec8_Exercises_with_Answers.nb.html)] 
+--->.
 
 ## [](#tut) Introductory Tutorials
 

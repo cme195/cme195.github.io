@@ -34,11 +34,11 @@ your system.
 
 ## [](#installRStudio) Installing RStudio
 
-Install the latest version of [RStudio](https://www.rstudio.com/) 1.0.153.
+Install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/#download).
 RStudio includes many cool features including  interactive [R
-Notebooks](http://rmarkdown.rstudio.com/r_notebooks.html), which are R Markdown
-document with chunks of code that can be executed independently and
-interactively, with output visible immediately beneath the input.
+Notebooks](http://rmarkdown.rstudio.com/r_notebooks.html), and
+an [integrated terminal](https://www.rstudio.com/resources/webinars/terminal-updates/)
+window.
 
 * Visit the following
 [RStudio link](https://www.rstudio.com/products/rstudio/download/#download)

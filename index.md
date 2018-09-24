@@ -16,7 +16,7 @@ environment provided in the installation tab.
 * Time: Tue, Thu 12:00 - 1:20pm
 * Dates: 9/27, 10/2, 10/4, 10/9, 10/11, 10/16, 10/18 and 10/23.
 
-**Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
+**Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
 
 **Office hours:** Mon 3pm, [Huang Basement Student Area](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang)
 

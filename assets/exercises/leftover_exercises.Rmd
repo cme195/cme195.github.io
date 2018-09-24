@@ -140,3 +140,98 @@ chosenVars <- c("COUNT.FEMALE", "COUNT.MALE", "COUNT.GENDER.UNKNOWN")
 filename <- "~/Desktop/Demographics_small.csv"
 write.csv(demographics[, chosenVars], file = filename, row.names = FALSE)
 ```
+
+
+# Lecture 3
+
+## Exercise 3: Merging
+
+Consider the two data-frames below:
+
+```{r}
+elections <- data.frame(
+  year = rep(c(2016, 2012, 2008, 2004, 2000), each = 2),
+  name = c("Hillary Clinton", "Donald Trump", "Barack Obama", "Mitt Romney",
+           "Barack Obama", "John McCain", "John Kerry", "George W. Bush",
+           "Al Gore", "George W. Bush"),
+  party = rep(c("Democratic", "Republican"), 5),
+  state = c("NY", "NY", "IL", "MA", "IL", "AZ", "MA", "TX", "TN", "TX"),
+  stringsAsFactors = FALSE
+)
+elections
+```
+
+```{r}
+personal <- data.frame(
+  name = c("Hillary Clinton", "Donald Trump", "Barack Obama", "Mitt Romney",
+           "John McCain", "George W. Bush"),
+  spouse = c("Bill Clinton", "Melania Knauss", "Michelle Robinson", "Ann Davies",
+             "Cindy Hensley", "Laura Welch"),
+  year = c(1975, 2005, 1992, 1969, 1980, 1977),
+  children = c(1, 5, 2, 5, 7, 2), stringsAsFactors = FALSE
+)
+personal
+```
+
+a. Merge the two data tables so that you have all the entries from dataset 
+'election' but for each candidate you have personal information added.
+
+Merge 'personal' to 'elections' the two data tables using `left_join()`
+
+```{r}
+elections %>% left_join(personal)
+```
+
+Observe what happened to the "year" columns.
+
+Note also, that this did not quite get a reasonable result as `left_join()`
+by default merges two tables by ALL shared variables, so in this case
+"name" AND "year". However, "year" in two data-frames here mean two different 
+things, one is the election year and the other is the year married.
+What we really want is to **merge by** "name" only.
+
+```{r}
+# Note that you need to use QUOTATION marks
+elections %>% left_join(personal, by = "name")
+```
+
+We can do the reverse operatio and merge 'elections' to 'personal':
+
+```{r}
+# Note that this gives you fewer rows:
+personal %>% left_join(elections, by = "name")
+```
+
+b. Imagine that you have two data-frames where the columns you want to merge
+by do not share the same name like in the example below. Try to merge
+the two datasets now, by using appropriate input arguments to `left_join()`.
+
+```{r}
+elections <- data.frame(
+  year = rep(c(2016, 2012, 2008, 2004, 2000), each = 2),
+  candidate = c("Hillary Clinton", "Donald Trump", "Barack Obama", "Mitt Romney",
+           "Barack Obama", "John McCain", "John Kerry", "George W. Bush",
+           "Al Gore", "George W. Bush"),
+  party = rep(c("Democratic", "Republican"), 5),
+  state = c("NY", "NY", "IL", "MA", "IL", "AZ", "MA", "TX", "TN", "TX")
+)
+elections
+```
+
+```{r}
+personal <- data.frame(
+  name = c("Hillary Clinton", "Donald Trump", "Barack Obama", "Mitt Romney",
+           "John McCain", "George W. Bush"),
+  spouse = c("Bill Clinton", "Melania Knauss", "Michelle Robinson", "Ann Davies",
+             "Cindy Hensley", "Laura Welch"),
+  year = c(1975, 2005, 1992, 1969, 1980, 1977),
+  children = c(1, 5, 2, 5, 7, 2)
+)
+personal
+```
+
+```{r}
+elections %>% left_join(personal, by = c("candidate" = "name"))
+```
+
+

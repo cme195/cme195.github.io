@@ -42,13 +42,13 @@ Date: 10/11/2017
 
 .reveal .small2 {
   display: inline-block;
-  font-size: 0.7em;
+  font-size: 0.5em;
   vertical-align: top;}
 
 /*********************************************
  * R Code
  *********************************************/
-/* code */
+/* code output */
  .reveal pre {   
   display: block;
   justify-content: center;
@@ -58,23 +58,26 @@ Date: 10/11/2017
   margin-bottom: 1em; 
   /*margin: 20px auto; */
   max-width: 100%;
-  font-size: 0.8em;
+  font-size: 0.7em;
+  line-height: 1em;
   white-space: pre-wrap;
   vertical-align: middle;
   border: 1px solid #ccc;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  padding: 5px;
 }
 
-/* code output */
+/* code  */
 .reveal pre code {
   max-width: 100%;
   display: block; 
   font-size: 0.7em;
-  line-height: 1em;
+  line-height: 1.15em;
   background-color: white;
   overflow: auto;
   max-height: none;
   word-wrap: normal;
+  padding: 5px;
 }
 
 /* inline code */
@@ -114,7 +117,7 @@ Date: 10/11/2017
   font-weight: 600;
   font-size: 2em;
   line-height: 1.2;
-  padding-bottom: 10px;
+  ing-bottom: 10px;
   text-shadow: none; }
 
 .reveal h2 {
@@ -162,3 +165,13 @@ Date: 10/11/2017
   text-align: left;                   /* left align */
 }
 
+.reveal blockquote {
+     width: 90%;
+     border: 1px solid #ccc;
+     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3)
+     /* border-color: #ef420d;
+     border-width: 5px 5px 5px 5px;
+     border-style: solid solid solid solid; */
+     padding: 5px 5px 5px 5px;
+     background-color: #eee;
+ }

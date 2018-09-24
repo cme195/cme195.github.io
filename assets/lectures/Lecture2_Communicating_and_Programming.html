@@ -690,7 +690,7 @@ $$\sqrt{\alpha^2 + \beta^2} = \frac{\gamma}{2}$$</code></pre>
 <p>You can evealuate R code in a middle of your text:</p>
 <pre><code>  There are 26 in the alphabet, and 12 months in each year. 
   Today, there are `as.Date(&quot;2019-08-23&quot;) - Sys.Date()` days left till my next birthday.</code></pre>
-<p>There are 26 in the alphabet, and 12 months in a year. Today, there are 334 days left till my next birthday.</p>
+<p>There are 26 in the alphabet, and 12 months in a year. Today, there are 333 days left till my next birthday.</p>
 </section><section id="more-on-r-markdown" class="slide level2">
 <h2>More on R Markdown</h2>
 <p>R Markdown is relatively young, and growing rapidly.</p>
@@ -997,7 +997,7 @@ get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <h2>Exercise 1</h2>
 <p></br></p>
 <ul>
-<li><p>Go to “Lec2_ex.Rmd” in RStudio.</p></li>
+<li><p>Go to “Lec2_Exercises.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 1.</p></li>
 </ul>
 </section></section>
@@ -1038,15 +1038,15 @@ mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <spa
 <h2>Calling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 3.995883 
-##  SD =  1.04007</code></pre>
+<pre><code>## Mean = 4.032558 
+##  SD =  1.010826</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
 y<span class="op">$</span>mean</code></pre></div>
-<pre><code>## [1] 3.995883</code></pre>
+<pre><code>## [1] 4.032558</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
-<pre><code>## [1] 1.04007</code></pre>
+<pre><code>## [1] 1.010826</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
 </section><section id="apply-lapply-sapply-functions" class="slide level2">
@@ -1063,13 +1063,13 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 <p>In the example below we obtain column sums of matrix <code>X</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   22    4   16   18   29    2
-## [2,]   14    6    8   25   21    3
-## [3,]   15   30    7    9    5   28
-## [4,]   27    1   20   26   23   12
-## [5,]   10   13   19   24   11   17</code></pre>
+## [1,]   25   18   28   17   15   16
+## [2,]    1    5   27   10    4   13
+## [3,]   30    6   29   23    2   20
+## [4,]   24   11    8   12   21    9
+## [5,]   26    7    3   19   14   22</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1]  88  54  70 102  89  62</code></pre>
+<pre><code>## [1] 106  47  95  81  56  80</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
 <h2>apply function</h2>
@@ -1079,19 +1079,19 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   22    4   16   18   29    2
-## [2,]   14    6    8   25   21    3
-## [3,]   15   30    7    9    5   28
-## [4,]   27    1   20   26   23   12
-## [5,]   10   13   19   24   11   17</code></pre>
+## [1,]   25   18   28   17   15   16
+## [2,]    1    5   27   10    4   13
+## [3,]   30    6   29   23    2   20
+## [4,]   24   11    8   12   21    9
+## [5,]   26    7    3   19   14   22</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
 <span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="dv">10</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]  222   42  162  182  292   22
-## [2,]  142   62   82  252  212   32
-## [3,]  152  302   72   92   52  282
-## [4,]  272   12  202  262  232  122
-## [5,]  102  132  192  242  112  172</code></pre>
+## [1,]  252  182  282  172  152  162
+## [2,]   12   52  272  102   42  132
+## [3,]  302   62  292  232   22  202
+## [4,]  242  112   82  122  212   92
+## [5,]  262   72   32  192  142  222</code></pre>
 </div>
 <div class="right" ,="" style="width: 50%">
 <ul>
@@ -1102,9 +1102,9 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 17.6 10.8 14.0 20.4 17.8 12.4</code></pre>
+<pre><code>## [1] 21.2  9.4 19.0 16.2 11.2 16.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 17.7 10.9 14.1 20.5 17.9 12.5</code></pre>
+<pre><code>## [1] 21.3  9.5 19.1 16.3 11.3 16.1</code></pre>
 </div>
 </section><section id="lapplysapply-functions" class="slide level2">
 <h2>lapply/sapply functions</h2>
@@ -1164,7 +1164,7 @@ word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span c
 <h2>Exercise 2 and 3</h2>
 <p></br></p>
 <ul>
-<li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
+<li><p>Go back to “Lec2_Exercises.Rmd” in RStudio.</p></li>
 <li><p>Do Exercise 2 and 3.</p></li>
 </ul>
 </section></section>
