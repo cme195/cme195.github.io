@@ -13,37 +13,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
                       cache = FALSE, tidy = FALSE, size = "small")
 ```
 
-# Execise 1: Apply family functions
-
-## Part 1
-Below we print six first rows of the built-in dataset, `mtcars`, 
-from the 1974 Motor Trend US magazine, which comprises information
-on the fuel consumption and 10 aspects of automobile design 
-and performance for 32 selected car models. 
-
-```{r}
-head(mtcars)
-```
-
-Use `apply()` function to find the standard deviation and the 0.8-quantile  
-of each of the automobile characteristic.
-
-## Part 2
-
-Below is a vector of dates in year 2017.
-
-```{r}
-set.seed(1234)
-y2017 <- seq(as.Date("2017-01-01", format = "%Y-%m-%d"), 
-             as.Date("2017-12-31", format = "%Y-%m-%d"), 
-             "days")
-# Shuffle days of the year randomly
-y2017.shuffled <- sample(y2017)
-length(y2017.shuffled)
-```
-
-Use an `apply` family function to return the number of weeks
-left from each day in `y2017.shuffled` to the New Year, 2018/01/01.
 
 
 # Execise 2: Data manipulation

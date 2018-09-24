@@ -497,15 +497,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Contents</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
-<li>Communicating:
+<li>Working with R:
 <ul>
-<li>RStudio</li>
-<li>R Markdown</li>
+<li>Using RStudio</li>
+<li>Communicating<br />
+with R Markdown</li>
 </ul></li>
 <li>Programming
 <ul>
 <li>Syntax</li>
-<li>File input/output</li>
 <li>Control flow statements</li>
 <li>Functions</li>
 </ul></li>
@@ -515,7 +515,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><img src="Lecture2-figure/data-science.png", width="950"></img></p>
 </div>
 </section>
-<section><section id="rstudio" class="titleslide slide level1"><h1>RStudio</h1></section><section id="rstudio-window" class="slide level2">
+<section><section id="using-rstudio" class="titleslide slide level1"><h1>Using RStudio</h1></section><section id="rstudio-window" class="slide level2">
 <h2>RStudio window</h2>
 <p><img src="Lecture2-figure/RStudio_window.png",  width="1000"></img></p>
 </section><section id="rstudio-preferences" class="slide level2">
@@ -541,7 +541,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr">R Sweave</a> enables the embedding of <strong>R code within LaTeX documents</strong>.</p></li>
 <li><p><a href="http://rmarkdown.rstudio.com/formats.html">Other</a> documents</p></li>
 </ul>
-</section><section id="r-markdown" class="slide level2">
+</section></section>
+<section><section id="communicating-with-r-markdown" class="titleslide slide level1"><h1>Communicating with R Markdown</h1></section><section id="r-markdown" class="slide level2">
 <h2>R Markdown</h2>
 <p>R Markdown provides an unified authoring framework for data science, combining your code, its results, and your prose commentary.</p>
 <p>R Markdown was designed to be used:</p>
@@ -559,82 +560,205 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="r-markdown-sourse-files" class="slide level2">
 <h2>R Markdown sourse files</h2>
 <p>R Markdown files are a plain text files with “.Rmd” extension.</p>
-<p><img src="Lecture2-figure/rmarkdown-source.png", width="800"></img></p>
-<p>The documents must contain <strong>the front matter</strong> marked with dashes. You can ass both <strong>code chunks</strong> and <strong>plain text</strong>. Sections and subsections are marked with hashtags.</p>
-</section><section id="working-with-code-chunks" class="slide level2">
-<h2>Working with code chunks</h2>
+<pre><code>    ---
+    title: &quot;Title of my first document&quot;
+    date: &quot;2018-09-27&quot;
+    output: html_document
+    ---
+    
+    # Section title
+    
+    ```{r chunk-name, include = FALSE}
+    library(tidyverse)
+    summary(cars)
+    ```
+    
+    ## Subsection title
+    
+    ```{r pressure, echo=FALSE}
+    plot(pressure)
+    ```
+    
+    Note that the `echo = FALSE` parameter was added to the code chunk to 
+    prevent printing of the R code that generated the plot.
+</code></pre>
+<p>The documents must contain <strong>YAML header</strong> marked with dashes. You can ass both <strong>code chunks</strong> and <strong>plain text</strong>. Sections and subsections are marked with hashtags.</p>
+</section><section id="compiling-r-markdown-files" class="slide level2">
+<h2>Compiling R Markdown files</h2>
+<p>To produce a complete report containing all text, code, and results:</p>
+<ul>
+<li><p>In RStudio, click on “Knit” or press <code>Cmd/Ctrl</code> <code>+</code> <code>Shift + K</code>.</p></li>
+<li><p>From the R command line, type rmarkdown::render(“filename.Rmd”)</p></li>
+</ul>
+<p>This will display the report in the viewer pane, and create a self-contained HTML file that you can share with others.</p>
+<p>After compiling the R Markdown document from the previous slide, you get <a href="https://cme195.github.io/assets/lectures/test_rmd.html">this html</a>.</p>
+</section><section id="viewing-the-report-in-rstudio" class="slide level2">
+<h2>Viewing the report in RStudio</h2>
+<p><img src="Lecture2-figure/rmarkdown-viewer.png", width="1000"></img></p>
+</section><section id="yaml-header" class="slide level2">
+<h2>YAML header</h2>
+<p>A YAML header is a set of <code>key: value</code> pairs at the start of your file. Begin and end the header with a line of three dashes (- - -), e.g.</p>
+<pre><code>---
+title: &quot;Untitled&quot;
+author: &quot;Anonymous&quot;
+output: html_document
+---</code></pre>
+<p>You can tell R Markdown what type of document you want to render: <code>html_document</code> (default), <code>pdf_document</code>, <code>word_document</code>, <code>beamer_presentation</code> etc.</p>
+<p>You can print a table of contents (toc) with the following:</p>
+<pre><code>---
+title: &quot;Untitled&quot;
+author: &quot;Anonymous&quot;
+output: 
+  html_document:
+    toc: true
+---</code></pre>
+</section><section id="text-in-r-markdown" class="slide level2">
+<h2>Text in R Markdown</h2>
+<p>In “.Rmd” files, prose is written in Markdown, a lightweight markup language with plain text files formating syntax.</p>
+<p>Section headers/titles:</p>
+<pre><code># 1st Level Header
+
+## 2nd Level Header
+
+### 3rd Level Header</code></pre>
+<p>Text formatting:</p>
+<pre><code>*italic* or _italic_
+**bold** __bold__
+
+`code`
+superscript^2^ and subscript~2~</code></pre>
+</section><section id="text-in-r-markdown-1" class="slide level2">
+<h2>Text in R Markdown</h2>
+<p>Lists:</p>
+<pre><code>* unordered list
+* item 2
+    + sub-item 1
+    + sub-item 2 
+    
+1. ordered list 
+1. item 2. The numbers are incremented automatically in the output.</code></pre>
+<p>Links and images:</p>
+<pre><code>&lt;http://example.com&gt; 
+
+[linked phrase](http://example.com)
+
+![optional caption text](path/to/img.png)</code></pre>
+</section><section id="text-in-r-markdown-2" class="slide level2">
+<h2>Text in R Markdown</h2>
+<p>Tables:</p>
+<pre><code>Table Header | Second Header
+-------------| -------------
+Cell 1       | Cell 2
+Cell 3       | Cell 4 
+</code></pre>
+<p>Math formulae</p>
+<pre><code>$\alpha$ is the first letter of the Greek alphabet.
+
+Using $$ prints a centered equation in the new line.
+
+$$\sqrt{\alpha^2 + \beta^2} = \frac{\gamma}{2}$$</code></pre>
+</section><section id="code-chunks" class="slide level2">
+<h2>Code chunks</h2>
+<p>In R Markdown R code must go inside code chunks, e.g.:</p>
+<pre><code>  ```{r chunk-name}
+      x &lt;- runif(10)
+      y &lt;- 10 * x + 4
+      plot(x, y)
+  ```</code></pre>
 <p><br/></p>
 <p>Keyboard shortcuts:</p>
 <ul>
-<li><p>Insert a new code chunk: <strong>Ctrl + Alt + I</strong> (Mac OS: <strong>Cnd + Option + I</strong>)</p></li>
-<li><p>Run the current chunk: <strong>Ctrl + Shift + Enter</strong> (Mac OS: <strong>Cmd + Shift + Enter</strong>)</p></li>
-<li><p>Run the current statement (the line where the cursor is) <strong>Ctrl + Enter</strong> (Mac OS: <strong>Cmd + Enter</strong>)</p></li>
+<li><p>Insert a new code chunk: <strong><code>Ctrl/Cmd + Alt + I</code></strong></p></li>
+<li><p>Run current chunk: <strong><code>Ctrl/Cmd + Shift + Enter</code></strong></p></li>
+<li><p>Run current line (where the cursor is): <strong><code>Ctrl/Cmd + Enter</code></strong></p></li>
 </ul>
+</section><section id="chunk-options" class="slide level2">
+<h2>Chunk Options:</h2>
+<p>Chunk output can be customized with options supplied to chunk header. Some non-default options are:</p>
+<ul>
+<li><code>eval = FALSE</code> : prevents code from being evaluated</li>
+<li><code>include = FALSE</code> : runs the code, but hides code and its output in the final document</li>
+<li><code>echo = FALSE</code> : hides the code, but not the results, in the final document</li>
+<li><code>message = FALSE</code> : hides messages</li>
+<li><code>warning = FALSE</code> : hides warnings</li>
+<li><code>results = ‘hide’</code> : hides printed output</li>
+<li><code>fig.show = ‘hide’</code> : hides plots</li>
+<li><code>error = TRUE</code> : does not stop rendering if error occurs</li>
+</ul>
+</section><section id="inline-code" class="slide level2">
+<h2>Inline code</h2>
+<p>You can evealuate R code in a middle of your text:</p>
+<pre><code>  There are 26 in the alphabet, and 12 months in each year. 
+  Today, there are `as.Date(&quot;2019-08-23&quot;) - Sys.Date()` days left till my next birthday.</code></pre>
+<p>There are 26 in the alphabet, and 12 months in a year. Today, there are 334 days left till my next birthday.</p>
+</section><section id="more-on-r-markdown" class="slide level2">
+<h2>More on R Markdown</h2>
+<p>R Markdown is relatively young, and growing rapidly.</p>
+<p>Official R Markdown website: (<a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>)</p>
+<p>Further reading and references:</p>
+<ul>
+<li><a href="http://www.stat.cmu.edu/~cshalizi/rmarkdown" class="uri">http://www.stat.cmu.edu/~cshalizi/rmarkdown</a></li>
+<li><a href="http://r4ds.had.co.nz" class="uri">http://r4ds.had.co.nz</a></li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
+</ul>
+</section><section id="some-r-markdown-advice" class="slide level2">
+<h2>Some R Markdown advice</h2>
+<ul>
+<li>See your future self as a collaborator.</li>
+<li>Ensure each notebook has a descriptive title and name.</li>
+<li>Use the header date to record start time</li>
+<li>Keep track of failed attempts</li>
+<li>If you discover an error in a data file, write code to fix it.</li>
+<li>Regularly knit the notebook</li>
+<li>Use random seeds before sampling.</li>
+<li>Keep track the versions of the packages you use, e.g. by including <code>sessionInfo()</code> command at the end of your document.</li>
+</ul>
+<p>All the above will help you increase the reproduciblity of your work.</p>
 </section></section>
-<section><section id="syntax" class="titleslide slide level1"><h1>Syntax</h1></section><section id="style-guide" class="slide level2">
+<section><section id="programming-syntax" class="titleslide slide level1"><h1>Programming: Syntax</h1></section><section id="style-guide" class="slide level2">
 <h2>Style Guide</h2>
 <ul>
 <li>There are two main style conventions used in R:
 <ul>
-<li><a href="http://adv-r.had.co.nz/Style.html">Hadley Wickam style</a></li>
-<li><a href="https://google.github.io/styleguide/Rguide.xml">Google R style</a></li>
+<li><p><a href="http://adv-r.had.co.nz/Style.html">Hadley Wickam style</a></p></li>
+<li><p><a href="https://google.github.io/styleguide/Rguide.xml">Google R style</a></p></li>
 </ul></li>
-<li>You can use either of the two style guides or create your own customized style.</li>
-<li>But you should stay <strong>consistent</strong>, e.g. if you choose to assign variables with <code>&lt;-</code>, stick to it and don’t use <code>=</code>.</li>
+<li><p>You can use either of the two style guides or create your own customized style.</p></li>
+<li><p>But you should stay <strong>consistent</strong>, e.g. if you choose to assign variables with <code>&lt;-</code>, stick to it and don’t use <code>=</code>.</p></li>
 </ul>
-</section><section id="identifiers" class="slide level2">
-<h2>Identifiers</h2>
-<p><strong>Google Convention:</strong></p>
+</section><section id="curly-braces" class="slide level2">
+<h2>Curly braces</h2>
+<div class="left" ,="" style="width: 50%">
 <ul>
-<li>No underscores ( _ ) or hyphens ( - ) in identifiers.</li>
-<li><strong>Variable names</strong> all with lower case letters; words separated with dots (‘variable.name’), but ‘variableName’ is also accepte</li>
-<li><strong>Function names</strong> have initial capital letters and no dots (‘FunctionName’). Function names should be verbs. Constants are named like functions but with an initial k.</li>
+<li>An opening curly brace “<code>{</code>” should not go on its own line and be followed by a new line.</li>
+<li>A closing curly “<code>}</code>” brace can go on its own line.</li>
+<li>Indent the code inside curly braces.</li>
+<li>It’s ok to leave very short statements on the same line</li>
 </ul>
+</div>
+<div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-avg.clicks            <span class="co"># variable name</span>
-CalculateAvgClicks    <span class="co"># function name</span>
-<span class="co"># Bad</span>
-avg_Clicks                                 <span class="co"># variable name</span>
-calculate_avg_clicks , calculateAvgClicks  <span class="co"># function name</span></code></pre></div>
-</section><section id="identifiers-1" class="slide level2">
-<h2>Identifiers</h2>
-<p><strong>Hadley Convention:</strong></p>
-<ul>
-<li>Variable and function names should be lowercase.</li>
-<li>Use an underscore (_) to separate words within a name.</li>
-<li>Generally, variable names should be nouns and function names should be verbs.</li>
-<li>Use names that are concise and meaningful.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-day_one
-day_<span class="dv">1</span>
+<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) {
+  <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
+}
+<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">log</span>(x)
+} <span class="cf">else</span> {
+  y <span class="op">^</span><span class="st"> </span>x
+}
 
 <span class="co"># Bad</span>
-first_day_of_the_month
-DayOne
-dayone
-djm1</code></pre></div>
-</section><section id="spacing" class="slide level2">
-<h2>Spacing</h2>
-<ul>
-<li><p>Place spaces around all infix operators (=, +, -, &lt;-, etc.).</p></li>
-<li><p>Always put a space after a comma, and never before (just like in regular English).</p></li>
-<li><p>Place a space before left parentheses, except in a function call.</p></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-average &lt;-<span class="st"> </span><span class="kw">mean</span>(feet <span class="op">/</span><span class="st"> </span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span>inches, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-<span class="cf">if</span> (debug) <span class="kw">do</span>(x)
-<span class="kw">plot</span>(x, y)
-<span class="cf">if</span> (debug) <span class="kw">do</span>(x)
-diamonds[<span class="dv">5</span>, ]
+<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug)
+<span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
 
-<span class="co"># Bad</span>
-average&lt;-<span class="kw">mean</span>(feet<span class="op">/</span><span class="dv">12</span><span class="op">+</span>inches,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-<span class="cf">if</span>(debug)<span class="kw">do</span>(x)
-<span class="kw">plot</span> (x, y)
-<span class="cf">if</span> ( debug ) <span class="kw">do</span>(x)  <span class="co"># No spaces around debug</span>
-x[<span class="dv">1</span>,]               <span class="co"># Needs a space after the comma</span>
-x[<span class="dv">1</span> ,]              <span class="co"># Space goes after comma not before</span></code></pre></div>
+<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">log</span>(x)
+} 
+<span class="cf">else</span> {
+  y <span class="op">^</span><span class="st"> </span>x
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)</code></pre></div>
+</div>
 </section><section id="code-documentation" class="slide level2">
 <h2>Code Documentation</h2>
 <div class="left" ,="" style="width: 50%">
@@ -663,175 +787,8 @@ get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load data ---------------------------</span>
 <span class="co"># Plot data ---------------------------</span></code></pre></div>
 </div>
-</section><section id="curly-braces" class="slide level2">
-<h2>Curly braces</h2>
-<div class="left" ,="" style="width: 40%">
-<ul>
-<li>An opening curly brace “<code>{</code>” should never go on its own line and should always be followed by a new line.</li>
-<li>A closing curly “<code>}</code>” brace should always go on its own line, unless it’s followed by else.</li>
-<li>Always indent the code inside curly braces.</li>
-<li>It’s ok to leave very short statements on the same line</li>
-</ul>
-</div>
-<div class="right" ,="" style="width: 60%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
-<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) {
-  <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
-}
-<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-  <span class="kw">log</span>(x)
-} <span class="cf">else</span> {
-  y <span class="op">^</span><span class="st"> </span>x
-}
-
-<span class="co"># Bad</span>
-<span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug)
-<span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)
-
-<span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
-  <span class="kw">log</span>(x)
-} 
-<span class="cf">else</span> {
-  y <span class="op">^</span><span class="st"> </span>x
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)</code></pre></div>
-</div>
 </section></section>
-<section><section id="file-inputoutput" class="titleslide slide level1"><h1>File Input/Output</h1></section><section id="working-directory" class="slide level2">
-<h2>Working Directory</h2>
-<div class="left" ,="" style="width: 50%">
-<ul>
-<li><p>The <strong>current working directory</strong> (cmd) is the location which R is currently pointing to</p></li>
-<li><p>Whenever you try to read or save a file without specifying the path explicitly, the cmd will be used by default.</p></li>
-<li><p>When are executing code from an R markdown/notebook code chunk, the cmd is <strong>the location of the document</strong>.</p></li>
-</ul>
-</div>
-<div class="right" ,="" style="width: 50%">
-<ul>
-<li>To see the current working directory use <code>getwd()</code>:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()   <span class="co"># with no arguments</span></code></pre></div>
-<pre><code>## [1] &quot;/home/lanhuong/MEGA/Teaching/cme195_intro_to_R/cme195.github.io/assets/lectures&quot;</code></pre>
-<ul>
-<li>To change the working directory use <code>setwd(path_name)</code> with a specified path as na argument:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;path/to/directory&quot;</span>)</code></pre></div>
-</div>
-</section><section id="paths-and-directory-names" class="slide level2">
-<h2>Paths and directory names</h2>
-<ul>
-<li><p>In Windows, a directory usually has an address of the following form: <code>C:\Users\lan\folder</code>.</p></li>
-<li><p>R inherits its file and folder naming conventions from unix, and instead uses forward slashes instead of backslashes, e.g. <code>C:/Users/lan/folder/</code></p></li>
-<li><p>The Mac OSX already uses the unix standards, the address is usually of the form: <code>/home/lan/folder/</code>.</p></li>
-<li><p>So, when working in R use the forward slashes “/”.</p></li>
-<li><p>Actually for Windows, you can use either “<code>C:/Path/To/A/File</code>” or “<code>C:\\Path\\To\\A\\File</code>”.</p></li>
-</ul>
-</section><section id="paths-and-directory-names-1" class="slide level2">
-<h2>Paths and directory names</h2>
-<ul>
-<li><p>R uses forward slashes for the directories, because backslashes serve a different purpose. They are used as escape characters to isolate special characters and stop them from being immediately interpreted.</p></li>
-<li><p>To avoid problems, directory names should NOT contain spaces and special characters.</p></li>
-<li><p>Use a “<code>Tab</code>” for autocompletion to find file paths more easily.</p></li>
-</ul>
-</section><section id="data-import" class="slide level2">
-<h2>Data import</h2>
-<ul>
-<li><p><strong>Text Files in a table format</strong> can be read and saved to a selected variable using a <code>read.table()</code> function. Use <code>?read.table</code> to learn more about the function.</p></li>
-<li><p>A common text file format is a <strong>comma delimited text file</strong>, <code>.csv</code>. These files use a comma as column separators, e.g:</p></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Year,Student,Major
-<span class="dv">2009</span>, John Doe,Statistics
-<span class="dv">2009</span>, Bart Simpson, Mathematics I</code></pre></div>
-<ul>
-<li>To read these files use the following command:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;path/to/filename.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>,  <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
-<span class="co"># read.csv() has covenient argument defaults for &#39;.csv&#39; files</span>
-mydata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;path/to/filename.csv&quot;</span>)</code></pre></div>
-<ul>
-<li>Optionally, use <code>row.names</code> or <code>col.names</code> arguments to set the row and column names.</li>
-</ul>
-</section><section id="data-import-1" class="slide level2">
-<h2>Data import</h2>
-<ul>
-<li><strong>Excel files</strong>. To read the excel files you need to first install a package “xlsx”. Simply run <code>install.packages(&quot;xlsx&quot;)</code>.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first row contains variable names</span>
-<span class="kw">library</span>(xlsx)
-<span class="co"># read the 1st worksheet</span>
-mydata &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="st">&quot;/path/to/filename.xlsx&quot;</span>, <span class="dv">1</span>)  
-
-<span class="co"># read in the worksheet named mysheet</span>
-mydata &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="st">&quot;/path/to/filename.xlsx&quot;</span>, <span class="dt">sheetName =</span> <span class="st">&quot;mysheet&quot;</span>)</code></pre></div>
-<ul>
-<li><strong>SAS files</strong>. You need to install the <code>Hmisc</code> or <code>foreign</code> packages first.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># First, save your SAS dataset in trasport (xport) format</span>
-libname out xport <span class="st">&#39;path/to/filename.xpt&#39;</span>;
-data out.mydata;
-set sasuser.mydata;
-run;
-
-<span class="co"># Then, in R </span>
-<span class="kw">library</span>(Hmisc)
-mydata &lt;-<span class="st"> </span><span class="kw">sasxport.get</span>(<span class="st">&quot;path/to/filename.xpt&quot;</span>)
-<span class="co"># character variables are converted to R factors</span>
-<span class="co"># or</span>
-<span class="kw">library</span>(foreign)
-mydata &lt;-<span class="st"> </span><span class="kw">read.xport</span>(<span class="st">&quot;path/to/filename.xpt&quot;</span>)</code></pre></div>
-</section><section id="data-export" class="slide level2">
-<h2>Data export</h2>
-<ul>
-<li><strong>Text files</strong>:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(mydata, <span class="st">&quot;path/to/filename.txt&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)  <span class="co"># tab-delimited</span>
-<span class="kw">write.table</span>(mydata, <span class="st">&quot;path/to/filename.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)   <span class="co"># comma-delimited</span>
-<span class="kw">write.csv</span>(mydata, <span class="st">&quot;path/to/filename.csv&quot;</span>)              <span class="co"># comma-delimited</span></code></pre></div>
-<ul>
-<li><strong>Excel spreadsheet</strong>:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xlsx)
-<span class="kw">write.xlsx</span>(mydata, <span class="st">&quot;path/to/filename.xlsx&quot;</span>)</code></pre></div>
-<ul>
-<li><strong>SAS</strong> files:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write out text datafile and an SAS program to read it</span>
-<span class="kw">library</span>(foreign)
-<span class="kw">write.foreign</span>(mydata, <span class="dt">datafile =</span> <span class="st">&quot;path/to/filename.txt&quot;</span>, 
-              <span class="dt">codefile =</span> <span class="st">&quot;path/to/filename.sas&quot;</span>,  <span class="dt">package=</span><span class="st">&quot;SAS&quot;</span>)</code></pre></div>
-<p>Here are links to more details on data <a href="http://www.statmethods.net/input/importingdata.html">import</a> and <a href="http://www.statmethods.net/input/exportingdata.html">export</a>.</p>
-</section><section id="saving-the-workspace" class="slide level2">
-<h2>Saving the workspace</h2>
-<ul>
-<li><p>You can choose to <strong>save all objects</strong> currently in the workspace (variables, functions, etc.) into a file e.g. <code>filename.rda</code>.</p></li>
-<li><p>The file <code>filename.rda</code> can be loaded next time you work with R.</p></li>
-<li><p>You can also save a single object or a subset of specified objects currently in the workspace.</p></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save the workspace to file </span>
-<span class="kw">save.image</span>(<span class="dt">file =</span> <span class="st">&quot;path/to/filename.rda&quot;</span>)
-
-<span class="co"># save specific objects to a file</span>
-<span class="kw">save</span>(object_list, <span class="dt">file =</span> <span class="st">&quot;path/to/filename.rda&quot;</span>)
-
-<span class="co"># save just a single object</span>
-<span class="kw">saveRDS</span>(object, <span class="dt">file =</span> <span class="st">&quot;path/to/filename.rds&quot;</span>)</code></pre></div>
-<ul>
-<li>Saved objects/workspace can be loaded back in a new R session.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load a workspace into the current session</span>
-<span class="kw">load</span>(<span class="st">&quot;path/to/filename.rda&quot;</span>)
-
-<span class="co"># read just the previously saved 1 object</span>
-object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;path/to/filename.rds&quot;</span>)</code></pre></div>
-</section><section id="exercise-1" class="slide level2">
-<h2>Exercise 1</h2>
-<ul>
-<li><p>Download “Lec2_ex.Rmd” file from the Lectures tab on class website.</p></li>
-<li><p>Open the file in RStudio.</p></li>
-<li><p>Do Exercise 1.</p></li>
-</ul>
-</section></section>
-<section><section id="control-flow" class="titleslide slide level1"><h1>Control flow</h1></section><section id="booleanslogicals" class="slide level2">
+<section><section id="programming-control-flow" class="titleslide slide level1"><h1>Programming: Control flow</h1></section><section id="booleanslogicals" class="slide level2">
 <h2>Booleans/logicals</h2>
 <div class="left" ,="" style="width: 50%">
 <p><strong>Booleans</strong> are logical data types (TRUE/FALSE) associated with conditional statements, which allow different actions and change control flow.</p>
@@ -1036,15 +993,15 @@ object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class
 ## [1] &quot;i is now:  4&quot;
 ## [1] &quot;i is now:  5&quot;
 ## [1] &quot;Coming out from for loop Where i =  6&quot;</code></pre>
-</section><section id="exercise-2" class="slide level2">
-<h2>Exercise 2</h2>
+</section><section id="exercise-1" class="slide level2">
+<h2>Exercise 1</h2>
 <p></br></p>
 <ul>
-<li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
-<li><p>Do Exercise 2.</p></li>
+<li><p>Go to “Lec2_ex.Rmd” in RStudio.</p></li>
+<li><p>Do Exercise 1.</p></li>
 </ul>
 </section></section>
-<section><section id="functions" class="titleslide slide level1"><h1>Functions</h1></section><section id="functions-1" class="slide level2">
+<section><section id="programming-functions" class="titleslide slide level1"><h1>Programming: Functions</h1></section><section id="functions" class="slide level2">
 <h2>Functions</h2>
 <ul>
 <li><p>A <strong>function</strong> is a procedure/routine that performs a specific task.</p></li>
@@ -1081,23 +1038,134 @@ mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <spa
 <h2>Calling functions</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 4.084375 
-##  SD =  0.9819282</code></pre>
+<pre><code>## Mean = 3.995883 
+##  SD =  1.04007</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
 y<span class="op">$</span>mean</code></pre></div>
-<pre><code>## [1] 4.084375</code></pre>
+<pre><code>## [1] 3.995883</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
-<pre><code>## [1] 0.9819282</code></pre>
+<pre><code>## [1] 1.04007</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
 y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
-</section><section id="exercise-3" class="slide level2">
-<h2>Exercise 3</h2>
+</section><section id="apply-lapply-sapply-functions" class="slide level2">
+<h2>apply, lapply, sapply functions</h2>
+<ul>
+<li><p>The <code>apply</code> family functions, are <strong>functions which manipulate slices of data</strong> stored as matrices, arrays, lists and data-frames <strong>in a repetitive way</strong>.</p></li>
+<li><p>These functions <strong>avoid the explicit use of loops</strong>, and might be <strong>more computationally efficient</strong>, depending on how big a dataset is. For more details on runtimes see this <a href="https://www.r-bloggers.com/gnu-r-loop-speed-comparison/">link</a>.</p></li>
+<li><p><code>apply</code> allow you to perform operations with <strong>very few lines of code.</strong></p></li>
+<li><p>The family comprises: <strong>apply, lapply , sapply, vapply, mapply, rapply, and tapply</strong>. The difference lies in the structure of input data and the desired format of the output).</p></li>
+</ul>
+</section><section id="apply-function" class="slide level2">
+<h2>apply function</h2>
+<p><code>apply</code> operates on arrays/matrices.</p>
+<p>In the example below we obtain column sums of matrix <code>X</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]   22    4   16   18   29    2
+## [2,]   14    6    8   25   21    3
+## [3,]   15   30    7    9    5   28
+## [4,]   27    1   20   26   23   12
+## [5,]   10   13   19   24   11   17</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
+<pre><code>## [1]  88  54  70 102  89  62</code></pre>
+<p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
+</section><section id="apply-function-1" class="slide level2">
+<h2>apply function</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]   22    4   16   18   29    2
+## [2,]   14    6    8   25   21    3
+## [3,]   15   30    7    9    5   28
+## [4,]   27    1   20   26   23   12
+## [5,]   10   13   19   24   11   17</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
+<span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="dv">10</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) </code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]  222   42  162  182  292   22
+## [2,]  142   62   82  252  212   32
+## [3,]  152  302   72   92   52  282
+## [4,]  272   12  202  262  232  122
+## [5,]  102  132  192  242  112  172</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<ul>
+<li>The function can be defined outside <code>apply()</code>,</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
+  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>eps
+  <span class="kw">return</span>(<span class="kw">mean</span>(x))
+}
+<span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
+<pre><code>## [1] 17.6 10.8 14.0 20.4 17.8 12.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
+<pre><code>## [1] 17.7 10.9 14.1 20.5 17.9 12.5</code></pre>
+</div>
+</section><section id="lapplysapply-functions" class="slide level2">
+<h2>lapply/sapply functions</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to elements of a sequential object</strong> such as a vector, list, or data-frame (applies to columns).</p></li>
+<li><p>The <strong>output is a list</strong> with the same number of elements as the input object.</p></li>
+<li><p><code>sapply</code> is the same as <code>lapply</code> but <strong>returns a “simplified” output</strong>.</p></li>
+<li><p>user-defined functions can be used with <code>sapply/lapply</code></p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lapply returns a list</span>
+<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 4
+## 
+## [[3]]
+## [1] 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which you can &#39;simplify&#39; with unlist()</span>
+<span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or you could use sapply() instead</span>
+<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+</div>
+</section><section id="mapply-functions" class="slide level2">
+<h2>mapply functions</h2>
+<ul>
+<li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
+<li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
+word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
+<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## $A
+## [1] &quot;AAAAAA&quot;
+## 
+## $B
+## [1] &quot;BBBBB&quot;
+## 
+## $C
+## [1] &quot;CCCC&quot;
+## 
+## $D
+## [1] &quot;DDD&quot;
+## 
+## $E
+## [1] &quot;EE&quot;
+## 
+## $F
+## [1] &quot;F&quot;</code></pre>
+</section><section id="exercise-2-and-3" class="slide level2">
+<h2>Exercise 2 and 3</h2>
 <p></br></p>
 <ul>
 <li><p>Go back to “Lec2_ex.Rmd” in RStudio.</p></li>
-<li><p>Do Exercise 3.</p></li>
+<li><p>Do Exercise 2 and 3.</p></li>
 </ul>
 </section></section>
     </div>

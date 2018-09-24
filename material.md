@@ -9,7 +9,7 @@ layout: cme195
 Communicating and Programming:
 
 **Lecture 1:** Introduction to R [[html](./assets/lectures/Lecture1_Intro.html)]
-[[pdf](./assets/lectures/Lecture 1_ Introduction to R.pdf)].
+[[pdf](./assets/lectures/Lecture1_Intro.pdf)].
 **Lecture 2:** Communicating with R Markdown. Elements of programming in R.
 
 Exploratory Data Analysis:

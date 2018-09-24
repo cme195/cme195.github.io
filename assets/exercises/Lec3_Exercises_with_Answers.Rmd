@@ -14,56 +14,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 library(dplyr)
 ```
 
-# Execise 1: Apply family functions
 
-## Part 1
-Below we print six first rows of the built-in dataset, `mtcars`, 
-from the 1974 Motor Trend US magazine, which comprises information
-on the fuel consumption and 10 aspects of automobile design 
-and performance for 32 selected car models. 
-
-```{r}
-head(mtcars)
-```
-
-Use `apply()` function to find the standard deviation and the 0.8-quantile  
-of each of the automobile characteristic.
-
-```{r}
-apply(mtcars, 2, function(x) sd(x))
-```
-
-
-```{r}
-apply(mtcars, 2, function(x) { quantile(x, 0.8)})
-```
-
-## Part 2
-
-Below is a vector of dates in year 2017.
-
-```{r}
-set.seed(1234)
-y2017 <- seq(as.Date("2017-01-01", format = "%Y-%m-%d"), 
-             as.Date("2017-12-31", format = "%Y-%m-%d"), 
-             "days")
-# Shuffle days of the year randomly
-y2017.shuffled <- sample(y2017)
-length(y2017.shuffled)
-```
-
-Use an `apply` family function to return the number of weeks
-left from each day in `y2017.shuffled` to the New Year, 2018/01/01.
-
-```{r}
-ny2018 <- as.Date("2018-01-01", format = "%Y-%m-%d")
-weeks.to.2018 <- sapply(y2017.shuffled, function(d) ceiling((ny2018 - d)/7))
-names(weeks.to.2018) <- y2017.shuffled
-weeks.to.2018[1:5]
-```
-
-
-# Execise 2: Data manipulation
+# Execise 1: Data manipulation
 
 ## Part 1: `dplyr` verbs
 

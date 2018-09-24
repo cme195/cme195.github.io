@@ -1,0 +1,142 @@
+---
+title: "Leftover Exercises"
+output: html_document
+---
+
+# Lecture 2:
+
+## Execise 1: Data import/export
+
+### Part 1.1
+Download the file containing data from the 1974 Motor Trend US magazine, 
+and comprises fuel consumption and 10 aspects of automobile design and p
+erformance for 32 automobiles (1973–74 models) from the following URL:
+"https://cme195.github.io/assets/data/mtcars.txt"
+to your "~/Desktop" directory.
+
+**NOTE** "destfile" argument specifies the path and the name of the file 
+you want to download the data to.
+**Windows users need to be careful with path specification**.
+For you, the path should look something like this "C:/Users/YourUserName/Desktop".
+
+```{r}
+# You should change the "~/Desktop/mtcars.txt" to a path that works for your OS.
+download.file(url = "https://cme195.github.io/assets/data/mtcars.txt",
+              destfile = "~/Desktop/mtcars.txt")
+```
+
+Use the following command and check that your file is indeed in your "~/Desktop"
+```{r}
+list.files("~/Desktop/")
+```
+
+a. Specify the path to your the file you just downloaded in a variable
+called "path2file".
+
+```{r}
+path2file <- "~/Desktop/mtcars.txt"
+```
+  
+
+Use the `file.show()` command to see the structure of the file.
+
+```{r}
+file.show(path2file)
+```
+
+Note that the file is tab-delimited. Use suitable argument specifications
+to import the data to variable variable "mtcars".
+
+```{r}
+mtcars <- read.table(path2file, header = TRUE, sep = "\t")
+```
+
+
+b. Check the content of your data with `str()`, `head()`,
+and `summary()` function.
+
+```{r}
+head(mtcars)
+```
+
+```{r}
+str(mtcars)
+```
+
+```{r}
+summary(mtcars)
+```
+
+
+c. Check the dimensions of your data.
+
+```{r}
+dim(mtcars)
+```
+
+
+d. Print the variables in your data.
+
+```{r}
+colnames(mtcars)
+```
+
+
+
+### Part 1.2
+
+Now we will download another dataset on New York's Demographic statistics 
+broken down by zip code, from the following URL:
+"https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
+again to your "~/Desktop" directory.
+**Again, Windows users should use path names such as
+"C:/Users/YourUserName/Desktop"**.
+
+```{r}
+download.file(url = "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv",
+              destfile = "~/Desktop/Demographic_Statistics_By_Zip_Code.csv")
+```
+
+a. Re-assign the path to the newly downloaded file to the variable "path2file"
+
+```{r}
+path2file <- "~/Desktop/Demographic_Statistics_By_Zip_Code.csv"
+```
+
+Again, inspect the file with the `file.show()` command.
+
+```{r}
+file.show(path2file)
+```
+
+Note, that this would not be good to display larger files. An alternative
+to see the first few lines of a file is to use a `scan()` function:
+
+```{r}
+scan(file = path2file, what = "", sep = "\n", nlines = 10)
+```
+
+b. Since, the data is comma-delimited you can use `read.csv()` function
+to import the data to variable "demographics", or alternatively use
+`read.table()` with suitable arguments:
+
+```{r}
+demographics <- read.csv(path2file)
+```
+
+c. Use command `head()` to print out the first few rows of the data:
+
+```{r}
+head(demographics)
+```
+
+
+c. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN",
+and save the data in a file named "Demographics_small.csv"
+in the same directory.
+
+```{r}
+chosenVars <- c("COUNT.FEMALE", "COUNT.MALE", "COUNT.GENDER.UNKNOWN")
+filename <- "~/Desktop/Demographics_small.csv"
+write.csv(demographics[, chosenVars], file = filename, row.names = FALSE)
+```

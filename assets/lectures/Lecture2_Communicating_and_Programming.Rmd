@@ -28,12 +28,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 ## Contents
 
 <div class="left", style="width: 50%">
-  - Communicating: 
-    * RStudio
-    * R Markdown
+- Working with R: 
+    * Using RStudio
+    * Communicating \
+    with R Markdown
 - Programming 
     * Syntax
-    * File input/output
     * Control flow statements
     * Functions
 </div>
@@ -44,8 +44,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
   
 
 
-# RStudio 
-
+# Using RStudio 
 
 ## RStudio window
 
@@ -99,6 +98,8 @@ enables the embedding of **R code within LaTeX documents**.
 - [Other](http://rmarkdown.rstudio.com/formats.html) documents
 
 
+# Communicating with R Markdown
+
 ## R Markdown
 
 R Markdown provides an unified authoring framework for data science, combining 
@@ -127,162 +128,260 @@ both your work and your thought process.
 
 R Markdown files are a plain text files with ".Rmd" extension. 
 
-<img src="./Lecture2-figure/rmarkdown-source.png", width="800"></img> 
+```
+    ---
+    title: "Title of my first document"
+    date: "2018-09-27"
+    output: html_document
+    ---
+    
+    # Section title
+    
+    ```{r chunk-name, include = FALSE}`r ''`
+    library(tidyverse)
+    summary(cars)
+    ```
+    
+    ## Subsection title
+    
+    ```{r pressure, echo=FALSE}`r ''`
+    plot(pressure)
+    ```
+    
+    Note that the `echo = FALSE` parameter was added to the code chunk to 
+    prevent printing of the R code that generated the plot.
 
-The documents must contain **the front matter** marked with dashes.
+```
+
+The documents must contain **YAML header** marked with dashes.
 You can ass both **code chunks** and **plain text**. Sections and subsections 
 are marked with hashtags.
 
 
-## Working with code chunks
+## Compiling R Markdown files
+
+To produce a complete report containing all text, code, and results:
+
+- In RStudio, click on "Knit" or press `Cmd/Ctrl` `+` `Shift + K`.
+
+- From the R command line, type rmarkdown::render("filename.Rmd")
+
+This will display the report in the viewer pane, and create a self-contained
+HTML file that you can share with others.
+
+After compiling the R Markdown document from the previous slide,
+you get [this html](https://cme195.github.io/assets/lectures/test_rmd.html).
+
+## Viewing the report in RStudio
+
+<img src="./Lecture2-figure/rmarkdown-viewer.png", width="1000"></img> 
+
+## YAML header 
+
+A YAML header is a set of `key: value` pairs at the start of your file. 
+Begin and end the header with a line of three dashes (- - -), e.g.
+
+```
+---
+title: "Untitled"
+author: "Anonymous"
+output: html_document
+---
+```
+
+You can tell R Markdown what type of document you want to render: 
+`html_document` (default), `pdf_document`, `word_document`, 
+`beamer_presentation` etc. 
+
+You can print a table of contents (toc) with the following:
+
+```
+---
+title: "Untitled"
+author: "Anonymous"
+output: 
+  html_document:
+    toc: true
+---
+```
+
+## Text in R Markdown
+
+In ".Rmd" files, prose is written in Markdown, a lightweight markup language
+with plain text files formating syntax.
+
+Section headers/titles:
+
+```
+# 1st Level Header
+
+## 2nd Level Header
+
+### 3rd Level Header
+```
+
+Text formatting:
+
+```
+*italic* or _italic_
+**bold** __bold__
+
+`code`
+superscript^2^ and subscript~2~
+```
+
+## Text in R Markdown
+
+Lists:
+
+```
+* unordered list
+* item 2
+    + sub-item 1
+    + sub-item 2 
+    
+1. ordered list 
+1. item 2. The numbers are incremented automatically in the output.
+```
+
+Links and images:
+
+```
+<http://example.com> 
+
+[linked phrase](http://example.com)
+
+![optional caption text](path/to/img.png)
+```
+
+## Text in R Markdown
+
+Tables:
+
+```
+Table Header | Second Header
+-------------| -------------
+Cell 1       | Cell 2
+Cell 3       | Cell 4 
+
+```
+
+Math formulae
+
+```
+$\alpha$ is the first letter of the Greek alphabet.
+
+Using $$ prints a centered equation in the new line.
+
+$$\sqrt{\alpha^2 + \beta^2} = \frac{\gamma}{2}$$
+```
+
+
+
+## Code chunks
+
+In R Markdown R code must go inside code chunks, e.g.:
+
+```
+  ```{r chunk-name}`r ''`
+      x <- runif(10)
+      y <- 10 * x + 4
+      plot(x, y)
+  ```
+```
 
 <br/>
 
 Keyboard shortcuts:
 
-- Insert a new code chunk: **Ctrl + Alt + I** (Mac OS: **Cnd + Option + I**)
+- Insert a new code chunk: **`Ctrl/Cmd + Alt + I`**
 
-- Run the current chunk: **Ctrl + Shift + Enter** (Mac OS: **Cmd + Shift + Enter**) 
+- Run current chunk: **`Ctrl/Cmd + Shift + Enter`** 
 
-- Run the current statement (the line where the cursor is) **Ctrl + Enter** 
-(Mac OS: **Cmd + Enter**) 
+- Run current line (where the cursor is): **`Ctrl/Cmd + Enter`** 
 
 
-# Syntax
+## Chunk Options:
+
+Chunk output can be customized with options supplied to chunk header.
+Some non-default options are:
+
+- `eval = FALSE` : prevents code from being evaluated
+- `include = FALSE` : runs the code, but hides code and its output in the final
+document
+- `echo = FALSE` : hides the code, but not the results, in the final document
+- `message = FALSE` : hides messages
+- `warning = FALSE` : hides warnings
+- `results = ‘hide’` : hides printed output
+- `fig.show = ‘hide’` : hides plots
+- `error = TRUE` : does not stop rendering if error occurs
+
+## Inline code
+
+You can evealuate R code in a middle of your text:
+
+```
+  There are `r length(letters)` in the alphabet, and `r length(month.abb)` months in each year. 
+  Today, there are `as.Date("2019-08-23") - Sys.Date()` days left till my next birthday.
+```
+
+There are `r length(letters)` in the alphabet, and `r length(month.abb)`
+months in a year. Today, there are `r as.Date("2019-08-23") - Sys.Date()`
+days left till my next birthday.
+
+## More on R Markdown
+
+R Markdown is relatively young, and growing rapidly.
+
+Official R Markdown website: (http://rmarkdown.rstudio.com)
+
+Further reading and references:
+
+- http://www.stat.cmu.edu/~cshalizi/rmarkdown
+- http://r4ds.had.co.nz
+- https://www.rstudio.com/resources/cheatsheets/
+
+## Some R Markdown advice
+
+- See your future self as a collaborator.
+- Ensure each notebook has a descriptive title and name. 
+- Use the header date to record start time
+- Keep track of failed attempts
+- If you discover an error in a data file, write code to fix it.
+- Regularly knit the notebook 
+- Use random seeds before sampling.
+- Keep track the versions of the packages you use, e.g.
+by including `sessionInfo()` command at the end of your document.
+
+All the above will help you increase the reproduciblity of your work.
+
+# Programming: Syntax
 
 ## Style Guide
 
 * There are two main style conventions used in R:
     + [Hadley Wickam style](http://adv-r.had.co.nz/Style.html)
+    
     + [Google R style](https://google.github.io/styleguide/Rguide.xml)
+    
 * You can use either of the two style guides or create your own customized style.
+
 * But you should stay **consistent**, e.g. if you choose to assign variables 
 with `<-`, stick to it and don't use `=`.
 
 
-
-## Identifiers 
-
-**Google Convention:** 
-
-* No underscores ( _ ) or hyphens ( - ) in identifiers. 
-* **Variable names** all with lower case letters; words separated with dots 
-('variable.name'), but 'variableName' is also accepte
-* **Function names** have initial capital letters and no dots 
-('FunctionName'). Function names should be verbs. Constants are named like 
-functions but with an initial k.
-
-```{r, eval = FALSE}
-# Good
-avg.clicks            # variable name
-CalculateAvgClicks    # function name
-# Bad
-avg_Clicks                                 # variable name
-calculate_avg_clicks , calculateAvgClicks  # function name
-```
-
-## Identifiers 
-
-**Hadley Convention:**
-
-- Variable and function names should be lowercase. 
-- Use an underscore (_) to separate words within a name. 
-- Generally, variable names should be nouns and function names should be verbs. 
-- Use names that are concise and meaningful. 
-
-```{r eval = FALSE}
-# Good
-day_one
-day_1
-
-# Bad
-first_day_of_the_month
-DayOne
-dayone
-djm1
-```
-
-
-## Spacing
-
-- Place spaces around all infix operators (=, +, -, <-, etc.). 
-
-- Always put a space after a comma, and never before (just like in regular English).
-
-- Place a space before left parentheses, except in a function call.
-
-```{r eval = FALSE}
-# Good
-average <- mean(feet / 12 + inches, na.rm = TRUE)
-if (debug) do(x)
-plot(x, y)
-if (debug) do(x)
-diamonds[5, ]
-
-# Bad
-average<-mean(feet/12+inches,na.rm=TRUE)
-if(debug)do(x)
-plot (x, y)
-if ( debug ) do(x)  # No spaces around debug
-x[1,]               # Needs a space after the comma
-x[1 ,]              # Space goes after comma not before
-```
-
-
-## Code Documentation 
-
-<div class="left", style="width: 50%">
-
-- Comment your code! They will be helpful when you read 
-your code a month after you wrote it.
-
-- In R each line of a comment should begin with a comment symbol "`# `". 
-
-```{r}
-# Function returns the answer to life, 
-# the universe and everything else
-get_answer <- function(){
-  return(42)
-}
-```
-
-</div>
-
-<div class="right", style="width: 50%">
-
-- Comments are not subtitles, i.e. don't repeat the code in the comments.
-
-```{r, eval = FALSE}
-# Loop through all bananas in the bunch
-for(banana in bunch) {
-  # make the monkey eat one banana
-  MonkeyEat(b)  
-}
-```
-
-- Use commented lines of - and = to break up your file into easily readable chunks.
-
-```{r, eval = FALSE}
-# Load data ---------------------------
-# Plot data ---------------------------
-```
-
-</div>
-
 ## Curly braces
 
-<div class="left", style="width: 40%">
-
--  An opening curly brace "`{`" should never go on its own line and should 
-always be followed by a new line. 
-- A closing curly "`}`" brace should always go on its own line, unless it’s 
-followed by else.
-- Always indent the code inside curly braces.
+<div class="left", style="width: 50%">
+- An opening curly brace "`{`" should not go on its own line and 
+be followed by a new line. 
+- A closing curly "`}`" brace can go on its own line.
+- Indent the code inside curly braces.
 - It’s ok to leave very short statements on the same line
 
 </div>
 
-<div class="right", style="width: 60%">
+<div class="right", style="width: 50%">
 
 ```{r eval = FALSE}
 # Good
@@ -313,199 +412,48 @@ if (y < 0 && debug) message("Y is negative")
 
 </div>
 
-# File Input/Output
-
-
-## Working Directory
+## Code Documentation 
 
 <div class="left", style="width: 50%">
+  
+  - Comment your code! They will be helpful when you read 
+your code a month after you wrote it.
 
-- The **current working directory** (cmd) is the location
-which R is currently pointing to
+- In R each line of a comment should begin with a comment symbol "`# `". 
 
-- Whenever you try to read or save a file without specifying 
-the path explicitly, the cmd will be used by default.
-
-- When are executing code from an R markdown/notebook code chunk, 
-the cmd is **the location of the document**.
-
-</div>
-
-<div class="right", style="width: 50%">
-
-- To see the current working directory use `getwd()`:
 ```{r}
-getwd()   # with no arguments
+# Function returns the answer to life, 
+# the universe and everything else
+get_answer <- function(){
+  return(42)
+}
 ```
 
-- To change the working directory use `setwd(path_name)` 
-with a specified path as na argument:
-```{r eval = FALSE}
-setwd("path/to/directory")
+</div>
+  
+  <div class="right", style="width: 50%">
+  
+  - Comments are not subtitles, i.e. don't repeat the code in the comments.
+
+```{r, eval = FALSE}
+# Loop through all bananas in the bunch
+for(banana in bunch) {
+  # make the monkey eat one banana
+  MonkeyEat(b)  
+}
 ```
+
+- Use commented lines of - and = to break up your file into easily readable chunks.
+
+```{r, eval = FALSE}
+# Load data ---------------------------
+# Plot data ---------------------------
+```
+
 </div>
 
 
-## Paths and directory names
-
-- In Windows, a directory usually has an address of the following form: `C:\Users\lan\folder`.
-
-- R inherits its file and folder naming conventions from unix, and instead uses forward slashes
-instead of backslashes, e.g. `C:/Users/lan/folder/`
-
-- The Mac OSX already uses the unix standards, the address is usually of the form: `/home/lan/folder/`.
-
-- So, when working in R use the forward slashes "/".
-
-- Actually for Windows, you can use either "`C:/Path/To/A/File`" or "`C:\\Path\\To\\A\\File`".
-
-
-## Paths and directory names
-
-- R uses forward slashes for the directories, because backslashes serve 
-a different purpose. They are used as escape characters to isolate special 
-characters and stop them from being immediately interpreted.
-
-- To avoid problems, directory names should NOT contain spaces and special characters.
-
--  Use a "`Tab`" for autocompletion to find file paths more easily. 
-
-
-
-## Data import 
-
-
-- **Text Files in a table format** can be read and saved 
-to a selected variable using a `read.table()` function.
-Use `?read.table` to learn more about the function.
-
-- A common text file format is a **comma delimited text file**,
-`.csv`. These files use a comma as column separators, e.g:
-
-```{r eval = FALSE}
-Year,Student,Major
-2009, John Doe,Statistics
-2009, Bart Simpson, Mathematics I
-```
-
-- To read these files use the following command:
-
-```{r eval=FALSE}
-mydata <- read.table("path/to/filename.csv", header=TRUE,  sep = ",")
-# read.csv() has covenient argument defaults for '.csv' files
-mydata <- read.csv("path/to/filename.csv")
-```
-
-- Optionally, use `row.names` or `col.names` arguments
-to set the row and column names.
-
-
-## Data import 
-
-- **Excel files**. To read the excel files you need
-to first install a package "xlsx". Simply run 
-`install.packages("xlsx")`.
-
-```{r eval = FALSE}
-# first row contains variable names
-library(xlsx)
-# read the 1st worksheet
-mydata <- read.xlsx("/path/to/filename.xlsx", 1)  
-
-# read in the worksheet named mysheet
-mydata <- read.xlsx("/path/to/filename.xlsx", sheetName = "mysheet")
-```
-
-- **SAS files**. You need to install the `Hmisc` or `foreign` 
-packages first.
-
-```{r eval = FALSE}
-# First, save your SAS dataset in trasport (xport) format
-libname out xport 'path/to/filename.xpt';
-data out.mydata;
-set sasuser.mydata;
-run;
-
-# Then, in R 
-library(Hmisc)
-mydata <- sasxport.get("path/to/filename.xpt")
-# character variables are converted to R factors
-# or
-library(foreign)
-mydata <- read.xport("path/to/filename.xpt")
-```
-
-
-## Data export
-
-- **Text files**:
-```{r eval = FALSE}
-write.table(mydata, "path/to/filename.txt", sep="\t")  # tab-delimited
-write.table(mydata, "path/to/filename.csv", sep=",")   # comma-delimited
-write.csv(mydata, "path/to/filename.csv")              # comma-delimited
-```
-
-- **Excel spreadsheet**:
-
-```{r eval = FALSE}
-library(xlsx)
-write.xlsx(mydata, "path/to/filename.xlsx")
-```
-
-- **SAS** files:
-```{r eval = FALSE}
-# write out text datafile and an SAS program to read it
-library(foreign)
-write.foreign(mydata, datafile = "path/to/filename.txt", 
-              codefile = "path/to/filename.sas",  package="SAS")
-```
-
-Here are links to more details on data 
-[import](http://www.statmethods.net/input/importingdata.html)
-and [export](http://www.statmethods.net/input/exportingdata.html). 
-
-## Saving the workspace
-
-- You can choose to **save all objects** currently in the workspace
-(variables, functions, etc.) into a file e.g. `filename.rda`.
-
-- The file `filename.rda` can be loaded next time you work with R.
-
-- You can also save a single object or a subset of specified
-objects currently in the workspace.
-
-```{r eval = FALSE}
-# save the workspace to file 
-save.image(file = "path/to/filename.rda")
-
-# save specific objects to a file
-save(object_list, file = "path/to/filename.rda")
-
-# save just a single object
-saveRDS(object, file = "path/to/filename.rds")
-```
-
-- Saved objects/workspace can be loaded back in a new R session.
-
-```{r eval = FALSE}
-# load a workspace into the current session
-load("path/to/filename.rda")
-
-# read just the previously saved 1 object
-object <- readRDS("path/to/filename.rds")
-```
-
-
-## Exercise 1
-
-- Download "Lec2_ex.Rmd" file from the Lectures tab on class website.
-
-- Open the file in RStudio.
-
-- Do Exercise 1.
-
-
-# Control flow
+# Programming: Control flow
 
 ## Booleans/logicals
 
@@ -731,16 +679,16 @@ for (i in 1:10)  {
 ```
 
 
-## Exercise 2
+## Exercise 1
 
 </br>
 
-- Go back to "Lec2_ex.Rmd" in RStudio.
+- Go to "Lec2_ex.Rmd" in RStudio.
 
-- Do Exercise 2.
+- Do Exercise 1.
 
 
-# Functions
+# Programming: Functions
 
 ## Functions
 
@@ -819,13 +767,123 @@ y <- mysummary(print=FALSE, x = x)
 ```
 
 
-## Exercise 3
+## apply, lapply, sapply functions
+
+- The `apply` family functions, are 
+**functions which manipulate slices of data**
+stored as matrices, arrays, lists and data-frames 
+**in a repetitive way**. 
+
+- These functions **avoid the explicit use of loops**, and might 
+be **more computationally efficient**, depending on how big a dataset is. 
+For more details on runtimes see this [link](https://www.r-bloggers.com/gnu-r-loop-speed-comparison/).
+
+- `apply` allow you to perform operations with 
+**very few lines of code.**
+
+- The family comprises: **apply, lapply , sapply, vapply, 
+mapply, rapply, and tapply**. The difference lies in the structure
+of input data and the desired format of the output).
+
+
+## apply function
+
+`apply` operates on arrays/matrices. 
+
+In the example below we obtain column sums of matrix `X`.
+
+```{r}
+(X <- matrix(sample(30), nrow = 5, ncol = 6))
+apply(X, MARGIN = 2 , FUN = sum)
+```
+
+**Note:** that in a matrix `MARGIN = 1` indicates rows and `MARGIN = 2`
+indicates columns.
+
+
+## apply function
+
+
+<div class="left", style="width: 50%">
+- `apply` can be used with **user-defined functions**:
+
+```{r}
+print(X)
+
+# number entries < 15
+apply(X, 2, function(x) 10*x + 2) 
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+- The function can be defined outside `apply()`,
+
+
+```{r}
+logColMeans <- function(x, eps = NULL) {
+  if (!is.null(eps)) x <- x + eps
+  return(mean(x))
+}
+apply(X, 2, logColMeans) 
+apply(X, 2, logColMeans, eps = 0.1) 
+```
+
+</div>
+
+## lapply/sapply functions
+
+<div class="left", style="width: 50%">
+
+- `lapply()` is used to **repeatedly apply a function to 
+elements of a sequential object** such as a vector, list, 
+or data-frame (applies to columns).
+
+- The **output is a list** with the same number of 
+elements as the input object.
+
+- `sapply` is the same as `lapply` but **returns a "simplified" output**.
+
+- user-defined functions can be used with `sapply/lapply`
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+# lapply returns a list
+lapply(1:3, function(x) x^2)
+# which you can 'simplify' with unlist()
+unlist(lapply(1:3, function(x) x^2))
+# Or you could use sapply() instead
+sapply(1:3, function(x) x^2)
+```
+
+</div>
+
+ 
+## mapply functions
+
+
+- `mapply` stands for 'multivariate' apply.  It **applies a function
+to a multiple list or multiple vectors as arguments**. 
+- The goal is to vectorize arguments to a function which usually 
+does not accept vectors as arguments. 
+
+```{r}
+# function word() returns a string of character C repeated k times.
+word <- function(C,k) paste(rep.int(C,k), collapse='')
+mapply(word, LETTERS[1:6], 6:1, SIMPLIFY = FALSE)
+```
+
+
+## Exercise 2 and 3
 
 </br>
 
 - Go back to "Lec2_ex.Rmd" in RStudio.
 
-- Do Exercise 3.
+- Do Exercise 2 and 3.
 
 
 

@@ -8,95 +8,9 @@ output:
 ---
 
 
-# Execise 1: Data import/export
+# Execise 1: Control Flow 
 
 ## Part 1.1
-Download the file containing data from the 1974 Motor Trend US magazine, 
-and comprises fuel consumption and 10 aspects of automobile design and p
-erformance for 32 automobiles (1973–74 models) from the following URL:
-"https://cme195.github.io/assets/data/mtcars.txt"
-to your "~/Desktop" directory.
-
-**NOTE** "destfile" argument specifies the path and the name of the file 
-you want to download the data to.
-**Windows users need to be careful with path specification**.
-For you, the path should look something like this "C:/Users/YourUserName/Desktop".
-
-```{r}
-# You should change the "~/Desktop/mtcars.txt" to a path that works for your OS.
-download.file(url = "https://cme195.github.io/assets/data/mtcars.txt",
-              destfile = "~/Desktop/mtcars.txt")
-```
-
-Use the following command and check that your file is indeed in your "~/Desktop"
-```{r}
-list.files("~/Desktop/")
-```
-
-a. Specify the path to your the file you just downloaded in a variable
-called "path2file".
-
-Use the `file.show()` command to see the structure of the file.
-
-Note that the file is tab-delimited. Use suitable argument specifications
-to import the data to variable variable "mtcars".
-
-b. Check the content of your data with `str()`, `head()`,
-and `summary()` function.
-
-c. Check the dimensions of your data.
-
-
-d. Print the variables in your data.
-
-
-## Part 1.2
-
-Now we will download another dataset on New York's Demographic statistics 
-broken down by zip code, from the following URL:
-"https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv"
-again to your "~/Desktop" directory.
-**Again, Windows users should use path names such as
-"C:/Users/YourUserName/Desktop"**.
-
-```{r}
-download.file(url = "https://cme195.github.io/assets/data/Demographic_Statistics_By_Zip_Code.csv",
-              destfile = "~/Desktop/Demographic_Statistics_By_Zip_Code.csv")
-```
-
-Re-assign the path to the newly downloaded file to the variable "path2file"
-
-```{r}
-path2file <- "~/Desktop/Demographic_Statistics_By_Zip_Code.csv"
-```
-
-Again, inspect the file with the `file.show()` command.
-
-```{r}
-file.show(path2file)
-```
-
-Note, that this would not be good to display larger files. An alternative
-to see the first few lines of a file is to use a `scan()` function:
-
-```{r}
-scan(file = path2file, what = "", sep = "\n", nlines = 10)
-```
-
-a. Since, the data is comma-delimited you can use `read.csv()` function
-to import the data to variable "demographics", or alternatively use
-`read.table()` with suitable arguments:
-
-b. Use command `head()` to print out the first few rows of the data.
-
-c. Choose only the columns: "COUNT.FEMALE", "COUNT.MALE",  "COUNT.GENDER.UNKNOWN",
-and save the data in a file named "Demographics_small.csv"
-in the same directory.
-
-
-# Execise 2: Control Flow 
-
-## Part 2.1
 
 Use a for loop to:
 
@@ -108,7 +22,7 @@ c. Print the numbers 1 to 100 that are divisible by 5 but not by 3.
 
 
 
-## Part 2.2
+## Part 1.2
 
 a. Find all numbers not greater than 10,000 that are divisible by 
 5, 7 and 11 and print them.
@@ -117,9 +31,9 @@ b. Print for each of the numbers x = 2, . . . 20, all numbers that divide x
 (all factors) excluding 1 and x. Hence, for 18, it should print 2 3 6 9.
 
 
-# Execise 3: Functions
+# Execise 2: Functions
 
-## Part 3.1
+## Part 2.1
 
 a.Create a function what will return the number
 of times a given integer is contained a given vector of integers.
@@ -130,33 +44,39 @@ b. Then, generate a random vector of 100
 integers (in a range 1-20) use the function to count the number
 of times the number 12 is in that vector. 
 
-## Part 3.2
+## Part 2.2
 
 Write a function that takes in a data.frame as an input, 
 prints out the column names, and returns its dimensions.
 
-## Extra: 
+# Execise 3: Apply family functions
 
-Create a function that takes an integer as an input, 
-returns how many divisors the integer has (other than 1 and itself),  
-and prints them (divisors) all out. 
-Then, use the function to find the divisors of 173, 1902 and 3777.
+## Part 1
+Below we print six first rows of the built-in dataset, `mtcars`, 
+from the 1974 Motor Trend US magazine, which comprises information
+on the fuel consumption and 10 aspects of automobile design 
+and performance for 32 selected car models. 
 
-# Execise 4: Apply function family
+```{r}
+head(mtcars)
+```
 
-## Part 4.1
+Use `apply()` function to find the standard deviation and the 0.8-quantile  
+of each of the automobile characteristic.
 
-Use `apply` to compute the column means of the `demographics`
-data frame. The results for every column (except the first one)
-are equal to the average number of participants in the category
-indicated by the column name who live in a single jurisdiction/zip code.
+## Part 2
 
-## Part 4.2
+Below is a vector of dates in year 2017.
 
-Using the "COUNT.PARTICIPANTS" column and the rest of the columns, 
-compute the percentage of the female, male, pacific islanders, 
-hispanic latino, american indian, asian non-hispanic, white non -hispanic, 
-black non-hispanic and other ethnicity participants (columns 3-14). 
-Append the percentages to the `demographics` dataset.
+```{r}
+set.seed(1234)
+y2017 <- seq(as.Date("2017-01-01", format = "%Y-%m-%d"), 
+             as.Date("2017-12-31", format = "%Y-%m-%d"), 
+             "days")
+# Shuffle days of the year randomly
+y2017.shuffled <- sample(y2017)
+length(y2017.shuffled)
+```
 
-
+Use an `apply` family function to return the number of weeks
+left from each day in `y2017.shuffled` to the New Year, 2018/01/01.
