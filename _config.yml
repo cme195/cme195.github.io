@@ -1,5 +1,6 @@
 title: CME/STATS 195 Introduction to R
 description: Stanford introductory course on programming in R.
 show_downloads: false
+logo: ./assets/img/R_logo.png
 google_analytics: true
 theme: jekyll-theme-minimal
