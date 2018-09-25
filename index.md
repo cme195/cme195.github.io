@@ -66,9 +66,11 @@ programming experience is encouraged.
 
 ## [](#policy) Course Policy
 
-Grading: 
+Grading (Satisfactory/No Credit):
 
-Satisfactory/No Credit (participation: 20%, homework: 40%, final project: 40%).
+ - participation: 20%, 
+ - homework: 40%, 
+ - final project: 40%.
 
 There will be one homework sets due the third week of class. 
 You are also expected to submit a final project (in groups up to 4 students).
