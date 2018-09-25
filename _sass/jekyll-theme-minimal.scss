@@ -56,7 +56,7 @@ a:hover small {
 }
 
 .wrapper {
-  width:860px;
+  width:1366px;
   margin:0 auto;
 }
 
@@ -106,7 +106,8 @@ img {
 }
 
 header {
-  width:270px;
+  width:30%;
+  min-width:200px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -190,7 +191,8 @@ hr {
 }
 
 footer {
-  width:270px;
+  width:30%;
+  min-width:200px;
   float:left;
   position:fixed;
   bottom:50px;
