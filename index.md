@@ -100,6 +100,6 @@ accommodations, and prepare an Accommodation Letter for faculty. Unless the
 student has a temporary disability, Accommodation letters are issued for the 
 entire academic year. Students should contact the OAE as soon as possible since 
 timely notice is needed to coordinate accommodations. The OAE is located at 
-563 Salvatierra Walk (phone: 723-1066, URL: https://oae.stanford.edu/).
+563 Salvatierra Walk (phone: 723-1066, URL: (https://oae.stanford.edu/)).
 
 
