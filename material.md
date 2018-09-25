@@ -8,7 +8,7 @@ layout: cme195
 
 Communicating and Programming:
 
-**Lecture 1:** Introduction to R.   
+**Lecture 1:** Introduction to R.
 <!---
 [[html](./assets/lectures/Lecture1_Intro.html)]
 [[pdf](./assets/lectures/Lecture1_Intro.pdf)] 
@@ -21,7 +21,7 @@ Communicating and Programming:
 
 Exploratory Data Analysis:  
 
-**Lecture 3:** Importing and tidying data.  
+**Lecture 3:** Importing and tidying data.
 <!---
 [[html](./assets/lectures/Lecture3_Importing_and_Tidying.html)]
 [[pdf](./assets/lectures/Lecture3_Importing_and_Tidying.pdf)] 
@@ -40,25 +40,25 @@ any time. Please check regularly.
 
 ## [](#exe) Exercises  
 
-**Exercise 1**:  
+**Exercise 1:**
 <!---
 [[html](./assets/exercises/Lec1_Exercises.nb.html)]  
 [[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec1_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 2:**  
+**Exercise 2:**
 <!---
 [[html](./assets/exercises/Lec2_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec2_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec2_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 3:**  
+**Exercise 3:**
 <!---
 [[html](./assets/exercises/Lec3_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec3_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec3_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 4:**  
+**Exercise 4:**
 <!---
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec4_Exercises.nb.html)]
@@ -70,19 +70,19 @@ any time. Please check regularly.
 [[rmd](./assets/exercises/Lec5_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 6:**  
+**Exercise 6:**
 <!---
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec6_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 7:**  
+**Exercise 7:**
 <!---
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec7_Exercises.nb.html)]
 [[solutions]] (./assets/exercises/Lec7_Exercises_with_Answers.nb.html)] 
 --->  
-**Exercise 8:**  
+**Exercise 8:**
 <!---
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec8_Exercises.nb.html)]
