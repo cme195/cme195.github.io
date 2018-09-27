@@ -74,7 +74,7 @@ Final project:
 - work in groups up to 4 students
 - title and abstract due the 3rd week of class
 - final report and R code due one week after the last class
-- details can be found on [class website](https://cme195.github.io/project)
+- details can be found on [class website](https://cme195.github.io/assignments)
 
 Late day policy:
 
