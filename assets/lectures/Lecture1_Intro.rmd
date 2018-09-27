@@ -302,35 +302,35 @@ RStudio is open-source and cross-platform (Linux, Mac, Windows).\
 Download and install the latest version for your OS from 
 [the official website](https://www.rstudio.com/products/rstudio/download/#download).
 
-<img src="./Lecture2-figure/RStudio_window.png",  width="1000"></img> 
+<img src="./Lecture1-figure/RStudio_window.png",  width="1000"></img> 
 
 ## RStudio window
 
-<img src="./Lecture2-figure/rstudio-editor.png",  width="1000"></img> 
+<img src="./Lecture1-figure/rstudio-editor.png",  width="1000"></img> 
 
 
 ## RStudio preferences
 
-<img src="./Lecture2-figure/RStudio_preferences.png", width="1000"></img> 
+<img src="./Lecture1-figure/RStudio_preferences.png", width="1000"></img> 
 
 
 
 ## RStudio layout
 
-<img src="./Lecture2-figure/RStudio_layout.png", width="1000"></img> 
+<img src="./Lecture1-figure/RStudio_layout.png", width="1000"></img> 
 
 
 
 ## RStudio apprearance
 
-<img src="./Lecture2-figure/RStudio_appearances.png", width="1000"></img> 
+<img src="./Lecture1-figure/RStudio_appearances.png", width="1000"></img> 
 
 More on RStudio cuztomization can be found [here](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
 
 
 ## R document types
 
-<img src="./Lecture2-figure/RStudio_documents.png", width="1000"></img> 
+<img src="./Lecture1-figure/RStudio_documents.png", width="1000"></img> 
 
 
 ## R document types

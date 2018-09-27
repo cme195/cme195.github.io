@@ -699,23 +699,23 @@ class="center"></img></p>
 <h2>Installing RStudio</h2>
 <p>RStudio is open-source and cross-platform (Linux, Mac, Windows).<br />
 Download and install the latest version for your OS from <a href="https://www.rstudio.com/products/rstudio/download/#download">the official website</a>.</p>
-<p><img src="./Lecture2-figure/RStudio_window.png",  width="1000"></img></p>
+<p><img src="Lecture1-figure/RStudio_window.png",  width="1000"></img></p>
 </section><section id="rstudio-window" class="slide level2">
 <h2>RStudio window</h2>
-<p><img src="./Lecture2-figure/rstudio-editor.png",  width="1000"></img></p>
+<p><img src="Lecture1-figure/rstudio-editor.png",  width="1000"></img></p>
 </section><section id="rstudio-preferences" class="slide level2">
 <h2>RStudio preferences</h2>
-<p><img src="./Lecture2-figure/RStudio_preferences.png", width="1000"></img></p>
+<p><img src="Lecture1-figure/RStudio_preferences.png", width="1000"></img></p>
 </section><section id="rstudio-layout" class="slide level2">
 <h2>RStudio layout</h2>
-<p><img src="./Lecture2-figure/RStudio_layout.png", width="1000"></img></p>
+<p><img src="Lecture1-figure/RStudio_layout.png", width="1000"></img></p>
 </section><section id="rstudio-apprearance" class="slide level2">
 <h2>RStudio apprearance</h2>
-<p><img src="./Lecture2-figure/RStudio_appearances.png", width="1000"></img></p>
+<p><img src="Lecture1-figure/RStudio_appearances.png", width="1000"></img></p>
 <p>More on RStudio cuztomization can be found <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">here</a></p>
 </section><section id="r-document-types" class="slide level2">
 <h2>R document types</h2>
-<p><img src="./Lecture2-figure/RStudio_documents.png", width="1000"></img></p>
+<p><img src="Lecture1-figure/RStudio_documents.png", width="1000"></img></p>
 </section><section id="r-document-types-1" class="slide level2">
 <h2>R document types</h2>
 <ul>
@@ -1385,15 +1385,15 @@ new.employees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 <h2>Factors ordering</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">days.sample &lt;-<span class="st"> </span><span class="kw">sample</span>(days, <span class="dv">5</span>)
 days.sample</code></pre></div>
-<pre><code>## [1] Sat Thu Tue Sun Fri
+<pre><code>## [1] Wed Thu Sun Sat Fri
 ## Levels: Fri Mon Sat Sun Thu Tue Wed</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with given levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days)) </code></pre></div>
-<pre><code>## [1] Sat Thu Tue Sun Fri
+<pre><code>## [1] Wed Thu Sun Sat Fri
 ## Levels: Mon Tue Wed Thu Fri Sat Sun</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with ordered levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] Sat Thu Tue Sun Fri
+<pre><code>## [1] Wed Thu Sun Sat Fri
 ## Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
 <p>Note that factor <strong>labels are not the same as levels</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)
@@ -1412,7 +1412,7 @@ x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">fro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.Date</span>()     <span class="co"># What day  is it? </span></code></pre></div>
 <pre><code>## [1] &quot;2018-09-27&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-27 11:38:35 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-27 11:42:46 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the New Year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2019-01-01&#39;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
 <pre><code>## Time difference of 96 days</code></pre>
