@@ -36,7 +36,7 @@ any time. Please check regularly.
 ## [](#exe) Exercises  
 
 **Exercise 1:**
-[[html](./assets/exercises/Lec1_Exercises.nb.html)]  
+[[html](./assets/exercises/Lec1_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
 [[solutions](./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
 **Exercise 2:**
