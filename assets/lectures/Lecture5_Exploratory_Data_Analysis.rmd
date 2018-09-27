@@ -1,0 +1,776 @@
+---
+title: 'Lecture 5: Exploratory Data Analysis'
+subtitle: 'CME/STATS 195'
+date: "October 11, 2018" 
+author: "Lan Huong Nguyen"
+output: 
+  revealjs::revealjs_presentation:
+    df_print: paged
+    self_contained: false
+    lib_dir: libs
+    theme: simple
+    hightlights: haddock
+    smart: true
+    center: true
+    transition: slide
+    css: ./cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, error = TRUE)
+library(tidyverse)
+library(plotly)
+library(heatmaply)
+library(ggmap)
+library(viridis)
+theme_set(theme_bw())
+theme_update(text = element_text(size = 20))
+```
+
+
+## Contents 
+
+
+<div class="left", style="width: 50%">
+- Data Manipulation
+    + Programming with `purr`
+    + Handling missing values
+    + Merging datasets
+    
+- Exploratory Data Analysis
+    + Variation
+    + Covariation
+
+- Interactive graphics
+
+- Data Export
+
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture4-figure/data-science-explore.png)
+</div>
+
+
+# Data Manipulation
+
+
+## The `purr` package
+
+Package `purrr` is part of the `tidyverse`. Handles tasks similar to
+ones performed by apply-family functions in base R.
+
+It enhances R’s functional programming toolkit by providing a
+complete and consistent set of tools for working with functions and
+vectors.
+`map`-functions allow you to replace many for loops with code that is easier 
+to read.
+
+- `map()`, `map_if()`, `map_at()` returns a list
+- `map_lgl()` returns a logical vector, 
+- `map_int()` returns a integer vector,
+- `map_dbl()` returns a double vector, 
+- `map_chr()` returns a character vector, 
+- `map_dfr()`, `map_dfc()` returns a `data.frame`\
+by binding rows or columns respectively.
+
+
+## The map functions
+
+Example: column-wise mean
+```{r}
+df <- tibble(a=rnorm(10), b=rnorm(10), c=rnorm(10), d=rnorm(10))
+map_dbl(df, mean)                       # or equivalently: df %>% map_dbl(mean)   
+```
+
+Focus is on the operation being performed, not the book-keeping:
+
+- `purrr` functions are implemented in C.
+- the second argument, `.f`, can be a functions, a formula, 
+a character vector, or an integer vector.
+
+```{r}
+map(1:3, ~ rnorm(7, .x))
+```
+
+##
+
+- `map` can pass additional parameters to the function
+
+```{r}
+map_dbl(df, mean, trim = 0.25)
+```
+
+- other inputs/outputs:
+
+<div class="left", style="width: 50%">
+```{r}
+mtcars %>% 
+  split(.$cyl)
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+mtcars %>% 
+  split(.$cyl) %>%
+  map_df(dim)
+```
+</div>
+
+
+
+
+## Base-R maps vs. purrr maps
+
+However, `purrr` is more consistent, so you should learn it.
+
+A quick reference of similar base R functions:
+
+- lapply is basically identical to map
+
+- sapply is a wrapper around lapply and it tries to simplify the output. Downside: you
+never know what you’ll get
+
+- vapply: like sapply, but you can supply an additional argument that defines the type
+
+
+You can learn more about purr here: (http://r4ds.had.co.nz/iteration.html)
+
+# Handling missing values
+
+## Missing values
+
+Two types of missingness
+```{r}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+```
+
+The return for the fourth quarter of 2015 is **explicitly missing**
+
+The return for the first quarter of 2016 is **implicitly missing**
+
+The way that a dataset is represented can make implicit values explicit.
+
+```{r}
+stocks %>% spread(year, return)
+```
+
+## Gathering missing data
+
+Recall the functions we learned from `tidyr` package.
+
+You can used `spread()` and `gather()` to retain only non-missing recored,
+i.e. to turn all explicit missing values into implicit ones.
+
+```{r}
+stocks %>% spread(year, return) %>% 
+  gather(year, return, `2015`:`2016`, na.rm = TRUE)
+```
+
+
+## Completing missing data
+
+`complete()` takes a set of columns, and finds all unique combinations. 
+It then ensures the original dataset contains all those values, **filling 
+in explicit `NA`s** where necessary.
+
+```{r}
+stocks %>% complete(year, qtr)
+```
+
+## Different intepretations of `NA`
+
+Sometimes when a data source has primarily been used for data entry, missing
+values indicate that the previous value should be carried forward:
+
+```{r}
+# tribble() constructs a tibble by filling by rows
+treatment <- tribble(
+  ~ person,           ~ treatment, ~response,
+  "Derrick Whitmore", 1,           7,
+  NA,                 2,           10,
+  NA,                 3,           9,
+  "Katherine Burke",  1,           4
+)
+```
+
+
+You can fill in these missing values with `fill()`
+
+```{r}
+treatment %>% fill(person)
+```
+
+
+# Merging datasets
+
+## Relational data
+
+- Rarely does a data analysis involve only a single table of data.
+
+- Collectively, multiple tables of data are called **relational data** because 
+the relations, not just the individual datasets, that are important.
+
+- Relations are always defined between a pair of tables.
+
+- All other relations are built up from this simple idea: the relations of three 
+or more tables are always a property of the relations between each pair. 
+
+## Example
+
+the `nycflights13` package contains a collection of related datasets.
+
+```{r}
+library(nycflights13)
+```
+
+
+![](./Lecture5-figure/nycflights13.png)
+
+Source: (http://r4ds.had.co.nz/relational-data.html)
+
+## Keys
+
+**A key** is a variable (or set of variables) that uniquely identifies 
+an observation.
+
+*For example, each plane is uniquely determined by its tailnum, but an 
+observation in 'weather' is identified by five variables: `year, month, day`, 
+`hour, and origin`*
+
+**Keys** can be used to connect each pair of tables together.
+
+There are two types of keys:
+
+- **Primary:** identifies an observation in its own table. Example: 
+`planes$tailnum`
+
+- **Foreign:** identifies an observation in another table. Example: 
+`flights$tailnum`, this is because `tailnum` does not enough to identify 
+a record in `flights` dataset.
+
+A variable can be both a primary key and a foreign key. 
+
+
+## Identify primary keys
+
+It’s good practice to verify that chosen keys do indeed uniquely 
+identify each observation. 
+
+One way to do that is to `count()` the primary keys and look for entries where
+`n` is greater than one:
+
+```{r}
+planes %>% 
+  count(tailnum) %>% 
+  filter(n > 1)
+```
+
+
+```{r}
+weather %>% 
+  count(year, month, day, hour, origin) %>% 
+  filter(n > 1)
+```
+
+## No primary key
+
+Sometimes a table doesn’t have an explicit primary key, e.g. 
+in `flights` dataset each row is an observation, but no combination of 
+variables reliably identifies it, (even the flight numbers).
+
+In this case, you can add an extra `identifier` column:
+
+<div class="left", style="width: 50%">
+```{r}
+flights %>% 
+  count(flight) %>% 
+  filter(n > 1) 
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+flights %>%
+  mutate(flight_id= paste0("F", row_number())) %>%
+  select(flight_id, year:flight)
+```
+</div>
+
+
+## Merging two tables
+
+There are three families of functions designed to merge relational data:
+
+- **Mutating joins**, which add new variables to one data frame from matching 
+observations in another.
+
+- **Filtering joins**, which filter observations from one data frame based on 
+whether or not they match an observation in the other table.
+
+- **Set operations**, which treat observations as if they were set elements.
+
+## Mutating joins
+
+**A mutating join** allows you to combine variables from two tables,
+by matching observations by their keys, and then copying across variables 
+from one table to the other. e.g.
+
+```{r}
+flights %>%
+  select(year:day, hour, origin, dest, tailnum, carrier) %>% 
+  left_join(airlines, by = "carrier")
+```
+
+
+There are four mutating join functions: 
+- `inner_join()`, 
+- outer joins;
+    + `left_join()`
+    + `right_join()`
+    + `full_join()`
+
+
+## A simple example
+
+<div class="left", style="width: 50%">
+```{r}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+)
+
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+)
+```
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture5-figure/join-setup.png) 
+![](./Lecture5-figure/join-setup2.png)
+</div>
+
+
+## Inner join
+
+
+```{r}
+x %>% inner_join(y, by = "key")
+```
+
+![](./Lecture5-figure/join-inner.png)
+Source: (http://r4ds.had.co.nz/relational-data.html)
+
+
+## Outer join
+
+<div class="left", style="width: 50%">
+An outer join keeps observations that appear in at least one of the tables:
+
+- A `left_join()` keeps all observations in the table on the left
+
+- A `right_join()` keeps all observations in the table on the right
+
+- A `full_join()` keeps all observations in both tables
+
+</br>
+
+<small2>Source: http://r4ds.had.co.nz/relational-data.html</small2>
+</div>
+
+<div class="right", style="width: 50%">
+<img src="./Lecture5-figure/join-outer.png", height="750"></img> 
+
+</div>
+
+## Duplicate keys
+
+What happens when there are duplicate keys?
+
+- One table has duplicate keys. There may be a one-to-many relation.
+<img src="./Lecture5-figure/join-one-to-many.png", height="200"></img> 
+
+- Both tables have duplicate keys. When you join duplicated keys, you get all 
+possible combinations:
+<img src="./Lecture5-figure/join-many-to-many.png", height="250"></img> 
+
+<small2>Source: http://r4ds.had.co.nz/relational-data.html</small2>
+
+
+## Filtering joins
+
+Filtering joins match observations in the same way as mutating joins, 
+but affect the observations, not the variables. 
+
+There are two types:
+
+- `semi_join(x, y)` keeps all observations in x that have a match in y.
+- `anti_join(x, y)` drops all observations in x that have a match in y.
+
+
+<div class="left", style="width: 50%">
+![](Lecture5-figure/join-semi.png)
+</div>
+
+<div class="right", style="width: 50%">
+![](Lecture5-figure/join-anti.png)
+</div>
+
+
+## Multiple matches
+
+In filtering joins, only the existence of a match is important.
+
+It doesn’t matter which observation is matched.
+
+Filtering joins never duplicate rows like mutating joins do:
+
+![](./Lecture5-figure/join-semi-many.png)
+
+## Set operations
+
+Set operations apply to rows; they expect the `x` and `y` inputs to have 
+the same variables, and treat the observations like sets.
+
+- `intersect(x, y)`: returns only observations in both x and y.
+
+- `union(x, y)`: returns unique observations in x and y.
+
+- `setdiff(x, y)`: returns observations in x, but not in y.
+
+All these operations work with a complete row, comparing the values of every
+variable. 
+
+
+## Example
+
+<div class="left", style="width: 50%">
+```{r}
+df1 <- tribble(
+  ~x, ~y,
+   1,  1,
+   2,  1
+)
+df2 <- tribble(
+  ~x, ~y,
+   1,  1,
+   1,  2
+)
+```
+
+```{r}
+intersect(df1, df2)
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+union(df1, df2)
+setdiff(df1, df2)
+setdiff(df2, df1)
+```
+</div>
+
+
+
+
+# Exploratory data analysis
+
+## What is exploratory data analysis (EDA)?
+
+EDA is an iterative process:
+
+- Generate questions about your data
+- Search for answers by visualising, transforming, and modelling data
+
+Use what you learn to refine your questions or generate new ones.
+
+Some comments about EDA:
+
+- It is not a formal process with a strict set of rules.
+- Explore many ideas: some will pan out, others will be dead ends.
+- Even if questions are predefined, quality of data still needs to be assessed
+
+
+
+## Asking questions
+
+Your goal during EDA is to develop an understanding of your data.
+
+> “There are no routine statistical questions, only questionable statistical routines.” \
+— Sir David Cox
+
+
+*EDA is fundamentally a creative process. And like most creative processes, 
+the key to asking quality questions is to generate a large quantity of questions.* [^1]
+[^1]: (http://r4ds.had.co.nz/exploratory-data-analysis.html#questions)
+
+Two types of questions will always be useful for making
+discoveries within your data:
+
+1. What type of variation occurs within my variables?
+1. What type of covariation occurs between my variables?
+
+
+
+## Variation
+
+**Variation** is the tendency of the values of a variable to change from 
+measurement to measurement. Every variable has its own pattern of variation, 
+which can reveal interesting information.[^2]
+
+[^2]: (http://r4ds.had.co.nz/exploratory-data-analysis.html#variation)
+
+Recall the `diamonds` dataset. Use a bar chart, to examine the distribution 
+of a **categorical variable**, and a histogram that of a **continuous** one.
+
+<div class="left", style="width: 50%">
+```{r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut))
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+```
+</div>
+
+
+## Identifying typical values 
+
+- Which values are the most common? Why?
+- Which values are rare? Why? Does that match your expectations?
+- Can you see any unusual patterns? What might explain them?
+
+```{r}
+diamonds %>% filter(carat < 3) %>%
+  ggplot(aes(x = carat)) + geom_histogram(binwidth = 0.01)
+```
+
+Look for anything unexpected!
+
+## Identify outliers
+
+**Outliers** are observations that are unusual -- data points that don’t seem
+to fit the general pattern. 
+
+Sometimes outliers are data entry errors; other times outliers suggest important 
+new science.
+
+<div class="left", style="width: 50%">
+```{r}
+ggplot(diamonds) + 
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5)
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+ggplot(diamonds) + 
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50))
+```
+</div>
+
+## Identifying outliers
+
+Now that we have seen the usual values, we can try to understand them.
+
+```{r}
+diamonds %>% filter(y < 3 | y > 20) %>% 
+  select(price, carat, x, y, z) %>% arrange(y)
+```
+
+
+The y variable measures the length (in mm) of one of the three dimensions 
+of a diamond.
+
+Therefore, these must be entry errors! Why?
+
+It’s good practice to repeat your analysis with and without the outliers.
+
+
+## Covariation
+
+**Covariation** is the tendency for the values of two or more variables to vary 
+together in a related way.
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_point(aes(x=carat, y=price), alpha=0.1) 
+```
+
+
+## Boxplots 
+
+**Boxplot** are used to display visual shorthand for a distribution of 
+a continuous variable broken down by categories. 
+
+They mark the distribution's quartiles.
+
+<img src="./Lecture5-figure/EDA-boxplot.png", height="700"></img> 
+
+
+## A categorical and a continuous variable
+
+Use a boxplot or a violin plot to display the covariation between a 
+categorical and a continuous variable.
+
+**Violin plots** give more information, as they show the entrire estimated
+distribution.
+
+<div class="left", style="width: 50%">
+```{r}
+ggplot(mpg, aes(
+  x = reorder(class, hwy, FUN = median), y = hwy)) +
+  geom_boxplot() + coord_flip()
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+ggplot(mpg, aes(
+  x = reorder(class, hwy, FUN = median), y = hwy)) +
+  geom_violin() + coord_flip()
+```
+
+</div>
+
+## Two categorical variables
+
+To visualise the **covariation between categorical variables**, you need to 
+count the number of observations for each combination, e.g. using `geom_count()`:
+
+```{r}
+ggplot(data = diamonds) +
+  geom_count(mapping = aes(x = cut, y = color))
+```
+
+## 
+
+Another approach is to first, compute the count and then visualise it 
+by coloring with `geom_tile()` and the fill aesthetic:
+
+```{r}
+diamonds %>% 
+  count(color, cut) %>%  
+  ggplot(mapping = aes(x = color, y = cut)) +
+    geom_tile(mapping = aes(fill = n)) +
+  scale_fill_viridis()
+```
+
+## Two continuous variables
+
+<div class="left", style="width: 50%">
+```{r}
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = carat, y = price)) + 
+  scale_y_log10() + scale_x_log10() 
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+# install.packages("hexbin")
+ggplot(data = diamonds) +
+  geom_hex(mapping = aes(x = carat, y = price)) +
+  scale_y_log10() + scale_x_log10() 
+```
+
+</div>
+
+# Interactive graphics
+
+# Data Export
+
+## Exporting Data
+
+After working with a dataset and doing all data manipulation, you might
+want to save your new data table.
+
+Recall the `readr` package. Besides functions for reading data in, `readr`
+has utilities for **saving your data to a text file**:
+
+```{r eval = FALSE}
+write_tsv(mydata, "path/to/filename.tsv")                  # tab-delimited
+write_csv(mydata, "path/to/filename.csv")                  # comma-delimited
+write_delim(mydata, "path/to/filename.csv", delim = " ")   # general delimiter
+```
+
+To save your data in other types of files, you need to install and 
+use other packages:
+
+- to export an **Excel spreadsheet**, use `xlsx` package, and follow
+this [guide](http://www.sthda.com/english/wiki/r-xlsx-package-a-quick-start-guide-to-manipulate-excel-files-in-r).
+
+```{r eval = FALSE}
+# install.packages(xlsx)
+library(xlsx)
+write.xlsx(mydata, "path/to/filename.xlsx")
+```
+
+- to export **SAS**, **SPSS** and **Stata** files use the 
+[`haven` package](https://haven.tidyverse.org/).
+
+```{r eval = FALSE}
+# install.packages(haven)
+library(haven)
+read_sas("mtcars.sas7bdat")
+write_sas(mtcars, "mtcars.sas7bdat")
+```
+
+## Saving the workspace
+
+- You can also choose to **save all objects** currently in the workspace
+(variables, functions, etc.) into a file e.g. `filename.rda`.
+ 
+- The file `filename.rda` can be the easily loaded next time you work with R.
+
+- You can also save a single object or a subset of specified
+objects currently in the workspace.
+
+```{r eval = FALSE}
+# save the workspace to file 
+save.image(file = "path/to/filename.rda")
+
+# save specific objects to a file
+save(object_list, file = "path/to/filename.rda")
+
+# save just a single object
+saveRDS(object, file = "path/to/filename.rds")
+```
+
+- Saved objects/workspace can be loaded back in a new R session.
+
+```{r eval = FALSE}
+# load a workspace into the current session
+load("path/to/filename.rda")
+
+# read just the previously saved 1 object
+object <- readRDS("path/to/filename.rds")
+```
+
+
+
+
+

@@ -315,11 +315,6 @@ div.tocify {
 [1] &quot;y&quot;
 [1] &quot;z&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZyBtZXNzYWdlOlxuSW4gc2NhbihmaWxlID0gZmlsZSwgd2hhdCA9IHdoYXQsIHNlcCA9IHNlcCwgcXVvdGUgPSBxdW90ZSwgZGVjID0gZGVjLCAgOlxuICBFT0Ygd2l0aGluIHF1b3RlZCBzdHJpbmdcbiJ9 -->
-<pre><code>Warning message:
-In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
-  EOF within quoted string</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="2" style="list-style-type: lower-alpha">
@@ -532,17 +527,17 @@ no_of_integers &lt;- function(vec, k) {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKHZlYyA8LSBzYW1wbGUoMToyMCwgMTAwLCByZXBsYWNlID0gVFJVRSkpXG5gYGAifQ== -->
 <pre class="r"><code>(vec &lt;- sample(1:20, 100, replace = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gMTEgIDkgMTAgIDggMTEgIDkgIDggIDIgMTQgMTIgMTggIDUgMTAgMTQgIDQgIDkgMTIgIDIgIDQgMTAgIDQgMTMgMTMgIDUgIDggIDcgMTkgMTQgIDQgIDEgIDcgIDQgIDVcbiBbMzRdIDEwIDExIDE5IDE5ICAzICA0IDExIDE0ICA1ICA3ICA4ICAyICA1ICA0IDEzICA1IDE2ICA1ICA0IDE1ICA5ICAyICAzIDIwIDExIDE2IDEzIDE5IDE4ICA3IDEwIDE3IDExXG4gWzY3XSAxMiAxNiAyMCAyMCAxOCAgNyAxNyAxMiAyMCAxOSAyMCAgMSAxNyAgMSAgNSAxOCAgNiAxOSAgMyAxNyAxMSAxMSAxNCAgNiAgOCAyMCAyMCAxOSAxMSAyMCAgOSAgMSAxOFxuWzEwMF0gIDNcbiJ9 -->
-<pre><code>  [1] 11  9 10  8 11  9  8  2 14 12 18  5 10 14  4  9 12  2  4 10  4 13 13  5  8  7 19 14  4  1  7  4  5
- [34] 10 11 19 19  3  4 11 14  5  7  8  2  5  4 13  5 16  5  4 15  9  2  3 20 11 16 13 19 18  7 10 17 11
- [67] 12 16 20 20 18  7 17 12 20 19 20  1 17  1  5 18  6 19  3 17 11 11 14  6  8 20 20 19 11 20  9  1 18
-[100]  3</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gIDUgMTAgMTAgMTEgMjAgIDcgIDggIDMgMTkgMTEgMTUgMTQgIDkgIDUgMTMgMTYgMjAgIDYgMTkgIDYgIDggMTQgIDcgIDggIDMgMTUgMTMgIDYgIDEgIDYgIDkgMTYgMTBcbiBbMzRdICA1IDIwICA3IDE1IDE4ICA3ICA2ICA3IDE4ICA2IDEwIDExIDEzIDE2IDE1ICA1ICA4IDEwIDE5ICAzICA3IDEwICAyIDEyICA4IDE4ICAzICAyICA0ICA2IDEyIDEyIDEwXG4gWzY3XSAyMCAxNiAxMCAxMSAxNSAgMSAgNCAxMCAyMCAxMSAxMCAxMiAgNiAgNSAxMSAgMyAxMSAgNiAxOSAxMiAgMSAgMyAxNSAxMCAgNyAxNiAxMCAgOSAxMCAxNCAxOCAgMiAxM1xuWzEwMF0gMTNcbiJ9 -->
+<pre><code>  [1]  5 10 10 11 20  7  8  3 19 11 15 14  9  5 13 16 20  6 19  6  8 14  7  8  3 15 13  6  1  6  9 16 10
+ [34]  5 20  7 15 18  7  6  7 18  6 10 11 13 16 15  5  8 10 19  3  7 10  2 12  8 18  3  2  4  6 12 12 10
+ [67] 20 16 10 11 15  1  4 10 20 11 10 12  6  5 11  3 11  6 19 12  1  3 15 10  7 16 10  9 10 14 18  2 13
+[100] 13</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KFwiTnVtYmVyIG9mIHRpbWVzIDEyIG9jY3VycyBpbiB0aGUgdmVjIGlzOlwiLCBub19vZl9pbnRlZ2Vycyh2ZWMsIDEyKSlcbmBgYCJ9 -->
 <pre class="r"><code>cat(&quot;Number of times 12 occurs in the vec is:&quot;, no_of_integers(vec, 12))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTnVtYmVyIG9mIHRpbWVzIDEyIG9jY3VycyBpbiB0aGUgdmVjIGlzOiA0XG4ifQ== -->
-<pre><code>Number of times 12 occurs in the vec is: 4</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiTnVtYmVyIG9mIHRpbWVzIDEyIG9jY3VycyBpbiB0aGUgdmVjIGlzOiA1XG4ifQ== -->
+<pre><code>Number of times 12 occurs in the vec is: 5</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -590,7 +585,7 @@ no_of_integers &lt;- function(vec, k) {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChtdGNhcnMpXG5gYGAifQ== -->
 <pre class="r"><code>head(mtcars)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTEsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZUUFd6VU1CUjI4M2U5UkQwTzBRRVdsSkdscDE3dVdsZ1FIazZDaFlFaTBSUHQ0a3ZTYTBUT1NaM2tDcDFZbUpsQmJEQjNZZW5NRERNcnpDd3NNQmJzMkM5cVRIbVM4MzN2c3ovN1BTZlptVXdEZCtvaWhBeGtXaVl5VEU0dGd6OVdrSVc2QXA4alpGN2p4T09qeDRlRHQxQWREVzUvRnZFRmJ4M1VnWU9QSXhFNHVQR0d4OXZHZDEydEIreHJ1ZC9PRzEra2RNQTloYmswNE9WTGlhbmY5dTBwSFhBWHQvUDRtOFNudU8yN01wTDFBL1pVZjZ2dnY3cDM4dys0cTNSbi9lVDcvZFAxeG1mOSt2UjYvOVp2M0ZIMUdUempFdTZlUGZyeDZ1WVo5dmlETSt5ZDFzYkd0MWxKMzlDVzg4RTdZZHZIbzF3Y2VOVG80enYxUHVCRFd0ejcyVVpkQjUrK1RsOS9TY2c2KzZvdkhWY3Z4Ly81OUhQeFAzVzJQa0Nia2tWY2NDTHNuaExOUlQ0SEdyNUlGYldpcE1nVk53N3pSbVdrQlBVWW1IVlV4Q0dveXdJWVdjRDhQQ1lNZUVqWVRDdXJ5N0xqd2NYU0hKaDRTRTRpNHU5TXgwcFlhd1IvbDBEVjdvU1VSVVg5MjhOTnBmUWVaSXpHcFQvMkp5eFp4a3E5cXRUSGVjWktNc3NxcUwvemhLUUpvYVYrVzJGS0NpZ0pSRGNpSlJrY01GNHR6ODQxU3lmTHl5U2ozR1NJLzl6V3pDdE1FL29WRlgxSEcrRmhSWjl0REFOeFFqMHZ4NXBDNXdMMzVKbkdIN1dYcmZaeVlqcFBLRFJycDJRV3c4dnM4UXV1NzNlUXM0UkMyeTVYaTBHWmxRVFd1V0dXZ2xJM2g4Ny9BaGQyYzBqV0JBQUEifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTEsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZUUFd6VU1CUjI4M2U5UkQydW9nTXNLQ05MVDcyZlVwWUtEeWZCd2tDUjZJbDI4U1hwTlNMbnBJNXpoVTRzekoyTDJHRHV3dEtaR1daV21GbFlZQ3pZaVYvVW1QSWs1L3ZlWjMvMmUwNnlNNTRNM0ltTEVES1FhWm5JTUFXMURQRllRaFpxUzN5SmtIbFRFRStNamhnTzNrUmwxSGp2czR3dmVQT2dERHo0T0pTQkI3ZlBSTHl0ZmJmVWVzQ3VsdnZOdlBhRlNnZmNVNWhWQnJ4NFhXSGlOMzE3U2dmY3hjMDgrbGJoYzl6MDNSaFc5UU4yVkgvTDc3KzYyOWtIM0ZhNnMzYnkvZUg1V3UyemZuMDYzYi83RzdkVWZZYkloSVRiRjA5K3ZMbHpnVDN4RUF4NzU2V3g5bTBVbGE5dlYvT0RkOUsyajRlWlBQQ28xa2YzeTMzQWg3UjQ4TE9KdWc0K2ZaMisvcHFvNnV5cXZuUmN2aDcvNTlQUHhmL1UyZmdBYlVybVVTNkl0SHRLTk9mWkRHandLbEhVQ3VNOFU5dzR6R3FWRVE3cU1URHJLSThDVUJjNU1ES0grVmxFR1BDQXNLbFdWcHVseDcycnBUa3c4WmljaE1UZm1ZeVVzRklML2k2QnF0MHg0WGxCL2EzK2hsSTZqMUpHSSs2UC9ER0xGNUZTVjVYNk5Fc1pKOU8wZ1BwYnowZ1NFOHIxMndvU2trTkpJTG9oNGFSM3dFUzFJcnZVTEswMDQzRktoY21RLzdtdG1aZVlKblFMS3ZzTzE0UERncjVZNzIvSkU4cjVhcXdvZEs1d3J6clQrS1Ayc3RWZVRrUm5NWVZtN1lSTUkzaVpIWEhCNWYzMk1oWlRhTnNWYXQ3aktTZXd6ZzNTQkpTeU9YVDVGL3phSkgzV0JBQUEifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["disp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["drat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["qsec"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["vs"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["am"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["gear"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["carb"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.620","7":"16.46","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4"},{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.875","7":"17.02","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4 Wag"},{"1":"22.8","2":"4","3":"108","4":"93","5":"3.85","6":"2.320","7":"18.61","8":"1","9":"1","10":"4","11":"1","_rn_":"Datsun 710"},{"1":"21.4","2":"6","3":"258","4":"110","5":"3.08","6":"3.215","7":"19.44","8":"1","9":"0","10":"3","11":"1","_rn_":"Hornet 4 Drive"},{"1":"18.7","2":"8","3":"360","4":"175","5":"3.15","6":"3.440","7":"17.02","8":"0","9":"0","10":"3","11":"2","_rn_":"Hornet Sportabout"},{"1":"18.1","2":"6","3":"225","4":"105","5":"2.76","6":"3.460","7":"20.22","8":"1","9":"0","10":"3","11":"1","_rn_":"Valiant"}],"options":{"columns":{"min":{},"max":[10],"total":[11]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -665,7 +660,7 @@ weeks.to.2018[1:5]</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Vzc2lvbkluZm8oKVxuYGBgIn0= -->
 <pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDMuNC4zICgyMDE3LTExLTMwKVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAxNi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6IC91c3IvbGliL2xpYmJsYXMvbGliYmxhcy5zby4zLjYuMFxuTEFQQUNLOiAvdXNyL2xpYi9sYXBhY2svbGlibGFwYWNrLnNvLjMuNi4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICAgTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICBcbiBbNF0gTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICAgTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICAgTENfQUREUkVTUz1DICAgICAgICAgICAgICBcblsxMF0gTENfVEVMRVBIT05FPUMgICAgICAgICAgICAgTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxuYXR0YWNoZWQgYmFzZSBwYWNrYWdlczpcblsxXSBzdGF0cyAgICAgZ3JhcGhpY3MgIGdyRGV2aWNlcyB1dGlscyAgICAgZGF0YXNldHMgIG1ldGhvZHMgICBiYXNlICAgICBcblxubG9hZGVkIHZpYSBhIG5hbWVzcGFjZSAoYW5kIG5vdCBhdHRhY2hlZCk6XG4gWzFdIFJjcHBfMC4xMi4xOCAgICByZXZlYWxqc18wLjkgICAgZGlnZXN0XzAuNi4xNSAgIHJwcm9qcm9vdF8xLjIgICBqc29ubGl0ZV8xLjUgICAgYmFja3BvcnRzXzEuMS4yXG4gWzddIG1hZ3JpdHRyXzEuNSAgICBldmFsdWF0ZV8wLjExICAgc3RyaW5naV8xLjIuNCAgIHJtYXJrZG93bl8xLjEwICB0b29sc18zLjQuMyAgICAgc3RyaW5ncl8xLjMuMSAgXG5bMTNdIHlhbWxfMi4xLjE0ICAgICByc2Nvbm5lY3RfMC44LjUgY29tcGlsZXJfMy40LjMgIGJhc2U2NGVuY18wLjEtMyBodG1sdG9vbHNfMC4zLjYga25pdHJfMS4yMCAgICAgXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDMuNC4zICgyMDE3LTExLTMwKVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAxNi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6IC91c3IvbGliL2xpYmJsYXMvbGliYmxhcy5zby4zLjYuMFxuTEFQQUNLOiAvdXNyL2xpYi9sYXBhY2svbGlibGFwYWNrLnNvLjMuNi4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICAgTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICBcbiBbNF0gTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICAgTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICAgTENfQUREUkVTUz1DICAgICAgICAgICAgICBcblsxMF0gTENfVEVMRVBIT05FPUMgICAgICAgICAgICAgTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxuYXR0YWNoZWQgYmFzZSBwYWNrYWdlczpcblsxXSBzdGF0cyAgICAgZ3JhcGhpY3MgIGdyRGV2aWNlcyB1dGlscyAgICAgZGF0YXNldHMgIG1ldGhvZHMgICBiYXNlICAgICBcblxub3RoZXIgYXR0YWNoZWQgcGFja2FnZXM6XG5bMV0gZm9yY2F0c18wLjMuMCAgICAgICAgc3RyaW5ncl8xLjMuMSAgICAgICAgZHBseXJfMC43Ljk5LjkwMDAgICAgcHVycnJfMC4yLjUgICAgICAgICBcbls1XSByZWFkcl8xLjEuMSAgICAgICAgICB0aWR5cl8wLjguMSAgICAgICAgICB0aWJibGVfMS40Ljk5LjkwMDQgICBnZ3Bsb3QyXzMuMC4wICAgICAgIFxuWzldIHRpZHl2ZXJzZV8xLjIuMS45MDAwXG5cbmxvYWRlZCB2aWEgYSBuYW1lc3BhY2UgKGFuZCBub3QgYXR0YWNoZWQpOlxuIFsxXSBSY3BwXzAuMTIuMTggICAgICAgIGNlbGxyYW5nZXJfMS4xLjAgICAgcGlsbGFyXzEuMy4wLjkwMDAgICBjb21waWxlcl8zLjQuMyAgICAgIHBseXJfMS44LjQgICAgICAgICBcbiBbNl0gYmluZHJfMC4xLjEuOTAwMCAgICB0b29sc18zLjQuMyAgICAgICAgIGRpZ2VzdF8wLjYuMTUgICAgICAgbHVicmlkYXRlXzEuNy40ICAgICBqc29ubGl0ZV8xLjUgICAgICAgXG5bMTFdIGV2YWx1YXRlXzAuMTEgICAgICAgbmxtZV8zLjEtMTM3ICAgICAgICBndGFibGVfMC4yLjAgICAgICAgIGxhdHRpY2VfMC4yMC0zNSAgICAgcGtnY29uZmlnXzIuMC4yICAgIFxuWzE2XSBybGFuZ18wLjIuMiAgICAgICAgIGNsaV8xLjAuMCAgICAgICAgICAgcnN0dWRpb2FwaV8wLjcgICAgICB5YW1sXzIuMS4xNCAgICAgICAgIGhhdmVuXzEuMS4yICAgICAgICBcblsyMV0gYmluZHJjcHBfMC4yLjIuOTAwMCB3aXRocl8yLjEuMiAgICAgICAgIHhtbDJfMS4yLjAgICAgICAgICAgaHR0cl8xLjMuMSAgICAgICAgICBrbml0cl8xLjIwICAgICAgICAgXG5bMjZdIGhtc18wLjQuMiAgICAgICAgICAgcmV2ZWFsanNfMC45ICAgICAgICBycHJvanJvb3RfMS4yICAgICAgIGdyaWRfMy40LjMgICAgICAgICAgdGlkeXNlbGVjdF8wLjIuNCAgIFxuWzMxXSBnbHVlXzEuMy4wICAgICAgICAgIFI2XzIuMi4yICAgICAgICAgICAgcmVhZHhsXzEuMS4wLjkwMDAgICBybWFya2Rvd25fMS4xMCAgICAgIG1vZGVscl8wLjEuMiAgICAgICBcblszNl0gbWFncml0dHJfMS41ICAgICAgICBiYWNrcG9ydHNfMS4xLjIgICAgIHNjYWxlc18xLjAuMCAgICAgICAgaHRtbHRvb2xzXzAuMy42ICAgICBydmVzdF8wLjMuMiAgICAgICAgXG5bNDFdIGFzc2VydHRoYXRfMC4yLjAgICAgY29sb3JzcGFjZV8xLjMtMiAgICBzdHJpbmdpXzEuMi40ICAgICAgIGxhenlldmFsXzAuMi4xICAgICAgbXVuc2VsbF8wLjUuMCAgICAgIFxuWzQ2XSBicm9vbV8wLjUuMCAgICAgICAgIGNyYXlvbl8xLjMuNCAgICAgICBcbiJ9 -->
 <pre><code>R version 3.4.3 (2017-11-30)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 16.04.4 LTS
@@ -683,10 +678,22 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] forcats_0.3.0        stringr_1.3.1        dplyr_0.7.99.9000    purrr_0.2.5         
+[5] readr_1.1.1          tidyr_0.8.1          tibble_1.4.99.9004   ggplot2_3.0.0       
+[9] tidyverse_1.2.1.9000
+
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.18    revealjs_0.9    digest_0.6.15   rprojroot_1.2   jsonlite_1.5    backports_1.1.2
- [7] magrittr_1.5    evaluate_0.11   stringi_1.2.4   rmarkdown_1.10  tools_3.4.3     stringr_1.3.1  
-[13] yaml_2.1.14     rsconnect_0.8.5 compiler_3.4.3  base64enc_0.1-3 htmltools_0.3.6 knitr_1.20     </code></pre>
+ [1] Rcpp_0.12.18        cellranger_1.1.0    pillar_1.3.0.9000   compiler_3.4.3      plyr_1.8.4         
+ [6] bindr_0.1.1.9000    tools_3.4.3         digest_0.6.15       lubridate_1.7.4     jsonlite_1.5       
+[11] evaluate_0.11       nlme_3.1-137        gtable_0.2.0        lattice_0.20-35     pkgconfig_2.0.2    
+[16] rlang_0.2.2         cli_1.0.0           rstudioapi_0.7      yaml_2.1.14         haven_1.1.2        
+[21] bindrcpp_0.2.2.9000 withr_2.1.2         xml2_1.2.0          httr_1.3.1          knitr_1.20         
+[26] hms_0.4.2           revealjs_0.9        rprojroot_1.2       grid_3.4.3          tidyselect_0.2.4   
+[31] glue_1.3.0          R6_2.2.2            readxl_1.1.0.9000   rmarkdown_1.10      modelr_0.1.2       
+[36] magrittr_1.5        backports_1.1.2     scales_1.0.0        htmltools_0.3.6     rvest_0.3.2        
+[41] assertthat_0.2.0    colorspace_1.3-2    stringi_1.2.4       lazyeval_0.2.1      munsell_0.5.0      
+[46] broom_0.5.0         crayon_1.3.4       </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

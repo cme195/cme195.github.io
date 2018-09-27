@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Lan Huong Nguyen" />
+  <meta name="dcterms.date" content="2018-10-11" />
+  <title>Lecture 5: Exploratory Data Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 5: Exploratory Data Analysis</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
+    <h2 class="author">Lan Huong Nguyen</h2>
+    <h3 class="date">October 11, 2018</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li>Data Manipulation
+<ul>
+<li>Programming with <code>purr</code></li>
+<li>Handling missing values</li>
+<li>Merging datasets</li>
+</ul></li>
+<li>Exploratory Data Analysis
+<ul>
+<li>Variation</li>
+<li>Covariation</li>
+</ul></li>
+<li><p>Interactive graphics</p></li>
+<li><p>Data Export</p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture4-figure/data-science-explore.png" /></p>
+</div>
+</section>
+<section><section id="data-manipulation" class="titleslide slide level1"><h1>Data Manipulation</h1></section><section id="the-purr-package" class="slide level2">
+<h2>The <code>purr</code> package</h2>
+<p>Package <code>purrr</code> is part of the <code>tidyverse</code>. Handles tasks similar to ones performed by apply-family functions in base R.</p>
+<p>It enhances R’s functional programming toolkit by providing a complete and consistent set of tools for working with functions and vectors. <code>map</code>-functions allow you to replace many for loops with code that is easier to read.</p>
+<ul>
+<li><code>map()</code>, <code>map_if()</code>, <code>map_at()</code> returns a list</li>
+<li><code>map_lgl()</code> returns a logical vector,</li>
+<li><code>map_int()</code> returns a integer vector,</li>
+<li><code>map_dbl()</code> returns a double vector,</li>
+<li><code>map_chr()</code> returns a character vector,</li>
+<li><code>map_dfr()</code>, <code>map_dfc()</code> returns a <code>data.frame</code><br />
+by binding rows or columns respectively.</li>
+</ul>
+</section><section id="the-map-functions" class="slide level2">
+<h2>The map functions</h2>
+<p>Example: column-wise mean</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a=</span><span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">b=</span><span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">c=</span><span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="dt">d=</span><span class="kw">rnorm</span>(<span class="dv">10</span>))
+<span class="kw">map_dbl</span>(df, mean)                       <span class="co"># or equivalently: df %&gt;% map_dbl(mean)   </span></code></pre></div>
+<pre><code>##           a           b           c           d 
+## -0.53592399 -0.04025187  0.25081582 -0.05770421</code></pre>
+<p>Focus is on the operation being performed, not the book-keeping:</p>
+<ul>
+<li><code>purrr</code> functions are implemented in C.</li>
+<li>the second argument, <code>.f</code>, can be a functions, a formula, a character vector, or an integer vector.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">~</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">7</span>, .x))</code></pre></div>
+<pre><code>## [[1]]
+## [1] 1.0782558 0.2743947 0.3041190 1.0134683 1.1395083 1.3808201 2.1555289
+## 
+## [[2]]
+## [1]  3.0128433  1.1747387 -0.2547562  0.4858909  2.1740475  3.0109330
+## [7]  1.5207914
+## 
+## [[3]]
+## [1] 3.843500 3.187574 1.161702 3.463796 3.584169 4.298590 2.210775</code></pre>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li><code>map</code> can pass additional parameters to the function</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(df, mean, <span class="dt">trim =</span> <span class="fl">0.25</span>)</code></pre></div>
+<pre><code>##           a           b           c           d 
+## -0.36711034  0.14183991  0.43717035  0.03812828</code></pre>
+<ul>
+<li>other inputs/outputs:</li>
+</ul>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">split</span>(.<span class="op">$</span>cyl)</code></pre></div>
+<pre><code>## $`4`
+##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## 
+## $`6`
+##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 
+## $`8`
+##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">split</span>(.<span class="op">$</span>cyl) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">map_df</span>(dim)</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##     `4`   `6`   `8`
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1    11     7    14
+## 2    11    11    11</code></pre>
+</div>
+</section><section id="base-r-maps-vs.purrr-maps" class="slide level2">
+<h2>Base-R maps vs. purrr maps</h2>
+<p>However, <code>purrr</code> is more consistent, so you should learn it.</p>
+<p>A quick reference of similar base R functions:</p>
+<ul>
+<li><p>lapply is basically identical to map</p></li>
+<li><p>sapply is a wrapper around lapply and it tries to simplify the output. Downside: you never know what you’ll get</p></li>
+<li><p>vapply: like sapply, but you can supply an additional argument that defines the type</p></li>
+</ul>
+<p>You can learn more about purr here: (<a href="http://r4ds.had.co.nz/iteration.html" class="uri">http://r4ds.had.co.nz/iteration.html</a>)</p>
+</section></section>
+<section><section id="handling-missing-values" class="titleslide slide level1"><h1>Handling missing values</h1></section><section id="missing-values" class="slide level2">
+<h2>Missing values</h2>
+<p>Two types of missingness</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">year   =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),
+  <span class="dt">qtr    =</span> <span class="kw">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,    <span class="dv">3</span>,    <span class="dv">4</span>,    <span class="dv">2</span>,    <span class="dv">3</span>,    <span class="dv">4</span>),
+  <span class="dt">return =</span> <span class="kw">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.35</span>,   <span class="ot">NA</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>, <span class="fl">2.66</span>)
+)</code></pre></div>
+<p>The return for the fourth quarter of 2015 is <strong>explicitly missing</strong></p>
+<p>The return for the first quarter of 2016 is <strong>implicitly missing</strong></p>
+<p>The way that a dataset is represented can make implicit values explicit.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(year, return)</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##     qtr `2015` `2016`
+##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1   1.88  NA   
+## 2     2   0.59   0.92
+## 3     3   0.35   0.17
+## 4     4  NA      2.66</code></pre>
+</section><section id="gathering-missing-data" class="slide level2">
+<h2>Gathering missing data</h2>
+<p>Recall the functions we learned from <code>tidyr</code> package.</p>
+<p>You can used <code>spread()</code> and <code>gather()</code> to retain only non-missing recored, i.e. to turn all explicit missing values into implicit ones.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(year, return) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(year, return, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2016</span><span class="st">`</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##     qtr year  return
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1     1 2015    1.88
+## 2     2 2015    0.59
+## 3     3 2015    0.35
+## 4     2 2016    0.92
+## 5     3 2016    0.17
+## 6     4 2016    2.66</code></pre>
+</section><section id="completing-missing-data" class="slide level2">
+<h2>Completing missing data</h2>
+<p><code>complete()</code> takes a set of columns, and finds all unique combinations. It then ensures the original dataset contains all those values, <strong>filling in explicit <code>NA</code>s</strong> where necessary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stocks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">complete</span>(year, qtr)</code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##    year   qtr return
+##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1  2015     1   1.88
+## 2  2015     2   0.59
+## 3  2015     3   0.35
+## 4  2015     4  NA   
+## 5  2016     1  NA   
+## 6  2016     2   0.92
+## 7  2016     3   0.17
+## 8  2016     4   2.66</code></pre>
+</section><section id="different-intepretations-of-na" class="slide level2">
+<h2>Different intepretations of <code>NA</code></h2>
+<p>Sometimes when a data source has primarily been used for data entry, missing values indicate that the previous value should be carried forward:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tribble() constructs a tibble by filling by rows</span>
+treatment &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span><span class="st"> </span>person,           <span class="op">~</span><span class="st"> </span>treatment, <span class="op">~</span>response,
+  <span class="st">&quot;Derrick Whitmore&quot;</span>, <span class="dv">1</span>,           <span class="dv">7</span>,
+  <span class="ot">NA</span>,                 <span class="dv">2</span>,           <span class="dv">10</span>,
+  <span class="ot">NA</span>,                 <span class="dv">3</span>,           <span class="dv">9</span>,
+  <span class="st">&quot;Katherine Burke&quot;</span>,  <span class="dv">1</span>,           <span class="dv">4</span>
+)</code></pre></div>
+<p>You can fill in these missing values with <code>fill()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">treatment <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fill</span>(person)</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   person           treatment response
+##   &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Derrick Whitmore         1        7
+## 2 Derrick Whitmore         2       10
+## 3 Derrick Whitmore         3        9
+## 4 Katherine Burke          1        4</code></pre>
+</section></section>
+<section><section id="merging-datasets" class="titleslide slide level1"><h1>Merging datasets</h1></section><section id="relational-data" class="slide level2">
+<h2>Relational data</h2>
+<ul>
+<li><p>Rarely does a data analysis involve only a single table of data.</p></li>
+<li><p>Collectively, multiple tables of data are called <strong>relational data</strong> because the relations, not just the individual datasets, that are important.</p></li>
+<li><p>Relations are always defined between a pair of tables.</p></li>
+<li><p>All other relations are built up from this simple idea: the relations of three or more tables are always a property of the relations between each pair.</p></li>
+</ul>
+</section><section id="example" class="slide level2">
+<h2>Example</h2>
+<p>the <code>nycflights13</code> package contains a collection of related datasets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)</code></pre></div>
+<p><img src="Lecture5-figure/nycflights13.png" /></p>
+<p>Source: (<a href="http://r4ds.had.co.nz/relational-data.html" class="uri">http://r4ds.had.co.nz/relational-data.html</a>)</p>
+</section><section id="keys" class="slide level2">
+<h2>Keys</h2>
+<p><strong>A key</strong> is a variable (or set of variables) that uniquely identifies an observation.</p>
+<p><em>For example, each plane is uniquely determined by its tailnum, but an observation in ‘weather’ is identified by five variables: <code>year, month, day</code>, <code>hour, and origin</code></em></p>
+<p><strong>Keys</strong> can be used to connect each pair of tables together.</p>
+<p>There are two types of keys:</p>
+<ul>
+<li><p><strong>Primary:</strong> identifies an observation in its own table. Example: <code>planes$tailnum</code></p></li>
+<li><p><strong>Foreign:</strong> identifies an observation in another table. Example: <code>flights$tailnum</code>, this is because <code>tailnum</code> does not enough to identify a record in <code>flights</code> dataset.</p></li>
+</ul>
+<p>A variable can be both a primary key and a foreign key.</p>
+</section><section id="identify-primary-keys" class="slide level2">
+<h2>Identify primary keys</h2>
+<p>It’s good practice to verify that chosen keys do indeed uniquely identify each observation.</p>
+<p>One way to do that is to <code>count()</code> the primary keys and look for entries where <code>n</code> is greater than one:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">planes <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(tailnum) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## # A tibble: 0 x 2
+## # … with 2 variables: tailnum &lt;chr&gt;, n &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weather <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(year, month, day, hour, origin) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 6
+##    year month   day  hour origin     n
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;int&gt;
+## 1  2013    11     3     1 EWR        2
+## 2  2013    11     3     1 JFK        2
+## 3  2013    11     3     1 LGA        2</code></pre>
+</section><section id="no-primary-key" class="slide level2">
+<h2>No primary key</h2>
+<p>Sometimes a table doesn’t have an explicit primary key, e.g. in <code>flights</code> dataset each row is an observation, but no combination of variables reliably identifies it, (even the flight numbers).</p>
+<p>In this case, you can add an extra <code>identifier</code> column:</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(flight) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) </code></pre></div>
+<pre><code>## # A tibble: 3,493 x 2
+##    flight     n
+##     &lt;int&gt; &lt;int&gt;
+##  1      1   701
+##  2      2    51
+##  3      3   631
+##  4      4   393
+##  5      5   324
+##  6      6   210
+##  7      7   237
+##  8      8   236
+##  9      9   153
+## 10     10    61
+## # … with 3,483 more rows</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">flight_id=</span> <span class="kw">paste0</span>(<span class="st">&quot;F&quot;</span>, <span class="kw">row_number</span>())) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(flight_id, year<span class="op">:</span>flight)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 12
+##    flight_id  year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1 F1         2013     1     1      517            515         2      830
+##  2 F2         2013     1     1      533            529         4      850
+##  3 F3         2013     1     1      542            540         2      923
+##  4 F4         2013     1     1      544            545        -1     1004
+##  5 F5         2013     1     1      554            600        -6      812
+##  6 F6         2013     1     1      554            558        -4      740
+##  7 F7         2013     1     1      555            600        -5      913
+##  8 F8         2013     1     1      557            600        -3      709
+##  9 F9         2013     1     1      557            600        -3      838
+## 10 F10        2013     1     1      558            600        -2      753
+## # … with 336,766 more rows, and 4 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;</code></pre>
+</div>
+</section><section id="merging-two-tables" class="slide level2">
+<h2>Merging two tables</h2>
+<p>There are three families of functions designed to merge relational data:</p>
+<ul>
+<li><p><strong>Mutating joins</strong>, which add new variables to one data frame from matching observations in another.</p></li>
+<li><p><strong>Filtering joins</strong>, which filter observations from one data frame based on whether or not they match an observation in the other table.</p></li>
+<li><p><strong>Set operations</strong>, which treat observations as if they were set elements.</p></li>
+</ul>
+</section><section id="mutating-joins" class="slide level2">
+<h2>Mutating joins</h2>
+<p><strong>A mutating join</strong> allows you to combine variables from two tables, by matching observations by their keys, and then copying across variables from one table to the other. e.g.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 336,776 x 9
+##     year month   day  hour origin dest  tailnum carrier name              
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;             
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines …
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines …
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines…
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways   
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines I…
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines …
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways   
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlin…
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways   
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines…
+## # … with 336,766 more rows</code></pre>
+<p>There are four mutating join functions: - <code>inner_join()</code>, - outer joins; + <code>left_join()</code> + <code>right_join()</code> + <code>full_join()</code></p>
+</section><section id="a-simple-example" class="slide level2">
+<h2>A simple example</h2>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>key, <span class="op">~</span>val_x,
+     <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,
+     <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,
+     <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span>
+)
+
+y &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>key, <span class="op">~</span>val_y,
+     <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,
+     <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,
+     <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span>
+)</code></pre></div>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture5-figure/join-setup.png" /> <img src="Lecture5-figure/join-setup2.png" /></p>
+</div>
+</section><section id="inner-join" class="slide level2">
+<h2>Inner join</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##     key val_x val_y
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+## 1     1 x1    y1   
+## 2     2 x2    y2</code></pre>
+<p><img src="Lecture5-figure/join-inner.png" /> Source: (<a href="http://r4ds.had.co.nz/relational-data.html" class="uri">http://r4ds.had.co.nz/relational-data.html</a>)</p>
+</section><section id="outer-join" class="slide level2">
+<h2>Outer join</h2>
+<div class="left" ,="" style="width: 50%">
+<p>An outer join keeps observations that appear in at least one of the tables:</p>
+<ul>
+<li><p>A <code>left_join()</code> keeps all observations in the table on the left</p></li>
+<li><p>A <code>right_join()</code> keeps all observations in the table on the right</p></li>
+<li><p>A <code>full_join()</code> keeps all observations in both tables</p></li>
+</ul>
+<p></br></p>
+<p><small2>Source: <a href="http://r4ds.had.co.nz/relational-data.html" class="uri">http://r4ds.had.co.nz/relational-data.html</a></small2></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture5-figure/join-outer.png", height="750"></img></p>
+</div>
+</section><section id="duplicate-keys" class="slide level2">
+<h2>Duplicate keys</h2>
+<p>What happens when there are duplicate keys?</p>
+<ul>
+<li><p>One table has duplicate keys. There may be a one-to-many relation. <img src="Lecture5-figure/join-one-to-many.png", height="200"></img></p></li>
+<li><p>Both tables have duplicate keys. When you join duplicated keys, you get all possible combinations: <img src="Lecture5-figure/join-many-to-many.png", height="250"></img></p></li>
+</ul>
+<p><small2>Source: <a href="http://r4ds.had.co.nz/relational-data.html" class="uri">http://r4ds.had.co.nz/relational-data.html</a></small2></p>
+</section><section id="filtering-joins" class="slide level2">
+<h2>Filtering joins</h2>
+<p>Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables.</p>
+<p>There are two types:</p>
+<ul>
+<li><code>semi_join(x, y)</code> keeps all observations in x that have a match in y.</li>
+<li><code>anti_join(x, y)</code> drops all observations in x that have a match in y.</li>
+</ul>
+<div class="left" ,="" style="width: 50%">
+<p><img src="Lecture5-figure/join-semi.png" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture5-figure/join-anti.png" /></p>
+</div>
+</section><section id="multiple-matches" class="slide level2">
+<h2>Multiple matches</h2>
+<p>In filtering joins, only the existence of a match is important.</p>
+<p>It doesn’t matter which observation is matched.</p>
+<p>Filtering joins never duplicate rows like mutating joins do:</p>
+<p><img src="Lecture5-figure/join-semi-many.png" /></p>
+</section><section id="set-operations" class="slide level2">
+<h2>Set operations</h2>
+<p>Set operations apply to rows; they expect the <code>x</code> and <code>y</code> inputs to have the same variables, and treat the observations like sets.</p>
+<ul>
+<li><p><code>intersect(x, y)</code>: returns only observations in both x and y.</p></li>
+<li><p><code>union(x, y)</code>: returns unique observations in x and y.</p></li>
+<li><p><code>setdiff(x, y)</code>: returns observations in x, but not in y.</p></li>
+</ul>
+<p>All these operations work with a complete row, comparing the values of every variable.</p>
+</section><section id="example-1" class="slide level2">
+<h2>Example</h2>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df1 &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>x, <span class="op">~</span>y,
+   <span class="dv">1</span>,  <span class="dv">1</span>,
+   <span class="dv">2</span>,  <span class="dv">1</span>
+)
+df2 &lt;-<span class="st"> </span><span class="kw">tribble</span>(
+  <span class="op">~</span>x, <span class="op">~</span>y,
+   <span class="dv">1</span>,  <span class="dv">1</span>,
+   <span class="dv">1</span>,  <span class="dv">2</span>
+)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">intersect</span>(df1, df2)</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     1</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">union</span>(df1, df2)</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2
+## 2     2     1
+## 3     1     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setdiff</span>(df1, df2)</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     2     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setdiff</span>(df2, df1)</code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2</code></pre>
+</div>
+</section></section>
+<section><section id="exploratory-data-analysis" class="titleslide slide level1"><h1>Exploratory data analysis</h1></section><section id="what-is-exploratory-data-analysis-eda" class="slide level2">
+<h2>What is exploratory data analysis (EDA)?</h2>
+<p>EDA is an iterative process:</p>
+<ul>
+<li>Generate questions about your data</li>
+<li>Search for answers by visualising, transforming, and modelling data</li>
+</ul>
+<p>Use what you learn to refine your questions or generate new ones.</p>
+<p>Some comments about EDA:</p>
+<ul>
+<li>It is not a formal process with a strict set of rules.</li>
+<li>Explore many ideas: some will pan out, others will be dead ends.</li>
+<li>Even if questions are predefined, quality of data still needs to be assessed</li>
+</ul>
+</section><section id="asking-questions" class="slide level2">
+<h2>Asking questions</h2>
+<p>Your goal during EDA is to develop an understanding of your data.</p>
+<blockquote>
+<p>“There are no routine statistical questions, only questionable statistical routines.”<br />
+— Sir David Cox</p>
+</blockquote>
+<p><em>EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.</em> [^1] [^1]: (<a href="http://r4ds.had.co.nz/exploratory-data-analysis.html#questions" class="uri">http://r4ds.had.co.nz/exploratory-data-analysis.html#questions</a>)</p>
+<p>Two types of questions will always be useful for making discoveries within your data:</p>
+<ol type="1">
+<li>What type of variation occurs within my variables?</li>
+<li>What type of covariation occurs between my variables?</li>
+</ol>
+</section><section id="variation" class="slide level2">
+<h2>Variation</h2>
+<p><strong>Variation</strong> is the tendency of the values of a variable to change from measurement to measurement. Every variable has its own pattern of variation, which can reveal interesting information.<a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Recall the <code>diamonds</code> dataset. Use a bar chart, to examine the distribution of a <strong>categorical variable</strong>, and a histogram that of a <strong>continuous</strong> one.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut))</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat), <span class="dt">binwidth =</span> <span class="fl">0.5</span>)</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" /></p>
+</div>
+</section><section id="identifying-typical-values" class="slide level2">
+<h2>Identifying typical values</h2>
+<ul>
+<li>Which values are the most common? Why?</li>
+<li>Which values are rare? Why? Does that match your expectations?</li>
+<li>Can you see any unusual patterns? What might explain them?</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(carat <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> carat)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.01</span>)</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" /></p>
+<p>Look for anything unexpected!</p>
+</section><section id="identify-outliers" class="slide level2">
+<h2>Identify outliers</h2>
+<p><strong>Outliers</strong> are observations that are unusual – data points that don’t seem to fit the general pattern.</p>
+<p>Sometimes outliers are data entry errors; other times outliers suggest important new science.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> y), <span class="dt">binwidth =</span> <span class="fl">0.5</span>)</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> y), <span class="dt">binwidth =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" /></p>
+</div>
+</section><section id="identifying-outliers" class="slide level2">
+<h2>Identifying outliers</h2>
+<p>Now that we have seen the usual values, we can try to understand them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(y <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span> <span class="op">|</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(price, carat, x, y, z) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(y)</code></pre></div>
+<pre><code>## # A tibble: 9 x 5
+##   price carat     x     y     z
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  5139  1     0      0    0   
+## 2  6381  1.14  0      0    0   
+## 3 12800  1.56  0      0    0   
+## 4 15686  1.2   0      0    0   
+## 5 18034  2.25  0      0    0   
+## 6  2130  0.71  0      0    0   
+## 7  2130  0.71  0      0    0   
+## 8  2075  0.51  5.15  31.8  5.12
+## 9 12210  2     8.09  58.9  8.06</code></pre>
+<p>The y variable measures the length (in mm) of one of the three dimensions of a diamond.</p>
+<p>Therefore, these must be entry errors! Why?</p>
+<p>It’s good practice to repeat your analysis with and without the outliers.</p>
+</section><section id="covariation" class="slide level2">
+<h2>Covariation</h2>
+<p><strong>Covariation</strong> is the tendency for the values of two or more variables to vary together in a related way.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>carat, <span class="dt">y=</span>price), <span class="dt">alpha=</span><span class="fl">0.1</span>) </code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" /></p>
+</section><section id="boxplots" class="slide level2">
+<h2>Boxplots</h2>
+<p><strong>Boxplot</strong> are used to display visual shorthand for a distribution of a continuous variable broken down by categories.</p>
+<p>They mark the distribution’s quartiles.</p>
+<p><img src="Lecture5-figure/EDA-boxplot.png", height="700"></img></p>
+</section><section id="a-categorical-and-a-continuous-variable" class="slide level2">
+<h2>A categorical and a continuous variable</h2>
+<p>Use a boxplot or a violin plot to display the covariation between a categorical and a continuous variable.</p>
+<p><strong>Violin plots</strong> give more information, as they show the entrire estimated distribution.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(
+  <span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(
+  <span class="dt">x =</span> <span class="kw">reorder</span>(class, hwy, <span class="dt">FUN =</span> median), <span class="dt">y =</span> hwy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>()</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-31-1.png" width="960" /></p>
+</div>
+</section><section id="two-categorical-variables" class="slide level2">
+<h2>Two categorical variables</h2>
+<p>To visualise the <strong>covariation between categorical variables</strong>, you need to count the number of observations for each combination, e.g. using <code>geom_count()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_count</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> color))</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" /></p>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<p>Another approach is to first, compute the count and then visualise it by coloring with <code>geom_tile()</code> and the fill aesthetic:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(color, cut) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> color, <span class="dt">y =</span> cut)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_tile</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> n)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis</span>()</code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" /></p>
+</section><section id="two-continuous-variables" class="slide level2">
+<h2>Two continuous variables</h2>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_y_log10</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_log10</span>() </code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;hexbin&quot;)</span>
+<span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_log10</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_log10</span>() </code></pre></div>
+<p><img src="Lecture5_Exploratory_Data_Analysis_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" /></p>
+</div>
+</section></section>
+<section><section id="interactive-graphics" class="titleslide slide level1"><h1>Interactive graphics</h1></section></section>
+<section><section id="data-export" class="titleslide slide level1"><h1>Data Export</h1></section><section id="exporting-data" class="slide level2">
+<h2>Exporting Data</h2>
+<p>After working with a dataset and doing all data manipulation, you might want to save your new data table.</p>
+<p>Recall the <code>readr</code> package. Besides functions for reading data in, <code>readr</code> has utilities for <strong>saving your data to a text file</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_tsv</span>(mydata, <span class="st">&quot;path/to/filename.tsv&quot;</span>)                  <span class="co"># tab-delimited</span>
+<span class="kw">write_csv</span>(mydata, <span class="st">&quot;path/to/filename.csv&quot;</span>)                  <span class="co"># comma-delimited</span>
+<span class="kw">write_delim</span>(mydata, <span class="st">&quot;path/to/filename.csv&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot; &quot;</span>)   <span class="co"># general delimiter</span></code></pre></div>
+<p>To save your data in other types of files, you need to install and use other packages:</p>
+<ul>
+<li>to export an <strong>Excel spreadsheet</strong>, use <code>xlsx</code> package, and follow this <a href="http://www.sthda.com/english/wiki/r-xlsx-package-a-quick-start-guide-to-manipulate-excel-files-in-r">guide</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(xlsx)</span>
+<span class="kw">library</span>(xlsx)
+<span class="kw">write.xlsx</span>(mydata, <span class="st">&quot;path/to/filename.xlsx&quot;</span>)</code></pre></div>
+<ul>
+<li>to export <strong>SAS</strong>, <strong>SPSS</strong> and <strong>Stata</strong> files use the <a href="https://haven.tidyverse.org/"><code>haven</code> package</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(haven)</span>
+<span class="kw">library</span>(haven)
+<span class="kw">read_sas</span>(<span class="st">&quot;mtcars.sas7bdat&quot;</span>)
+<span class="kw">write_sas</span>(mtcars, <span class="st">&quot;mtcars.sas7bdat&quot;</span>)</code></pre></div>
+</section><section id="saving-the-workspace" class="slide level2">
+<h2>Saving the workspace</h2>
+<ul>
+<li><p>You can also choose to <strong>save all objects</strong> currently in the workspace (variables, functions, etc.) into a file e.g. <code>filename.rda</code>.</p></li>
+<li><p>The file <code>filename.rda</code> can be the easily loaded next time you work with R.</p></li>
+<li><p>You can also save a single object or a subset of specified objects currently in the workspace.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># save the workspace to file </span>
+<span class="kw">save.image</span>(<span class="dt">file =</span> <span class="st">&quot;path/to/filename.rda&quot;</span>)
+
+<span class="co"># save specific objects to a file</span>
+<span class="kw">save</span>(object_list, <span class="dt">file =</span> <span class="st">&quot;path/to/filename.rda&quot;</span>)
+
+<span class="co"># save just a single object</span>
+<span class="kw">saveRDS</span>(object, <span class="dt">file =</span> <span class="st">&quot;path/to/filename.rds&quot;</span>)</code></pre></div>
+<ul>
+<li>Saved objects/workspace can be loaded back in a new R session.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load a workspace into the current session</span>
+<span class="kw">load</span>(<span class="st">&quot;path/to/filename.rda&quot;</span>)
+
+<span class="co"># read just the previously saved 1 object</span>
+object &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;path/to/filename.rds&quot;</span>)</code></pre></div>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>(<a href="http://r4ds.had.co.nz/exploratory-data-analysis.html#variation" class="uri">http://r4ds.had.co.nz/exploratory-data-analysis.html#variation</a>)<a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

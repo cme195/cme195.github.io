@@ -1,0 +1,1255 @@
+--- 
+title: 'Lecture 3: Importing and transforming data'
+subtitle: 'CME/STATS 195'
+date: "October 4, 2018" 
+author: "Lan Huong Nguyen"
+output: 
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: libs
+    theme: simple
+    hightlights: haddock
+    smart: true
+    center: true
+    transition: slide
+    css: cme195.css
+    df_print: paged,
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
+---
+
+```{r global_options, echo = FALSE, include = FALSE}
+options(width = 80)
+knitr::opts_chunk$set(
+  cache = TRUE, tidy = FALSE, size = "small")
+library(tidyverse)
+```
+
+
+## Contents
+<div class="left", style="width: 50%">
+- Importing data
+
+- Tidying data
+
+- Transforming data 
+
+- Chaining operations
+
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture3-figure/data-science-wrangle.png)\
+</div>
+
+<div class="left", style="width: 100%">
+</br>
+</div>
+
+<div class="left", style="width: 20%">
+<img src="./Lecture3-figure/readr.png", height="200"></img> 
+</div>
+
+<div class="left", style="width: 20%">
+<img src="./Lecture3-figure/tidyr.png", height="200"></img> 
+</div>
+
+<div class="left", style="width: 20%">
+<img src="./Lecture3-figure/dplyr.png", height="200"></img> 
+</div>
+
+<div class="left", style="width: 20%">
+<img src="./Lecture3-figure/magrittr.png", height="200"></img> 
+</div>
+
+
+# Importing data
+
+## Working Directory
+
+- The **current working directory** (cmd) is the location
+which R is currently pointing to.
+
+- Whenever you try to read or save a file without specifying 
+the path explicitly, the cmd will be used by default.
+
+- When are executing code from an R markdown/notebook code chunk, 
+the cmd is **the location of the document**.
+
+- To see the current working directory use `getwd()`:
+```{r}
+getwd()   # with no arguments
+```
+
+- To change the working directory use `setwd(path_name)` 
+with a specified path as na argument:
+```{r eval = FALSE}
+setwd("path/to/directory")
+```
+
+
+## Paths and directory names
+
+- R inherits its file and folder **naming conventions from unix**, and 
+uses forward slashes for the directories, e.g. `/home/lan/folder/`
+
+- This is, because backslashes serve a different purpose; they are used as 
+escape characters to isolate special characters and stop them from being 
+immediately interpreted.
+
+- When working with R on **Windows**, you can use either: `C:/Path/To/A/File`
+or `C:\\Path\\To\\A\\File`
+
+-  Use a "`Tab`" for autocompletion to find file paths more easily. 
+
+- To avoid problems, directory names should NOT contain spaces and special characters.
+
+
+## Importing text data
+
+- **Text Files in a table format** can be read and saved 
+to a selected variable using a `read.table()` function.
+Use `?read.table` to learn more about the function.
+
+- A common text file format is a **comma delimited text file**,
+`.csv`. These files use a comma as column separators, e.g:
+
+```{r eval = FALSE}
+Year,Student,Major
+2009, John Doe,Statistics
+2009, Bart Simpson, Mathematics I
+```
+
+- To read these files use the following command:
+
+```{r eval=FALSE}
+mydata <- read.table("path/to/filename.csv", header=TRUE,  sep = ",")
+
+# read.csv() has covenient argument defaults for '.csv' files
+mydata <- read.csv("path/to/filename.csv")
+```
+
+- Optionally, use `row.names` or `col.names` arguments
+to set the row and column names.
+
+
+
+## The `readr` package
+
+<div class="left", style="width: 50%">
+
+Many R packages provide examples of data. 
+However, sooner or later you will need to work with your own data.
+
+**`readr` is for reading rectangular text data into R.**
+</div>
+
+<img src="./Lecture3-figure/readr.png", height="300"></img> 
+
+<div class="left", style="width: 100%; position: relative; top: -10px">
+
+`readr` supports several file formats with seven `read_<...>` functions:
+
+- `read_csv()`: comma-separated (CSV) files
+- `read_tsv()`: tab-separated files
+- `read_delim()`: general delimited files
+- `read_fwf()`: fixed-width files
+- `read_table()`: tabular files where colums are separated by white-space
+- `read_log()`: web log files
+
+In many cases it just works: supply path to a file and get a tibble back.
+
+</div>
+
+## Comparison with base R
+</br>
+
+Why are we learning the readr package?
+
+- it is up to 10x faster
+
+- it produces tibbles instead of data.frames
+
+- better parsing (e.g. does not convert strings to factors)
+
+- more reproducible on different systems
+
+- progress bar for large files
+
+
+## Reading comma-separated files
+
+All `read_<...>()` functions have a similar syntax, so we focus on `read_csv()`.
+
+```{r}
+# Get path to example dataset
+readr_example("mtcars.csv")
+```
+
+```{r}
+mtcars <- read_csv(readr_example("mtcars.csv"))
+```
+
+`mtcars` is a dataset on fuel consumption, and other 10 aspects of design and 
+performance (`?mtcars`).
+
+
+## The `read_csv()` function
+
+Also works with inline csv files (useful for experimenting).
+
+<div class="left", style="width: 50%">
+```{r}
+read_csv(
+  "a,b,c
+  1,2,3
+  4,5,6"
+)
+```
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+read_csv(
+  "a,b,c
+  1,2,3
+  4,5,6", 
+  col_names=FALSE
+)
+```
+</div>
+
+<div class="left", style="width: 100%">
+Other useful arguments: skip lines, symbol for missing data.
+
+Now you can read most CSV files, also easily adapt to `read_tsv()`,  
+`read_fwf()`. For the others, you need to know how `readr` works inside.
+
+</div>
+
+
+## How `readr` parses data?
+
+```{r}
+parse_logical(c("TRUE","FALSE"))
+```
+
+```{r}
+parse_integer(c("1","2","3","NA"))
+```
+
+Parsing vectors:
+
+- `parse_logical()`, `parse_integer()`
+- `parse_double()`, `parse_number()`: for numbers from other countries
+- `parse_character()`: for character encodings.
+- `parse_datetime()`, `parse_date()`, `parse_time()`
+- `parse_factor()`
+
+## Potential difficulties
+
+Parsing data is not always trivial:
+
+- Numbers are written differently in different parts of the world 
+(“,” vs “.” for separatimg thousands)
+
+- Numbers are often surrounded by other characters (“$1000”, “10%”)
+
+- Numbers often contain “grouping” characters (“1,000,000”)
+
+- There are many different ways of writing dates and times
+
+- Times can be in different timezones
+
+- Encodings: special characters in other languages
+
+## Locales
+
+A locale specifies common options varying between languages and places
+
+To create a new locale, you use the locale() function:
+
+```{r}
+locale(
+  date_names = "en", 
+  date_format = "%AD", 
+  time_format = "%AT",
+  decimal_mark = ".", 
+  grouping_mark = ",", 
+  tz = "UTC",
+  encoding = "UTF-8", 
+  asciify = FALSE)
+```
+
+
+```{r, eval = FALSE}
+# More on locales can be found in a vignette
+vignette("locales")
+```
+
+
+## Parsing dates
+
+`parse_date()` expects a four digit year, month, day separated by "-" or "/":
+
+```{r}
+parse_date("2010-10-01")
+```
+
+Example: French format with full name of month:
+
+```{r}
+parse_date("1 janvier 2010")
+```
+
+
+```{r}
+parse_date("1 janvier 2010", format="%d %B %Y", locale=locale("fr"))
+```
+
+
+Learn more by typing `?parse_date`
+
+
+## Parsing times
+
+`parse_time()` expects an "hour : minutes" pair\
+(optionally proceeded by ":seconds", and "am/pm" specifier).
+
+```{r}
+parse_time("01:10 am")
+```
+
+Parsing dates and times:
+
+```{r}
+parse_datetime("2001-10-10 20:10", locale = locale(tz = "Europe/Dublin"))
+```
+
+For more details, see the book [R for data science](http://r4ds.had.co.nz/data-import.html#readr-datetimes)
+or use the documentation.
+
+## Parsing numbers
+
+`parse_number()` ignores non-numeric characters before and after.
+
+```{r}
+parse_number("20%")
+parse_number("$100")
+parse_number("cost: $123.45")
+```
+
+
+Parsing numbers with locales
+
+```{r}
+# Separation used in Switzerland
+parse_number("123'456'789", locale = locale(grouping_mark = "'"))
+```
+
+## Parsing real numbers
+
+Real numbers using a different decimal mark
+
+```{r}
+parse_double("1,23")
+```
+
+
+```{r}
+parse_double("1,23", locale = locale(decimal_mark = ","))
+```
+
+
+## `readr’s` strategy for parsing files
+
+`readr` uses a heuristic to determine column type, using the first 1000 rows.
+
+You can emulate this process with two functions:
+
+- `guess_parser()`: returns readr’s best guess
+- `parse_guess()`: uses that guess to parse the column
+
+The heuristic tries a sequence of types, stopping when it finds a match.
+
+If none of these rules apply, then the column will stay as a vector of strings.
+
+<div class="left", style="width: 50%">
+
+```{r}
+guess_parser("15:01")
+guess_parser("Oct 10, 2010; 15:01")
+```
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+parse_guess("12,352,561")
+parse_guess(c("TRUE", "FALSE"))
+```
+</div>
+
+
+
+## When the default strategy fails
+
+The default strategy does not always work, e.g. if the first 1000 rows 
+might be a special case. Suppose, your dataset with two columns:
+
+<div class="left", style="width: 50%">
+```{r}
+# Top 1000 lines are (integer, missing)
+readLines(readr_example("challenge.csv"), 10)
+```
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+# The remaining are (real number, date)
+tail(readLines(readr_example("challenge.csv"), 3000), 4)
+```
+</div>
+
+<div class="left", style="width: 100%">
+```{r}
+challenge <- read_csv(readr_example("challenge.csv"))
+```
+</div>
+
+
+
+## Examining what went wrong
+
+See problems(...) for more details.
+
+```{r}
+problems(challenge)
+```
+
+
+## Fixing the column specifications
+
+
+```{r}
+# Automatic colomn specifications are:
+challenge <- read_csv(readr_example("challenge.csv"), 
+  col_types = cols(x = col_integer(), y = col_character()) )
+```
+
+```{r}
+# It seems that first column should be a real number:
+( challenge <- read_csv(readr_example("challenge.csv"), 
+    col_types = cols(x = col_double(), y = col_character()) ) )
+```
+
+
+
+## Fixing the column specifications 
+
+Are we done? Check the “y” column
+
+```{r}
+tail(challenge)
+```
+
+Not yet: dates are stored as strings. To fix this, we use:
+
+```{r}
+challenge <- read_csv(readr_example("challenge.csv"), 
+  col_types = cols(x = col_double(), y = col_date() ) )
+```
+
+
+Every `parse_<...>()` function has a corresponding `col_<...>()` function.
+ `col_<...>()` tells readr how to load the data.
+
+
+## Diagnosing problems
+
+Maybe easier to diagnose problems if all columns are read as characters:
+
+```{r}
+challenge2 <- read_csv(readr_example("challenge.csv"), 
+  col_types = cols(.default = col_character()) )
+head(challenge2, 3)
+```
+
+and then use `type_convert()` to apply parsing heuristics to character columns.
+
+```{r}
+head(type_convert(challenge2), 3)
+```
+
+
+## Importing other types of data
+
+We will not go into the details in this course.
+We only list a few other useful packages for importing data.
+
+Rectangular data:
+
+- Package `haven` reads SPSS, Stata, and SAS files.
+- Package `readxl` reads excel files (both .xls and .xlsx).
+- Package `DBI`, along with a database specific backend (e.g. RMySQL, 
+RSQLite, RPostgreSQL etc) allows you to run SQL queries against a database 
+and return a data frame.
+
+Hierarchical data:
+
+- `jsonlite` for json (common for browser-server communications)
+- `xml2` for XML (common for textual data in web services)
+
+And many more are available.
+
+
+## Exercise 1
+
+- Download "Lec3_Exercises.Rmd" file from the Lectures tab on class website.
+
+- Open the file in RStudio.
+
+- Do Exercise 1.
+
+
+
+# Tidying data 
+
+
+## What is tidy data?
+ 
+There are three interrelated rules which make a dataset tidy:
+
+- Each variable must have its own column.
+
+- Each observation must have its own row.
+
+- Each value must have its own cell.
+
+![](./Lecture3-figure/tidy_table.png)
+Source: http://r4ds.had.co.nz
+
+
+## Datasets in different forms
+
+Each dataset shows the same values of four variables **country, year, 
+population, and number of TB cases**, but each dataset organises the values in a 
+different way.
+
+
+<div class="left", style="width: 50%">
+```{r}
+table1
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+table2
+```
+</div>
+
+##
+
+In this example, only `table1` is tidy. It’s the only representation where 
+each column is a variable.
+
+
+<div class="left", style="width: 50%">
+```{r}
+table3
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+table4a
+```
+
+```{r}
+table4b
+```
+
+</div>
+
+
+
+## Why tidy data?
+ 
+- If you pick one consistent way of storing data, then you can reuse the same tools.
+
+- R is naturally vectorized. Most built-in R functions work with vectors of values.
+
+- `dplyr`, `ggplot2`, and other packages in the `tidyverse` are designed to work
+with tidy data.
+
+
+## Why you need to know how to tidy data?
+ 
+
+- You cannot assume data will come in as tidy. In fact, most data is not.
+
+- Many people aren’t familiar with the principles of tidy data.
+
+- Data is often organised to facilitate some use other than analysis,
+e.g. storage efficiency, compactness or ease of data entry.
+
+
+This means for most real analyses, you’ll need to do some tidying.
+
+## The `tidyr` package
+
+<div class="left", style="width: 70%">
+> Tidy datasets are all alike, but every messy dataset is messy in its own way. \
+–– Hadley Wickham
+
+In the tidyverse, tidying data is done with `tidyr` package.
+
+</div>
+
+<div class="right", style="width: 30%">
+![](./Lecture3-figure/tidyr.png)
+</div>
+
+<div class="left", style="width: 100%">
+
+The same data can be represented in many different ways. Some are 
+more practical than others.
+
+</div>
+
+
+## Spreading, gathering, separating and uniting columns
+
+**First step.** Determine what are the variables and what are the observations.
+
+**Second step.** Often, you need to deal with some of the following issues:
+
+- One variable is spread across multiple columns $\implies$ need to `gather()`.
+
+- One observation might be scattered across multiple rows $\implies$ need to `spread()`.
+
+- One column contains values fore multiple variables $\implies$ need to `separate()`.
+
+- Multiple columns store information on a single variable $\implies$ need to `unite()`.
+
+`tidyr` can help you solve these problems.
+
+
+## Gathering
+ 
+**Common problem:** some column names are not the names, 
+but the values of a variable.
+
+```{r}
+table4a
+```
+
+`gather()` makes **wide tables narrower and longer**:
+
+![](./Lecture3-figure/gathering.png)
+
+
+## Gathering
+
+To tidy up `table4a`, we need to `gather()` those columns into a new pair
+of variables. We need three pieces of information to do this:
+
+- The set of columns that represent values, not variables.
+
+- The name for the variable whose values are given in **these columns' names**
+(the `key`).
+
+- The name for the variable whose values are spread over **these columns' cells** 
+(the `value`).
+
+<div class="left", style="width: 35%">
+```{r}
+table4a
+```
+</div>
+
+<div class="right", style="width: 65%">
+```{r}
+gather(table4a, `1999`:`2000`, key = year, value = cases)
+```
+</div>
+
+
+
+## Spreading
+
+Spreading is the opposite of gathering, and you use it when **an observation 
+is scattered across multiple rows**.
+
+`spread()` makes **long tables shorter and wider**:
+
+![](./Lecture3-figure/spreading.png)
+
+
+
+## Spreading 
+
+To spread up `table2`, we only need two parameters:
+
+- The column that contains variable names (the `key`).
+
+- The column that contains values from multiple variables (the `value`).
+
+<div class="left", style="width: 50%">
+```{r}
+table2
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+spread(table2, key = type, value = count)
+```
+</div>
+
+
+## Separate
+
+Sometimes, a dataset has a column with values corresponding to multiple
+variables. 
+
+We might want to split such a column into multiple new ones.
+
+`separate()` **makes narrow tables wider.**
+
+
+![](./Lecture3-figure/separate.png)
+
+
+## Separate
+
+`separate()` splits one column into multiple columns wherever a separator 
+appears.
+
+<div class="left", style="width: 45%">
+```{r}
+table3
+```
+</div>
+
+<div class="right", style="width: 55%">
+```{r}
+separate(table3, col = rate, 
+         into = c("cases", "population"))
+```
+</div>
+
+<div class="left", style="width: 100%">
+
+Some important features of `separate()`
+
+- by default, it splits values wherever it sees a non-alphanumeric character. 
+You can specify the separator.
+```{r, eval = FALSE}
+separate(table3, rate, into = c("cases", "population"), sep = "/")
+```
+ 
+- by default, it leaves the type of the column as is. 
+You can ask it to convert to better types. 
+
+```{r, eval = FALSE}
+separate(table3, col = rate, into = c("cases", "population"), convert = T)
+```
+
+</div>
+
+
+## Unite
+
+`unite()` is the opposite of `separate()`:\
+it combines multiple columns into a single column.
+
+`unite()` **makes wider tables narrower.**
+
+![](./Lecture3-figure/unite.png)
+
+## Unite
+
+`unite()` takes arguments:
+
+1. a `tibble` (or `data.frame`)
+1. the name of the new column
+1. names of columns to be combined
+1. a separator used when uniting the columns
+
+</br>
+
+<div class="left", style="width: 50.5%">
+```{r}
+table5
+```
+</div>
+
+<div class="right", style="width: 49.5%">
+```{r}
+unite(table5, col = full_year, century, year, 
+      sep = "")
+```
+</div>
+
+
+
+# Transforming data
+
+## The `dplyr` package
+
+</br>
+
+The `dplyr` package is also a part of the core `tidyverse`, which:
+
+<div class="left", style="width: 70%">
+- Introduces **a grammar of data manipulation**.
+
+- Gives a **code-efficient** for way for data exploration and transformation.
+
+- Is **fast on data frames** (written in C++): has speed of C and ease of R.
+
+- **Intuitive to write and easy to read**, esp. when using the *chaining* syntax.
+</div>
+
+<div class="right", style="width: 30%">
+![](./Lecture3-figure/dplyr.png)
+</div>
+
+<div class="left", style="width: 100%">
+</br>
+
+You should use `dplyr` even as a beginner R user, and [here is why](http://varianceexplained.org/r/teach-tidyverse/).
+
+
+## `dplyr` verbs (functions)
+
+</br>
+
+`dplyr` utilities handle the vast majority of your data manipulation needs:
+
+- `filter()` - for picking observations by their values,
+
+- `select()` - for picking variables by their names,
+
+- `arrange()` - for reorder the rows,
+
+- `mutate()` - for creating new variables with functions on existing variables, 
+
+- `summarise()` - for collapse many values down to a single summary. 
+
+</br>
+All of the above can be done using **base R functions, but they would be less 
+computationally efficient, and require writing more lines of (ugly) code.** 
+
+
+## The structure of `dplyr` functions
+
+</br>
+
+All verbs work similarly:
+
+- The first argument is a tibble (or data frame)
+
+- The subsequent ones describe what to do, using the variable names
+
+- The result is a new tibble
+
+</br>
+
+Learn more about `dplyr` from a 
+[turtorial](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a?preview=dplyr-tutorial.pdf) written by its creator, Hadley Wickham.
+
+
+## The movie industry dataset
+
+`movies.csv` contains information on last three decades of movies. 
+
+
+The data has been scraped from the IMDb website and can be accessed from a [github repo](https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv).
+
+
+```{r, width = 100, warning=FALSE, message=FALSE}
+url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
+movies <- read_csv(url)
+movies
+```
+
+
+## `filter()`: retain rows matching a criteria
+
+`filter()` allows you to subset observations based on their values.
+
+```{r}
+# note: both comma and "&" represent AND condition
+filter(movies, genre == "Comedy", director == "Woody Allen")
+```
+
+```{r, eval = FALSE}
+# base R approach would be more wordy:
+movies[movies$genre == "Comedy" & movies$director == "Woody Allen", ]
+```
+
+Package `dplyr` executes the filtering and returns a new data frame.
+**It never modifies the original one.**
+
+## Logical operators
+
+Multiple arguments to `filter()` are combined with “and”: all expressions must 
+be true, for a row to be included in the output. For other types of combinations,
+you’ll need to use Boolean operators yourself: & is “and”, | is “or”, and ! is “not”:
+
+![](./Lecture3-figure/transform-logical.png)
+
+<smal> Source: [R for data science](http://r4ds.had.co.nz/transform.html)</small>
+
+## 
+
+
+```{r, eval  = FALSE}
+# Using AND operator
+filter(movies, country == "USA", budget > 2.5e8) 
+# same as filter(movies, country == "USA" & budget > 2.5e8)
+
+# Using OR operator
+filter(movies, country == "USA" | budget > 2.5e8)
+
+# Using xor()
+filter(movies, xor(score > 9, budget > 2.5e8))
+```
+
+```{r}
+# you can also use %in% operator
+filter(movies, country %in% c("Peru", "Colombia", "Chile"))
+```
+
+
+
+## `select()`: pick columns by name
+
+`select()` let's you choose a subset variables, specified by name.
+
+Note, there is no need for quotation marks in `dplyr`:
+```{r}
+# dplyr approach
+select(movies, name, country, year, genre)
+```
+
+```{r, eval = FALSE}
+# base R approach would be:
+movies[, c("name", "year", "genre")]
+```
+
+
+##
+
+```{r}
+select(movies, name, genre:score) # use colon to select contiguous columns, 
+```
+
+```{r}
+select(movies, -(star:writer))    # To drop columns use a minus, "-" 
+```
+
+
+
+## `select()` helpers
+
+You can use the following functions to help select the columns:
+
+- `starts_with()`
+- `ends_with()`
+- `contains()`
+- `matches()` (matches a regular expression)
+- `num_range("x", 1:4)`: pickes variables x1, x2, x3, x4
+
+Examples:
+
+```{r, eval = FALSE}
+select(movies, starts_with("r"))
+select(movies, ends_with("e"))
+select(movies, contains("re"))
+```
+
+
+## `arrange()`: reorder rows
+
+`arrange()` takes a data frame and a set of column names to order by. \
+For descending order, use the function `desc()` around the column name.
+
+```{r}
+print(arrange(movies, runtime), n = 4)
+
+# use `desc` for descending
+print(arrange(movies, desc(budget)), n = 4)
+```
+
+## `mutate()`: add new variables
+
+`mutate()` adds new columns that are a function of the existing ones
+
+```{r}
+movies <- mutate(movies, profit = gross - budget)
+select(movies, name, gross, budget, profit)
+```
+
+To discard old variables, use `transmute()` instead of `mutate()`.
+
+
+```{r eval = FALSE}
+# base R approach to create a new variable 'profit'
+movies$profit <- movies$gross - movies$budget
+```
+
+##
+
+```{r}
+# Generating multiple new variables
+movies <- mutate(
+  movies, 
+  profit = gross - budget, 
+  gross_in_mil = gross/10^6,
+  budget_in_mil = budget/10^6,
+  profit_in_mil = profit/10^6
+)
+select(movies, name, year, country, contains("_in_mil"), profit)
+```
+
+
+<div class="left", style="width: 100%; font-size: 0.7em;">
+**Any vectorized function can be used with `mutate()`**, including:
+
+- arithmetic operators  (+,-,*,/, %, %%), 
+- logical operators (<,<=,>,>=,==,!=),
+- logarithmic and exponential transfomations (`log, log10, exp`), 
+- offsets (`lead, lag`), 
+- cummulative rolling aggregates (`cumsum`, `cumprod`, `cummin`, `cummax`),
+- ranking (`min_rank`, `percent_rank`).
+</div>
+
+
+## `summarise()`: reduce variables to values
+
+</br>
+
+`summarize()` can be used to aggregate data or to compute a summarizing value 
+of interest.
+
+```{r}
+summarise(movies, 
+  tot_gross_in_bil = sum(gross)/1e9, 
+  mean_gross_in_mil = mean(gross)/1e6, 
+  mean_profit_in_mil = mean(profit)/1e6
+)
+```
+
+`summarize()` is **more useful on data previously grouped by 
+one or more variables** using `group_by()`.
+
+```{r, eval = FALSE}
+by_genre <- group_by(movies, genre)
+summarize(by_genre, tot_gross_in_bil = sum(gross)/1e9, 
+          mean_gross_in_mil = mean(gross)/1e6, 
+          mean_profit_in_mil = mean(profit)/1e6)
+```
+
+## Grouping and summarizing
+
+Grouing allows you to compute summaries for each categories separately:
+
+```{r}
+by_genre <- group_by(movies, genre)
+summarize(
+  by_genre, 
+  tot_gross_in_bil = sum(gross)/1e9, 
+  mean_gross_in_mil = mean(gross)/1e6, 
+  mean_profit_in_mil = mean(profit)/1e6
+)
+```
+
+## Elementary but useful summary functions
+
+- `min(x)`, `median(x)`, `max(x)`, `quantile(x, p)`
+- `n()`, `n_distinct()`, `sum(x)`, `mean(x)`
+- `sum(x > 10)`, `mean(x > 0)`
+- `sd(x)`, `var(x)`
+
+
+## Counting observations
+
+`tally()` function can be used to generate a group frequency table,
+(number of observations in each category)
+
+<div class="left", style="width: 50%">
+```{r}
+tally(group_by(movies, genre))
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+tally(group_by(movies, genre, country))
+```
+</div>
+
+
+
+## Window Functions
+
+- Aggregation functions such as `mean()`, `n()` return 1 value per group.
+
+- **Window functions return multiple values per group**, e.g.
+`top_n()`, `lead` and `lag` or `cummean`:
+
+```{r}
+# rewrite more simply with the `top_n` function
+movies2 <- select(movies, name, genre, country, year, budget, gross, profit, rating, score)
+top2 <- top_n(group_by(movies2, genre), n = 2, wt = score)
+arrange(top2, genre, year, score)  
+```  
+
+
+
+## Other useful functions in `dplyr` 
+
+```{r}
+# Renaming variables
+print(rename(movies2, gross_revenue = gross), n = 5)
+```
+
+<div class="left", style="width: 50%">
+```{r}
+# Unique values
+distinct(movies2, rating)
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+# Using multiple variables, returns distinct variable combinations.
+distinct(movies2, rating, genre)
+```
+</div>
+
+
+
+## Sampling observations
+
+```{r}
+sample_n(movies, 5)                    # fixed number of rows, without replacement
+sample_frac(movies, 0.005, replace=TRUE) # fraction of rows, with replacement
+```
+
+
+
+# Chaining operations
+
+## The `magrittr` package
+
+<div class="left", style="width: 65%">
+
+> The magrittr (to be pronounced with a sophisticated french accent) package 
+has two aims: decrease development time and improve readability and 
+maintainability of code
+
+`magrittr` provides a "pipe"-like operator, `%>%`:
+
+- The `%>%` is used **pipe values forward into an expression or function call**.
+- In the pipe notation, you use `x %>% f(y)`, rather than `f(x, y)`.
+- This is similar to the [Unix pipes](http://www.linfo.org/pipe.html),
+`|`, used to send the output of one program to another program for 
+further processing.
+
+</div>
+
+<div class="right", style="width: 35%">
+
+![](./Lecture3-figure/magrittr.png)
+
+```{r fig.width=7, fig.height=5}
+columns <- 1:50
+rnorm(500) %>%
+  matrix(ncol = 50) %>%
+  colSums() %>%
+  plot(x = columns)
+```
+
+</div>
+
+
+
+## Chaining operations
+
+</br>
+
+- Pipe operators used together with `dplyr` functions make a large
+difference as they semantically change your code in a way that 
+**makes it more intuitive to both read and write**. 
+
+- The pipes allow users to chain operators which reflects the 
+**sequential nature of data-processing tasks**.
+
+- **Chaining increases readability** significantly when there are 
+many commands 
+
+- `%>%` operator is automatically imported into `dplyr`
+
+##
+
+(1) Find movies from USA produced after 2010. (2) Group by genre and
+(3) compute the group mean gross revenue in million dollars. Then print the genre
+mean 'gross' revenue (4) arranged in a descending order: 
+
+
+<div class="left", style="width: 50%">
+```{r}
+# nesting 
+arrange(
+  summarise(
+    group_by(
+      filter(movies, 
+             year > 2010, country == "USA"
+      ),
+      genre
+    ),
+    mean_gross = mean(gross)/10^6
+  ),
+  mean_gross
+)
+```
+
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+# chaining 
+movies %>%
+  filter(year > 2010, country == "USA") %>%
+  group_by(genre) %>%
+  summarise(mean_gross = mean(gross)/10^6) %>%
+  arrange(mean_gross)
+```
+
+</div>
+
+
+## Exercises 2
+
+
+</br>
+
+- Go to the "Lec3_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 2.
+
+

@@ -56,7 +56,8 @@ a:hover small {
 }
 
 .wrapper {
-  width:1200px;
+  width:100%;
+  max-width:1366px;
   margin:0 auto;
 }
 
@@ -108,7 +109,6 @@ img {
 header {
   width:20%;
   max-width:300px;
-  min-width:100px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -177,7 +177,6 @@ header ul a strong {
 section {
   width:75%;
   max-width:1000px;
-  min-width:500px;
   float:right;
   padding-left:20px;
   padding-bottom:50px;
@@ -218,7 +217,7 @@ footer {
   }
 
   header {
-    padding-right:320px;
+    padding-right:200px;
   }
 
   section {

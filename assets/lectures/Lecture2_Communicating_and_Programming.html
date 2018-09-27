@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Lan Huong Nguyen" />
-  <title>CME/STATS 195</title>
+  <title>Lecture 2: Communicating and Programming in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -487,8 +487,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title">CME/STATS 195</h1>
-  <h1 class="subtitle">Lecture 2: Communicating using R Markdown &amp; Elements of Programming</h1>
+    <h1 class="title">Lecture 2: Communicating and Programming in R</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
     <h2 class="author">Lan Huong Nguyen</h2>
     <h3 class="date">October 2, 2018</h3>
 </section>
@@ -497,66 +497,139 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Contents</h2>
 <div class="left" ,="" style="width: 50%">
 <ul>
-<li>Working with R:
+<li><p>Using RStudio</p></li>
+<li><p>Data science workflow</p></li>
+<li><p>Communicating with R Markdown</p></li>
+<li><p>Programming</p>
 <ul>
-<li>Using RStudio</li>
-<li>Communicating<br />
-with R Markdown</li>
-</ul></li>
-<li>Programming
-<ul>
-<li>Syntax</li>
-<li>Control flow statements</li>
+<li><p>Style</p></li>
+<li><p>Control flow statements</p></li>
 <li>Functions</li>
 </ul></li>
 </ul>
 </div>
 <div class="right" ,="" style="width: 50%">
-<p><img src="Lecture2-figure/data-science.png", width="950"></img></p>
+<p><img src="Lecture2-figure/data-science.png" /><br />
+<img src="Lecture2-figure/data-science-program.png" /></p>
 </div>
 </section>
-<section><section id="using-rstudio" class="titleslide slide level1"><h1>Using RStudio</h1></section><section id="rstudio-window" class="slide level2">
-<h2>RStudio window</h2>
-<p><img src="Lecture2-figure/RStudio_window.png",  width="1000"></img></p>
-</section><section id="rstudio-preferences" class="slide level2">
-<h2>RStudio preferences</h2>
-<p><img src="Lecture2-figure/RStudio_preferences.png", width="1000"></img></p>
-</section><section id="rstudio-layout" class="slide level2">
-<h2>RStudio layout</h2>
-<p><img src="Lecture2-figure/RStudio_layout.png", width="1000"></img></p>
-</section><section id="rstudio-apprearance" class="slide level2">
-<h2>RStudio apprearance</h2>
-<p><img src="Lecture2-figure/RStudio_appearances.png", width="1000"></img></p>
-<p>More on RStudio cuztomization can be found <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">here</a></p>
-</section><section id="r-document-types" class="slide level2">
-<h2>R document types</h2>
-<p><img src="Lecture2-figure/RStudio_documents.png", width="1000"></img></p>
-</section><section id="r-document-types-1" class="slide level2">
-<h2>R document types</h2>
+<section><section id="data-science" class="titleslide slide level1"><h1>Data Science</h1></section><section id="data-science-workflow" class="slide level2">
+<h2>Data Science Workflow</h2>
+<blockquote>
+<p>Data science is an exciting discipline that allows you to turn raw data into understanding, insight, and knowledge. <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</blockquote>
+<div class="left" ,="" style="width: 50%;">
+<ol type="1">
+<li>Import</li>
+<li>Wrangle (tidy &amp; transform)</li>
+<li>Visualize</li>
+<li>Model</li>
+<li>Communicate</li>
+</ol>
+</div>
+<p><right> <img src="Lecture2-figure/data-science.png" /> </right></p>
+</section><section id="tidyverse" class="slide level2">
+<h2><code>tidyverse</code></h2>
+<div class="left" ,="" style="width: 70%;">
+<blockquote>
+<p>The <code>tidyverse</code> is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. <a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+</blockquote>
+<p><code>tidyverse</code> includes packages for <strong>importing, wrangling, exploring and modeling data</strong>.</p>
+<p>The system is intended to make data scientists more productive. To use <code>tidyverse</code> do the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install the package</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="co"># Load it into memory</span>
+<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre></div>
+</div>
+<div class="right" ,="" style="width: 30%;">
+<p><img src="Lecture2-figure/tidyverse.jpeg", height="250"></img> <img src="Lecture2-figure/tidyverse.png", height="550"></img></p>
+</div>
+</section><section id="the-tibble-package" class="slide level2">
+<h2>The <code>tibble</code> package</h2>
+<p>The <code>tibble</code> package is part of the core <code>tidyverse</code>.</p>
+<div class="left" ,="" style="width: 70%;">
+<blockquote>
+<p>Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating.</p>
+</blockquote>
+</div>
+<div class="right" ,="" style="width: 30%;">
+<p><img src="Lecture2-figure/tibble.jpg", height="250"></img></p>
+</div>
+<div class="left" ,="" style="width: 100%;">
+<p><code>tibbles</code> are data frames, tweaked to make life a little easier. Unlike regular <code>data.frames</code> they:</p>
 <ul>
-<li><p><a href="https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html">R Script</a> <strong>a text file</strong> containing R commands stored together.</p></li>
-<li><p><a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown</a> files can generate high quality reports contatining notes, code and code outputs. <strong>Python and bash code </strong> can also be executed.</p></li>
-<li><p><a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook</a> is an R Markdown document with <strong>chunks that can be executed independently and interactively</strong>, with output visible immediately beneath the input.</p></li>
-<li><p><a href="https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations">R presentation</a> let’s you author <strong>slides</strong> that make use of R code and LaTeX equations as <strong>straightforward</strong> as possible.</p></li>
-<li><p><a href="https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr">R Sweave</a> enables the embedding of <strong>R code within LaTeX documents</strong>.</p></li>
-<li><p><a href="http://rmarkdown.rstudio.com/formats.html">Other</a> documents</p></li>
+<li>never change the type of the inputs (e.g. do not convert strings to factors!)</li>
+<li>never changes the names of variables</li>
+<li>never creates row.names()</li>
+<li>only recycles inputs of length 1</li>
 </ul>
+</div>
+</section><section id="using-tibbles" class="slide level2">
+<h2>Using <code>tibbles</code></h2>
+<p>To use functions from <code>tibble</code> and other <code>tidyverse</code> packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load it into memory</span>
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<p>Printing <code>tibble</code> is much nicer, and always fits into your window:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e.g. a built-in dataset &#39;diamonds&#39; is a tibble:</span>
+<span class="kw">class</span>(diamonds)</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds</code></pre></div>
+<pre><code>## # A tibble: 53,940 x 10
+##    carat cut       color clarity depth table price     x     y     z
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+##  2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+##  3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+##  4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+##  5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+##  6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+##  7 0.24  Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+##  8 0.26  Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+##  9 0.22  Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+## 10 0.23  Very Good H     VS1      59.4    61   338  4     4.05  2.39
+## # … with 53,930 more rows</code></pre>
+</section><section id="using-tibbles-1" class="slide level2">
+<h2>Using <code>tibbles</code></h2>
+<p><strong>Creating <code>tibbles</code></strong> is similar to <code>data.frame</code>s, but no strict rules on column names:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(tb &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">1</span>,<span class="dt">z =</span> x <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>y, <span class="st">`</span><span class="dt">:)</span><span class="st">`</span> =<span class="st">  &quot;smile&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##       x     y     z `:)` 
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1     1     2 smile
+## 2     2     1     5 smile
+## 3     3     1    10 smile
+## 4     4     1    17 smile
+## 5     5     1    26 smile</code></pre>
+<p><strong>Subsetting <code>tibbles</code> is stricter</strong> than subsetting <code>data.frames</code>, and ALWAYS returns objects with expected class: a single <code>[</code> returns a <code>tibble</code>, a double<code>[[</code> returns a vector.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(diamonds<span class="op">$</span>carat)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(diamonds[[<span class="st">&quot;carat&quot;</span>]])</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(diamonds[, <span class="st">&quot;carat&quot;</span>])</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+</div>
+</section><section id="more-on-tibbles" class="slide level2">
+<h2>More on <code>tibbles</code></h2>
+<p>You can read more about other <code>tibble</code> features by calling on your R console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;tibble&quot;</span>)</code></pre></div>
 </section></section>
 <section><section id="communicating-with-r-markdown" class="titleslide slide level1"><h1>Communicating with R Markdown</h1></section><section id="r-markdown" class="slide level2">
 <h2>R Markdown</h2>
+<div class="left" ,="" style="width: 70%">
 <p>R Markdown provides an unified authoring framework for data science, combining your code, its results, and your prose commentary.</p>
+</div>
+<div class="right" ,="" style="width: 30%">
+<p><img src="Lecture2-figure/rmarkdown.png" /></p>
+</div>
 <p>R Markdown was designed to be used:</p>
 <ul>
 <li><p>for communicating your conclusions with people who do not want to focus on the code behind the analysis.</p></li>
 <li><p>for collaborating with other data scientists, interested in both conclusions, and the code.</p></li>
 <li><p>as a modern day lab notebook for data science, where you can capture both your work and your thought process.</p></li>
 </ul>
-<div class="left" ,="" style="width: 50%">
-<p><img src="Lecture2-figure/rmarkdown.png" /></p>
-</div>
-<div class="right" ,="" style="width: 50%">
-<p><img src="Lecture2-figure/data-science-communicate.png" /></p>
-</div>
 </section><section id="r-markdown-sourse-files" class="slide level2">
 <h2>R Markdown sourse files</h2>
 <p>R Markdown files are a plain text files with “.Rmd” extension.</p>
@@ -690,42 +763,81 @@ $$\sqrt{\alpha^2 + \beta^2} = \frac{\gamma}{2}$$</code></pre>
 <p>You can evealuate R code in a middle of your text:</p>
 <pre><code>  There are 26 in the alphabet, and 12 months in each year. 
   Today, there are `as.Date(&quot;2019-08-23&quot;) - Sys.Date()` days left till my next birthday.</code></pre>
-<p>There are 26 in the alphabet, and 12 months in a year. Today, there are 333 days left till my next birthday.</p>
+<p>There are 26 in the alphabet, and 12 months in a year. Today, there are 330 days left till my next birthday.</p>
 </section><section id="more-on-r-markdown" class="slide level2">
 <h2>More on R Markdown</h2>
 <p>R Markdown is relatively young, and growing rapidly.</p>
 <p>Official R Markdown website: (<a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>)</p>
 <p>Further reading and references:</p>
 <ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></li>
 <li><a href="http://www.stat.cmu.edu/~cshalizi/rmarkdown" class="uri">http://www.stat.cmu.edu/~cshalizi/rmarkdown</a></li>
-<li><a href="http://r4ds.had.co.nz" class="uri">http://r4ds.had.co.nz</a></li>
 <li><a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
 </ul>
 </section><section id="some-r-markdown-advice" class="slide level2">
 <h2>Some R Markdown advice</h2>
 <ul>
-<li>See your future self as a collaborator.</li>
-<li>Ensure each notebook has a descriptive title and name.</li>
-<li>Use the header date to record start time</li>
-<li>Keep track of failed attempts</li>
-<li>If you discover an error in a data file, write code to fix it.</li>
-<li>Regularly knit the notebook</li>
-<li>Use random seeds before sampling.</li>
-<li>Keep track the versions of the packages you use, e.g. by including <code>sessionInfo()</code> command at the end of your document.</li>
+<li class="fragment">See your future self as a collaborator.</li>
+<li class="fragment">Ensure each notebook has a descriptive title and name.</li>
+<li class="fragment">Use the header date to record start time</li>
+<li class="fragment">Keep track of failed attempts</li>
+<li class="fragment">If you discover an error in a data file, write code to fix it.</li>
+<li class="fragment">Regularly knit the notebook</li>
+<li class="fragment">Use random seeds before sampling.</li>
+<li class="fragment">Keep track the versions of the packages you use, e.g. by including <code>sessionInfo()</code> command at the end of your document.</li>
 </ul>
 <p>All the above will help you increase the reproduciblity of your work.</p>
 </section></section>
-<section><section id="programming-syntax" class="titleslide slide level1"><h1>Programming: Syntax</h1></section><section id="style-guide" class="slide level2">
-<h2>Style Guide</h2>
-<ul>
-<li>There are two main style conventions used in R:
-<ul>
-<li><p><a href="http://adv-r.had.co.nz/Style.html">Hadley Wickam style</a></p></li>
-<li><p><a href="https://google.github.io/styleguide/Rguide.xml">Google R style</a></p></li>
-</ul></li>
-<li><p>You can use either of the two style guides or create your own customized style.</p></li>
-<li><p>But you should stay <strong>consistent</strong>, e.g. if you choose to assign variables with <code>&lt;-</code>, stick to it and don’t use <code>=</code>.</p></li>
-</ul>
+<section><section id="programming-style-guide" class="titleslide slide level1"><h1>Programming: style guide</h1></section><section id="naming-conventions" class="slide level2">
+<h2>Naming conventions</h2>
+<p>The first step of programming is naming things.<br />
+In the “Hadley Wickam” <a href="http://adv-r.had.co.nz/Style.html">R style convention</a>:</p>
+<p><strong>File names</strong> are meaningful. Script files end with “.R”, and R Markdown with “.Rmd”</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
+fit<span class="op">-</span>models.R
+utility<span class="op">-</span>functions.R</code></pre></div>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bad (works but does not follow style convention)</span>
+foo.r
+stuff.r</code></pre></div>
+</div>
+<div class="left" ,="" style="width: 100%">
+<p><strong>Variable and function</strong> names are lowercase.</p>
+</div>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
+day_one
+day_<span class="dv">1</span></code></pre></div>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bad (works but does not follow style convention)</span>
+first_day_of_the_month
+DayOne</code></pre></div>
+</div>
+</section><section id="spacing" class="slide level2">
+<h2>Spacing</h2>
+<p>Spacing around all infix operators (=, +, -, &lt;-, etc.):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">average &lt;-<span class="st"> </span><span class="kw">mean</span>(feet <span class="op">/</span><span class="st"> </span><span class="dv">12</span> <span class="op">+</span><span class="st"> </span>inches, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)     <span class="co"># Good</span>
+average&lt;-<span class="kw">mean</span>(feet<span class="op">/</span><span class="dv">12</span><span class="op">+</span>inches,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)              <span class="co"># Bad</span></code></pre></div>
+<p>Spacing before left parentheses, except in a function call</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
+<span class="cf">if</span> (debug) <span class="kw">do</span>(x)
+<span class="kw">plot</span>(x, y)
+
+<span class="co"># Bad</span>
+<span class="cf">if</span>(debug)<span class="kw">do</span>(x)
+<span class="kw">plot</span> (x, y)</code></pre></div>
+Assignment use ‘&lt;-’ not ‘=’:
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
+x &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bad (works but does not follow style convention)</span>
+x =<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
+</div>
 </section><section id="curly-braces" class="slide level2">
 <h2>Curly braces</h2>
 <div class="left" ,="" style="width: 50%">
@@ -759,36 +871,27 @@ $$\sqrt{\alpha^2 + \beta^2} = \frac{\gamma}{2}$$</code></pre>
 }</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) <span class="kw">message</span>(<span class="st">&quot;Y is negative&quot;</span>)</code></pre></div>
 </div>
-</section><section id="code-documentation" class="slide level2">
-<h2>Code Documentation</h2>
-<div class="left" ,="" style="width: 50%">
-<ul>
-<li><p>Comment your code! They will be helpful when you read your code a month after you wrote it.</p></li>
-<li><p>In R each line of a comment should begin with a comment symbol “<code>#</code>”.</p></li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Function returns the answer to life, </span>
-<span class="co"># the universe and everything else</span>
-get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
-  <span class="kw">return</span>(<span class="dv">42</span>)
-}</code></pre></div>
-</div>
-<div class="right" ,="" style="width: 50%">
-<ul>
-<li>Comments are not subtitles, i.e. don’t repeat the code in the comments.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Loop through all bananas in the bunch</span>
+</section><section id="comments-and-documentation" class="slide level2">
+<h2>Comments and documentation</h2>
+<p><strong>Comment your code!</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># &#39;get_answer&#39; returns the answer to life, the universe and everything else.</span>
+get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){ <span class="kw">return</span>(<span class="dv">42</span>)}    <span class="co"># This is a comment</span></code></pre></div>
+<p>Comments are not subtitles, i.e. don’t repeat the code in the comments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bad comments:</span>
+<span class="co"># Loop through all bananas in the bunch</span>
 <span class="cf">for</span>(banana <span class="cf">in</span> bunch) {
   <span class="co"># make the monkey eat one banana</span>
   <span class="kw">MonkeyEat</span>(b)  
 }</code></pre></div>
-<ul>
-<li>Use commented lines of - and = to break up your file into easily readable chunks.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load data ---------------------------</span>
-<span class="co"># Plot data ---------------------------</span></code></pre></div>
-</div>
+<p>Use dashes to separate blocks of code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Generate Data ---------------------------</span>
+x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)
+y &lt;-<span class="st"> </span><span class="dv">12</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+
+<span class="co"># Plot Data -------------------------------</span>
+<span class="kw">plot</span>(x, y)</code></pre></div>
 </section></section>
-<section><section id="programming-control-flow" class="titleslide slide level1"><h1>Programming: Control flow</h1></section><section id="booleanslogicals" class="slide level2">
+<section><section id="programming-control-flow" class="titleslide slide level1"><h1>Programming: control flow</h1></section><section id="booleanslogicals" class="slide level2">
 <h2>Booleans/logicals</h2>
 <div class="left" ,="" style="width: 50%">
 <p><strong>Booleans</strong> are logical data types (TRUE/FALSE) associated with conditional statements, which allow different actions and change control flow.</p>
@@ -883,12 +986,36 @@ get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <li>You can also use <code>else if()</code></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;green&quot;</span>) {
-   <span class="kw">print</span>(<span class="st">&quot;Go.&quot;</span>)
+  <span class="kw">print</span>(<span class="st">&quot;Go.&quot;</span>)
 } <span class="cf">else</span> <span class="cf">if</span> (traffic_light <span class="op">==</span><span class="st"> &quot;yellow&quot;</span>) {
   <span class="kw">print</span>(<span class="st">&quot;Get ready.&quot;</span>)
 } <span class="cf">else</span> {
-   <span class="kw">print</span>(<span class="st">&quot;Stay.&quot;</span>)
+  <span class="kw">print</span>(<span class="st">&quot;Stay.&quot;</span>)
 }</code></pre></div>
+</div>
+</section><section id="switch-statements" class="slide level2">
+<h2>Switch statements</h2>
+<p>For very long sequence of if statements, use the <code>switch()</code> function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">operator &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, op) {
+  <span class="cf">switch</span>(<span class="kw">as.character</span>(op),
+    <span class="st">&#39;+&#39;</span> =<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y,
+    <span class="st">&#39;-&#39;</span> =<span class="st"> </span>x <span class="op">-</span><span class="st"> </span>y,
+    <span class="st">&#39;*&#39;</span> =<span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y,
+    <span class="st">&#39;/&#39;</span> =<span class="st"> </span>x <span class="op">/</span><span class="st"> </span>y,
+  <span class="kw">stop</span>(<span class="st">&quot;Unknown op!&quot;</span>)
+  )
+}</code></pre></div>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">operator</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="st">&#39;+&#39;</span>)</code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">operator</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="st">&#39;-&#39;</span>)</code></pre></div>
+<pre><code>## [1] -5</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">operator</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="st">&#39;/&#39;</span>)</code></pre></div>
+<pre><code>## [1] 0.2857143</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">operator</span>(<span class="dv">2</span>, <span class="dv">7</span>, <span class="st">&quot;a&quot;</span>)</code></pre></div>
+<pre><code>## Error in operator(2, 7, &quot;a&quot;): Unknown op!</code></pre>
 </div>
 </section><section id="for-loops" class="slide level2">
 <h2>For loops</h2>
@@ -1001,54 +1128,113 @@ get_answer &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <li><p>Do Exercise 1.</p></li>
 </ul>
 </section></section>
-<section><section id="programming-functions" class="titleslide slide level1"><h1>Programming: Functions</h1></section><section id="functions" class="slide level2">
-<h2>Functions</h2>
+<section><section id="programming-functions" class="titleslide slide level1"><h1>Programming: functions</h1></section><section id="what-is-a-function-in-r" class="slide level2">
+<h2>What is a function in R?</h2>
 <ul>
 <li><p>A <strong>function</strong> is a procedure/routine that performs a specific task.</p></li>
 <li><p>Functions are used to <strong>abstract</strong> components of larger program.</p></li>
-<li><p>They are like a mathematical functions. They <strong>take some input and then do something to find the result</strong>.</p></li>
+<li><p>Similarly to mathematical functions, they <strong>take some input and then do something to find the result</strong>.</p></li>
 <li><p>Functions allow you to <strong>automate common tasks</strong> in a more powerful and general way than copy-and-pasting.</p></li>
-<li><p>A general rule is that you should <strong>use a function, whenever you’ve copied and pasted a block of code more than twice</strong>.</p></li>
+<li><p><strong>If you’ve copied and pasted a block of code more than twice, you should use a function instead</strong>.</p></li>
 </ul>
+</section><section id="why-should-you-use-functions" class="slide level2">
+<h2>Why should you use functions?</h2>
+<p>Functions become very useful as soon as your code becomes long enough.</p>
+<ul>
+<li>Functions will make your <strong>code easier to understand</strong>.</li>
+<li>Errors are less likely to occure and easier to fix.</li>
+<li>For repeated taskes, <strong>changes can be made once</strong> by editing a function and not many distant chunks of code. Example:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>); b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>); c &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>); d &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)
+<span class="co"># Bad</span>
+a &lt;-<span class="st"> </span>(a <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(a, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">/</span>
+<span class="st">  </span>(<span class="kw">max</span>(a, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(a, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+b &lt;-<span class="st"> </span>(b <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(b, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">/</span>
+<span class="st">  </span>(<span class="kw">max</span>(b, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(b, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+c &lt;-<span class="st"> </span>(c <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(c, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">/</span>
+<span class="st">  </span>(<span class="kw">max</span>(b, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(c, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+d &lt;-<span class="st"> </span>(d <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(d, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">/</span>
+<span class="st">  </span>(<span class="kw">max</span>(d, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(d, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Good</span>
+rescale_data &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  rng &lt;-<span class="st"> </span><span class="kw">range</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  <span class="kw">return</span>((x <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(rng[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>rng[<span class="dv">1</span>]))
+}
+a &lt;-<span class="st"> </span><span class="kw">rescale_data</span>(a)
+b &lt;-<span class="st"> </span><span class="kw">rescale_data</span>(b)
+c &lt;-<span class="st"> </span><span class="kw">rescale_data</span>(c)
+d &lt;-<span class="st"> </span><span class="kw">rescale_data</span>(d)</code></pre></div>
 </section><section id="function-definition" class="slide level2">
 <h2>Function Definition</h2>
-<div class="left" ,="" style="width: 40%">
 <ul>
-<li><p>To define a function you assigne a variable name to a <code>function</code> object.</p></li>
+<li><p>To define a function you assign a variable name to a <code>function</code> object.</p></li>
 <li><p>Functions take <strong>arguments, mandatory and optional</strong>.</p></li>
 <li><p>Provide the brief <strong>description of your function in comments</strong> before the function definition.</p></li>
 </ul>
-</div>
-<div class="right" ,="" style="width: 60%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Computes mean and standard deviation</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Computes mean and standard deviation of a vector,</span>
 <span class="co"># and optionally prints the results.</span>
-mysummary &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print=</span><span class="ot">TRUE</span>) {
+summarize_data &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">print=</span><span class="ot">FALSE</span>) {
   center &lt;-<span class="st"> </span><span class="kw">mean</span>(x)
   spread &lt;-<span class="st"> </span><span class="kw">sd</span>(x) 
   <span class="cf">if</span> (print) {
     <span class="kw">cat</span>(<span class="st">&quot;Mean =&quot;</span>, center, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, 
-        <span class="st">&quot;SD = &quot;</span>, spread, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+        <span class="st">&quot;SD   =&quot;</span>, spread, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
   }
-  result &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">mean=</span>center, 
-                 <span class="dt">sd=</span>spread)
-  <span class="kw">return</span>(result)
+  <span class="kw">list</span>(<span class="dt">mean=</span>center, <span class="dt">sd=</span>spread)
 }</code></pre></div>
-</div>
 </section><section id="calling-functions" class="slide level2">
 <h2>Calling functions</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
-y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x)</code></pre></div>
-<pre><code>## Mean = 4.032558 
-##  SD =  1.010826</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without printing</span>
-y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(x, <span class="dt">print =</span> <span class="ot">FALSE</span>)</code></pre></div>
+x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd =</span> <span class="dv">1</span>) 
+y &lt;-<span class="st"> </span><span class="kw">summarize_data</span>(x)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with printing</span>
+y &lt;-<span class="st"> </span><span class="kw">summarize_data</span>(x, <span class="dt">print =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Mean = 4.009679 
+##  SD   = 1.01561</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Results are stored in list &quot;y&quot;</span>
 y<span class="op">$</span>mean</code></pre></div>
-<pre><code>## [1] 4.032558</code></pre>
+<pre><code>## [1] 4.009679</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y<span class="op">$</span>sd</code></pre></div>
-<pre><code>## [1] 1.010826</code></pre>
+<pre><code>## [1] 1.01561</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The order of arguments does not matter if the names are specified</span>
-y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
+y &lt;-<span class="st"> </span><span class="kw">summarize_data</span>(<span class="dt">print=</span><span class="ot">FALSE</span>, <span class="dt">x =</span> x)</code></pre></div>
+</section><section id="explicit-return-statements" class="slide level2">
+<h2>Explicit return statements</h2>
+<p>The value returned by the function is usually the last statement it evaluates. You can choose to return early by using <code>return()</code>; this makes you code easier to read.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Complicated function simplified by the use of early return statements</span>
+complicated_function &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) {
+  <span class="co"># Check some condition</span>
+  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(y) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+    <span class="kw">return</span>(<span class="dv">0</span>)
+  }
+  <span class="co"># Complicated code here</span>
+}</code></pre></div>
+<p><strong>Returning invisible objects</strong> can be done with <code>invisible()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">show_missings &lt;-<span class="st"> </span><span class="cf">function</span>(df) {
+  <span class="kw">cat</span>(<span class="st">&quot;Missing values:&quot;</span>, <span class="kw">sum</span>(<span class="kw">is.na</span>(df)), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+  <span class="kw">invisible</span>(df)       <span class="co"># this result doesn’t get printed out</span>
+}</code></pre></div>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_missings</span>(mtcars)</code></pre></div>
+<pre><code>## Missing values: 0</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(<span class="kw">show_missings</span>(mtcars))</code></pre></div>
+<pre><code>## Missing values: 0</code></pre>
+<pre><code>## [1] 32 11</code></pre>
+</div>
+</section><section id="environment" class="slide level2">
+<h2>Environment</h2>
+<p>The environment of a function controls how R finds an object associated with a name.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x <span class="op">+</span><span class="st"> </span>y
+}</code></pre></div>
+<p>R uses rules called lexical scoping to find the value associated with a name. Here, R will look for <code>y</code> in the environment where the function was defined</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">100</span>
+<span class="kw">f</span>(<span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 110</code></pre>
+<p>This behaviour attracts bugs. You should try to <strong>avoid using global variables</strong>.</p>
 </section><section id="apply-lapply-sapply-functions" class="slide level2">
 <h2>apply, lapply, sapply functions</h2>
 <ul>
@@ -1063,60 +1249,44 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 <p>In the example below we obtain column sums of matrix <code>X</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">30</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">6</span>))</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   25   18   28   17   15   16
-## [2,]    1    5   27   10    4   13
-## [3,]   30    6   29   23    2   20
-## [4,]   24   11    8   12   21    9
-## [5,]   26    7    3   19   14   22</code></pre>
+## [1,]   11   21   10   16    7   15
+## [2,]   30   13   14   27   23    2
+## [3,]   18    3    5    8    4   28
+## [4,]    1   20    6   24   26   25
+## [5,]   19    9   12   29   22   17</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dt">MARGIN =</span> <span class="dv">2</span> , <span class="dt">FUN =</span> sum)</code></pre></div>
-<pre><code>## [1] 106  47  95  81  56  80</code></pre>
+<pre><code>## [1]  79  66  47 104  82  87</code></pre>
 <p><strong>Note:</strong> that in a matrix <code>MARGIN = 1</code> indicates rows and <code>MARGIN = 2</code> indicates columns.</p>
 </section><section id="apply-function-1" class="slide level2">
 <h2>apply function</h2>
-<div class="left" ,="" style="width: 50%">
 <ul>
 <li><code>apply</code> can be used with <strong>user-defined functions</strong>:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(X)</code></pre></div>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   25   18   28   17   15   16
-## [2,]    1    5   27   10    4   13
-## [3,]   30    6   29   23    2   20
-## [4,]   24   11    8   12   21    9
-## [5,]   26    7    3   19   14   22</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># number entries &lt; 15</span>
 <span class="kw">apply</span>(X, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="dv">10</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) </code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]  252  182  282  172  152  162
-## [2,]   12   52  272  102   42  132
-## [3,]  302   62  292  232   22  202
-## [4,]  242  112   82  122  212   92
-## [5,]  262   72   32  192  142  222</code></pre>
-</div>
-<div class="right" ,="" style="width: 50%">
+## [1,]  112  212  102  162   72  152
+## [2,]  302  132  142  272  232   22
+## [3,]  182   32   52   82   42  282
+## [4,]   12  202   62  242  262  252
+## [5,]  192   92  122  292  222  172</code></pre>
 <ul>
-<li>The function can be defined outside <code>apply()</code>,</li>
+<li>a function can be defined outside <code>apply()</code>,</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logColMeans &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">eps =</span> <span class="ot">NULL</span>) {
   <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(eps)) x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>eps
   <span class="kw">return</span>(<span class="kw">mean</span>(x))
 }
 <span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans) </code></pre></div>
-<pre><code>## [1] 21.2  9.4 19.0 16.2 11.2 16.0</code></pre>
+<pre><code>## [1] 15.8 13.2  9.4 20.8 16.4 17.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(X, <span class="dv">2</span>, logColMeans, <span class="dt">eps =</span> <span class="fl">0.1</span>) </code></pre></div>
-<pre><code>## [1] 21.3  9.5 19.1 16.3 11.3 16.1</code></pre>
-</div>
+<pre><code>## [1] 15.9 13.3  9.5 20.9 16.5 17.5</code></pre>
 </section><section id="lapplysapply-functions" class="slide level2">
 <h2>lapply/sapply functions</h2>
-<div class="left" ,="" style="width: 50%">
 <ul>
 <li><p><code>lapply()</code> is used to <strong>repeatedly apply a function to elements of a sequential object</strong> such as a vector, list, or data-frame (applies to columns).</p></li>
 <li><p>The <strong>output is a list</strong> with the same number of elements as the input object.</p></li>
-<li><p><code>sapply</code> is the same as <code>lapply</code> but <strong>returns a “simplified” output</strong>.</p></li>
-<li><p>user-defined functions can be used with <code>sapply/lapply</code></p></li>
 </ul>
-</div>
-<div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lapply returns a list</span>
 <span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [[1]]
@@ -1127,39 +1297,21 @@ y &lt;-<span class="st"> </span><span class="kw">mysummary</span>(<span class="d
 ## 
 ## [[3]]
 ## [1] 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># which you can &#39;simplify&#39; with unlist()</span>
-<span class="kw">unlist</span>(<span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
-<pre><code>## [1] 1 4 9</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or you could use sapply() instead</span>
-<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] 1 4 9</code></pre>
-</div>
-</section><section id="mapply-functions" class="slide level2">
-<h2>mapply functions</h2>
 <ul>
-<li><code>mapply</code> stands for ‘multivariate’ apply. It <strong>applies a function to a multiple list or multiple vectors as arguments</strong>.</li>
-<li>The goal is to vectorize arguments to a function which usually does not accept vectors as arguments.</li>
+<li><code>sapply</code> is the same as <code>lapply</code> but <strong>returns a “simplified” output</strong>.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># function word() returns a string of character C repeated k times.</span>
-word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span class="kw">paste</span>(<span class="kw">rep.int</span>(C,k), <span class="dt">collapse=</span><span class="st">&#39;&#39;</span>)
-<span class="kw">mapply</span>(word, LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], <span class="dv">6</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">SIMPLIFY =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## $A
-## [1] &quot;AAAAAA&quot;
-## 
-## $B
-## [1] &quot;BBBBB&quot;
-## 
-## $C
-## [1] &quot;CCCC&quot;
-## 
-## $D
-## [1] &quot;DDD&quot;
-## 
-## $E
-## [1] &quot;EE&quot;
-## 
-## $F
-## [1] &quot;F&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 1 4 9</code></pre>
+<ul>
+<li>like with <code>apply()</code>, user-defined functions can be used with <code>sapply/lapply</code>.</li>
+</ul>
+</section><section id="functional-programming" class="slide level2">
+<h2>Functional Programming</h2>
+<blockquote>
+<p>The idea of <strong>passing a function to another function</strong> is extremely powerful idea, and it’s one of the behaviours that makes R <strong>a functional programming</strong> (FP) language.</p>
+</blockquote>
+<p>The <strong>apply family</strong> of functions in base R are basically tools to extract out this duplicated code, so each common for loop pattern gets its own function.</p>
+<p>The package <code>purrr</code> in <code>tidyverse</code> framework solves similar problems, more in line with the ‘tidyverse-philosophy’. We will learn in in following lectures.</p>
 </section><section id="exercise-2-and-3" class="slide level2">
 <h2>Exercise 2 and 3</h2>
 <p></br></p>
@@ -1168,6 +1320,13 @@ word &lt;-<span class="st"> </span><span class="cf">function</span>(C,k) <span c
 <li><p>Do Exercise 2 and 3.</p></li>
 </ul>
 </section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://r4ds.had.co.nz/introduction.html">R for Data Science</a><a href="#/fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="https://www.tidyverse.org/">Tidyverse website</a><a href="#/fnref2">↩</a></p></li>
+</ol>
+</section>
     </div>
   </div>
 

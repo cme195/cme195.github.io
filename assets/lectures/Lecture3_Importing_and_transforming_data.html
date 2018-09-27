@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Lan Huong Nguyen" />
+  <title>Lecture 3: Importing and transforming data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 3: Importing and transforming data</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
+    <h2 class="author">Lan Huong Nguyen</h2>
+    <h3 class="date">October 4, 2018</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><p>Importing data</p></li>
+<li><p>Tidying data</p></li>
+<li><p>Transforming data</p></li>
+<li><p>Chaining operations</p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<img src="Lecture3-figure/data-science-wrangle.png" /><br />
+
+</div>
+<div class="left" ,="" style="width: 100%">
+<p></br></p>
+</div>
+<div class="left" ,="" style="width: 20%">
+<p><img src="Lecture3-figure/readr.png", height="200"></img></p>
+</div>
+<div class="left" ,="" style="width: 20%">
+<p><img src="Lecture3-figure/tidyr.png", height="200"></img></p>
+</div>
+<div class="left" ,="" style="width: 20%">
+<p><img src="Lecture3-figure/dplyr.png", height="200"></img></p>
+</div>
+<div class="left" ,="" style="width: 20%">
+<p><img src="Lecture3-figure/magrittr.png", height="200"></img></p>
+</div>
+</section>
+<section><section id="importing-data" class="titleslide slide level1"><h1>Importing data</h1></section><section id="working-directory" class="slide level2">
+<h2>Working Directory</h2>
+<ul>
+<li><p>The <strong>current working directory</strong> (cmd) is the location which R is currently pointing to.</p></li>
+<li><p>Whenever you try to read or save a file without specifying the path explicitly, the cmd will be used by default.</p></li>
+<li><p>When are executing code from an R markdown/notebook code chunk, the cmd is <strong>the location of the document</strong>.</p></li>
+<li><p>To see the current working directory use <code>getwd()</code>:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()   <span class="co"># with no arguments</span></code></pre></div>
+<pre><code>## [1] &quot;/home/lanhuong/MEGA/Teaching/cme195_intro_to_R/cme195.github.io/assets/lectures&quot;</code></pre>
+<ul>
+<li>To change the working directory use <code>setwd(path_name)</code> with a specified path as na argument:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;path/to/directory&quot;</span>)</code></pre></div>
+</section><section id="paths-and-directory-names" class="slide level2">
+<h2>Paths and directory names</h2>
+<ul>
+<li><p>R inherits its file and folder <strong>naming conventions from unix</strong>, and uses forward slashes for the directories, e.g. <code>/home/lan/folder/</code></p></li>
+<li><p>This is, because backslashes serve a different purpose; they are used as escape characters to isolate special characters and stop them from being immediately interpreted.</p></li>
+<li><p>When working with R on <strong>Windows</strong>, you can use either: <code>C:/Path/To/A/File</code> or <code>C:\\Path\\To\\A\\File</code></p></li>
+<li><p>Use a “<code>Tab</code>” for autocompletion to find file paths more easily.</p></li>
+<li><p>To avoid problems, directory names should NOT contain spaces and special characters.</p></li>
+</ul>
+</section><section id="importing-text-data" class="slide level2">
+<h2>Importing text data</h2>
+<ul>
+<li><p><strong>Text Files in a table format</strong> can be read and saved to a selected variable using a <code>read.table()</code> function. Use <code>?read.table</code> to learn more about the function.</p></li>
+<li><p>A common text file format is a <strong>comma delimited text file</strong>, <code>.csv</code>. These files use a comma as column separators, e.g:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Year,Student,Major
+<span class="dv">2009</span>, John Doe,Statistics
+<span class="dv">2009</span>, Bart Simpson, Mathematics I</code></pre></div>
+<ul>
+<li>To read these files use the following command:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;path/to/filename.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>,  <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
+
+<span class="co"># read.csv() has covenient argument defaults for &#39;.csv&#39; files</span>
+mydata &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;path/to/filename.csv&quot;</span>)</code></pre></div>
+<ul>
+<li>Optionally, use <code>row.names</code> or <code>col.names</code> arguments to set the row and column names.</li>
+</ul>
+</section><section id="the-readr-package" class="slide level2">
+<h2>The <code>readr</code> package</h2>
+<div class="left" ,="" style="width: 50%">
+<p>Many R packages provide examples of data. However, sooner or later you will need to work with your own data.</p>
+<p><strong><code>readr</code> is for reading rectangular text data into R.</strong></p>
+</div>
+<p><img src="Lecture3-figure/readr.png", height="300"></img></p>
+<div class="left" ,="" style="width: 100%; position: relative; top: -10px">
+<p><code>readr</code> supports several file formats with seven <code>read_&lt;...&gt;</code> functions:</p>
+<ul>
+<li><code>read_csv()</code>: comma-separated (CSV) files</li>
+<li><code>read_tsv()</code>: tab-separated files</li>
+<li><code>read_delim()</code>: general delimited files</li>
+<li><code>read_fwf()</code>: fixed-width files</li>
+<li><code>read_table()</code>: tabular files where colums are separated by white-space</li>
+<li><code>read_log()</code>: web log files</li>
+</ul>
+<p>In many cases it just works: supply path to a file and get a tibble back.</p>
+</div>
+</section><section id="comparison-with-base-r" class="slide level2">
+<h2>Comparison with base R</h2>
+<p></br></p>
+<p>Why are we learning the readr package?</p>
+<ul>
+<li><p>it is up to 10x faster</p></li>
+<li><p>it produces tibbles instead of data.frames</p></li>
+<li><p>better parsing (e.g. does not convert strings to factors)</p></li>
+<li><p>more reproducible on different systems</p></li>
+<li><p>progress bar for large files</p></li>
+</ul>
+</section><section id="reading-comma-separated-files" class="slide level2">
+<h2>Reading comma-separated files</h2>
+<p>All <code>read_&lt;...&gt;()</code> functions have a similar syntax, so we focus on <code>read_csv()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get path to example dataset</span>
+<span class="kw">readr_example</span>(<span class="st">&quot;mtcars.csv&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;/home/lanhuong/R/x86_64-pc-linux-gnu-library/3.4/readr/extdata/mtcars.csv&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;mtcars.csv&quot;</span>))</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   mpg = col_double(),
+##   cyl = col_integer(),
+##   disp = col_double(),
+##   hp = col_integer(),
+##   drat = col_double(),
+##   wt = col_double(),
+##   qsec = col_double(),
+##   vs = col_integer(),
+##   am = col_integer(),
+##   gear = col_integer(),
+##   carb = col_integer()
+## )</code></pre>
+<p><code>mtcars</code> is a dataset on fuel consumption, and other 10 aspects of design and performance (<code>?mtcars</code>).</p>
+</section><section id="the-read_csv-function" class="slide level2">
+<h2>The <code>read_csv()</code> function</h2>
+<p>Also works with inline csv files (useful for experimenting).</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(
+  <span class="st">&quot;a,b,c</span>
+<span class="st">  1,2,3</span>
+<span class="st">  4,5,6&quot;</span>
+)</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1     1     2     3
+## 2     4     5     6</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read_csv</span>(
+  <span class="st">&quot;a,b,c</span>
+<span class="st">  1,2,3</span>
+<span class="st">  4,5,6&quot;</span>, 
+  <span class="dt">col_names=</span><span class="ot">FALSE</span>
+)</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   X1    X2    X3   
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 a     b     c    
+## 2 1     2     3    
+## 3 4     5     6</code></pre>
+</div>
+<div class="left" ,="" style="width: 100%">
+<p>Other useful arguments: skip lines, symbol for missing data.</p>
+<p>Now you can read most CSV files, also easily adapt to <code>read_tsv()</code>,<br />
+<code>read_fwf()</code>. For the others, you need to know how <code>readr</code> works inside.</p>
+</div>
+</section><section id="how-readr-parses-data" class="slide level2">
+<h2>How <code>readr</code> parses data?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_logical</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>,<span class="st">&quot;FALSE&quot;</span>))</code></pre></div>
+<pre><code>## [1]  TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_integer</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;NA&quot;</span>))</code></pre></div>
+<pre><code>## [1]  1  2  3 NA</code></pre>
+<p>Parsing vectors:</p>
+<ul>
+<li><code>parse_logical()</code>, <code>parse_integer()</code></li>
+<li><code>parse_double()</code>, <code>parse_number()</code>: for numbers from other countries</li>
+<li><code>parse_character()</code>: for character encodings.</li>
+<li><code>parse_datetime()</code>, <code>parse_date()</code>, <code>parse_time()</code></li>
+<li><code>parse_factor()</code></li>
+</ul>
+</section><section id="potential-difficulties" class="slide level2">
+<h2>Potential difficulties</h2>
+<p>Parsing data is not always trivial:</p>
+<ul>
+<li><p>Numbers are written differently in different parts of the world (“,” vs “.” for separatimg thousands)</p></li>
+<li><p>Numbers are often surrounded by other characters (“$1000”, “10%”)</p></li>
+<li><p>Numbers often contain “grouping” characters (“1,000,000”)</p></li>
+<li><p>There are many different ways of writing dates and times</p></li>
+<li><p>Times can be in different timezones</p></li>
+<li><p>Encodings: special characters in other languages</p></li>
+</ul>
+</section><section id="locales" class="slide level2">
+<h2>Locales</h2>
+<p>A locale specifies common options varying between languages and places</p>
+<p>To create a new locale, you use the locale() function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">locale</span>(
+  <span class="dt">date_names =</span> <span class="st">&quot;en&quot;</span>, 
+  <span class="dt">date_format =</span> <span class="st">&quot;%AD&quot;</span>, 
+  <span class="dt">time_format =</span> <span class="st">&quot;%AT&quot;</span>,
+  <span class="dt">decimal_mark =</span> <span class="st">&quot;.&quot;</span>, 
+  <span class="dt">grouping_mark =</span> <span class="st">&quot;,&quot;</span>, 
+  <span class="dt">tz =</span> <span class="st">&quot;UTC&quot;</span>,
+  <span class="dt">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>, 
+  <span class="dt">asciify =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## &lt;locale&gt;
+## Numbers:  123,456.78
+## Formats:  %AD / %AT
+## Timezone: UTC
+## Encoding: UTF-8
+## &lt;date_names&gt;
+## Days:   Sunday (Sun), Monday (Mon), Tuesday (Tue), Wednesday (Wed), Thursday
+##         (Thu), Friday (Fri), Saturday (Sat)
+## Months: January (Jan), February (Feb), March (Mar), April (Apr), May (May),
+##         June (Jun), July (Jul), August (Aug), September (Sep), October
+##         (Oct), November (Nov), December (Dec)
+## AM/PM:  AM/PM</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># More on locales can be found in a vignette</span>
+<span class="kw">vignette</span>(<span class="st">&quot;locales&quot;</span>)</code></pre></div>
+</section><section id="parsing-dates" class="slide level2">
+<h2>Parsing dates</h2>
+<p><code>parse_date()</code> expects a four digit year, month, day separated by “-” or “/”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_date</span>(<span class="st">&quot;2010-10-01&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;2010-10-01&quot;</code></pre>
+<p>Example: French format with full name of month:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_date</span>(<span class="st">&quot;1 janvier 2010&quot;</span>)</code></pre></div>
+<pre><code>## Warning: 1 parsing failure.
+## row # A tibble: 1 x 4 col     row   col expected     actual         expected   &lt;int&gt; &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;          actual 1     1    NA &quot;date like &quot; 1 janvier 2010</code></pre>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_date</span>(<span class="st">&quot;1 janvier 2010&quot;</span>, <span class="dt">format=</span><span class="st">&quot;%d %B %Y&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="st">&quot;fr&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
+<p>Learn more by typing <code>?parse_date</code></p>
+</section><section id="parsing-times" class="slide level2">
+<h2>Parsing times</h2>
+<p><code>parse_time()</code> expects an “hour : minutes” pair<br />
+(optionally proceeded by “:seconds”, and “am/pm” specifier).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_time</span>(<span class="st">&quot;01:10 am&quot;</span>)</code></pre></div>
+<pre><code>## 01:10:00</code></pre>
+<p>Parsing dates and times:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_datetime</span>(<span class="st">&quot;2001-10-10 20:10&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">tz =</span> <span class="st">&quot;Europe/Dublin&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;2001-10-10 20:10:00 IST&quot;</code></pre>
+<p>For more details, see the book <a href="http://r4ds.had.co.nz/data-import.html#readr-datetimes">R for data science</a> or use the documentation.</p>
+</section><section id="parsing-numbers" class="slide level2">
+<h2>Parsing numbers</h2>
+<p><code>parse_number()</code> ignores non-numeric characters before and after.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_number</span>(<span class="st">&quot;20%&quot;</span>)</code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_number</span>(<span class="st">&quot;$100&quot;</span>)</code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_number</span>(<span class="st">&quot;cost: $123.45&quot;</span>)</code></pre></div>
+<pre><code>## [1] 123.45</code></pre>
+<p>Parsing numbers with locales</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Separation used in Switzerland</span>
+<span class="kw">parse_number</span>(<span class="st">&quot;123&#39;456&#39;789&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">grouping_mark =</span> <span class="st">&quot;&#39;&quot;</span>))</code></pre></div>
+<pre><code>## [1] 123456789</code></pre>
+</section><section id="parsing-real-numbers" class="slide level2">
+<h2>Parsing real numbers</h2>
+<p>Real numbers using a different decimal mark</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_double</span>(<span class="st">&quot;1,23&quot;</span>)</code></pre></div>
+<pre><code>## Warning: 1 parsing failure.
+## row # A tibble: 1 x 4 col     row   col expected               actual expected   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;  actual 1     1    NA no trailing characters ,23</code></pre>
+<pre><code>## [1] NA
+## attr(,&quot;problems&quot;)
+## # A tibble: 1 x 4
+##     row   col expected               actual
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt; 
+## 1     1    NA no trailing characters ,23</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_double</span>(<span class="st">&quot;1,23&quot;</span>, <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">decimal_mark =</span> <span class="st">&quot;,&quot;</span>))</code></pre></div>
+<pre><code>## [1] 1.23</code></pre>
+</section><section id="readrs-strategy-for-parsing-files" class="slide level2">
+<h2><code>readr’s</code> strategy for parsing files</h2>
+<p><code>readr</code> uses a heuristic to determine column type, using the first 1000 rows.</p>
+<p>You can emulate this process with two functions:</p>
+<ul>
+<li><code>guess_parser()</code>: returns readr’s best guess</li>
+<li><code>parse_guess()</code>: uses that guess to parse the column</li>
+</ul>
+<p>The heuristic tries a sequence of types, stopping when it finds a match.</p>
+<p>If none of these rules apply, then the column will stay as a vector of strings.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">guess_parser</span>(<span class="st">&quot;15:01&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;time&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">guess_parser</span>(<span class="st">&quot;Oct 10, 2010; 15:01&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_guess</span>(<span class="st">&quot;12,352,561&quot;</span>)</code></pre></div>
+<pre><code>## [1] 12352561</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse_guess</span>(<span class="kw">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>))</code></pre></div>
+<pre><code>## [1]  TRUE FALSE</code></pre>
+</div>
+</section><section id="when-the-default-strategy-fails" class="slide level2">
+<h2>When the default strategy fails</h2>
+<p>The default strategy does not always work, e.g. if the first 1000 rows might be a special case. Suppose, your dataset with two columns:</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Top 1000 lines are (integer, missing)</span>
+<span class="kw">readLines</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), <span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1] &quot;x,y&quot;     &quot;404,NA&quot;  &quot;4172,NA&quot; &quot;3004,NA&quot; &quot;787,NA&quot;  &quot;37,NA&quot;   &quot;2332,NA&quot;
+##  [8] &quot;2489,NA&quot; &quot;1449,NA&quot; &quot;3665,NA&quot;</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The remaining are (real number, date)</span>
+<span class="kw">tail</span>(<span class="kw">readLines</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), <span class="dv">3000</span>), <span class="dv">4</span>)</code></pre></div>
+<pre><code>## [1] &quot;0.47193897631950676,2014-08-04&quot; &quot;0.7183186465408653,2015-08-16&quot; 
+## [3] &quot;0.26987858884967864,2020-02-04&quot; &quot;0.608237189007923,2019-01-06&quot;</code></pre>
+</div>
+<div class="left" ,="" style="width: 100%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>))</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   x = col_integer(),
+##   y = col_character()
+## )</code></pre>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not a
+## multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 1000 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected        actual      file                                  expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;                                 actual 1  1001 x     no trailing ch… .238379750… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… file 2  1002 x     no trailing ch… .411679971… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… row 3  1003 x     no trailing ch… .746071676… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… col 4  1004 x     no trailing ch… .723450553… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… expected 5  1005 x     no trailing ch… .614524137… &#39;/home/lanhuong/R/x86_64-pc-linux-gn…
+## ... ................. ... ............................................................................... ........ ............................................................................... ...... ............................................................................... .... ............................................................................... ... ............................................................................... ... ............................................................................... ........ ...............................................................................
+## See problems(...) for more details.</code></pre>
+</div>
+</section><section id="examining-what-went-wrong" class="slide level2">
+<h2>Examining what went wrong</h2>
+<p>See problems(…) for more details.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">problems</span>(challenge)</code></pre></div>
+<pre><code>## # A tibble: 1,000 x 5
+##      row col   expected        actual      file                                
+##    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;                               
+##  1  1001 x     no trailing ch… .238379750… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  2  1002 x     no trailing ch… .411679971… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  3  1003 x     no trailing ch… .746071676… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  4  1004 x     no trailing ch… .723450553… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  5  1005 x     no trailing ch… .614524137… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  6  1006 x     no trailing ch… .473980569… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  7  1007 x     no trailing ch… .578461039… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  8  1008 x     no trailing ch… .241593722… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+##  9  1009 x     no trailing ch… .114378662… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+## 10  1010 x     no trailing ch… .298344632… &#39;/home/lanhuong/R/x86_64-pc-linux-g…
+## # … with 990 more rows</code></pre>
+</section><section id="fixing-the-column-specifications" class="slide level2">
+<h2>Fixing the column specifications</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Automatic colomn specifications are:</span>
+challenge &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), 
+  <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">x =</span> <span class="kw">col_integer</span>(), <span class="dt">y =</span> <span class="kw">col_character</span>()) )</code></pre></div>
+<pre><code>## Warning in rbind(names(probs), probs_f): number of columns of result is not a
+## multiple of vector length (arg 1)</code></pre>
+<pre><code>## Warning: 1000 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected        actual      file                                  expected   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;       &lt;chr&gt;                                 actual 1  1001 x     no trailing ch… .238379750… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… file 2  1002 x     no trailing ch… .411679971… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… row 3  1003 x     no trailing ch… .746071676… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… col 4  1004 x     no trailing ch… .723450553… &#39;/home/lanhuong/R/x86_64-pc-linux-gn… expected 5  1005 x     no trailing ch… .614524137… &#39;/home/lanhuong/R/x86_64-pc-linux-gn…
+## ... ................. ... ............................................................................... ........ ............................................................................... ...... ............................................................................... .... ............................................................................... ... ............................................................................... ... ............................................................................... ........ ...............................................................................
+## See problems(...) for more details.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># It seems that first column should be a real number:</span>
+( challenge &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), 
+    <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">x =</span> <span class="kw">col_double</span>(), <span class="dt">y =</span> <span class="kw">col_character</span>()) ) )</code></pre></div>
+<pre><code>## # A tibble: 2,000 x 2
+##        x y    
+##    &lt;dbl&gt; &lt;chr&gt;
+##  1   404 &lt;NA&gt; 
+##  2  4172 &lt;NA&gt; 
+##  3  3004 &lt;NA&gt; 
+##  4   787 &lt;NA&gt; 
+##  5    37 &lt;NA&gt; 
+##  6  2332 &lt;NA&gt; 
+##  7  2489 &lt;NA&gt; 
+##  8  1449 &lt;NA&gt; 
+##  9  3665 &lt;NA&gt; 
+## 10  3863 &lt;NA&gt; 
+## # … with 1,990 more rows</code></pre>
+</section><section id="fixing-the-column-specifications-1" class="slide level2">
+<h2>Fixing the column specifications</h2>
+<p>Are we done? Check the “y” column</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(challenge)</code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##       x y         
+##   &lt;dbl&gt; &lt;chr&gt;     
+## 1 0.805 2019-11-21
+## 2 0.164 2018-03-29
+## 3 0.472 2014-08-04
+## 4 0.718 2015-08-16
+## 5 0.270 2020-02-04
+## 6 0.608 2019-01-06</code></pre>
+<p>Not yet: dates are stored as strings. To fix this, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), 
+  <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">x =</span> <span class="kw">col_double</span>(), <span class="dt">y =</span> <span class="kw">col_date</span>() ) )</code></pre></div>
+<p>Every <code>parse_&lt;...&gt;()</code> function has a corresponding <code>col_&lt;...&gt;()</code> function. <code>col_&lt;...&gt;()</code> tells readr how to load the data.</p>
+</section><section id="diagnosing-problems" class="slide level2">
+<h2>Diagnosing problems</h2>
+<p>Maybe easier to diagnose problems if all columns are read as characters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">challenge2 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">readr_example</span>(<span class="st">&quot;challenge.csv&quot;</span>), 
+  <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">.default =</span> <span class="kw">col_character</span>()) )
+<span class="kw">head</span>(challenge2, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   x     y    
+##   &lt;chr&gt; &lt;chr&gt;
+## 1 404   &lt;NA&gt; 
+## 2 4172  &lt;NA&gt; 
+## 3 3004  &lt;NA&gt;</code></pre>
+<p>and then use <code>type_convert()</code> to apply parsing heuristics to character columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">type_convert</span>(challenge2), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   x = col_double(),
+##   y = col_date(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##       x y         
+##   &lt;dbl&gt; &lt;date&gt;    
+## 1   404 NA        
+## 2  4172 NA        
+## 3  3004 NA</code></pre>
+</section><section id="importing-other-types-of-data" class="slide level2">
+<h2>Importing other types of data</h2>
+<p>We will not go into the details in this course. We only list a few other useful packages for importing data.</p>
+<p>Rectangular data:</p>
+<ul>
+<li>Package <code>haven</code> reads SPSS, Stata, and SAS files.</li>
+<li>Package <code>readxl</code> reads excel files (both .xls and .xlsx).</li>
+<li>Package <code>DBI</code>, along with a database specific backend (e.g. RMySQL, RSQLite, RPostgreSQL etc) allows you to run SQL queries against a database and return a data frame.</li>
+</ul>
+<p>Hierarchical data:</p>
+<ul>
+<li><code>jsonlite</code> for json (common for browser-server communications)</li>
+<li><code>xml2</code> for XML (common for textual data in web services)</li>
+</ul>
+<p>And many more are available.</p>
+</section><section id="exercise-1" class="slide level2">
+<h2>Exercise 1</h2>
+<ul>
+<li><p>Download “Lec3_Exercises.Rmd” file from the Lectures tab on class website.</p></li>
+<li><p>Open the file in RStudio.</p></li>
+<li><p>Do Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="tidying-data" class="titleslide slide level1"><h1>Tidying data</h1></section><section id="what-is-tidy-data" class="slide level2">
+<h2>What is tidy data?</h2>
+<p>There are three interrelated rules which make a dataset tidy:</p>
+<ul>
+<li><p>Each variable must have its own column.</p></li>
+<li><p>Each observation must have its own row.</p></li>
+<li><p>Each value must have its own cell.</p></li>
+</ul>
+<p><img src="Lecture3-figure/tidy_table.png" /> Source: <a href="http://r4ds.had.co.nz" class="uri">http://r4ds.had.co.nz</a></p>
+</section><section id="datasets-in-different-forms" class="slide level2">
+<h2>Datasets in different forms</h2>
+<p>Each dataset shows the same values of four variables <strong>country, year, population, and number of TB cases</strong>, but each dataset organises the values in a different way.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2</code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+</div>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<p>In this example, only <code>table1</code> is tidy. It’s the only representation where each column is a variable.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4b</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country         `1999`     `2000`
+## * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583</code></pre>
+</div>
+</section><section id="why-tidy-data" class="slide level2">
+<h2>Why tidy data?</h2>
+<ul>
+<li><p>If you pick one consistent way of storing data, then you can reuse the same tools.</p></li>
+<li><p>R is naturally vectorized. Most built-in R functions work with vectors of values.</p></li>
+<li><p><code>dplyr</code>, <code>ggplot2</code>, and other packages in the <code>tidyverse</code> are designed to work with tidy data.</p></li>
+</ul>
+</section><section id="why-you-need-to-know-how-to-tidy-data" class="slide level2">
+<h2>Why you need to know how to tidy data?</h2>
+<ul>
+<li><p>You cannot assume data will come in as tidy. In fact, most data is not.</p></li>
+<li><p>Many people aren’t familiar with the principles of tidy data.</p></li>
+<li><p>Data is often organised to facilitate some use other than analysis, e.g. storage efficiency, compactness or ease of data entry.</p></li>
+</ul>
+<p>This means for most real analyses, you’ll need to do some tidying.</p>
+</section><section id="the-tidyr-package" class="slide level2">
+<h2>The <code>tidyr</code> package</h2>
+<div class="left" ,="" style="width: 70%">
+<blockquote>
+<p>Tidy datasets are all alike, but every messy dataset is messy in its own way.<br />
+–– Hadley Wickham</p>
+</blockquote>
+<p>In the tidyverse, tidying data is done with <code>tidyr</code> package.</p>
+</div>
+<div class="right" ,="" style="width: 30%">
+<p><img src="Lecture3-figure/tidyr.png" /></p>
+</div>
+<div class="left" ,="" style="width: 100%">
+<p>The same data can be represented in many different ways. Some are more practical than others.</p>
+</div>
+</section><section id="spreading-gathering-separating-and-uniting-columns" class="slide level2">
+<h2>Spreading, gathering, separating and uniting columns</h2>
+<p><strong>First step.</strong> Determine what are the variables and what are the observations.</p>
+<p><strong>Second step.</strong> Often, you need to deal with some of the following issues:</p>
+<ul>
+<li><p>One variable is spread across multiple columns <span class="math inline">\(\implies\)</span> need to <code>gather()</code>.</p></li>
+<li><p>One observation might be scattered across multiple rows <span class="math inline">\(\implies\)</span> need to <code>spread()</code>.</p></li>
+<li><p>One column contains values fore multiple variables <span class="math inline">\(\implies\)</span> need to <code>separate()</code>.</p></li>
+<li><p>Multiple columns store information on a single variable <span class="math inline">\(\implies\)</span> need to <code>unite()</code>.</p></li>
+</ul>
+<p><code>tidyr</code> can help you solve these problems.</p>
+</section><section id="gathering" class="slide level2">
+<h2>Gathering</h2>
+<p><strong>Common problem:</strong> some column names are not the names, but the values of a variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<p><code>gather()</code> makes <strong>wide tables narrower and longer</strong>:</p>
+<p><img src="Lecture3-figure/gathering.png" /></p>
+</section><section id="gathering-1" class="slide level2">
+<h2>Gathering</h2>
+<p>To tidy up <code>table4a</code>, we need to <code>gather()</code> those columns into a new pair of variables. We need three pieces of information to do this:</p>
+<ul>
+<li><p>The set of columns that represent values, not variables.</p></li>
+<li><p>The name for the variable whose values are given in <strong>these columns’ names</strong> (the <code>key</code>).</p></li>
+<li><p>The name for the variable whose values are spread over <strong>these columns’ cells</strong> (the <code>value</code>).</p></li>
+</ul>
+<div class="left" ,="" style="width: 35%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table4a</code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+</div>
+<div class="right" ,="" style="width: 65%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gather</span>(table4a, <span class="st">`</span><span class="dt">1999</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">key =</span> year, <span class="dt">value =</span> cases)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+## 1 Afghanistan 1999     745
+## 2 Brazil      1999   37737
+## 3 China       1999  212258
+## 4 Afghanistan 2000    2666
+## 5 Brazil      2000   80488
+## 6 China       2000  213766</code></pre>
+</div>
+</section><section id="spreading" class="slide level2">
+<h2>Spreading</h2>
+<p>Spreading is the opposite of gathering, and you use it when <strong>an observation is scattered across multiple rows</strong>.</p>
+<p><code>spread()</code> makes <strong>long tables shorter and wider</strong>:</p>
+<p><img src="Lecture3-figure/spreading.png" /></p>
+</section><section id="spreading-1" class="slide level2">
+<h2>Spreading</h2>
+<p>To spread up <code>table2</code>, we only need two parameters:</p>
+<ul>
+<li><p>The column that contains variable names (the <code>key</code>).</p></li>
+<li><p>The column that contains values from multiple variables (the <code>value</code>).</p></li>
+</ul>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2</code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spread</span>(table2, <span class="dt">key =</span> type, <span class="dt">value =</span> count)</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+</section><section id="separate" class="slide level2">
+<h2>Separate</h2>
+<p>Sometimes, a dataset has a column with values corresponding to multiple variables.</p>
+<p>We might want to split such a column into multiple new ones.</p>
+<p><code>separate()</code> <strong>makes narrow tables wider.</strong></p>
+<p><img src="Lecture3-figure/separate.png" /></p>
+</section><section id="separate-1" class="slide level2">
+<h2>Separate</h2>
+<p><code>separate()</code> splits one column into multiple columns wherever a separator appears.</p>
+<div class="left" ,="" style="width: 45%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table3</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+</div>
+<div class="right" ,="" style="width: 55%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">separate</span>(table3, <span class="dt">col =</span> rate, 
+         <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan  1999 745    19987071  
+## 2 Afghanistan  2000 2666   20595360  
+## 3 Brazil       1999 37737  172006362 
+## 4 Brazil       2000 80488  174504898 
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+<div class="left" ,="" style="width: 100%">
+<p>Some important features of <code>separate()</code></p>
+<ul>
+<li>by default, it splits values wherever it sees a non-alphanumeric character. You can specify the separator.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">separate</span>(table3, rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>)</code></pre></div>
+<ul>
+<li>by default, it leaves the type of the column as is. You can ask it to convert to better types.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">separate</span>(table3, <span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">convert =</span> T)</code></pre></div>
+</div>
+</section><section id="unite" class="slide level2">
+<h2>Unite</h2>
+<p><code>unite()</code> is the opposite of <code>separate()</code>:<br />
+it combines multiple columns into a single column.</p>
+<p><code>unite()</code> <strong>makes wider tables narrower.</strong></p>
+<p><img src="Lecture3-figure/unite.png" /></p>
+</section><section id="unite-1" class="slide level2">
+<h2>Unite</h2>
+<p><code>unite()</code> takes arguments:</p>
+<ol type="1">
+<li>a <code>tibble</code> (or <code>data.frame</code>)</li>
+<li>the name of the new column</li>
+<li>names of columns to be combined</li>
+<li>a separator used when uniting the columns</li>
+</ol>
+<p></br></p>
+<div class="left" ,="" style="width: 50.5%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table5</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country     century year  rate             
+## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
+## 1 Afghanistan 19      99    745/19987071     
+## 2 Afghanistan 20      00    2666/20595360    
+## 3 Brazil      19      99    37737/172006362  
+## 4 Brazil      20      00    80488/174504898  
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583</code></pre>
+</div>
+<div class="right" ,="" style="width: 49.5%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unite</span>(table5, <span class="dt">col =</span> full_year, century, year, 
+      <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     full_year rate             
+##   &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;            
+## 1 Afghanistan 1999      745/19987071     
+## 2 Afghanistan 2000      2666/20595360    
+## 3 Brazil      1999      37737/172006362  
+## 4 Brazil      2000      80488/174504898  
+## 5 China       1999      212258/1272915272
+## 6 China       2000      213766/1280428583</code></pre>
+</div>
+</section></section>
+<section><section id="transforming-data" class="titleslide slide level1"><h1>Transforming data</h1></section><section id="the-dplyr-package" class="slide level2">
+<h2>The <code>dplyr</code> package</h2>
+<p></br></p>
+<p>The <code>dplyr</code> package is also a part of the core <code>tidyverse</code>, which:</p>
+<div class="left" ,="" style="width: 70%">
+<ul>
+<li><p>Introduces <strong>a grammar of data manipulation</strong>.</p></li>
+<li><p>Gives a <strong>code-efficient</strong> for way for data exploration and transformation.</p></li>
+<li><p>Is <strong>fast on data frames</strong> (written in C++): has speed of C and ease of R.</p></li>
+<li><strong>Intuitive to write and easy to read</strong>, esp. when using the <em>chaining</em> syntax.</li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 30%">
+<p><img src="Lecture3-figure/dplyr.png" /></p>
+</div>
+<div class="left", style="width: 100%">
+<p></br></p>
+<p>You should use <code>dplyr</code> even as a beginner R user, and <a href="http://varianceexplained.org/r/teach-tidyverse/">here is why</a>.</p>
+</section><section id="dplyr-verbs-functions" class="slide level2">
+<h2><code>dplyr</code> verbs (functions)</h2>
+<p></br></p>
+<p><code>dplyr</code> utilities handle the vast majority of your data manipulation needs:</p>
+<ul>
+<li><p><code>filter()</code> - for picking observations by their values,</p></li>
+<li><p><code>select()</code> - for picking variables by their names,</p></li>
+<li><p><code>arrange()</code> - for reorder the rows,</p></li>
+<li><p><code>mutate()</code> - for creating new variables with functions on existing variables,</p></li>
+<li><p><code>summarise()</code> - for collapse many values down to a single summary.</p></li>
+</ul>
+<p></br> All of the above can be done using <strong>base R functions, but they would be less computationally efficient, and require writing more lines of (ugly) code.</strong></p>
+</section><section id="the-structure-of-dplyr-functions" class="slide level2">
+<h2>The structure of <code>dplyr</code> functions</h2>
+<p></br></p>
+<p>All verbs work similarly:</p>
+<ul>
+<li><p>The first argument is a tibble (or data frame)</p></li>
+<li><p>The subsequent ones describe what to do, using the variable names</p></li>
+<li><p>The result is a new tibble</p></li>
+</ul>
+<p></br></p>
+<p>Learn more about <code>dplyr</code> from a <a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a?preview=dplyr-tutorial.pdf">turtorial</a> written by its creator, Hadley Wickham.</p>
+</section><section id="the-movie-industry-dataset" class="slide level2">
+<h2>The movie industry dataset</h2>
+<p><code>movies.csv</code> contains information on last three decades of movies.</p>
+<p>The data has been scraped from the IMDb website and can be accessed from a <a href="https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv">github repo</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv&quot;</span>
+movies &lt;-<span class="st"> </span><span class="kw">read_csv</span>(url)
+movies</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 15
+##    budget company country director genre  gross name  rating released runtime
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+##  1 8.00e6 Columb… USA     Rob Rei… Adve… 5.23e7 Stan… R      1986-08…      89
+##  2 6.00e6 Paramo… USA     John Hu… Come… 7.01e7 Ferr… PG-13  1986-06…     103
+##  3 1.50e7 Paramo… USA     Tony Sc… Acti… 1.80e8 Top … PG     1986-05…     110
+##  4 1.85e7 Twenti… USA     James C… Acti… 8.52e7 Alie… R      1986-07…     137
+##  5 9.00e6 Walt D… USA     Randal … Adve… 1.86e7 Flig… PG     1986-08…      90
+##  6 6.00e6 Hemdale UK      Oliver … Drama 1.39e8 Plat… R      1987-02…     120
+##  7 2.50e7 Henson… UK      Jim Hen… Adve… 1.27e7 Laby… PG     1986-06…     101
+##  8 6.00e6 De Lau… USA     David L… Drama 8.55e6 Blue… R      1986-10…     120
+##  9 9.00e6 Paramo… USA     Howard … Come… 4.05e7 Pret… PG-13  1986-02…      96
+## 10 1.50e7 SLM Pr… USA     David C… Drama 4.05e7 The … R      1986-08…      96
+## # … with 6,810 more rows, and 5 more variables: score &lt;dbl&gt;, star &lt;chr&gt;,
+## #   votes &lt;int&gt;, writer &lt;chr&gt;, year &lt;int&gt;</code></pre>
+</section><section id="filter-retain-rows-matching-a-criteria" class="slide level2">
+<h2><code>filter()</code>: retain rows matching a criteria</h2>
+<p><code>filter()</code> allows you to subset observations based on their values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note: both comma and &quot;&amp;&quot; represent AND condition</span>
+<span class="kw">filter</span>(movies, genre <span class="op">==</span><span class="st"> &quot;Comedy&quot;</span>, director <span class="op">==</span><span class="st"> &quot;Woody Allen&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 27 x 15
+##    budget company country director genre  gross name  rating released runtime
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+##  1 6.40e6 Orion … USA     Woody A… Come… 4.01e7 Hann… PG-13  1986-03…     107
+##  2 1.60e7 Orion … USA     Woody A… Come… 1.48e7 Radi… PG     1987-01…      88
+##  3 1.90e7 Jack R… USA     Woody A… Come… 1.83e7 Crim… PG-13  1989-11…     104
+##  4 1.50e7 Touchs… USA     Woody A… Come… 1.08e7 New … PG     1989-03…     124
+##  5 1.20e7 Orion … USA     Woody A… Come… 7.33e6 Alice PG-13  1991-01…     106
+##  6 1.40e7 Orion … USA     Woody A… Come… 2.74e6 Shad… PG-13  1992-03…      85
+##  7 2.00e7 TriSta… USA     Woody A… Come… 1.06e7 Husb… R      1992-09…     103
+##  8 1.35e7 TriSta… USA     Woody A… Come… 1.13e7 Manh… PG     1993-08…     104
+##  9 2.00e7 Miramax USA     Woody A… Come… 1.34e7 Bull… R      1995-02…      98
+## 10 1.50e7 Sweetl… USA     Woody A… Come… 6.70e6 Migh… R      1995-11…      95
+## # … with 17 more rows, and 5 more variables: score &lt;dbl&gt;, star &lt;chr&gt;,
+## #   votes &lt;int&gt;, writer &lt;chr&gt;, year &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach would be more wordy:</span>
+movies[movies<span class="op">$</span>genre <span class="op">==</span><span class="st"> &quot;Comedy&quot;</span> <span class="op">&amp;</span><span class="st"> </span>movies<span class="op">$</span>director <span class="op">==</span><span class="st"> &quot;Woody Allen&quot;</span>, ]</code></pre></div>
+<p>Package <code>dplyr</code> executes the filtering and returns a new data frame. <strong>It never modifies the original one.</strong></p>
+</section><section id="logical-operators" class="slide level2">
+<h2>Logical operators</h2>
+<p>Multiple arguments to <code>filter()</code> are combined with “and”: all expressions must be true, for a row to be included in the output. For other types of combinations, you’ll need to use Boolean operators yourself: &amp; is “and”, | is “or”, and ! is “not”:</p>
+<p><img src="Lecture3-figure/transform-logical.png" /></p>
+<p><smal> Source: <a href="http://r4ds.had.co.nz/transform.html">R for data science</a></small></p>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using AND operator</span>
+<span class="kw">filter</span>(movies, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>, budget <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5e8</span>) 
+<span class="co"># same as filter(movies, country == &quot;USA&quot; &amp; budget &gt; 2.5e8)</span>
+
+<span class="co"># Using OR operator</span>
+<span class="kw">filter</span>(movies, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span> <span class="op">|</span><span class="st"> </span>budget <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5e8</span>)
+
+<span class="co"># Using xor()</span>
+<span class="kw">filter</span>(movies, <span class="kw">xor</span>(score <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>, budget <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.5e8</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># you can also use %in% operator</span>
+<span class="kw">filter</span>(movies, country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Peru&quot;</span>, <span class="st">&quot;Colombia&quot;</span>, <span class="st">&quot;Chile&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 8 x 15
+##   budget company country director genre  gross name  rating released runtime
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+## 1 0.     Concor… Peru    &quot;August… Acti… 4.11e5 Ultr… R      1990-03…     100
+## 2 4.50e7 Warner… Peru    Luis Ll… Acti… 5.74e7 The … R      1994-10…     110
+## 3 3.00e6 HBO Fi… Colomb… Joshua … Crime 6.52e6 Mari… R      2004-08…     101
+## 4 0.     Partic… Chile   &quot;Pablo … Drama 2.34e6 No    R      2012-11…     118
+## 5 2.60e7 Alcon … Chile   Patrici… Biog… 1.22e7 Los … PG-13  2015-11…     127
+## 6 1.40e6 Buffal… Colomb… Ciro Gu… Adve… 1.33e6 Embr… NOT R… 2015-05…     125
+## 7 9.00e6 Fox Se… Chile   &quot;Pablo … Biog… 1.40e7 Jack… R      2016-12…     100
+## 8 0.     AZ Fil… Chile   &quot;Pablo … Biog… 9.39e5 Neru… R      2017-03…     107
+## # … with 5 more variables: score &lt;dbl&gt;, star &lt;chr&gt;, votes &lt;int&gt;, writer &lt;chr&gt;,
+## #   year &lt;int&gt;</code></pre>
+</section><section id="select-pick-columns-by-name" class="slide level2">
+<h2><code>select()</code>: pick columns by name</h2>
+<p><code>select()</code> let’s you choose a subset variables, specified by name.</p>
+<p>Note, there is no need for quotation marks in <code>dplyr</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dplyr approach</span>
+<span class="kw">select</span>(movies, name, country, year, genre)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##    name                     country  year genre    
+##    &lt;chr&gt;                    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;    
+##  1 Stand by Me              USA      1986 Adventure
+##  2 Ferris Bueller&#39;s Day Off USA      1986 Comedy   
+##  3 Top Gun                  USA      1986 Action   
+##  4 Aliens                   USA      1986 Action   
+##  5 Flight of the Navigator  USA      1986 Adventure
+##  6 Platoon                  UK       1986 Drama    
+##  7 Labyrinth                UK       1986 Adventure
+##  8 Blue Velvet              USA      1986 Drama    
+##  9 Pretty in Pink           USA      1986 Comedy   
+## 10 The Fly                  USA      1986 Drama    
+## # … with 6,810 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach would be:</span>
+movies[, <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;genre&quot;</span>)]</code></pre></div>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, name, genre<span class="op">:</span>score) <span class="co"># use colon to select contiguous columns, </span></code></pre></div>
+<pre><code>## # A tibble: 6,820 x 7
+##    name                     genre         gross rating released   runtime score
+##    &lt;chr&gt;                    &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt;
+##  1 Stand by Me              Adventure  52287414 R      1986-08-22      89   8.1
+##  2 Ferris Bueller&#39;s Day Off Comedy     70136369 PG-13  1986-06-11     103   7.8
+##  3 Top Gun                  Action    179800601 PG     1986-05-16     110   6.9
+##  4 Aliens                   Action     85160248 R      1986-07-18     137   8.4
+##  5 Flight of the Navigator  Adventure  18564613 PG     1986-08-01      90   6.9
+##  6 Platoon                  Drama     138530565 R      1987-02-06     120   8.1
+##  7 Labyrinth                Adventure  12729917 PG     1986-06-27     101   7.4
+##  8 Blue Velvet              Drama       8551228 R      1986-10-23     120   7.8
+##  9 Pretty in Pink           Comedy     40471663 PG-13  1986-02-28      96   6.8
+## 10 The Fly                  Drama      40456565 R      1986-08-15      96   7.5
+## # … with 6,810 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="op">-</span>(star<span class="op">:</span>writer))    <span class="co"># To drop columns use a minus, &quot;-&quot; </span></code></pre></div>
+<pre><code>## # A tibble: 6,820 x 12
+##    budget company country director genre  gross name  rating released runtime
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+##  1 8.00e6 Columb… USA     Rob Rei… Adve… 5.23e7 Stan… R      1986-08…      89
+##  2 6.00e6 Paramo… USA     John Hu… Come… 7.01e7 Ferr… PG-13  1986-06…     103
+##  3 1.50e7 Paramo… USA     Tony Sc… Acti… 1.80e8 Top … PG     1986-05…     110
+##  4 1.85e7 Twenti… USA     James C… Acti… 8.52e7 Alie… R      1986-07…     137
+##  5 9.00e6 Walt D… USA     Randal … Adve… 1.86e7 Flig… PG     1986-08…      90
+##  6 6.00e6 Hemdale UK      Oliver … Drama 1.39e8 Plat… R      1987-02…     120
+##  7 2.50e7 Henson… UK      Jim Hen… Adve… 1.27e7 Laby… PG     1986-06…     101
+##  8 6.00e6 De Lau… USA     David L… Drama 8.55e6 Blue… R      1986-10…     120
+##  9 9.00e6 Paramo… USA     Howard … Come… 4.05e7 Pret… PG-13  1986-02…      96
+## 10 1.50e7 SLM Pr… USA     David C… Drama 4.05e7 The … R      1986-08…      96
+## # … with 6,810 more rows, and 2 more variables: score &lt;dbl&gt;, year &lt;int&gt;</code></pre>
+</section><section id="select-helpers" class="slide level2">
+<h2><code>select()</code> helpers</h2>
+<p>You can use the following functions to help select the columns:</p>
+<ul>
+<li><code>starts_with()</code></li>
+<li><code>ends_with()</code></li>
+<li><code>contains()</code></li>
+<li><code>matches()</code> (matches a regular expression)</li>
+<li><code>num_range(&quot;x&quot;, 1:4)</code>: pickes variables x1, x2, x3, x4</li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(movies, <span class="kw">starts_with</span>(<span class="st">&quot;r&quot;</span>))
+<span class="kw">select</span>(movies, <span class="kw">ends_with</span>(<span class="st">&quot;e&quot;</span>))
+<span class="kw">select</span>(movies, <span class="kw">contains</span>(<span class="st">&quot;re&quot;</span>))</code></pre></div>
+</section><section id="arrange-reorder-rows" class="slide level2">
+<h2><code>arrange()</code>: reorder rows</h2>
+<p><code>arrange()</code> takes a data frame and a set of column names to order by.<br />
+For descending order, use the function <code>desc()</code> around the column name.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">arrange</span>(movies, runtime), <span class="dt">n =</span> <span class="dv">4</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 15
+##   budget company country director genre  gross name  rating released runtime
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+## 1 0.     Iwerks… France  Jean-Ja… Adve… 1.51e7 Wing… G      1996-09…      50
+## 2 1.25e7 Univer… USA     Don Blu… Anim… 4.81e7 The … G      1988-11…      69
+## 3 6.00e3 Next W… UK      Christo… Crime 4.85e4 Foll… R      1999-11…      69
+## 4 0.     Hyperi… USA     Bruce W… Anim… 8.44e6 &quot;B\x… PG-13  1992-07…      70
+## # … with 6,816 more rows, and 5 more variables: score &lt;dbl&gt;, star &lt;chr&gt;,
+## #   votes &lt;int&gt;, writer &lt;chr&gt;, year &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># use `desc` for descending</span>
+<span class="kw">print</span>(<span class="kw">arrange</span>(movies, <span class="kw">desc</span>(budget)), <span class="dt">n =</span> <span class="dv">4</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 15
+##   budget company country director genre  gross name  rating released runtime
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+## 1 3.00e8 Walt D… USA     Gore Ve… Acti… 3.09e8 Pira… PG-13  2007-05…     169
+## 2 2.60e8 Walt D… USA     Nathan … Anim… 2.01e8 Tang… PG     2010-11…     100
+## 3 2.58e8 Columb… USA     Sam Rai… Acti… 3.37e8 Spid… PG-13  2007-05…     139
+## 4 2.50e8 Warner… UK      David Y… Adve… 3.02e8 Harr… PG     2009-07…     153
+## # … with 6,816 more rows, and 5 more variables: score &lt;dbl&gt;, star &lt;chr&gt;,
+## #   votes &lt;int&gt;, writer &lt;chr&gt;, year &lt;int&gt;</code></pre>
+</section><section id="mutate-add-new-variables" class="slide level2">
+<h2><code>mutate()</code>: add new variables</h2>
+<p><code>mutate()</code> adds new columns that are a function of the existing ones</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(movies, <span class="dt">profit =</span> gross <span class="op">-</span><span class="st"> </span>budget)
+<span class="kw">select</span>(movies, name, gross, budget, profit)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 4
+##    name                         gross   budget     profit
+##    &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Stand by Me               52287414  8000000   44287414
+##  2 Ferris Bueller&#39;s Day Off  70136369  6000000   64136369
+##  3 Top Gun                  179800601 15000000  164800601
+##  4 Aliens                    85160248 18500000   66660248
+##  5 Flight of the Navigator   18564613  9000000    9564613
+##  6 Platoon                  138530565  6000000  132530565
+##  7 Labyrinth                 12729917 25000000  -12270083
+##  8 Blue Velvet                8551228  6000000    2551228
+##  9 Pretty in Pink            40471663  9000000   31471663
+## 10 The Fly                   40456565 15000000   25456565
+## # … with 6,810 more rows</code></pre>
+<p>To discard old variables, use <code>transmute()</code> instead of <code>mutate()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R approach to create a new variable &#39;profit&#39;</span>
+movies<span class="op">$</span>profit &lt;-<span class="st"> </span>movies<span class="op">$</span>gross <span class="op">-</span><span class="st"> </span>movies<span class="op">$</span>budget</code></pre></div>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Generating multiple new variables</span>
+movies &lt;-<span class="st"> </span><span class="kw">mutate</span>(
+  movies, 
+  <span class="dt">profit =</span> gross <span class="op">-</span><span class="st"> </span>budget, 
+  <span class="dt">gross_in_mil =</span> gross<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>,
+  <span class="dt">budget_in_mil =</span> budget<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>,
+  <span class="dt">profit_in_mil =</span> profit<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>
+)
+<span class="kw">select</span>(movies, name, year, country, <span class="kw">contains</span>(<span class="st">&quot;_in_mil&quot;</span>), profit)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 7
+##    name          year country gross_in_mil budget_in_mil profit_in_mil   profit
+##    &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Stand by Me   1986 USA            52.3            8           44.3    4.43e7
+##  2 Ferris Buel…  1986 USA            70.1            6           64.1    6.41e7
+##  3 Top Gun       1986 USA           180.            15          165.     1.65e8
+##  4 Aliens        1986 USA            85.2           18.5         66.7    6.67e7
+##  5 Flight of t…  1986 USA            18.6            9            9.56   9.56e6
+##  6 Platoon       1986 UK            139.             6          133.     1.33e8
+##  7 Labyrinth     1986 UK             12.7           25          -12.3   -1.23e7
+##  8 Blue Velvet   1986 USA             8.55           6            2.55   2.55e6
+##  9 Pretty in P…  1986 USA            40.5            9           31.5    3.15e7
+## 10 The Fly       1986 USA            40.5           15           25.5    2.55e7
+## # … with 6,810 more rows</code></pre>
+<div class="left" ,="" style="width: 100%; font-size: 0.7em;">
+<p><strong>Any vectorized function can be used with <code>mutate()</code></strong>, including:</p>
+<ul>
+<li>arithmetic operators (+,-,*,/, %, %%),</li>
+<li>logical operators (&lt;,&lt;=,&gt;,&gt;=,==,!=),</li>
+<li>logarithmic and exponential transfomations (<code>log, log10, exp</code>),</li>
+<li>offsets (<code>lead, lag</code>),</li>
+<li>cummulative rolling aggregates (<code>cumsum</code>, <code>cumprod</code>, <code>cummin</code>, <code>cummax</code>),</li>
+<li>ranking (<code>min_rank</code>, <code>percent_rank</code>).</li>
+</ul>
+</div>
+</section><section id="summarise-reduce-variables-to-values" class="slide level2">
+<h2><code>summarise()</code>: reduce variables to values</h2>
+<p></br></p>
+<p><code>summarize()</code> can be used to aggregate data or to compute a summarizing value of interest.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(movies, 
+  <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)<span class="op">/</span><span class="fl">1e9</span>, 
+  <span class="dt">mean_gross_in_mil =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="fl">1e6</span>, 
+  <span class="dt">mean_profit_in_mil =</span> <span class="kw">mean</span>(profit)<span class="op">/</span><span class="fl">1e6</span>
+)</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   tot_gross_in_bil mean_gross_in_mil mean_profit_in_mil
+##              &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+## 1             228.              33.5               8.92</code></pre>
+<p><code>summarize()</code> is <strong>more useful on data previously grouped by one or more variables</strong> using <code>group_by()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_genre &lt;-<span class="st"> </span><span class="kw">group_by</span>(movies, genre)
+<span class="kw">summarize</span>(by_genre, <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)<span class="op">/</span><span class="fl">1e9</span>, 
+          <span class="dt">mean_gross_in_mil =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="fl">1e6</span>, 
+          <span class="dt">mean_profit_in_mil =</span> <span class="kw">mean</span>(profit)<span class="op">/</span><span class="fl">1e6</span>)</code></pre></div>
+</section><section id="grouping-and-summarizing" class="slide level2">
+<h2>Grouping and summarizing</h2>
+<p>Grouing allows you to compute summaries for each categories separately:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_genre &lt;-<span class="st"> </span><span class="kw">group_by</span>(movies, genre)
+<span class="kw">summarize</span>(
+  by_genre, 
+  <span class="dt">tot_gross_in_bil =</span> <span class="kw">sum</span>(gross)<span class="op">/</span><span class="fl">1e9</span>, 
+  <span class="dt">mean_gross_in_mil =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="fl">1e6</span>, 
+  <span class="dt">mean_profit_in_mil =</span> <span class="kw">mean</span>(profit)<span class="op">/</span><span class="fl">1e6</span>
+)</code></pre></div>
+<pre><code>## # A tibble: 17 x 4
+##    genre     tot_gross_in_bil mean_gross_in_mil mean_profit_in_mil
+##    &lt;chr&gt;                &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+##  1 Action            74.8                56.2                7.30 
+##  2 Adventure         20.9                53.3               16.0  
+##  3 Animation         25.3                91.5               27.2  
+##  4 Biography          8.62               24.0                7.05 
+##  5 Comedy            53.5                25.7               10.8  
+##  6 Crime             10.2                19.6                3.30 
+##  7 Drama             25.2                17.5                4.19 
+##  8 Family             0.118               8.44              -0.101
+##  9 Fantasy            0.645              20.1                4.38 
+## 10 Horror             7.12               25.7               13.8  
+## 11 Musical            0.00809             2.02              -0.476
+## 12 Mystery            1.38               36.3                9.47 
+## 13 Romance            0.146               9.72               4.24 
+## 14 Sci-Fi             0.308              23.7                6.79 
+## 15 Thriller           0.0996              5.53              -0.356
+## 16 War                0.00151             0.755              0.755
+## 17 Western            0.0185              9.26               3.26</code></pre>
+</section><section id="elementary-but-useful-summary-functions" class="slide level2">
+<h2>Elementary but useful summary functions</h2>
+<ul>
+<li><code>min(x)</code>, <code>median(x)</code>, <code>max(x)</code>, <code>quantile(x, p)</code></li>
+<li><code>n()</code>, <code>n_distinct()</code>, <code>sum(x)</code>, <code>mean(x)</code></li>
+<li><code>sum(x &gt; 10)</code>, <code>mean(x &gt; 0)</code></li>
+<li><code>sd(x)</code>, <code>var(x)</code></li>
+</ul>
+</section><section id="counting-observations" class="slide level2">
+<h2>Counting observations</h2>
+<p><code>tally()</code> function can be used to generate a group frequency table, (number of observations in each category)</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(<span class="kw">group_by</span>(movies, genre))</code></pre></div>
+<pre><code>## # A tibble: 17 x 2
+##    genre         n
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 Action     1331
+##  2 Adventure   392
+##  3 Animation   277
+##  4 Biography   359
+##  5 Comedy     2080
+##  6 Crime       522
+##  7 Drama      1444
+##  8 Family       14
+##  9 Fantasy      32
+## 10 Horror      277
+## 11 Musical       4
+## 12 Mystery      38
+## 13 Romance      15
+## 14 Sci-Fi       13
+## 15 Thriller     18
+## 16 War           2
+## 17 Western       2</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tally</span>(<span class="kw">group_by</span>(movies, genre, country))</code></pre></div>
+<pre><code>## # A tibble: 238 x 3
+## # Groups:   genre [17]
+##    genre  country            n
+##    &lt;chr&gt;  &lt;chr&gt;          &lt;int&gt;
+##  1 Action Aruba              1
+##  2 Action Australia         12
+##  3 Action Austria            1
+##  4 Action Belgium            1
+##  5 Action Brazil             2
+##  6 Action Canada            26
+##  7 Action China             13
+##  8 Action Czech Republic     1
+##  9 Action Denmark            2
+## 10 Action France            41
+## # … with 228 more rows</code></pre>
+</div>
+</section><section id="window-functions" class="slide level2">
+<h2>Window Functions</h2>
+<ul>
+<li><p>Aggregation functions such as <code>mean()</code>, <code>n()</code> return 1 value per group.</p></li>
+<li><p><strong>Window functions return multiple values per group</strong>, e.g. <code>top_n()</code>, <code>lead</code> and <code>lag</code> or <code>cummean</code>:</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rewrite more simply with the `top_n` function</span>
+movies2 &lt;-<span class="st"> </span><span class="kw">select</span>(movies, name, genre, country, year, budget, gross, profit, rating, score)
+top2 &lt;-<span class="st"> </span><span class="kw">top_n</span>(<span class="kw">group_by</span>(movies2, genre), <span class="dt">n =</span> <span class="dv">2</span>, <span class="dt">wt =</span> score)
+<span class="kw">arrange</span>(top2, genre, year, score)  </code></pre></div>
+<pre><code>## # A tibble: 35 x 9
+## # Groups:   genre [17]
+##    name              genre   country    year budget  gross  profit rating score
+##    &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+##  1 The Dark Knight   Action  USA        2008 1.85e8 5.35e8  3.50e8 PG-13    9  
+##  2 Inception         Action  USA        2010 1.60e8 2.93e8  1.33e8 PG-13    8.8
+##  3 The Lord of the … Advent… New Zeal…  2001 9.30e7 3.16e8  2.23e8 PG-13    8.8
+##  4 The Lord of the … Advent… USA        2003 9.40e7 3.78e8  2.84e8 PG-13    8.9
+##  5 The Lion King     Animat… USA        1994 4.50e7 3.13e8  2.68e8 G        8.5
+##  6 Spirited Away     Animat… Japan      2001 1.90e7 1.01e7 -8.94e6 PG       8.6
+##  7 Your name         Animat… Japan      2016 0.     5.02e6  5.02e6 PG       8.5
+##  8 Schindler&#39;s List  Biogra… USA        1993 2.20e7 9.61e7  7.41e7 R        8.9
+##  9 The Intouchables  Biogra… France     2011 0.     1.32e7  1.32e7 R        8.6
+## 10 Forrest Gump      Comedy  USA        1994 5.50e7 3.30e8  2.75e8 PG-13    8.8
+## # … with 25 more rows</code></pre>
+</section><section id="other-useful-functions-in-dplyr" class="slide level2">
+<h2>Other useful functions in <code>dplyr</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Renaming variables</span>
+<span class="kw">print</span>(<span class="kw">rename</span>(movies2, <span class="dt">gross_revenue =</span> gross), <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## # A tibble: 6,820 x 9
+##   name          genre   country  year budget gross_revenue  profit rating score
+##   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1 Stand by Me   Advent… USA      1986 8.00e6      52287414  4.43e7 R        8.1
+## 2 Ferris Buell… Comedy  USA      1986 6.00e6      70136369  6.41e7 PG-13    7.8
+## 3 Top Gun       Action  USA      1986 1.50e7     179800601  1.65e8 PG       6.9
+## 4 Aliens        Action  USA      1986 1.85e7      85160248  6.67e7 R        8.4
+## 5 Flight of th… Advent… USA      1986 9.00e6      18564613  9.56e6 PG       6.9
+## # … with 6,815 more rows</code></pre>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Unique values</span>
+<span class="kw">distinct</span>(movies2, rating)</code></pre></div>
+<pre><code>## # A tibble: 13 x 1
+##    rating       
+##    &lt;chr&gt;        
+##  1 R            
+##  2 PG-13        
+##  3 PG           
+##  4 UNRATED      
+##  5 Not specified
+##  6 G            
+##  7 NC-17        
+##  8 NOT RATED    
+##  9 TV-PG        
+## 10 TV-MA        
+## 11 B            
+## 12 B15          
+## 13 TV-14</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using multiple variables, returns distinct variable combinations.</span>
+<span class="kw">distinct</span>(movies2, rating, genre)</code></pre></div>
+<pre><code>## # A tibble: 83 x 2
+##    rating  genre    
+##    &lt;chr&gt;   &lt;chr&gt;    
+##  1 R       Adventure
+##  2 PG-13   Comedy   
+##  3 PG      Action   
+##  4 R       Action   
+##  5 PG      Adventure
+##  6 R       Drama    
+##  7 PG-13   Adventure
+##  8 PG-13   Action   
+##  9 R       Crime    
+## 10 UNRATED Comedy   
+## # … with 73 more rows</code></pre>
+</div>
+</section><section id="sampling-observations" class="slide level2">
+<h2>Sampling observations</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample_n</span>(movies, <span class="dv">5</span>)                    <span class="co"># fixed number of rows, without replacement</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 19
+##   budget company country director genre  gross name  rating released runtime
+##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+## 1 8.03e6 Davis … USA     Deran S… Acti… 3.41e6 Gunm… R      1994-02…      94
+## 2 5.00e7 Young … UK      Peter W… Crime 2.77e7 Hann… R      2007-02…     121
+## 3 1.60e8 Warner… USA     Gareth … Acti… 2.01e8 Godz… PG-13  2014-05…     123
+## 4 3.50e7 Punch … USA     Robert … Come… 2.06e7 Boys… PG-13  2000-06…      94
+## 5 0.     Mockin… USA     Robin S… Come… 3.57e6 The … PG-13  2007-10…     106
+## # … with 9 more variables: score &lt;dbl&gt;, star &lt;chr&gt;, votes &lt;int&gt;, writer &lt;chr&gt;,
+## #   year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;, budget_in_mil &lt;dbl&gt;,
+## #   profit_in_mil &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample_frac</span>(movies, <span class="fl">0.005</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># fraction of rows, with replacement</span></code></pre></div>
+<pre><code>## # A tibble: 34 x 19
+##    budget company country director genre  gross name  rating released runtime
+##     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+##  1 0.     New Ar… USA     Courten… Come… 8.13e3 Just… R      2015-04…      95
+##  2 7.00e6 Paramo… USA     Louis C… Come… 3.29e6 Poot… PG-13  2001-06…      81
+##  3 5.00e6 Renais… Ireland Trevor … Come… 5.52e5 Twel… PG     1996-10…     134
+##  4 1.50e7 Columb… USA     Richard… Drama 1.73e6 Litt… PG     1988-03…      98
+##  5 0.     &quot;Path\… France  Julian … Biog… 5.99e6 The … PG-13  2008-02…     112
+##  6 0.     BBC Fi… UK      John Ma… Biog… 3.43e5 Love… UNRAT… 1998-10…      87
+##  7 0.     Golden… Hong K… Michael… Adve… 3.96e5 Sex … R      1991-11…     100
+##  8 1.50e7 New Li… USA     Sean Mc… Fami… 1.04e7 Rais… PG     2004-10…     100
+##  9 5.50e7 Univer… USA     Jesse D… Come… 1.05e8 Amer… R      2003-08…      96
+## 10 3.50e6 Incent… USA     Derek C… Drama 9.74e6 Blue… R      2011-01…     112
+## # … with 24 more rows, and 9 more variables: score &lt;dbl&gt;, star &lt;chr&gt;,
+## #   votes &lt;int&gt;, writer &lt;chr&gt;, year &lt;int&gt;, profit &lt;dbl&gt;, gross_in_mil &lt;dbl&gt;,
+## #   budget_in_mil &lt;dbl&gt;, profit_in_mil &lt;dbl&gt;</code></pre>
+</section></section>
+<section><section id="chaining-operations" class="titleslide slide level1"><h1>Chaining operations</h1></section><section id="the-magrittr-package" class="slide level2">
+<h2>The <code>magrittr</code> package</h2>
+<div class="left" ,="" style="width: 65%">
+<blockquote>
+<p>The magrittr (to be pronounced with a sophisticated french accent) package has two aims: decrease development time and improve readability and maintainability of code</p>
+</blockquote>
+<p><code>magrittr</code> provides a “pipe”-like operator, <code>%&gt;%</code>:</p>
+<ul>
+<li>The <code>%&gt;%</code> is used <strong>pipe values forward into an expression or function call</strong>.</li>
+<li>In the pipe notation, you use <code>x %&gt;% f(y)</code>, rather than <code>f(x, y)</code>.</li>
+<li>This is similar to the <a href="http://www.linfo.org/pipe.html">Unix pipes</a>, <code>|</code>, used to send the output of one program to another program for further processing.</li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 35%">
+<p><img src="Lecture3-figure/magrittr.png" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">columns &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">50</span>
+<span class="kw">rnorm</span>(<span class="dv">500</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">colSums</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">x =</span> columns)</code></pre></div>
+<p><img src="Lecture3_Importing_and_transforming_data_files/figure-revealjs/unnamed-chunk-74-1.png" width="672" /></p>
+</div>
+</section><section id="chaining-operations-1" class="slide level2">
+<h2>Chaining operations</h2>
+<p></br></p>
+<ul>
+<li><p>Pipe operators used together with <code>dplyr</code> functions make a large difference as they semantically change your code in a way that <strong>makes it more intuitive to both read and write</strong>.</p></li>
+<li><p>The pipes allow users to chain operators which reflects the <strong>sequential nature of data-processing tasks</strong>.</p></li>
+<li><p><strong>Chaining increases readability</strong> significantly when there are many commands</p></li>
+<li><p><code>%&gt;%</code> operator is automatically imported into <code>dplyr</code></p></li>
+</ul>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<ol type="1">
+<li>Find movies from USA produced after 2010. (2) Group by genre and</li>
+<li>compute the group mean gross revenue in million dollars. Then print the genre mean ‘gross’ revenue (4) arranged in a descending order:</li>
+</ol>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># nesting </span>
+<span class="kw">arrange</span>(
+  <span class="kw">summarise</span>(
+    <span class="kw">group_by</span>(
+      <span class="kw">filter</span>(movies, 
+             year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2010</span>, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>
+      ),
+      genre
+    ),
+    <span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>
+  ),
+  mean_gross
+)</code></pre></div>
+<pre><code>## # A tibble: 13 x 2
+##    genre     mean_gross
+##    &lt;chr&gt;          &lt;dbl&gt;
+##  1 Thriller      0.0165
+##  2 Drama        23.3   
+##  3 Horror       27.7   
+##  4 Sci-Fi       29.2   
+##  5 Fantasy      30.7   
+##  6 Crime        32.1   
+##  7 Comedy       35.2   
+##  8 Biography    40.6   
+##  9 Mystery      49.5   
+## 10 Romance      62.5   
+## 11 Adventure    81.2   
+## 12 Action       97.3   
+## 13 Animation   152.</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># chaining </span>
+movies <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2010</span>, country <span class="op">==</span><span class="st"> &quot;USA&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(genre) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_gross =</span> <span class="kw">mean</span>(gross)<span class="op">/</span><span class="dv">10</span><span class="op">^</span><span class="dv">6</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(mean_gross)</code></pre></div>
+<pre><code>## # A tibble: 13 x 2
+##    genre     mean_gross
+##    &lt;chr&gt;          &lt;dbl&gt;
+##  1 Thriller      0.0165
+##  2 Drama        23.3   
+##  3 Horror       27.7   
+##  4 Sci-Fi       29.2   
+##  5 Fantasy      30.7   
+##  6 Crime        32.1   
+##  7 Comedy       35.2   
+##  8 Biography    40.6   
+##  9 Mystery      49.5   
+## 10 Romance      62.5   
+## 11 Adventure    81.2   
+## 12 Action       97.3   
+## 13 Animation   152.</code></pre>
+</div>
+</section><section id="exercises-2" class="slide level2">
+<h2>Exercises 2</h2>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec3_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 2.</p></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

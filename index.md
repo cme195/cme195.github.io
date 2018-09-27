@@ -18,7 +18,7 @@ environment provided in the installation tab.
 
 **Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
 
-**Office hours:** Mon 3pm, [Huang Basement Student Area](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang)
+**Office hours:** Mon 4pm, [Huang Basement Student Area](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang)
 
 **Communication:** Please direct your questions on class materials and
 assignments to: [canvas](https://canvas.stanford.edu).
@@ -68,9 +68,9 @@ programming experience is encouraged.
 
 Grading (Satisfactory/No Credit):
 
- - participation: 20%, 
- - homework: 40%, 
- - final project: 40%.
+ - participation: 20% 
+ - homework: 40%
+ - final project: 40%
 
 There will be one homework sets due the third week of class. 
 You are also expected to submit a final project (in groups up to 4 students).

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Lan Huong Nguyen" />
   <meta name="dcterms.date" content="2018-09-27" />
-  <title>CME/STATS 195</title>
+  <title>Lecture 1: Introduction to R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -488,8 +488,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title">CME/STATS 195</h1>
-  <h1 class="subtitle">Lecture 1: Introduction to R</h1>
+    <h1 class="title">Lecture 1: Introduction to R</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
     <h2 class="author">Lan Huong Nguyen</h2>
     <h3 class="date">September 27, 2018</h3>
 </section>
@@ -510,11 +510,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>CME/STATS 195 will run for 4 weeks: 09/27-10/23/2018</p>
 <ul>
 <li>Lectures: Tue, Thu 12:00 PM - 1:20 PM, Building 200 room 034</li>
-<li>Office hours: Mon 3PM, Huang (Basement) Student Area</li>
+<li>Office hours: Mon 4PM, Huang (Basement) Student Area</li>
 <li>Class website: <a href="https://cme195.github.io/" class="uri">https://cme195.github.io/</a></li>
 <li>Homework submission: <a href="https://canvas.stanford.edu/" class="uri">https://canvas.stanford.edu/</a></li>
 <li>Questions/Communication: <a href="https://canvas.stanford.edu/" class="uri">https://canvas.stanford.edu/</a></li>
 </ul>
+<p></br></p>
 <p>Grading (Satisfactory/No Credit):</p>
 <ul>
 <li>Homework assignments (40%)</li>
@@ -558,15 +559,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="topics-covered" class="slide level2">
 <h2>Topics Covered</h2>
 <ul>
-<li>R Basics: data types and structures, variable assignment etc.</li>
-<li>R as a programming language: syntax, flow control, iteration, functions.</li>
-<li>Importing and tidying data.</li>
-<li>Processing and transforming data with <code>dplyr</code>.</li>
-<li>Visualizing data with <code>ggplot2</code>.</li>
-<li>Exploratory data analysis (EDA)</li>
-<li>Elements of statics: modeling, predicting and testing.</li>
-<li>Some R tools for supervised &amp; unsupervised learning.</li>
-<li>Generating R Markdown reports for efficient communication.</li>
+<li><p>R Basics: data types and structures, variable assignment etc.</p></li>
+<li><p>R as a programming language: syntax, flow control, iteration, functions.</p></li>
+<li><p>Importing and tidying data.</p></li>
+<li><p>Processing and transforming data with <code>dplyr</code>.</p></li>
+<li><p>Visualizing data with <code>ggplot2</code>.</p></li>
+<li><p>Exploratory data analysis (EDA)</p></li>
+<li><p>Elements of statics: modeling, predicting and testing.</p></li>
+<li><p>Some R tools for supervised &amp; unsupervised learning.</p></li>
+<li><p>Generating R Markdown reports for efficient communication.</p></li>
 </ul>
 </section></section>
 <section><section id="the-r-language" class="titleslide slide level1"><h1>The R language</h1></section><section id="what-is-r" class="slide level2">
@@ -696,9 +697,35 @@ class="center"></img></p>
 <p></br> In this class, we will use <strong>RStudio</strong>, as it is more user-friendly.</p>
 </section><section id="installing-rstudio" class="slide level2">
 <h2>Installing RStudio</h2>
-<p>RStudio is open-source and cross-platform (Linux, Mac, Windows).</p>
-<p>Download and install the latest version for your OS from <a href="https://www.rstudio.com/products/rstudio/download/#download">the official website</a>.</p>
-<p><img src="Lecture1-figure/rstudio.png", height="800", width="1000"></img></p>
+<p>RStudio is open-source and cross-platform (Linux, Mac, Windows).<br />
+Download and install the latest version for your OS from <a href="https://www.rstudio.com/products/rstudio/download/#download">the official website</a>.</p>
+<p><img src="./Lecture2-figure/RStudio_window.png",  width="1000"></img></p>
+</section><section id="rstudio-window" class="slide level2">
+<h2>RStudio window</h2>
+<p><img src="./Lecture2-figure/rstudio-editor.png",  width="1000"></img></p>
+</section><section id="rstudio-preferences" class="slide level2">
+<h2>RStudio preferences</h2>
+<p><img src="./Lecture2-figure/RStudio_preferences.png", width="1000"></img></p>
+</section><section id="rstudio-layout" class="slide level2">
+<h2>RStudio layout</h2>
+<p><img src="./Lecture2-figure/RStudio_layout.png", width="1000"></img></p>
+</section><section id="rstudio-apprearance" class="slide level2">
+<h2>RStudio apprearance</h2>
+<p><img src="./Lecture2-figure/RStudio_appearances.png", width="1000"></img></p>
+<p>More on RStudio cuztomization can be found <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">here</a></p>
+</section><section id="r-document-types" class="slide level2">
+<h2>R document types</h2>
+<p><img src="./Lecture2-figure/RStudio_documents.png", width="1000"></img></p>
+</section><section id="r-document-types-1" class="slide level2">
+<h2>R document types</h2>
+<ul>
+<li><p><a href="https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html">R Script</a> <strong>a text file</strong> containing R commands stored together.</p></li>
+<li><p><a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown</a> files can generate high quality reports contatining notes, code and code outputs. <strong>Python and bash code </strong> can also be executed.</p></li>
+<li><p><a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook</a> is an R Markdown document with <strong>chunks that can be executed independently and interactively</strong>, with output visible immediately beneath the input.</p></li>
+<li><p><a href="https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations">R presentation</a> let’s you author <strong>slides</strong> that make use of R code and LaTeX equations as <strong>straightforward</strong> as possible.</p></li>
+<li><p><a href="https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr">R Sweave</a> enables the embedding of <strong>R code within LaTeX documents</strong>.</p></li>
+<li><p><a href="http://rmarkdown.rstudio.com/formats.html">Other</a> documents</p></li>
+</ul>
 </section><section id="r-packages" class="slide level2">
 <h2>R packages</h2>
 <ul>
@@ -916,7 +943,7 @@ x1</code></pre></div>
 </div>
 </section><section id="vector-indexing" class="slide level2">
 <h2>Vector indexing</h2>
-<div class="left" ,="" style="width: 40%">
+<div class="left" ,="" style="width: 50%">
 <ul>
 <li><p>Elements of a vector can be accessed using indexing, with square brackets, <code>[]</code>.</p></li>
 <li><p>Unlike in many languages, in R <strong>indexing starts with <code>1</code></strong>.</p></li>
@@ -924,8 +951,7 @@ x1</code></pre></div>
 <li><p>Logical indexing (<code>TRUE/FALSE</code>) is allowed.</p></li>
 </ul>
 </div>
-<div class="right" ,="" style="width: 60%">
-<p></br></p>
+<div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">days &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Sun&quot;</span>,<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thurs&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>) 
 (today &lt;-<span class="st"> </span>days[<span class="dv">5</span>])</code></pre></div>
 <pre><code>## [1] &quot;Thurs&quot;</code></pre>
@@ -1135,11 +1161,9 @@ A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(
 </section><section id="arrays" class="slide level2">
 <h2>Arrays</h2>
 <ul>
-<li><p>Arrays are the R data objects which can store <strong>data in more than two dimensions.</strong></p></li>
-<li><p>For example, an array of dimension (4, 3, 2) i.e. 4 rows and 3 columns and 2 tables.</p></li>
-<li><p>Arrays can store <strong>only one data type</strong>.</p></li>
-<li><p>An array is created using the <code>array()</code> function.</p></li>
-<li><p>Accessing and subsetting elements of an arrays is similar to accessing elements of a matrix.</p></li>
+<li>In R, arrays are data objects with more than two dimensions,   e.g. a (4x3x2)-array has 2 tables of size 4 rows by 3 columns.</li>
+<li>Arrays can store <strong>only one data type</strong> and are created using <code>array()</code>.</li>
+<li>Accessing and subsetting elements of an arrays is similar to accessing elements of a matrix.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">row.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ROW1&quot;</span>,<span class="st">&quot;ROW2&quot;</span>,<span class="st">&quot;ROW3&quot;</span>, <span class="st">&quot;ROW4&quot;</span>) 
 column.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;COL1&quot;</span>,<span class="st">&quot;COL2&quot;</span>,<span class="st">&quot;COL3&quot;</span>) 
@@ -1361,15 +1385,15 @@ new.employees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 <h2>Factors ordering</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">days.sample &lt;-<span class="st"> </span><span class="kw">sample</span>(days, <span class="dv">5</span>)
 days.sample</code></pre></div>
-<pre><code>## [1] Thu Sat Mon Tue Fri
+<pre><code>## [1] Sun Mon Sat Thu Wed
 ## Levels: Fri Mon Sat Sun Thu Tue Wed</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with given levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days)) </code></pre></div>
-<pre><code>## [1] Thu Sat Mon Tue Fri
+<pre><code>## [1] Sun Mon Sat Thu Wed
 ## Levels: Mon Tue Wed Thu Fri Sat Sun</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with ordered levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] Thu Sat Mon Tue Fri
+<pre><code>## [1] Sun Mon Sat Thu Wed
 ## Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
 <p>Note that factor <strong>labels are not the same as levels</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)
@@ -1386,12 +1410,12 @@ x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">fro
 ##    April February  January    March      May 
 ##       30       28       31       31       31</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.Date</span>()     <span class="co"># What day  is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-24&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-27&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-24 10:09:37 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-27 11:35:45 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the New Year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2019-01-01&#39;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
-<pre><code>## Time difference of 99 days</code></pre>
+<pre><code>## Time difference of 96 days</code></pre>
 <p>Type <code>?strptime</code> for a list of possible date formats.</p>
 </section><section id="random-numbers" class="slide level2">
 <h2>Random numbers</h2>

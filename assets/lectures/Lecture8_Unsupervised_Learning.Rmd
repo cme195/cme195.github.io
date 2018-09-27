@@ -1,6 +1,8 @@
 ---
 title: 'Lecture 8: Unsupervised Learning'
-date: "October 26, 2017"
+subtitle: 'CME/STATS 195'
+date: "October 23, 2018" 
+author: "Lan Huong Nguyen"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -842,3 +844,30 @@ plot(rtsne_out$Y, asp = 1, pch = 20, col = "blue",
      xlab = "t-SNE dimension 1", ylab = "t-SNE dimension 2", 
      main = "2D t-SNE projection")
 ```
+
+
+# Conclusion
+
+## Our journey
+
+![](./Lecture2-figure/data-science.png)
+
+![](./01_tidyverse_data_science.png)
+
+## How to learn more
+
+Where to find out more about the topics of this class:
+
+- R for Data Science, by Hadley Wickham: (http://r4ds.had.co.nz)
+- The tidyverse: (https://www.tidyverse.org)
+- RStudio: (https://www.rstudio.com/)
+- R Markdown: (http://rmarkdown.rstudio.com/)
+- Many online tutorials and forums
+
+How to learn more advanced topics on R:
+
+- Take “Stat 290: Computing for Data Science”
+- Read “Advanced R”, by Hadley Wickham: (http://adv-r.had.co.nz/)
+- Read “R packages”, by Hadley Wickham: (http://rpkgs.had.co.nz/)
+
+

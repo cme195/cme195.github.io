@@ -1,0 +1,897 @@
+---
+title: 'Lecture 4: Visualizing data'
+subtitle: 'CME/STATS 195'
+date: "October 9, 2018" 
+author: "Lan Huong Nguyen"
+output: 
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: libs
+    theme: simple
+    hightlights: haddock
+    smart: true
+    center: true
+    transition: slide
+    css: cme195.css
+    fig_width: 10
+    fig_height: 6
+    reveal_options:
+      slideNumber: true
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+options(width = 80)
+knitr::opts_chunk$set(cache = TRUE, tidy = FALSE, size = "small")
+library(tidyverse)
+library(gridExtra)
+library(ggrepel)
+theme_update(text = element_text(size = 20))
+```
+
+## Contents 
+
+<div class="left", style="width: 50%">
+- Intro to `ggplot2` package
+- Comparison with base-graphics
+- Aesthetic mappings
+- Geometric objects
+- Statistical transformations
+- Facets
+- Scales
+</div>
+
+<div class="right", style="width: 50%">
+<img src="./Lecture4-figure/ggplot2.png", height="250"></img> 
+![](./Lecture4-figure/data-science-explore.png)
+
+</div>
+
+
+# Intro to `ggplot2` package
+
+## The `ggplot` package
+
+<div class="left", style="width: 70%">
+The `ggplot` package is a part of the core of `tidyverse`.
+
+> `ggplot2` is **a plotting system for R, based on the grammar of graphics**. 
+It takes care of many of the fiddly details that make plotting a hassle 
+(like drawing legends) as well as providing a powerful model of graphics 
+that makes it easy to produce complex multi-layered graphics [^1]. 
+
+[^1]: (http://ggplot2.org/)
+
+</div>
+
+<div class="right", style="width: 30%">
+![](./Lecture4-figure/ggplot2.png)
+</div>
+
+</br>
+
+It is the most elegant and versatile tool for graphically visualizing data in R,
+offering a coherent system (or grammar) for building graphs.
+
+## What is a grammar of graphics?
+
+- It is a concept **coined by Leland Wilkinson in 2005**.
+
+- An **abstraction** which facilitates reasoning and communicating graphics.
+
+- `ggplot2` is **a layered grammar of graphics** which allow users to:
+independently specify the building blocks of a plot and combine them to 
+create just about any kind of graphical display.
+
+## `ggplot2` characteristics
+
+Advantages of `ggplot2`:
+
+- The package is **flexible** and offers extensive **customization** options.
+-  The **documentation** is well-written. 
+- `ggplot2` has a large user base => **it's easy find to help**.
+
+Weaknesses of `ggplot2`
+
+- it does not handle 3D graphics
+    + use [`rgl`](https://cran.r-project.org/web/packages/rgl/vignettes/rgl.html) 
+    or [`ggplot2` + `plotly`](http://blog.revolutionanalytics.com/2014/11/3-d-plots-with-plotly.html)
+    instead,
+- it is inefficient for graph/network plots with nodes and edges
+    + use [`igraph`](http://igraph.org/r/) instead
+- does not offer interactive graphics: 
+    + use [`ggvis`](http://ggvis.rstudio.com/ggvis-basics.html), or
+    [`plotly`](https://github.com/ropensci/plotly) instead
+
+
+
+
+## Building blocks of a `ggplot2` graphical objects
+
+<div class="left", style="width: 50%">
+* data
+
+* aesthetic mapping
+
+* geometric objects
+
+* statistical transformations
+
+* facets
+
+* scales
+
+* coordinate system
+
+* positioning adjustments
+</div>
+
+<div class="left", style="width: 50%; vertical-align: middle;">
+
+</br>
+
+
+```{r ggplot-structure, eval = FALSE}
+ggplot(data = <DATA>) +
+  GEOM_FUNCTION(
+    mapping = aes(<mappings>),
+    stat = <statistic transformation>,
+    position = <position options>,
+    color = <fixed color>, 
+    <other arguments>) +
+  FACET_FUNCTION(<facet options>) +
+  SCALE_FUNCTION(<scale options>) +
+  theme(<theme elements>)
+```
+</div>
+
+## `ggplot()` function
+
+- `ggplot()` function is initializes a basic graph structure;
+It cannot produce a plot alone by itself. 
+
+- You need to add extra components to generate a graph; 
+
+- Different parts of a plot can be added together using `+`. 
+Note similarity with the `%>%` operator.
+
+
+- Any data or arguments you supply to `ggplot()` function, can later be 
+used by added functions without repeated specification.
+
+
+
+# Comparison with base-graphics
+
+## `ggplot2` compared to base graphics
+
+- is **more verbose for simple/out of the box** graphics,
+
+- is **less verbose for complex/custom** graphics,
+
+- generates graphs by adding building blocks, instead calling different 
+functions to draw new layers on top,
+
+- makes it easier to edit and tweak elements of a plot,
+
+- more details on advantages of `ggplot2` over base plot 
+are in this [blog](http://varianceexplained.org/r/why-I-use-ggplot2/).
+
+
+## Example 1: History of unemployment
+
+`ggplot2` has a built-in **`economics`** dataset, which inclides
+time series data on US unemployment from 1967 to 2015.
+
+```{r, fig.width=10, fig.height=6}
+economics
+economics <- mutate(economics, unemp_rate = unemploy/pop)
+```
+
+## R base graphics
+
+```{r}
+plot(unemploy/pop ~ date, data = economics,  type = "l")
+```
+
+## `ggplot2` package
+
+```{r}
+library(tidyverse)
+ggplot(data = economics, aes(x = date, y = unemp_rate)) + geom_line()
+```
+
+## ggplot() by itself does not plot the data
+```{r}
+ggplot(data = economics, aes(x = date, y = unemp_rate))
+```
+
+## You need to add a line-layer
+
+```{r}
+ggplot(data = economics, aes(x = date, y = unemp_rate)) + geom_line()
+```
+
+## Change the background color to white
+
+```{r}
+ggplot(data = economics, aes(x = date, y = unemp_rate)) + 
+  geom_line() + theme_bw()
+```
+
+## What about comparing 2009 to 2014?
+
+```{r}
+# Add new variables for plotting
+economics <- economics %>% 
+  mutate(month = as.numeric(format(date, format="%m")),
+         year  = as.factor(format(date, format="%Y")))
+economics %>% 
+  select(date, month, year, unemp_rate)
+```
+
+## Using base graphics
+
+<div style = "font-size: 36px">
+
+```{r}
+data09 <- subset(economics, year == "2009")
+data14 <- subset(economics, year == "2014")
+plot(unemp_rate ~ month, data = data09, ylim = c(0.02, 0.05), type = "l")
+lines(unemp_rate ~ month, data = data14, col = "red")
+legend("topleft", c("2009", "2014"), col = c("black", "red"), lty = c(1,1))
+```
+</div>
+
+## Using ggplot2
+
+There is no need of specifing a legend:
+
+```{r}
+ggplot(data = economics %>% filter(year %in% c(2014, 2009)), 
+       aes(x = month, y = unemp_rate)) + 
+  geom_line(aes(group = year, color = year)) 
+```
+
+
+## Plotting all the years together is easy
+
+```{r, fig.width = 12, fig.height=6}
+ggplot(data = economics, aes(x = month, y = unemp_rate)) + 
+  geom_line(aes(group = year, color = factor(year))) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+
+# Geometric objects
+
+## The `diamond` dataset
+
+`diamond` is a built-in dataset, included in `tidyverse`.
+It contains prices and other attributes of almost 54,000 diamonds.
+We will use this dataset to illustrate how to use functions in `ggplot2`.
+
+```{r}
+data(diamonds)
+diamonds
+```
+
+More information with `?diamonds`.
+Spreadsheet view in RStudio with `View(diamonds)`.
+
+## Geometic object
+
+Geometric objects are the actual elements you put on the plot. Examples include:
+
+- points (`geom_point()`, used for scatter plots)
+- text (`geom_text()`, `geom_lebel()`, used for text labels)
+- lines (`geom_line()`, used for time series, trend lines, etc.)
+- boxplots (`geom_boxplot()` used for, well, boxplots!)
+
+There is no upper limit to how many geom objects you can use.
+You can add a geom objects to a plot using an `+` operator.
+
+To get a list of available geometric objects use the following:
+
+```{r}
+help.search("geom_", package = "ggplot2")
+```
+
+
+## Scatter plots 
+
+```{r}
+# Note that we can save `ggplot` as an object
+p <- ggplot(diamonds, aes(x = carat, y = price))
+p + geom_point()
+```
+
+## Text labels plots
+
+```{r}
+plog <- ggplot(
+  sample_n(diamonds, 100), 
+  aes(x = log10(carat), y = log10(price)))
+plog + geom_text(aes(label = clarity))
+```
+
+## Text plots with rectangle plates
+
+```{r}
+plog + geom_label(aes(label = clarity))
+```
+
+## `ggrepel` package for annotation
+
+`ggrepel` helps annotating **overlapping labels**.
+
+```{r}
+# Uncomment the line below if you don't have 'ggrepel'
+# install.packages("ggrepel")
+library(ggrepel)
+plog + geom_point() + geom_text_repel(aes(label = clarity), size = 3)
+```
+
+
+# Aesthetic mappings
+
+## Aesthetic mapping
+
+- In ggplot an **aesthetic mapping**, defined with `aes()`, describes how 
+variables are mapped to visual properties or aesthetics.
+
+- The details of mapping can be described by using scale functions.
+
+- Aesthetics are properties you can see:
+    + position (i.e., on the x and y axes)
+    + shape 
+    + linetype
+    + size
+    + color ("outside" color)
+    + fill ("inside" color)
+
+You can convey information about your data by mapping the aesthetics in your 
+plot to the variables in your dataset.
+
+Each type of `geom` objects accepts only a subset of aesthetics; 
+refer to the `geom` help pages for details. 
+
+## The shape of the points 
+
+```{r}
+# We first generate a subset of 'diamnonds' dataset
+dsmall <- sample_n(diamonds, 500)
+p1 <- ggplot(dsmall, aes(x = carat, y = price))
+
+# set shape by diamond cut
+p1 + geom_point(aes(shape = cut))
+```
+
+## All 25 shape configurations
+
+```{r}
+ggplot(data.frame(x = 1:5 , y = 1:25, z = 1:25), aes(x = x, y = y)) +
+  geom_point(aes(shape = z), size = 5, colour = "darkgreen", fill = "orange") +
+  scale_shape_identity()
+```
+
+## The color of the points 
+
+```{r}
+# color by diamonds color
+p1 + geom_point(aes(color = color))
+```
+
+## Set color and shape
+
+```{r}
+p1 + geom_point(aes(shape = cut, color = color))
+```
+
+## Variable vs fixed aesthetics
+
+<div class="left", style="width: 50%">
+```{r}
+p1 + geom_point(aes(color = color))
+```
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+p1 + geom_point(color = "darkgreen") 
+```
+</div>
+
+
+## Marker points with borders
+
+```{r}
+p1 + geom_point(aes(fill = cut), size = 3, color = "black", shape = 25)
+```
+
+
+## Alpha parameter for transparency
+
+```{r fig.height=5, fig.width=15}
+a1 <- p + geom_point(alpha = 1/5)
+a2 <- p + geom_point(alpha = 1/50)
+a3 <- p + geom_point(alpha = 1/500)
+
+# We use grid.arrange from gridExtra to display multiple plots
+library(gridExtra)
+grid.arrange(a1, a2, a3, ncol = 3)
+```
+
+
+
+## Exercise 1
+
+* Go to "Lec4_Exercises.Rmd" on the class website.
+
+* Complete Exercise 1.
+
+
+# Statistical Transformations
+
+## Types of statistical transformations
+
+Plots often require some statistical data transformation or computation\
+before they can be plotted. Examples include:
+
+- **boxplots:** the the median, lower and upper quartiles, 
+
+- **histograms:** group the values into bins, 
+
+- **bar charts:** number of class occurrences. 
+
+- **smoothers:** prediction lines / predicted y-values,
+
+
+
+## Box plot transformation
+
+Plotting a summary (less data) can be more insightful.
+
+```{r}
+ggplot(data = diamonds, aes(x = cut, y =carat)) +
+  geom_boxplot()
+```
+
+## Histogram and density plots
+
+```{r fig.height=5, fig.width=15}
+# Distribution of the carats (weights) of the diamonds.
+h <- ggplot(data = diamonds, aes(x = carat)) + geom_histogram()
+d <- ggplot(data = diamonds, aes(x = carat)) + geom_density()
+grid.arrange(h, d, ncol = 2)
+```
+
+## Histogram parameters
+
+In histograms, the smoothness is controlled with **`bins`** and 
+**`binwidth`** arguments. (or by specifying using the **`breaks`** explicitly). 
+
+
+<!-- It is very important to experiment with the level of smoothing. With a histogram -->
+<!-- you should try many bin widths: You may find that gross features of the data -->
+<!-- show up well at a large bin width, while finer features require a very narrow -->
+<!-- width. -->
+
+```{r fig.height=5, fig.width=15, warning = FALSE}
+p <- ggplot(data = diamonds, aes(x = carat)) + xlim(0, 3)
+h1 <- p + geom_histogram(binwidth = 0.5) 
+h2 <- p + geom_histogram(binwidth = 0.1) 
+h3 <- p + geom_histogram(binwidth = 0.05) 
+grid.arrange(h1, h2, h3, ncol = 3)
+```
+
+## Density plot parameters
+
+In density plots, the **`bw`** (the smoothing bandwidth) and 
+**`adjust`** arguments control the smoothness. 
+
+```{r fig.height=5, fig.width=15, warning = FALSE}
+d1 <- p + geom_density(adjust = 5) 
+d2 <- p + geom_density(adjust = 1) 
+d3 <- p + geom_density(adjust = 1/5) 
+grid.arrange(d1, d2, d3, ncol = 3)
+```
+
+## Histograms for separate groups
+
+```{r fig.height=5, fig.width=15, warning=FALSE}
+# Here we show grouping by diamonds cut.
+h <- p + geom_histogram(aes(fill = cut), position = "dodge", bins = 10)
+d <- p + geom_density(aes(color = cut))
+grid.arrange(h, d, ncol = 2)
+```
+
+## 
+
+Instead of marginal distributions, we can plot distribution of components
+**stacked** on top of each other to see the contribution from each of group.
+
+```{r fig.height=5, fig.width=15, warning=FALSE}
+h <- p + geom_histogram(aes(fill = cut), position = "stack")
+d <- p + geom_density(aes(fill = cut), position = "stack")
+grid.arrange(h, d, ncol = 2)
+```
+
+## Position adjustments
+
+Position adjustments are used to adjust the position of each `geom`.
+The following position adjustments are available:
+
+- `position_identity`: default of most geoms
+- `position_jitter`: adds a small amount of random variation
+- `position_dodge`: default of `geom_boxplot`
+- `position_stack`: default of `geom_bar`, `geom_histogram`
+- `position_fill`: useful for `geom_bar`, `geom_histogram`
+
+The position parameter can be set as follows:
+
+```{r, eval = FALSE}
+geom_point(..., position="jitter")
+```
+
+## Position adjustments for scatterplots
+
+**Overplotting:** many points overlap each other.
+Here variables are categorical, but sometimes rounding causes overplotting.
+
+<div class="left", style="width: 50%">
+```{r}
+plt <- ggplot(diamonds, aes(x = cut, y = depth))
+plt + geom_point()
+```
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+plt + geom_point(position = "jitter")
+```
+</div>
+
+
+
+## Bar charts
+
+* A discrete analogue of a histogram is the bar chart, `geom_bar()`.
+
+* Instead of partitioning the values into bins like histograms, the bar
+geom **counts the number of instances of each discrete class**. The counts
+are then plotted as columns for each distinct class.
+
+* If you’d like include **unequal weights** for different observations, 
+you can use the `weight` aesthetic. 
+
+##
+
+```{r fig.height=5, fig.width=15}
+b1 <- ggplot(diamonds, aes(x = clarity)) + geom_bar()
+b2 <- ggplot(diamonds, aes(x = clarity)) + geom_bar(aes(weight = carat)) + ylab("carat")
+grid.arrange(b1, b2, ncol = 2)
+```
+
+The left plot shows the number of diamonds in each clarity group, and 
+**the right plot shows the count weighted by carat**, which is equivalent 
+to showing the total weight of diamonds in clarity color group.
+
+
+## 
+
+* As you see, in `ggplot2` (unlike base graphics)
+it is **not necessary tabulate the values**, i.e. compute the counts of each 
+category beforehand. The computation is done automatically for you.
+
+* However, if you have already summarized data, you can still use
+`geom_bar` but you need to specify an identity transformation, `stat = "identity`
+rather than the default `stat = "count"`.
+
+```{r}
+diamond.counts <- diamonds %>% group_by(color) %>% summarise(count = n())
+diamond.counts
+```
+
+
+##
+
+```{r error = TRUE}
+# The default option generates an error:
+ggplot(diamond.counts, aes(x=color, y=count)) +  geom_bar()
+# Error: stat_count() must not be used with a y aesthetic.
+```
+
+```{r}
+# You need to do the following:
+ggplot(diamond.counts, aes(x=color, y=count)) +  geom_bar(stat="identity")
+```
+
+
+## Regression lines
+
+<div style = "font-size: 36px">
+```{r}
+# You can fit a linear model with lm(y ~ x, data) and use it for prediction.
+dsmall <- dsmall %>% 
+  mutate(pred.price = predict(lm(price ~ carat, data = dsmall)))
+# And add the regression line in a standard way
+p1 <- ggplot(dsmall, aes(x = carat, y = price))
+p1 + geom_point(aes(color = color)) + geom_line(aes(y = pred.price))
+```
+</div>
+
+## Regression lines with ggplot2
+
+```{r}
+# Or you can simply use geom_smooth()!
+p1 + geom_point(aes(color = color)) + geom_smooth(method = "lm")
+```
+
+
+
+## Smoothers are trend lines
+
+```{r}
+# Smoothers help discern patterns in the data
+ggplot(data = diamonds, aes(x = carat, y = price)) +
+  geom_point() + geom_smooth()
+```
+
+
+## Exercise 2
+
+* Go back to "Lec4_Exercises.Rmd"
+
+* Complete the exercise 2
+
+
+# Scales
+
+## Aesthetic mapping vs variable scaling
+
+- `aes()` assign an aesthetic to a variable; it doesn't 
+determine how mapping should be done. 
+
+- For example, `aes(shape = x)` or `aes(color = z)` do not specify what shapes
+or what colors should be used. 
+
+- To choose colors/shapes/sizes etc. you need 
+to **modify the corresponding scale**. 
+
+- `ggplot2` includes scales for:
+    + position
+    + color and fill
+    + size
+    + shape
+    + line type
+
+## 
+
+Scales can be modified with functions of the form:
+`scale_<aesthetic>_<type>()`, e.g. `scale_color_discrete()`.
+</br>
+
+Try typing `scale_<tab>()` to see a list of scale modification functions.
+</br>
+
+>- **Common Scale Arguments:**
+
+>   + **name**: the first argument gives the axis or legend title
+>   + **limits**: the minimum and maximum of the scale
+>   + **breaks**: the points along the scale where labels should appear
+>   + **labels**: the labels that appear at each break
+
+
+## Scale for axes
+
+```{r fig.height=5, fig.width=14}
+# Square root y-axis transformation
+p1 <- ggplot(dsmall, aes(x = carat, y = price)) + geom_point()  
+psqrt <- p1 + scale_y_sqrt()
+# Log base 10 y-axis transformation
+plog10 <- p1 + geom_point() + scale_y_log10()
+grid.arrange(psqrt, plog10, ncol = 2)
+```
+
+
+##
+
+Log base 10 transformation of x and y axes. Note the differences.
+
+```{r fig.height=5, fig.width=14}
+ploglog1 <- p1 + geom_point() + scale_y_log10() + scale_x_log10()
+ploglog2 <- ggplot(dsmall, aes(x = log(carat), y = log(price))) + geom_point()
+grid.arrange(ploglog1, ploglog2, ncol = 2)
+```
+
+
+## Scale for shapes
+
+```{r fig.width = 14, fig.height = 5}
+p11 <- p1 + geom_point(aes(shape = cut), size = 3)  
+p12 <- p1 + geom_point(aes(shape = cut), size = 3) + 
+  scale_shape_manual(values = c(1:5))
+grid.arrange(p11, p12, ncol = 2)
+```
+
+## Scale for colors
+
+To choose specific colors for **discrete** variables we use `scale_color_manual`.
+
+```{r}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_manual(values = c("red", "orange", "yellow", "green", "blue"))
+```
+
+## 
+
+For **continuous** variables we use `scale_color_gradient`, and specify
+the ends of the color spectrum.
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red")
+```
+
+##
+
+`scale_color_brewer` lets you choose **nice color palettes for discrete variables**.
+
+```{r}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_brewer(palette = "Set2")
+```
+
+##
+
+Unfortunately, `scale_color_brewer` doesn't work for continuous variables:
+
+```{r eval = FALSE}
+# scale_color_brewer() does not work with continuous variables 
+# and will result in an error
+p1 + geom_point(aes(shape = price), size = 3) + 
+  scale_color_brewer(palette = "Spectral")
+# Error: A continuous variable can not be mapped to shape
+```
+
+We can get around this issue using the `RColorBrewer` package
+and `scale_color_gradientn` function, which **interpolates colors**
+from the brewer palettes.
+
+
+## 
+
+```{r}
+# install.packages("RColorBrewer")
+library(RColorBrewer)
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradientn(colours = brewer.pal(name = "Spectral", n = 10))
+```
+
+## 
+
+Another popular color scheme package, `viridis`, supports both discrete
+and continuous variables:
+
+```{r, message=FALSE, warning=FALSE}
+# install.packages("viridis")
+library(viridis)
+p1 + geom_point(aes(color = price), size = 3) + scale_color_viridis()
+```
+
+## 
+
+
+```{r, message=FALSE, warning=FALSE}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_viridis(discrete = TRUE, option = "magma")
+```
+
+
+##
+... there are also other unconventional schemes such as, [one
+based on Wes Anderson movies](http://wesandersonpalettes.tumblr.com/) :
+
+```{r}
+#install.packages("wesanderson")
+library(wesanderson)
+names(wes_palettes)
+```
+
+## Wes Anderson color palette:
+
+```{r}
+# For discrete variables
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_manual(values = wes_palette("Darjeeling", n = 5))
+```
+
+## 
+
+```{r}
+# For continuous variables:
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradientn(colours = wes_palette("Darjeeling", 100, type = "continuous"))
+```
+
+##
+
+You can also **scale the values of the variable corresponding to color**.
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red", trans = "log10")
+```
+
+##
+
+Or and add your own breaks 
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red", trans = "log10",
+                       breaks = c(1000, 2000, 5000, 10000),
+                       labels = c("  1000", "  2000", "  5000", "10000")) 
+```
+
+
+
+## Exercise 3
+
+* Go to back "Lec4_Exercises.Rmd"
+
+* Complete Exercise 3
+
+
+# Faceting
+
+##
+**Facettng** allows you to split up your data by 
+one or more variables and plot the subsets of data together.
+
+<div style = "font-size: 36px">
+```{r fig.height=5, fig.width=14, warning=FALSE, message=FALSE}
+dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
+p0 <- ggplot(data = dsmall, aes(x = carat, y = price)) +geom_point(size = 1) +
+  geom_smooth(aes(colour = cut, fill = cut)) 
+p1 <- p0 + facet_wrap(~ cut)
+grid.arrange(p0, p1, ncol = 2)
+```
+</div>
+
+##
+
+```{r}
+ggplot(diamonds, aes(x = carat)) +
+  geom_density() + 
+  facet_grid(color ~ cut)
+```
+
+## Saving plots
+
+Now that you have your beautiful plot, you may want to save it as an image.
+
+`ggsave()` is a convenient function for saving a plot.
+
+
+By default, it saves the last plot that you displayed, using the size of the 
+current graphics device. It also guesses the type of graphics device from 
+the extension.
+
+```{r, eval = FALSE}
+ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
+  scale = 1, width = NA, height = NA, units = c("in", "cm", "mm"),
+  dpi = 300, limitsize = TRUE, ...)
+```
+
+“Device” can be either be a device function (e.g. png), or one of “eps”, “ps”,
+“tex” (pictex), “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” or “wmf” (windows only).
+
+
+
+## Exercise 4,5
+
+* Go to back "Lec4_Exercises.Rmd"
+
+* Complete Exercise 4,5

@@ -6,31 +6,26 @@ layout: cme195
 
 ## [](#slides) Slides
 
-Communicating and Programming:
-
+Communicating and Programming:  
 **Lecture 1:** Introduction to R.
-<!---
 [[html](./assets/lectures/Lecture1_Intro.html)]
-[[pdf](./assets/lectures/Lecture1_Intro.pdf)] 
---->  
+[[pdf](./assets/lectures/Lecture1_Intro.pdf)]  
 **Lecture 2:** Communicating with R Markdown. Elements of programming in R.
 <!---
 [[html](./assets/lectures/Lecture2_Communicating_and_Programming.html)]
 [[pdf](./assets/lectures/Lecture2_Communicating_and_Programming.pdf)] 
 ---->  
 
-Exploratory Data Analysis:  
-
-**Lecture 3:** Importing and tidying data.
+Exploring data:  
+**Lecture 3:** Importing and transforming data.
 <!---
 [[html](./assets/lectures/Lecture3_Importing_and_Tidying.html)]
 [[pdf](./assets/lectures/Lecture3_Importing_and_Tidying.pdf)] 
 ---->  
 **Lecture 4:** Visualizing data.  
-**Lecture 5:** Transforming data.  
+**Lecture 5:** Exploratory Data Analysis (EDA).    
 
-Data Modeling:  
-
+Modeling data:  
 **Lecture 6:** Hypothesis testing and linear regression.  
 **Lecture 7:** Supervised techniques in R.  
 **Lecture 8:** Unsupervised techniques in R.    

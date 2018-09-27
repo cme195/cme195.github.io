@@ -52,7 +52,7 @@ df
 ```
 
 
-# Execise 1: Data manipulation
+# Execise 2: Data manipulation
 
 ## Part 1: `dplyr` verbs
 

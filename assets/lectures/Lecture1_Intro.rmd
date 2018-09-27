@@ -1,6 +1,6 @@
 --- 
-title: 'CME/STATS 195'
-subtitle: 'Lecture 1: Introduction to R'
+title: 'Lecture 1: Introduction to R'
+subtitle: 'CME/STATS 195'
 date: "September 27, 2018" 
 author: "Lan Huong Nguyen"
 output: 
@@ -48,10 +48,12 @@ knitr::opts_chunk$set(
 CME/STATS 195 will run for 4 weeks: 09/27-10/23/2018
 
 - Lectures: Tue, Thu 12:00 PM - 1:20 PM, Building 200 room 034
-- Office hours: Mon 3PM, Huang (Basement) Student Area
+- Office hours: Mon 4PM, Huang (Basement) Student Area
 - Class website: https://cme195.github.io/
 - Homework submission: https://canvas.stanford.edu/
 - Questions/Communication: https://canvas.stanford.edu/
+
+</br>
 
 Grading (Satisfactory/No Credit):
 
@@ -101,15 +103,23 @@ This is a short course, so you will not learn everything about R.
 
 ## Topics Covered
 
-* R Basics: data types and structures, variable assignment etc.
-* R as a programming language: syntax, flow control, iteration, functions.
-* Importing and tidying data.
-* Processing and transforming data with `dplyr`.
-* Visualizing data with `ggplot2`.
-* Exploratory data analysis (EDA)
-* Elements of statics: modeling, predicting and testing.
-* Some R tools for supervised & unsupervised learning.
-* Generating R Markdown reports for efficient communication.
+- R Basics: data types and structures, variable assignment etc.
+
+- R as a programming language: syntax, flow control, iteration, functions.
+
+- Importing and tidying data.
+
+- Processing and transforming data with `dplyr`.
+
+- Visualizing data with `ggplot2`.
+
+- Exploratory data analysis (EDA)
+
+- Elements of statics: modeling, predicting and testing.
+
+- Some R tools for supervised & unsupervised learning.
+
+- Generating R Markdown reports for efficient communication.
 
 
 # The R language
@@ -288,12 +298,63 @@ In this class, we will use **RStudio**, as it is more user-friendly.
 
 ## Installing RStudio
 
-RStudio is open-source and cross-platform (Linux, Mac, Windows).
-
+RStudio is open-source and cross-platform (Linux, Mac, Windows).\
 Download and install the latest version for your OS from 
 [the official website](https://www.rstudio.com/products/rstudio/download/#download).
 
-<img src="./Lecture1-figure/rstudio.png", height="800", width="1000"></img> 
+<img src="./Lecture2-figure/RStudio_window.png",  width="1000"></img> 
+
+## RStudio window
+
+<img src="./Lecture2-figure/rstudio-editor.png",  width="1000"></img> 
+
+
+## RStudio preferences
+
+<img src="./Lecture2-figure/RStudio_preferences.png", width="1000"></img> 
+
+
+
+## RStudio layout
+
+<img src="./Lecture2-figure/RStudio_layout.png", width="1000"></img> 
+
+
+
+## RStudio apprearance
+
+<img src="./Lecture2-figure/RStudio_appearances.png", width="1000"></img> 
+
+More on RStudio cuztomization can be found [here](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+
+## R document types
+
+<img src="./Lecture2-figure/RStudio_documents.png", width="1000"></img> 
+
+
+## R document types
+
+- [R Script](https://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_scrpt.html) 
+**a text file** containing R commands stored together.
+
+- [R Markdown](http://rmarkdown.rstudio.com/lesson-1.html)
+files can generate high quality reports contatining notes, code and code outputs.
+**Python and bash code ** can also be executed.
+
+- [R Notebook](http://rmarkdown.rstudio.com/r_notebooks.html) is 
+an R Markdown document with **chunks that can be executed independently and 
+interactively**, with output visible immediately beneath the input.
+
+- [R presentation](https://support.rstudio.com/hc/en-us/articles/200486468-Authoring-R-Presentations) 
+let's you author **slides** that make use of R code and LaTeX equations 
+as **straightforward** as possible.
+
+- [R Sweave](https://support.rstudio.com/hc/en-us/articles/200552056-Using-Sweave-and-knitr) 
+enables the embedding of **R code within LaTeX documents**.
+
+- [Other](http://rmarkdown.rstudio.com/formats.html) documents
+
 
 
 ## R packages 
@@ -540,7 +601,7 @@ print(x2)
 
 ## Vector indexing 
 
-<div class="left", style="width: 40%">
+<div class="left", style="width: 50%">
 
 - Elements of a vector can be accessed using indexing, with square brackets, `[]`.
 
@@ -552,9 +613,8 @@ print(x2)
 
 </div>
 
-<div class="right", style="width: 60%">
+<div class="right", style="width: 50%">
 
-</br>
 
 ```{r} 
 days <- c("Sun","Mon","Tue","Wed","Thurs","Fri","Sat") 
@@ -802,19 +862,11 @@ More on matrix algebra [here](http://www.statmethods.net/advstats/matrix.html)
 ## Arrays 
 
 
-- Arrays are the R data objects which can store **data in more than two
-dimensions.**
-
-- For example, an array of dimension (4, 3, 2) i.e. 4 rows and 3
-columns and 2 tables.
-
-- Arrays can store **only one data type**.
-
-- An array is created using the `array()` function.
-
-- Accessing and subsetting elements of an arrays is similar to accessing elements
-of a matrix.
-
+- In R, arrays are data objects with more than two dimensions, \ 
+e.g. a (4x3x2)-array has 2 tables of size 4 rows by 3 columns.
+- Arrays can store **only one data type** and are created using `array()`.
+- Accessing and subsetting elements of an arrays is similar to accessing 
+elements of a matrix.
 
 ```{r} 
 row.names <- c("ROW1","ROW2","ROW3", "ROW4") 
