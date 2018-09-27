@@ -903,18 +903,18 @@ very_long_name.<span class="dv">3</span> &lt;-<span class="st"> </span><span cla
 </section><section id="variable-class" class="slide level2">
 <h2>Variable class</h2>
 <p>R is <strong>a dynamically typed language</strong>, which means that we can change a variable’s data type of the same variable again and again when using it in a program.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> &quot;Hello&quot;</span> 
-<span class="kw">cat</span>(<span class="st">&quot;The class of var_x is&quot;</span>, <span class="kw">class</span>(a),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
-<pre><code>## The class of var_x is character</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="fl">34.5</span> 
-<span class="kw">cat</span>(<span class="st">&quot;  Now the class of var_x is &quot;</span>, <span class="kw">class</span>(a),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
-<pre><code>##   Now the class of var_x is  numeric</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span>27L 
-<span class="kw">cat</span>(<span class="st">&quot;   Next the class of var_x becomes &quot;</span>, <span class="kw">class</span>(a),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) </code></pre></div>
-<pre><code>##    Next the class of var_x becomes  integer</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;Hello&quot;</span> 
+<span class="kw">cat</span>(<span class="st">&quot;The class of x is&quot;</span>, <span class="kw">class</span>(x),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
+<pre><code>## The class of x is character</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="fl">34.5</span> 
+<span class="kw">cat</span>(<span class="st">&quot;  Now the class of x is &quot;</span>, <span class="kw">class</span>(x),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
+<pre><code>##   Now the class of x is  numeric</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>27L 
+<span class="kw">cat</span>(<span class="st">&quot;   Next the class of x becomes &quot;</span>, <span class="kw">class</span>(x),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>) </code></pre></div>
+<pre><code>##    Next the class of x becomes  integer</code></pre>
 <p>You can see what variables are <strong>currently available in the workspace</strong> by calling</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">ls</span>()) </code></pre></div>
-<pre><code>## [1] &quot;a&quot;                &quot;first.variable&quot;   &quot;SecondVariable&quot;   &quot;var.1&quot;            &quot;var.2&quot;            &quot;var.3&quot;            &quot;variable_2&quot;       &quot;very_long_name.3&quot;</code></pre>
+<pre><code>## [1] &quot;a&quot;                &quot;first.variable&quot;   &quot;SecondVariable&quot;   &quot;var.1&quot;            &quot;var.2&quot;            &quot;var.3&quot;            &quot;variable_2&quot;       &quot;very_long_name.3&quot; &quot;x&quot;</code></pre>
 </section><section id="vectors" class="slide level2">
 <h2>Vectors</h2>
 <p>Vectors are the simplest R data objects; there are no scalars in R.</p>
@@ -1385,15 +1385,15 @@ new.employees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
 <h2>Factors ordering</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">days.sample &lt;-<span class="st"> </span><span class="kw">sample</span>(days, <span class="dv">5</span>)
 days.sample</code></pre></div>
-<pre><code>## [1] Wed Thu Sun Sat Fri
+<pre><code>## [1] Fri Tue Sun Wed Thu
 ## Levels: Fri Mon Sat Sun Thu Tue Wed</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with given levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days)) </code></pre></div>
-<pre><code>## [1] Wed Thu Sun Sat Fri
+<pre><code>## [1] Fri Tue Sun Wed Thu
 ## Levels: Mon Tue Wed Thu Fri Sat Sun</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create factor with ordered levels</span>
 (days.sample &lt;-<span class="st"> </span><span class="kw">factor</span>(days.sample, <span class="dt">levels =</span> days, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>## [1] Wed Thu Sun Sat Fri
+<pre><code>## [1] Fri Tue Sun Wed Thu
 ## Levels: Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat &lt; Sun</code></pre>
 <p>Note that factor <strong>labels are not the same as levels</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">day_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)
@@ -1412,7 +1412,7 @@ x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">fro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.Date</span>()     <span class="co"># What day  is it? </span></code></pre></div>
 <pre><code>## [1] &quot;2018-09-27&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Sys.time</span>()     <span class="co"># What time is it? </span></code></pre></div>
-<pre><code>## [1] &quot;2018-09-27 11:42:46 PDT&quot;</code></pre>
+<pre><code>## [1] &quot;2018-09-27 11:46:30 PDT&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Number of days until the New Year. </span>
 <span class="kw">as.Date</span>(<span class="st">&#39;2019-01-01&#39;</span>) <span class="op">-</span><span class="st"> </span><span class="kw">Sys.Date</span>() </code></pre></div>
 <pre><code>## Time difference of 96 days</code></pre>

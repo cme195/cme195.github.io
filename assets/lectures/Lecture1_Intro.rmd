@@ -539,14 +539,14 @@ variable’s data type of the same variable again and again when using it in a
 program.
 
 ```{r} 
-a <- "Hello" 
-cat("The class of var_x is", class(a),"\n")
+x <- "Hello" 
+cat("The class of x is", class(x),"\n")
 
-a <- 34.5 
-cat("  Now the class of var_x is ", class(a),"\n")
+x <- 34.5 
+cat("  Now the class of x is ", class(x),"\n")
 
-a <- 27L 
-cat("   Next the class of var_x becomes ", class(a),"\n") 
+x <- 27L 
+cat("   Next the class of x becomes ", class(x),"\n") 
 ``` 
 
 
