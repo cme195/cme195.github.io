@@ -784,7 +784,7 @@ rownames <- c("row1", "row2", "row3")
 colnames <- c("col1", "col2", "col3", "col4", "col5") 
 (P <- matrix(c(5:19), nrow = 3, byrow = TRUE, 
              dimnames = list(rownames, colnames))) 
-P[2, 5] # the element in 2nd column and 5th row. 
+P[2, 5] # the element in 2nd row and 5th column. 
 
 P[2, ] # the 2nd row. 
 
@@ -1177,7 +1177,7 @@ variable `letters` is already defined in R.
 
 1. Create the following 5 by 5 matrix and store it as variable X.
 ```{r echo = FALSE}
-matrix(1:30, nrow = 5, byrow = FALSE)
+matrix(1:25, nrow = 5, byrow = FALSE)
 ```
 
 2. Create a matrix Y by adding an independent Gaussian noise (random numbers)
