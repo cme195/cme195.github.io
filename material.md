@@ -38,7 +38,7 @@ any time. Please check regularly.
 **Exercise 1:**
 [[html](./assets/exercises/Lec1_Exercises.nb.html)]  
 [[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
+[[solutions](./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
 **Exercise 2:**
 <!---
 [[html](./assets/exercises/Lec2_Exercises.nb.html)]
