@@ -29,7 +29,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 
 
 <div class="left", style="width: 50%">
-- Using RStudio
 
 - Data science workflow
 
