@@ -701,6 +701,97 @@ ggplot(data = diamonds) +
 
 # Interactive graphics
 
+## The `plotly` package
+
+> - `plotly` is **a package for visualization** 
+and a collaboration platform for data science
+> - Available in **R, python, MATLAB, scala**.  
+> - You can produce **interactive graphics including 3D plots**
+(with zooming and rotating).
+> - You can open a **'plotly' account ** to upload 'plotly' graphs 
+  and view or modify them in a web browser.
+> - Resources: [cheatsheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf), 
+[book](https://plotly-book.cpsievert.me)
+
+## `plotly` integration with `ggplot2`
+
+```{r plotly-ggplot2}
+library(plotly); library(tidyverse) # or library(ggplot2); library(dplyr)
+plt <- ggplot(diamonds %>% sample_n(1000), aes(x = carat, y = price)) + 
+  geom_point(aes(color = cut))
+ggplotly(plt) 
+```
+
+
+##
+
+```{r plotly-ggplot2-facet}
+plt <- ggplot(diamonds %>% sample_n(1000), aes(x = carat, y = price)) + 
+  geom_text(aes(label = clarity), size = 4) + 
+  geom_smooth(aes(color = cut, fill = cut)) +
+  facet_wrap(~cut)
+ggplotly(plt) 
+```
+
+
+## 3D Scatter plots
+
+```{r plotly-scatter3D}
+theta <- seq(0, 10, 0.2); 
+df <- data.frame(U = theta, V =  cos(theta), W = sin(theta)*theta)
+plot_ly(df, x = ~V, y = ~W, z = ~U, type = "scatter3d", mode = "markers",
+        marker = list(size = 3))
+```
+
+##
+
+```{r plotly-scatter3D-col, message=FALSE, warning=FALSE}
+df$cols <- rep_len(c("orange", "blue", "green"), length.out = length(theta))
+(plt <- plot_ly(df, x = ~V, y = ~W, z = ~U, color = ~cols,
+        type = "scatter3d", mode = "markers+lines",
+        marker = list(size = 5), line = list(width = 5)))
+```
+
+
+## Adding layers
+
+```{r plotly-scatter3D-layer}
+dbl.helix <- data.frame(t = rep(seq(0, 2*pi, length.out = 100), 3)) %>%
+  mutate(x1 = sin(t), y1 = cos(t), z = (1:length(t))/10,
+         x2 = sin(t + pi/2), y2 = cos(t + pi/2))
+plot_ly(dbl.helix, x = ~x1, y = ~y1, z = ~z, type = "scatter3d", mode = "lines", 
+        color = "green", colors = c("green", "purple"), line = list(width = 5)) %>% 
+  add_trace(x = ~x2, y = ~y2, z = ~z+0.2, color = "purple") 
+```
+
+## Volcano dataset
+
+* **`volcano`** - a built-in dataset storing topographic information 
+for Maunga Whau (Mt Eden), one of 50 volcanos in Auckland, New Zealand.
+* It consist of a 87 x 61 matrix with entries corresponding to the mountain's 
+atlitutes [m] on a 10m by 10m grid.  
+* rows run east to west, and columns south to north
+
+```{r print-volcano}
+dim(volcano)
+volcano[1:5, 1:5]
+``` 
+
+## 2D contour plots
+
+```{r plotly-contour2D}
+plot_ly(z = volcano) %>% add_contour()
+```
+
+## 3D surface plots
+
+```{r plotly-surf3D}
+plot_ly(z = volcano) %>% add_surface()
+```
+
+
+
+
 # Data Export
 
 ## Exporting Data

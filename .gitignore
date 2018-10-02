@@ -1,3 +1,6 @@
 assets/homework/*solutions.rmd
 assets/homework/*solutions.nb.html
 assets/*/*_cache/*
+.Rproj.user
+*.Rproj
+*/*.Rproj

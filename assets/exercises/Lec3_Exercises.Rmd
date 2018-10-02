@@ -1,10 +1,11 @@
 ---
 title: "Lecture 3: Exercises"
-date: October 10th, 2017
+date: October 4th, 2018
 output: 
   html_notebook:
     toc: true
     toc_float: true
+    df_print: paged
 ---
 
 ```{r global_options, echo = FALSE, include = FALSE}
@@ -47,7 +48,6 @@ Load in the dataset `movies.csv` used in the lecture:
 ```{r}
 url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
 movies <- tbl_df(read.csv(url))
-movies
 ```
 
 

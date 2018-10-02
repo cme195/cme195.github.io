@@ -1,6 +1,6 @@
 ---
 title: "Lecture 3: Exercises with Answers"
-date: October 10th, 2017
+date: October 4th, 2018
 output: 
   html_notebook:
     toc: true

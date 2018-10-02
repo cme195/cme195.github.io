@@ -1,6 +1,6 @@
 ---
 title: "Lecture 2: Exercise Answers"
-date: October 5th, 2017
+date: October 2nd, 2018
 output: 
   html_notebook:
     toc: true
@@ -160,26 +160,27 @@ apply(mtcars, 2, function(x) { quantile(x, 0.8)})
 
 ## Part 2
 
-Below is a vector of dates in year 2017.
+Below is a vector of dates in year 2018.
 
 ```{r}
 set.seed(1234)
-y2017 <- seq(as.Date("2017-01-01", format = "%Y-%m-%d"), 
-             as.Date("2017-12-31", format = "%Y-%m-%d"), 
+y2018 <- seq(as.Date("2018-01-01", format = "%Y-%m-%d"), 
+             as.Date("2018-12-31", format = "%Y-%m-%d"), 
              "days")
-# Shuffle days of the year randomly
-y2017.shuffled <- sample(y2017)
-length(y2017.shuffled)
+length(y2018)
+# A random sample of 10 dates from 2018
+y2018_sample <- sample(y2018, size = 10)
+y2018_sample
 ```
 
 Use an `apply` family function to return the number of weeks
-left from each day in `y2017.shuffled` to the New Year, 2018/01/01.
+left from each day in `y2018_sample` to the New Year, 2019/01/01.
 
 ```{r}
-ny2018 <- as.Date("2018-01-01", format = "%Y-%m-%d")
-weeks.to.2018 <- sapply(y2017.shuffled, function(d) ceiling((ny2018 - d)/7))
-names(weeks.to.2018) <- y2017.shuffled
-weeks.to.2018[1:5]
+ny2019 <- as.Date("2019-01-01", format = "%Y-%m-%d")
+weeks.to.2019 <- sapply(y2018_sample, function(d) ceiling((ny2019 - d)/7))
+names(weeks.to.2019) <- y2018_sample
+weeks.to.2019
 ```
 
 ```{r}
