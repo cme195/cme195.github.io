@@ -16,8 +16,8 @@ Communicating and Programming:
 
 Exploring data:  
 **Lecture 3:** Importing and transforming data.
-[[html](./assets/lectures/Lecture3_Importing_and_transforming_data.html)]
-[[pdf](./assets/lectures/Lecture3_Importing_and_transforming_data.pdf)]  
+[[html](./assets/lectures/Lecture3_Importing_and_Transforming.html)]
+[[pdf](./assets/lectures/Lecture3_Importing_and_Transforming.pdf)]  
 **Lecture 4:** Visualizing data.  
 **Lecture 5:** Exploratory Data Analysis (EDA).    
 
