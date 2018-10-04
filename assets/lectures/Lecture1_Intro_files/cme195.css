@@ -1,0 +1,190 @@
+/* Style sheet for Reveal.js Presentations
+Author: Lan Huong Nguyen
+      adapted from https://stanford.edu/~vbauer/files/teaching/reveal.css
+      by Vincent Bauer
+Date: 10/11/2017
+*/
+
+/*********************************************
+* GLOBAL STYLES
+*********************************************/
+body {
+  /*font-family: "News Cycle", Impact, sans-serif;*/
+  /*font-family: "Lato", sans-serif; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 100px;
+  font-size: 40px;
+  text-align: left;
+  vertical-align: middle;
+  max-width: 100%; }
+
+.reveal {
+  /*font-family: "News Cycle", Impact, sans-serif;*/
+  /*font-family: "Lato", sans-serif; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 100px;
+  font-size: 40px;
+  text-align: left;
+  vertical-align: middle;
+  color: #000; 
+  max-width: 95%; 
+}
+
+/*********************************************
+* NEW CLASSES
+*********************************************/
+
+.reveal .left {
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;}
+
+.reveal .right {
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;}
+
+.reveal .center {
+  float: center;
+  text-align: center;}
+
+.reveal .small2 {
+  display: inline-block;
+  font-size: 0.7em;
+  vertical-align: top;
+}
+
+/*********************************************
+* R Code
+*********************************************/
+/* code */
+.reveal pre {
+  margin: 10px auto;
+  display: block;
+  justify-content: center;
+  position: relative;
+  word-wrap: break-word;
+  max-width: 100%;
+  font-size: 0.8em;
+  line-height: 1.1em;
+  white-space: pre-wrap;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* code output*/
+.reveal pre code {
+  max-width: 100%;
+  display: block;
+  font-size: 0.7em;
+  line-height: 1.1em;
+  overflow: auto;
+  background-color: white;
+  max-height: none;
+  word-wrap: normal;
+  padding: 10px
+}
+
+/* inline code */
+.reveal code {
+  overflow: visible;
+  max-height: none;
+}
+
+.reveal code.r {
+  padding: 10px;
+  background-color: #F8F8F8;
+}
+
+.reveal code.cpp {
+  background-color: #F8F8F8;
+}
+
+
+
+/*********************************************
+* HEADERS
+*********************************************/
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  /* font-family: "News Cycle", Impact, sans-serif; */
+  /*font-family: "Lato", sans-serif; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  line-height: 1.2;}
+
+.reveal h1 {
+  font-size: 2em;
+  padding-bottom: 10px;
+  text-shadow: none; }
+
+.reveal h2 {
+  font-size: 1.5em;}
+
+.reveal h3 {
+  font-size: 1.3em;}
+
+.reveal h4 {
+  font-size: 1em; }
+
+/*********************************************
+* Bullets
+*********************************************/
+
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: block;
+  text-align: left;
+  line-height: 1.2;
+  max-width: 90%;}
+
+.reveal ul li {
+  margin-left: 30px;
+}
+/*********************************************
+* IMAGES
+*********************************************/
+.reveal section img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0px; /* no border but still shadow */
+  box-shadow: none !important; /* remove shadow */
+/* border: 1px solid #000; */
+}
+
+/*********************************************
+* SLIDES
+*********************************************/
+
+/* these need to be at the bottom, do NOT move them */
+.reveal .slides {                     /* all slide content */
+  text-align: left;                   /* left align */
+}
+
+.reveal blockquote {
+   width: 90%;
+   border: 1px solid #ccc;
+   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3)
+   /* border-color: #ef420d;
+   border-width: 5px 5px 5px 5px;
+   border-style: solid solid solid solid; */
+   padding: 5px 5px 5px 5px;
+   background-color: #eee;
+}

@@ -16,10 +16,8 @@ Communicating and Programming:
 
 Exploring data:  
 **Lecture 3:** Importing and transforming data.
-<!---
 [[html](./assets/lectures/Lecture3_Importing_and_Tidying.html)]
-[[pdf](./assets/lectures/Lecture3_Importing_and_Tidying.pdf)] 
----->  
+[[pdf](./assets/lectures/Lecture3_Importing_and_Tidying.pdf)]  
 **Lecture 4:** Visualizing data.  
 **Lecture 5:** Exploratory Data Analysis (EDA).    
 
@@ -35,49 +33,47 @@ any time. Please check regularly.
 
 **Exercise 1:**
 [[html](./assets/exercises/Lec1_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec1_Exercises.nb.html)]
+[[rmd](./assets/exercises/Lec1_Exercises.rmd)]
 [[solutions](./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
 **Exercise 2:**
 [[html](./assets/exercises/Lec2_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec2_Exercises.nb.html)]
-<!---
-[[solutions]] (./assets/exercises/Lec2_Exercises_with_Answers.nb.html)] 
---->  
+[[rmd](./assets/exercises/Lec2_Exercises.rmd)]
+[[solutions](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)]  
 **Exercise 3:**
-<!---
 [[html](./assets/exercises/Lec3_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec3_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec3_Exercises_with_Answers.nb.html)] 
+[[rmd](./assets/exercises/Lec3_Exercises.rmd)]
+<!---
+[[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 4:**
 <!---
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec4_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)] 
+[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 5:**
 <!---
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec5_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)] 
+[[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 6:**
 <!---
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec6_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)] 
+[[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 7:**
 <!---
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec7_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec7_Exercises_with_Answers.nb.html)] 
+[[solutions]] (./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 8:**
 <!---
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec8_Exercises.nb.html)]
-[[solutions]] (./assets/exercises/Lec8_Exercises_with_Answers.nb.html)] 
+[[solutions]] (./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
 --->  
 
 ## [](#tut) Introductory Tutorials

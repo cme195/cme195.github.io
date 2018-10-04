@@ -11,7 +11,10 @@ output:
 options(width = 80)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE,
                       cache = FALSE, tidy = FALSE, size = "small")
-library(dplyr)
+```
+
+```{r}
+library(tidyverse)
 ```
 
 
@@ -59,9 +62,8 @@ df
 Load in the dataset `movies.csv` used in the lecture:
 
 ```{r}
-library(dplyr)
 url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
-movies <- tbl_df(read.csv(url))
+movies <- read_csv(url)
 movies
 ```
 

@@ -132,8 +132,7 @@ the S language developed at Bell Labs by John Chambers (Stanford Statistics).
 - It is **an open-source language and environment** for statistical computing 
 and graphics.
 
-<img src="./Lecture1-figure/r_word_cloud.png", height="500", width="750",
-class="center"></img> 
+<img src="./Lecture1-figure/r_word_cloud.png", height="500", width="750"></img> 
 
 ##
 

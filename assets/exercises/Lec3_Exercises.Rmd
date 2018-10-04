@@ -14,6 +14,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
                       cache = FALSE, tidy = FALSE, size = "small")
 ```
 
+```{r}
+library(tidyverse)
+```
 
 
 # Exercise 1: Parsing data
@@ -47,7 +50,7 @@ Load in the dataset `movies.csv` used in the lecture:
 
 ```{r}
 url <- "https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv"
-movies <- tbl_df(read.csv(url))
+movies <- read_csv(url)
 ```
 
 
