@@ -10,11 +10,12 @@ output:
 
 ```{r global_options, echo = FALSE, include = FALSE}
 options(width = 80)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE,
-                      cache = FALSE, tidy = FALSE, size = "small")
+knitr::opts_chunk$set(
+  warning = FALSE, message = FALSE,
+  cache = FALSE, tidy = FALSE, size = "small")
 ```
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 ```
 
