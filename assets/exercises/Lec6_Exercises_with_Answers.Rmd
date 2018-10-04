@@ -7,6 +7,153 @@ output:
     toc_float: true
 ---
 
+
+The flights dataset
+Now we can perform a similar analysis on the flights dataset.
+
+What affects the number of daily flights?
+
+daily <- flights %>% 
+  mutate(date = make_date(year, month, day)) %>% 
+  group_by(date) %>% summarise(n = n())
+daily
+## # A tibble: 365 x 2
+##    date           n
+##    <date>     <int>
+##  1 2013-01-01   842
+##  2 2013-01-02   943
+##  3 2013-01-03   914
+##  4 2013-01-04   915
+##  5 2013-01-05   720
+##  6 2013-01-06   832
+##  7 2013-01-07   933
+##  8 2013-01-08   899
+##  9 2013-01-09   902
+## 10 2013-01-10   932
+## # ... with 355 more rows
+ggplot(daily, aes(date, n)) + 
+  geom_line()
+  
+Day of the week
+Let’s start by looking at the distribution of flight numbers by day-of-week:
+
+daily <- daily %>% mutate(wday = wday(date, label = TRUE))
+ggplot(daily, aes(wday, n)) + geom_boxplot()
+There are fewer flights on weekends because most travel is for business.
+
+How can we remove this pattern?
+
+
+Modelling the day of the week
+We try to remove this strong pattern using a model.
+
+mod   <- lm(n ~ wday, data = daily)
+grid  <- daily %>% data_grid(wday) %>%  add_predictions(mod, "n")
+daily <- daily %>% add_residuals(mod)
+
+
+
+
+Our model fails starting in June: weekly pattern still visible
+There are some days with far fewer flights than expected
+There is some smoother long term trend over the course of a year
+
+Seasonal Saturday effect
+Let’s try to understand the residual weekly pattern in Summer and Fall.
+
+ggplot(daily, aes(date, resid, color = wday)) + 
+  geom_ref_line(h = 0) + geom_line()
+
+daily %>% filter(wday == "Sat") %>% 
+  ggplot(aes(date, n)) + geom_point() + geom_line() +
+    scale_x_date(NULL, date_breaks = "1 month", date_labels = "%b")
+
+
+
+
+There is a strong seasonal effect on Saturday flights. Holidays?
+
+
+Identifying seasonal effects
+Let’s create a “term” variable that roughly captures the three school terms.
+
+daily <- daily %>% 
+  mutate(term = cut(date, 
+    breaks = ymd("2013-01-01","2013-06-05","2013-08-25","2014-01-01"),
+    labels = c("spring", "summer", "fall") ) )  
+daily %>% 
+  filter(wday == "Sat") %>% 
+  ggplot(aes(date, n, 
+             color=term)) +
+  geom_point(alpha = 1/3) + 
+  geom_line() +
+  scale_x_date(NULL,
+    date_breaks="1 month",
+    date_labels = "%b")
+
+
+The dates were tweaked to get nice breaks in the plot.
+
+Seasonal and weekly effects
+Let’s see how the term affects the days of the week
+
+ggplot(daily, aes(x=wday, y=n, color=term)) + geom_boxplot()
+
+
+Now fitting a separate day of week effect for each term seems reasonable.
+
+mod2 <- lm(n ~ wday * term, data = daily)
+
+Modeling for seasonal and weekly effects
+mod1 <- lm(n ~ wday, data = daily)
+mod2 <- lm(n ~ wday * term, data = daily)
+This improves our model, but not as much as we might hope
+
+daily %>% gather_residuals(without_term = mod1, with_term = mod2) %>% 
+  ggplot(aes(date, resid, color = model)) + geom_line(alpha = 0.75)
+
+
+We should overlay the predictions from the model on to the raw data.
+
+
+Visualizing the predictions
+grid <- daily %>% 
+  data_grid(wday, term) %>% add_predictions(mod2, "n")
+ggplot(daily, aes(wday, n)) + geom_boxplot() + 
+  geom_point(data = grid, color = "red") + facet_wrap(~ term)
+  
+  ur model is finding the mean effect, but we have a lot of big outliers.
+
+
+Fitting a robust linear regression
+mod3 <- MASS::rlm(n ~ wday * term, data = daily)
+
+daily %>% 
+  add_residuals(mod3, "resid") %>% 
+  ggplot(aes(date, resid)) + 
+  geom_hline(yintercept = 0, size = 2, color = "white") + 
+  geom_line()
+  
+  Identifying the outliers
+Can we explain the remaining large residuals?
+
+daily %>% add_residuals(mod3, "resid") %>% 
+  filter(abs(resid) > 100)
+  
+  Many correspond to US public holidays.
+
+Long-term trend
+We can still see some smooth long term trend.
+
+daily %>% 
+  add_residuals(mod3, "resid") %>% filter(abs(resid) < 100) %>%
+  ggplot(aes(date, resid)) + geom_ref_line(h = 0) + 
+  geom_line(color = "grey50") + geom_smooth(se = FALSE, span = 0.20)
+
+We can’t do much with this pattern quantitatively, because we only have a single year of data
+
+
+
 # Exercise 1: Hypothesis testing
 
 Similarly to dataset `mtcars`, the dataset `mpg` from `ggplot` package 

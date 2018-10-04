@@ -47,7 +47,9 @@ parse_time(t1, format = "%H%M")
 
 Download this NCHS dataset on leading Causes of death in the United States, from 1999 to 2015: https://data.cdc.gov/api/views/bi63-dtpu/rows.csv.
 
-Then, import it into R.
+Then, import it into R. Are some of the colums the worng type?
+If not is there any column that could be a factor instead of character
+type?
 
 ```{r}
 df <- read_csv("https://data.cdc.gov/api/views/bi63-dtpu/rows.csv")

@@ -1,6 +1,6 @@
 ---
 title: "Lecture 5: Exercises with answers"
-date: October 17th, 2017
+date: October 11th, 2017
 output: 
   html_notebook:
     toc: true
@@ -8,13 +8,96 @@ output:
 ---
 
 
+# Exercise 1: Data Manipulation
 
-# Exercise 1: `plotly`
+## Part 1: `purrr` package
+
+## Part 2: Merging
+
+## Part 3: Export datasets
+
+Consider the two data-frames below:
+
+
+a. Merge the two data tables so that you have all the entries from dataset 
+'election' but for each candidate you have personal information added.
+
+Merge 'personal' to 'elections' the two data tables using `left_join()`
+
+
+Observe what happened to the "year" columns.
+
+Note also, that this did not quite get a reasonable result as `left_join()`
+by default merges two tables by ALL shared variables, so in this case
+"name" AND "year". However, "year" in two data-frames here mean two different 
+things, one is the election year and the other is the year married.
+What we really want is to **merge by** "name" only.
+
+```{r}
+# Note that you need to use QUOTATION marks
+elections %>% left_join(personal, by = "name")
+```
+
+We can do the reverse operatio and merge 'elections' to 'personal':
+
+```{r}
+# Note that this gives you fewer rows:
+personal %>% left_join(elections, by = "name")
+```
+
+b. Imagine that you have two data-frames where the columns you want to merge
+by do not share the same name like in the example below. Try to merge
+the two datasets now, by using appropriate input arguments to `left_join()`.
+
+# Exercise 2: Exploratory Data Analysis
+
+Task: relationship between distance and average delay for each location.
+
+```{r}
+by_dest <- group_by(flights, dest)
+delay <- summarise(by_dest,
+  count = n(),                 # Count the number of occurrences
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE) )
+delay <- filter(delay, count > 20, dest != "HNL")
+```
+
+It looks like delays increase
+with distance up to ~750 miles
+and then decrease.
+
+```{r}
+ggplot(delay, 
+  aes(x=dist, y=delay)) +
+  geom_point(aes(size=count),
+             alpha=1/3) +
+  geom_smooth(se = FALSE)
+
+```
+
+
+## Understanding missing values
+
+What makes observations with missing values different?
+
+For example, in flights, missing dep_time for cancelled flights.
+
+Compare scheduled departure times for cancelled and non-cancelled times.
+
+```{r}
+nycflights13::flights %>% mutate(cancelled = is.na(dep_time),
+    sched_hour=sched_dep_time%/%100, sched_min=sched_dep_time%%100,
+    sched_dep_time=sched_hour+sched_min/60
+  ) %>% ggplot(aes(sched_dep_time)) + scale_y_log10() + 
+    geom_freqpoly(aes(color=cancelled), binwidth=1/4)
+```
+
+
+# Exercise 3: Interactive graphics with `plotly`
 
 First generate the following (x,y,z) coordinates for your scatter 3D plot:
 ```{r}
 library(plotly)
-library(dplyr)
 
 theta <- 2*pi * runif(1000)
 phi <- pi * runif(1000)
@@ -58,71 +141,5 @@ plot_ly(dat, x = ~x, y = ~y, z = ~z, color = 1:1000, type = "scatter3d",
 ```
 
 
-# Exercise 2: heatmaps
-
-How common is your birthday? Download the following data which includes
-the records of birthdays on each day of a month in the US between 2000 and 2014. 
-The code below aggregates the data across years to count the number of 
-birthdays on each day and each the month. Plot a heatmap of `bdays.wide`
-to see whether your birthday is among more popular dates. Note that
-you should ise settings not to plot dendrograms, as the rows and columns
-have their ordering already (according time) and do not need to be clusteres.
-
-```{r}
-#install.packages("tidyr")
-bdays <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/births/US_births_2000-2014_SSA.csv")
-head(bdays)
-dim(bdays)
-bdays.wide <- bdays %>% 
-  group_by(date_of_month, month) %>%
-  summarize(births = sum(births)) %>%
-  tidyr::spread(key = "date_of_month", value = "births") 
-rownames(bdays.wide) <- bdays.wide$month
-bdays.wide$month <- NULL
-head(bdays.wide)
-dim(bdays.wide)
-```
-
-```{r}
-library(RColorBrewer)
-redblues <- colorRampPalette(colors = brewer.pal(9, "RdBu"))(10)
-heatmap(as.matrix(bdays.wide), Colv = NA, Rowv = NA, col = redblues) 
-```
-
-
-https://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/heatmap/
-
-# Exercise 3: Plotting maps
-
-a. Use `ggmap` to generate a map of South America, for your conveniences
-the location can be set as the bounding box:
-`c(-85, -58, -30, 15)`
-Choose "stamen" as your source, and "terrain" as your maptype.
-
-```{r, message=FALSE, warning=FALSE}
-library(ggmap)
-south_america <- get_map(location = c(-85, -58, -30, 15), 
-                         source = "stamen", maptype = "toner-lite", 
-                         crop = TRUE)
-ggmap(south_america)
-```
-
-
-b. Use `ggmap` to plot on the same map your house/apartment/dorm and Stanford Main Quad.
-Add a path from your house to Stanford (can be in straight line).
-
-```{r}
-stanford <- geocode("Stanford University") 
-loc <- geocode("547 Emerson St, Palo Alto")
-
-road <- data.frame(latitude = seq(stanford$lat, loc$lat, length.out =50),
-                   longitude = seq(stanford$lon, loc$lon, length.out = 50))
-
-myMap <- get_map(location = c(stanford$lon, stanford$lat, loc$lon, loc$lat), 
-                 zoom = 15)
-ggmap(myMap) + 
-  geom_path(data = road, aes(x = longitude, y = latitude), 
-             size = 2, color = "darkred")
-```
 
 

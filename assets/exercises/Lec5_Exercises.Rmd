@@ -7,6 +7,10 @@ output:
     toc_float: true
 ---
 
+```{r}
+library(tidyverse)
+```
+
 
 
 # Exercise 1: `plotly`
@@ -14,7 +18,6 @@ output:
 First generate the following (x,y,z) coordinates for your scatter 3D plot:
 ```{r}
 library(plotly)
-library(dplyr)
 
 theta <- 2*pi * runif(1000)
 phi <- pi * runif(1000)
@@ -42,44 +45,6 @@ y <- sin(phi) * sin(theta)
 z <- cos(phi)
 dat <- data.frame(x, y, z)
 ```
-
-
-# Exercise 2: heatmaps
-
-How common is your birthday? Download the following data which includes
-the records of birthdays on each day of a month in the US between 2000 and 2014. 
-The code below aggregates the data across years to count the number of 
-birthdays on each day and each the month. Plot a heatmap of `bdays.wide`
-to see whether your birthday is among more popular dates. Note that
-you should ise settings not to plot dendrograms, as the rows and columns
-have their ordering already (according time) and do not need to be clusteres.
-
-```{r}
-#install.packages("tidyr")
-bdays <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/births/US_births_2000-2014_SSA.csv")
-head(bdays)
-dim(bdays)
-bdays.wide <- bdays %>% 
-  group_by(date_of_month, month) %>%
-  summarize(births = sum(births)) %>%
-  tidyr::spread(key = "date_of_month", value = "births") 
-rownames(bdays.wide) <- bdays.wide$month
-bdays.wide$month <- NULL
-head(bdays.wide)
-dim(bdays.wide)
-```
-
-
-# Exercise 3: Plotting maps
-
-a. Use `ggmap` to generate a map of South America, for your conveniences
-the location can be set as the bounding box:
-`c(-85, -58, -30, 15)`
-Choose "stamen" as your source, and "terrain" as your maptype.
-
-
-b. Use `ggmap` to plot on the same map your house/apartment/dorm and Stanford Main Quad.
-Add a path from your house to Stanford (can be in straight line).
 
 
 

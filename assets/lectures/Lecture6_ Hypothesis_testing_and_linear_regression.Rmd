@@ -25,9 +25,9 @@ lapply(.packages, require, character.only = TRUE)
 
 ## Contents
 
-* Hypothesis testing
+* Building Models
 * Linear Regression
-* Extra: Lasso Regression
+* Lasso Regression
 
 ## Useful Books
 
@@ -37,237 +37,334 @@ lapply(.packages, require, character.only = TRUE)
 * ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
 
 
-# Hypothesis testing
+# Building Models
 
-## Hypothesis testing can answer questions:
+## Introduction to models
+The goal of a model is to provide a simple low-dimensional summary of a dataset, which we can use to partition data into patterns and residuals.
 
-> - **Is the measured quantity equal to/higher/lower than a given threshold?**
-e.g. is the number of faulty items in an order statistically higher
-than the one guaranteed by a manufacturer? 
-> - **Is there a  difference between two groups or observations**? 
-e.g. Do treated patient have a higher survival rate than the untreated ones?
-> - **Is the level of one quantity related to the value of the other quantity?**
-e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?
+There are two parts to a model:
 
-##
+define a family of models: type of pattern that you want to capture
+generate a fitted model: the closest, within the family, to your data
+“All models are wrong, but some are useful.” G. Cox, 1976
+We will use the modelr package, which wraps around base R’s modelling functions to make them work naturally in a pipe.
 
-Everyday life examples
-[(top answer from Quora)](https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
 
-* Test weather route A or route B is the faster way to get from your home to your school.
-* Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
-* If you are 21 or older, test whether Tequila or beer gives you worse hangover.
-*  Test if you run faster in the morning compared to the afternoon.
-* Test if you weight is lower in the morning compared to the afternoon.
+library(modelr)
 
- 
-## To perform a hypothesis test you need to:
+## Defining a family of models
+Toy dataset: sim1, contained in package modelr.
 
-> 1. Define the null and alternative hypotheses.
-> 2. Choose level of significance $\alpha$.
-> 3. Pick and compute test statistics.
-> 4. Compute the p-value.
-> 5. Check whether to reject the null hypothesis by comparing p-value to $\alpha$.
-> 6. Draw conclusion from the test.
+ggplot(sim1, aes(x, y)) + geom_point()
 
-## Null and alternative hypotheses
 
-**The null hypothesis ($H_0$)**: A statement assumed to be true unless it can be 
-shown to be incorrect beyond a reasonable doubt. This is something one usually 
-attempts to disprove or discredit. 
+Use a model to capture this pattern and make it explicit.
 
-**The alternate hypothesis ($H_1$)**: A claim that is contradictory to 
-H0 and what we conclude when we reject H0.
+The relationship looks linear: y=a0+a1×x
 
-H0 and H1 are on purporse set up to be contradictory, so that one **can collect
-and examine data to decide if there is enough evidence to reject the null 
-hypothesis or not**. 
 
-##
+Defining the best model
+Family of models: y=a0+a1×x.
 
-![](./Lecture6__Hypothesis_testing_and_linear_regression_files/failed_reject.jpg)
+Two parameters, a0 and a1, identify the specific model.
 
-![](./Lecture6__Hypothesis_testing_and_linear_regression_files/penguin.jpg)
+Formulas in R
+Modelling functions use a standard conversion from formulas to functions.
 
-## Student's t-test
+lm(y~x)
+y=a0+a1×x
 
-> - William Gosset (1908), a chemist at **the Guiness brewery**.
-> - Published in Biometrika under a **pseudonym Student**.
-> - Used to select best yielding varieties of barley.
-> - Now one of the standard/traditional methods for hypothesis testing.
+Formulas with categorical variables
+df <- tribble(
+  ~ sex, ~age, ~ response,
+  "male", 28, 1,
+  "female", 32, 2,
+  "male", 26, 1
+)
+## # A tibble: 3 x 3
+##   sex      age response
+##   <chr>  <dbl>    <dbl>
+## 1 male    28.0     1.00
+## 2 female  32.0     2.00
+## 3 male    26.0     1.00
+It doesn’t make sense to convert as before, because “sex” is not a number.
 
-## Distribution of the statistic
+Instead, R creates a column that is 1 if “male”, and 0 if “female”.
 
-p-value is the probability of an observed (or more extreme) result assuming 
-that the null hypothesis is true, i.e. $P[observations \mid H_0]$. Note that:
+model_matrix(df, response ~ sex)
+## # A tibble: 3 x 2
+##   `(Intercept)` sexmale
+##           <dbl>   <dbl>
+## 1            1.      1.
+## 2            1.      0.
+## 3            1.      1.
+In general, it creates k−1 columns, where k is the number of categories.
 
-$$P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
+But you don’t need to worry about the parametrization to make predictions.
 
-</br>
+Formulas with interactions
+In the sim3 dataset, there is a categorical and a continuous predictor.
 
-<div class = "left">
+ggplot(sim3, aes(x=x1, y=y)) + geom_point(aes(color = x2)) 
 
-![](./Lecture6__Hypothesis_testing_and_linear_regression_files/tdist.gif)
 
-</div>
+We could fit two different models
 
-<div class = "right">
+mod1 <- lm(y ~ x1 + x2, data = sim3)  # Model without interactions
+mod2 <- lm(y ~ x1 * x2, data = sim3)  # Model with interactions
+Models with interactions
+grid <- sim3 %>% data_grid(x1, x2) %>% # data grid for two variables
+  gather_predictions(mod1, mod2)       # predictions from both models
 
-**This is the reason why p-values should NOT be used a "ranking"/"scoring"
-system for your hypotheses**. You should only use it to potentially reject
-your null hypothesis. Null hypothesis cannot be proven true, **you can only 
-fail to reject it**.
-</div>
+ggplot(sim3, aes(x=x1, y=y, color=x2)) +   
+  geom_point() +                       # plot data points
+  geom_line(data=grid, aes(y=pred)) +  # add predictions for each model
+  facet_wrap(~ model)                  # show one plot for each model
 
 
-## p-value
+The model that uses * has a different slope and intercept for each line.
 
-> - p-value is the **probability of obtaining a result equal to or "more extreme" than what 
-was actually observed, when the null hypothesis is true**.
-> - A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
-so you reject the null hypothesis.
-> - A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
-so you do NOT to reject the null hypothesis.
+Model building
+Using models to understand data
+We have introduced models using simulated data.
 
+Now we discuss how to progressively build up a model for real data.
 
+We will proceed iteratively:
 
+find patterns with visualisation,
+make them concrete and precise with a model,
+repeat, replacing the old response variable with the residuals.
+Knowing when to stop is not easy.
 
-## Dataset
 
-* A built-in dataset, `mtcars`,  that comes from a 1974 issue of Motor Trends 
-magazine. 
+Our goal is to transition
 
-```{r}
-data("mtcars")
-head(mtcars)
-```
+from implicit knowledge in the data and your head
+to explicit knowledge in a quantitative model.
 
-* rows correspond to car models,
-* column are car attributes: miles per gallon, number of 
-cylinders, displacement, transmission etc.
+There are more automated ways, useful for very large and complex data.
 
-## Testing mpg equal to a value
+Date-time data in R
 
-<div class = "left">
-Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
-statistically equal to 25? 
 
-</br>
-**Test the null hypothesis:**
+Formulas with interactions
+In the sim3 dataset, there is a categorical and a continuous predictor.
 
-\[H_0: \mu = 25 \\
-H_a: \mu \ne 25\]
-where $\mu$ is the mean mpg of cars in the dataset
-</div>
+ggplot(sim3, aes(x=x1, y=y)) + geom_point(aes(color = x2)) 
 
-<div class = "right">
-![](./Lecture6__Hypothesis_testing_and_linear_regression_files/both-sided.png)
-</div>
 
+We could fit two different models
 
-##
-```{r}
-mtcars$mpg
-tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "two.sided")
-tt
-```
+mod1 <- lm(y ~ x1 + x2, data = sim3)  # Model without interactions
+mod2 <- lm(y ~ x1 * x2, data = sim3)  # Model with interactions
 
-##
-```{r}
-names(tt)
-```
+Models with interactions
+grid <- sim3 %>% data_grid(x1, x2) %>% # data grid for two variables
+  gather_predictions(mod1, mod2)       # predictions from both models
 
-```{r}
-# The p-value:
-tt$p.value
-```
+ggplot(sim3, aes(x=x1, y=y, color=x2)) +   
+  geom_point() +                       # plot data points
+  geom_line(data=grid, aes(y=pred)) +  # add predictions for each model
+  facet_wrap(~ model)                  # show one plot for each model
 
-```{r}
-# The 95% confidence interval for the mean:
-tt$conf.int
-```
 
+The model that uses * has a different slope and intercept for each line.
 
-## Testing mpg  smaller than a value
+Residuals with interactions
+Which model should we choose? Let’s look at the residuals
 
-<div class = "left">
+sim3 <- sim3 %>% gather_residuals(mod1, mod2)
 
-Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
-statistically less than 25? 
+ggplot(sim3, aes(x=x1, y=resid, color = x2)) + 
+  geom_point() + facet_grid(model ~ x2)
 
-</br>
-**Test the null hypothesis:**
 
-\[H_0: \mu = 25 \\
-H_a: \mu < 25\]
-where $\mu$ is the mean mpg of cars in the dataset
-</div>
+There is little obvious pattern in the residuals for mod2.
 
-<div class = "right">
-![](./Lecture6__Hypothesis_testing_and_linear_regression_files/left-sided.png)
-</div>
+Interactions of continuous variables
+In the sim4 dataset, there are two continuous predictors.
 
-##
-```{r}
-tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "less")
-tt
-```
+p1 <- ggplot(sim4, aes(x=x1, y=y)) + geom_point(aes(color = x2))
+p2 <- ggplot(sim4, aes(x=x2, y=y)) + geom_point(aes(color = x1))
 
-## Testing difference between groups 
 
-Is the fuel efficiency (mpg) the same for the cars 
-with automatic and manual transmission? 
 
-</br>
-**Test the null hypothesis:**
 
-\[H_0: \mu_a = \mu_m\\
-H_a: \mu_a \ne \mu_m\]
+Interactions models can be fit in the same way as before.
 
-where $\mu_a$ mean mpg of automatic cars and $\mu_m$ is the mean mpg of manual
-cars.
+mod1 <- lm(y ~ x1 + x2, data = sim4)  # Model without interactions
+mod2 <- lm(y ~ x1 * x2, data = sim4)  # Model with interactions
 
-## 
-Convert the column `am` (transmission) to a factor:  
-```{r}
-#  convert am (0 = automatic, 1 = manual) column to a factor
-mtcars <- mtcars %>%
-  mutate(am = factor(am, levels = c(0, 1), 
-                               labels = c("automatic", "manual")))
-head(mtcars)
-```
+Interaction models (II)
+Left: without interactions. Right: with interactions.
 
-##
-First, visualize the data
+Formulas with transformations
+You can perform transformations inside the model formula.
 
-```{r, fig.width=8, fig.height=6}
-library(ggplot2)
-ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
-  xlab("Trasmission") + ylab("Fuel efficiency") +
-  geom_jitter(width = 0.2, height = 0)
-```
+If your transformation involves +, *, ^, or -, you need to wrap it in I().
 
-## 
+Approximating non-linear functions
+You can use transformations to approximate non-linear functions.
 
-The R implementation of the Student's t-test is `t.test()` function:
+Taylor’s theorem: you can approximate any smooth function with an infinite sum of polynomials.
 
-```{r}
-tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
-             y = mtcars$mpg[mtcars$am == "manual"])
-# or
-(tt <- t.test(formula = mpg ~ am, data = mtcars))
-```
 
-* **A tilde symbol, `~`**, means "explained by". 
+For example, poly() evaluates orthogonal polynomials
 
-## Exercise
+model_matrix(df, y ~ poly(x, degree = 2))
+## # A tibble: 3 x 3
+##   `(Intercept)` `poly(x, degree = 2)1` `poly(x, degree = 2)2`
+##           <dbl>                  <dbl>                  <dbl>
+## 1          1.00 -0.707                                  0.408
+## 2          1.00 -0.0000000000000000785                 -0.816
+## 3          1.00  0.707                                  0.408
 
-</br>
+Alternative: splines (piecewise polynomials), from the splines package.
 
-- Go to the "Lec6_Exercises.Rmd" file, which can be downloaded
-from the class website under the Lecture tab.
+Approximating non-linear functions (example)
+Approximating with orthogonal polynomials of different degrees.
 
-- Complete Exercise 1.
+
+
+mod1 <- lm(y ~ poly(x, 1), data = sim5)
+mod2 <- lm(y ~ poly(x, 2), data = sim5)
+mod3 <- lm(y ~ poly(x, 3), data = sim5)
+mod4 <- lm(y ~ poly(x, 4), data = sim5)
+
+grid <- sim5 %>% 
+  data_grid(x = seq_range(x, n = 50, expand = 0.1)) %>% 
+  gather_predictions(mod1, mod2, mod3, mod4, .pred = "y")
+  
+  
+Other model families
+This chapter has focussed exclusively on the class of linear models.
+y=a0+a1×x1+a2×x2+...+an×xn
+
+There are a large set of other model classes.
+
+Extensions of linear models:
+
+Generalised linear models, stats::glm(), binary or count data.
+Generalised additive models, mgcv::gam(), extend generalised linear models to incorporate arbitrary smooth functions.
+Penalised linear models, glmnet::glmnet(), add a penalty term to the distance that penalises complex models.
+Robust linear models, MASS:rlm(), less sensitive to outliers.
+Completely different models:
+
+Trees, rpart::rpart(), fit a piece-wise constant model splitting the data into progressively smaller and smaller pieces.
+Random forests, randomForest::randomForest(), aggregate many different trees.
+Gradient boosting machines, xgboost::xgboost, aggregate trees.
+
+## Model Building
+
+Using models to understand data
+We have introduced models using simulated data.
+
+Now we discuss how to progressively build up a model for real data.
+
+We will proceed iteratively:
+
+find patterns with visualisation,
+make them concrete and precise with a model,
+repeat, replacing the old response variable with the residuals.
+Knowing when to stop is not easy.
+
+
+Our goal is to transition
+
+from implicit knowledge in the data and your head
+to explicit knowledge in a quantitative model.
+
+There are more automated ways, useful for very large and complex data.
+
+he diamond dataset
+We begin by working with the diamond dataset.
+
+library(tidyverse)
+library(modelr)
+options(na.action = na.warn)
+Why do low-quality diamonds appear more expensive?
+
+
+
+
+
+Remember that diamond color goes from J (worst) to D (best).
+
+
+Price and carat
+Focus on diamonds smaller than 2.5 carats (99.7% of the data). Log-transform carat and price, then fit linear model.
+
+diamonds2 <- diamonds %>% filter(carat <= 2.5) %>% 
+  mutate(lprice = log2(price), lcarat = log2(carat))
+mod_diamond <- lm(lprice ~ lcarat, data = diamonds2)
+diamonds.mod <- diamonds2 %>% 
+  add_predictions(mod_diamond, "lprice.pred") %>%
+  add_residuals(mod_diamond, "lprice.resid")
+  
+  Residuals
+p1 <- ggplot(diamonds.mod, aes(cut, lprice.resid)) + geom_boxplot()
+p2 <- ggplot(diamonds.mod, aes(color, lprice.resid)) + geom_boxplot()
+
+
+
+
+Now we see the relationship we expect: price increases with quality.
+
+The same thing can be observed with “clarity”.
+
+
+A more complicated model
+Continue to build up our model, making the observed effects explicit.
+
+mod_diamond <- lm(lprice ~ lcarat+color+cut+clarity, data=diamonds2)
+This model now includes four predictors, so it’s getting harder to visualise.
+
+Since there are no interaction terms: plot them individually in four plots.
+
+For example, we can plot the effect of “cut”, with others fixed.
+
+grid <- diamonds2 %>%
+  data_grid(cut, lcarat = 0, color = "G", clarity = "SI1") %>%
+  add_predictions(mod_diamond)
+grid
+## # A tibble: 5 x 5
+##   cut       lcarat color clarity  pred
+##   <ord>      <dbl> <chr> <chr>   <dbl>
+## 1 Fair           0 G     SI1      12.0
+## 2 Good           0 G     SI1      12.1
+## 3 Very Good      0 G     SI1      12.1
+## 4 Premium        0 G     SI1      12.2
+## 5 Ideal          0 G     SI1      12.2
+
+Plotting effects in a more complicated model
+Now we can plot the effect of each variable separately.
+
+
+
+
+
+For the effect of color, we used:
+
+grid <- diamonds2 %>%
+  data_grid(color, lcarat = 0, cut = "Good", clarity = "SI1") %>%
+  add_predictions(mod_diamond)
+ggplot(grid, aes(color, pred)) + geom_point()
+
+
+Residuals in the more complicated model
+Finally, we look at the residuals vs. carat, in the model with 4 predictors.
+
+diamonds.mod <- diamonds2 %>% add_residuals(mod_diamond, "lresid")
+
+ggplot(diamonds.mod) + geom_point(aes(x=lcarat, y=lresid), alpha=0.05)
+
+
+Now we see no obvious trend in the residuals.
+
+However, some diamonds have quite large residuals.
+
+
 
 
 # Linear Regression
@@ -352,6 +449,62 @@ newcars <- data.frame(wt = c(2, 2.1, 3.14, 4.1, 4.3))
 predict(fit, newcars)
 # Note the same prediction for `wt = 3.14` as computed previously.
 ```
+
+## Fitting linear models
+A linear model in general has the form
+
+y=a0+a1×x1+a2×x2+...+an×xn
+
+In R, the function for fitting linear models is lm().
+
+The model family is specified with a formula:
+
+lm(y~x)
+y=a0+a1×x
+
+This is how you call it in our example:
+
+sim1_mod <- lm(y ~ x, data = sim1)
+coef(sim1_mod)
+## (Intercept)           x 
+##    4.220822    2.051533
+
+We will not go into the details of how models are fitted by R.
+
+
+
+The best model (blue) minimizes the distance from the data.
+
+‖ê ‖22=‖y−â 0−â 1×x‖22
+
+Residuals (red):
+ê =y−â 0−â 1×x
+
+Making predictions
+First, generate a grid of values covering the region where our data lies.
+
+grid <- sim1 %>% data_grid(x) 
+This finds unique values for each variables and generates all combinations.
+
+Now make predictions (using modelr) and add them to the grid data frame.
+
+grid <- grid %>% add_predictions(sim1_mod)
+grid
+
+Visualizing the predictions
+Now we can compare our predictions to the observed values.
+
+ggplot(sim1, aes(x)) + geom_point(aes(y = y)) +
+  geom_line(aes(y = pred), data = grid, color = "red", size = 1)
+  
+  
+Visualizing the residuals
+Add residuals to data with add_residuals() from package modelr, which works like add_predictions().
+
+sim1 <- sim1 %>% add_residuals(sim1_mod)
+We can recreate the plot using the residuals instead of y.
+
+ggplot(sim1, aes(x, resid)) + geom_ref_line(h = 0) + geom_point() 
 
 
 ##
@@ -449,7 +602,7 @@ from the class website under the Lecture tab.
 - Complete Exercise 2.
 
 
-# Extra: Lasso Regression
+# Lasso Regression
 
 ## Choosing a model
 

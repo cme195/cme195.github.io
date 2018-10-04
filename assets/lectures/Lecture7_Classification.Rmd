@@ -26,10 +26,242 @@ sapply(.packages, require, character.only = TRUE)
 
 ## Contents
 
+* Hypothesis testing
 * Logistic Regression
 * Random Forest
-* Extra: Support Vector Machines 
 
+
+# Hypothesis testing
+
+## Hypothesis testing can answer questions:
+
+> - **Is the measured quantity equal to/higher/lower than a given threshold?**
+e.g. is the number of faulty items in an order statistically higher
+than the one guaranteed by a manufacturer? 
+> - **Is there a  difference between two groups or observations**? 
+e.g. Do treated patient have a higher survival rate than the untreated ones?
+> - **Is the level of one quantity related to the value of the other quantity?**
+e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?
+
+##
+
+Everyday life examples
+[(top answer from Quora)](https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
+
+* Test weather route A or route B is the faster way to get from your home to your school.
+* Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
+* If you are 21 or older, test whether Tequila or beer gives you worse hangover.
+*  Test if you run faster in the morning compared to the afternoon.
+* Test if you weight is lower in the morning compared to the afternoon.
+
+ 
+## To perform a hypothesis test you need to:
+
+> 1. Define the null and alternative hypotheses.
+> 2. Choose level of significance $\alpha$.
+> 3. Pick and compute test statistics.
+> 4. Compute the p-value.
+> 5. Check whether to reject the null hypothesis by comparing p-value to $\alpha$.
+> 6. Draw conclusion from the test.
+
+## Null and alternative hypotheses
+
+**The null hypothesis ($H_0$)**: A statement assumed to be true unless it can be 
+shown to be incorrect beyond a reasonable doubt. This is something one usually 
+attempts to disprove or discredit. 
+
+**The alternate hypothesis ($H_1$)**: A claim that is contradictory to 
+H0 and what we conclude when we reject H0.
+
+H0 and H1 are on purporse set up to be contradictory, so that one **can collect
+and examine data to decide if there is enough evidence to reject the null 
+hypothesis or not**. 
+
+##
+
+![](./Lecture7-figure/failed_reject.jpg)
+
+![](./Lecture7-figure/penguin.jpg)
+
+## Student's t-test
+
+> - William Gosset (1908), a chemist at **the Guiness brewery**.
+> - Published in Biometrika under a **pseudonym Student**.
+> - Used to select best yielding varieties of barley.
+> - Now one of the standard/traditional methods for hypothesis testing.
+
+## Distribution of the statistic
+
+p-value is the probability of an observed (or more extreme) result assuming 
+that the null hypothesis is true, i.e. $P[observations \mid H_0]$. Note that:
+
+$$P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
+
+</br>
+
+<div class = "left">
+
+![](./Lecture7-figure/tdist.gif)
+
+</div>
+
+<div class = "right">
+
+**This is the reason why p-values should NOT be used a "ranking"/"scoring"
+system for your hypotheses**. You should only use it to potentially reject
+your null hypothesis. Null hypothesis cannot be proven true, **you can only 
+fail to reject it**.
+</div>
+
+
+## p-value
+
+> - p-value is the **probability of obtaining a result equal to or "more extreme" than what 
+was actually observed, when the null hypothesis is true**.
+> - A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
+so you reject the null hypothesis.
+> - A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
+so you do NOT to reject the null hypothesis.
+
+
+
+
+## Dataset
+
+* A built-in dataset, `mtcars`,  that comes from a 1974 issue of Motor Trends 
+magazine. 
+
+```{r}
+data("mtcars")
+head(mtcars)
+```
+
+* rows correspond to car models,
+* column are car attributes: miles per gallon, number of 
+cylinders, displacement, transmission etc.
+
+## Testing mpg equal to a value
+
+<div class = "left">
+Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
+statistically equal to 25? 
+
+</br>
+**Test the null hypothesis:**
+
+\[H_0: \mu = 25 \\
+H_a: \mu \ne 25\]
+where $\mu$ is the mean mpg of cars in the dataset
+</div>
+
+<div class = "right">
+![](./Lecture7-figure/both-sided.png)
+</div>
+
+
+##
+```{r}
+mtcars$mpg
+tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "two.sided")
+tt
+```
+
+##
+```{r}
+names(tt)
+```
+
+```{r}
+# The p-value:
+tt$p.value
+```
+
+```{r}
+# The 95% confidence interval for the mean:
+tt$conf.int
+```
+
+
+## Testing mpg  smaller than a value
+
+<div class = "left">
+
+Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
+statistically less than 25? 
+
+</br>
+**Test the null hypothesis:**
+
+\[H_0: \mu = 25 \\
+H_a: \mu < 25\]
+where $\mu$ is the mean mpg of cars in the dataset
+</div>
+
+<div class = "right">
+![](./Lecture7-figure/left-sided.png)
+</div>
+
+##
+```{r}
+tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "less")
+tt
+```
+
+## Testing difference between groups 
+
+Is the fuel efficiency (mpg) the same for the cars 
+with automatic and manual transmission? 
+
+</br>
+**Test the null hypothesis:**
+
+\[H_0: \mu_a = \mu_m\\
+H_a: \mu_a \ne \mu_m\]
+
+where $\mu_a$ mean mpg of automatic cars and $\mu_m$ is the mean mpg of manual
+cars.
+
+## 
+Convert the column `am` (transmission) to a factor:  
+```{r}
+#  convert am (0 = automatic, 1 = manual) column to a factor
+mtcars <- mtcars %>%
+  mutate(am = factor(am, levels = c(0, 1), 
+                               labels = c("automatic", "manual")))
+head(mtcars)
+```
+
+##
+First, visualize the data
+
+```{r, fig.width=8, fig.height=6}
+library(ggplot2)
+ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
+  xlab("Trasmission") + ylab("Fuel efficiency") +
+  geom_jitter(width = 0.2, height = 0)
+```
+
+## 
+
+The R implementation of the Student's t-test is `t.test()` function:
+
+```{r}
+tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
+             y = mtcars$mpg[mtcars$am == "manual"])
+# or
+(tt <- t.test(formula = mpg ~ am, data = mtcars))
+```
+
+* **A tilde symbol, `~`**, means "explained by". 
+
+## Exercise
+
+</br>
+
+- Go to the "Lec7_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 1.
 
 ## Classification
 
@@ -330,7 +562,7 @@ sum(diag(confusion.matrix))/nrow(test)
 - Go to the "Lec7_Exercises.Rmd" file, which can be downloaded
 from the class website under the Lecture tab.
 
-- Complete Exercise 1.
+- Complete Exercise 2.
 
 
 # Random Forest
@@ -398,7 +630,7 @@ more stable.**
 
 <div style="text-align: center">
 
-![ESL](./Lecture7_Classification_files/ensembleTrees.png)
+![ESL](./Lecture7-figure/ensembleTrees.png)
 
 Source: [Chapter 8 ESL](https://web.stanford.edu/~hastie/ElemStatLearn/)
 </div>
@@ -419,14 +651,14 @@ for splitting the branch.
 ##
 
 <div style="text-align: center">
-![](./Lecture7_Classification_files/rfparams.png)
+![](./Lecture7-figure/rfparams.png)
 </div>
 
 ##
 
 <div style="text-align: center">
 
-![](./Lecture7_Classification_files/randomForest.jpg)
+![](./Lecture7-figure/randomForest.jpg)
 
 Source: [link](http://www.slideshare.net/satnam74/india-software-developers-conference-2013-bangalore)
 </div>
@@ -577,7 +809,7 @@ varImpPlot(rf.wines)
 - Go to the "Lec7_Exercises.Rmd" file, which can be downloaded
 from the class website under the Lecture tab.
 
-- Complete Exercise 2.
+- Complete Exercise 3.
 
 
 # Support Vector Machines
@@ -602,10 +834,10 @@ and Chapter 12 [ESL](http://statweb.stanford.edu/~tibs/ElemStatLearn/)
 
 <div style="text-align: center">
 
-![](./Lecture7_Classification_files/support_vecs.png)
+![](./Lecture7-figure/support_vecs.png)
 
 
-![](./Lecture7_Classification_files/SVM_optimize.png)
+![](./Lecture7-figure/SVM_optimize.png)
 
 
 </div>
@@ -738,7 +970,7 @@ table(predict = ypred, truth = testdat$y)
 
 ## Kernel SVM
 
-![](./Lecture7_Classification_files/Kernel_Machine.png)
+![](./Lecture7-figure/Kernel_Machine.png)
 
 ## Kernel SVM Example
 

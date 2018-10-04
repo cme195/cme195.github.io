@@ -40,14 +40,15 @@ theme_update(text = element_text(size = 20))
     + Programming with `purr`
     + Handling missing values
     + Merging datasets
-    
+
+- Data Export
+
 - Exploratory Data Analysis
     + Variation
     + Covariation
 
 - Interactive graphics
 
-- Data Export
 
 </div>
 
@@ -487,6 +488,75 @@ setdiff(df2, df1)
 </div>
 
 
+# Data Export
+
+## Exporting Data
+
+After working with a dataset and doing all data manipulation, you might
+want to save your new data table.
+
+Recall the `readr` package. Besides functions for reading data in, `readr`
+has utilities for **saving your data to a text file**:
+
+```{r eval = FALSE}
+write_tsv(mydata, "path/to/filename.tsv")                  # tab-delimited
+write_csv(mydata, "path/to/filename.csv")                  # comma-delimited
+write_delim(mydata, "path/to/filename.csv", delim = " ")   # general delimiter
+```
+
+To save your data in other types of files, you need to install and 
+use other packages:
+
+- to export an **Excel spreadsheet**, use `xlsx` package, and follow
+this [guide](http://www.sthda.com/english/wiki/r-xlsx-package-a-quick-start-guide-to-manipulate-excel-files-in-r).
+
+```{r eval = FALSE}
+# install.packages(xlsx)
+library(xlsx)
+write.xlsx(mydata, "path/to/filename.xlsx")
+```
+
+- to export **SAS**, **SPSS** and **Stata** files use the 
+[`haven` package](https://haven.tidyverse.org/).
+
+```{r eval = FALSE}
+# install.packages(haven)
+library(haven)
+read_sas("mtcars.sas7bdat")
+write_sas(mtcars, "mtcars.sas7bdat")
+```
+
+## Saving the workspace
+
+- You can also choose to **save all objects** currently in the workspace
+(variables, functions, etc.) into a file e.g. `filename.rda`.
+ 
+- The file `filename.rda` can be the easily loaded next time you work with R.
+
+- You can also save a single object or a subset of specified
+objects currently in the workspace.
+
+```{r eval = FALSE}
+# save the workspace to file 
+save.image(file = "path/to/filename.rda")
+
+# save specific objects to a file
+save(object_list, file = "path/to/filename.rda")
+
+# save just a single object
+saveRDS(object, file = "path/to/filename.rds")
+```
+
+- Saved objects/workspace can be loaded back in a new R session.
+
+```{r eval = FALSE}
+# load a workspace into the current session
+load("path/to/filename.rda")
+
+# read just the previously saved 1 object
+object <- readRDS("path/to/filename.rds")
+```
+
 
 
 # Exploratory data analysis
@@ -791,75 +861,6 @@ plot_ly(z = volcano) %>% add_surface()
 
 
 
-
-# Data Export
-
-## Exporting Data
-
-After working with a dataset and doing all data manipulation, you might
-want to save your new data table.
-
-Recall the `readr` package. Besides functions for reading data in, `readr`
-has utilities for **saving your data to a text file**:
-
-```{r eval = FALSE}
-write_tsv(mydata, "path/to/filename.tsv")                  # tab-delimited
-write_csv(mydata, "path/to/filename.csv")                  # comma-delimited
-write_delim(mydata, "path/to/filename.csv", delim = " ")   # general delimiter
-```
-
-To save your data in other types of files, you need to install and 
-use other packages:
-
-- to export an **Excel spreadsheet**, use `xlsx` package, and follow
-this [guide](http://www.sthda.com/english/wiki/r-xlsx-package-a-quick-start-guide-to-manipulate-excel-files-in-r).
-
-```{r eval = FALSE}
-# install.packages(xlsx)
-library(xlsx)
-write.xlsx(mydata, "path/to/filename.xlsx")
-```
-
-- to export **SAS**, **SPSS** and **Stata** files use the 
-[`haven` package](https://haven.tidyverse.org/).
-
-```{r eval = FALSE}
-# install.packages(haven)
-library(haven)
-read_sas("mtcars.sas7bdat")
-write_sas(mtcars, "mtcars.sas7bdat")
-```
-
-## Saving the workspace
-
-- You can also choose to **save all objects** currently in the workspace
-(variables, functions, etc.) into a file e.g. `filename.rda`.
- 
-- The file `filename.rda` can be the easily loaded next time you work with R.
-
-- You can also save a single object or a subset of specified
-objects currently in the workspace.
-
-```{r eval = FALSE}
-# save the workspace to file 
-save.image(file = "path/to/filename.rda")
-
-# save specific objects to a file
-save(object_list, file = "path/to/filename.rda")
-
-# save just a single object
-saveRDS(object, file = "path/to/filename.rds")
-```
-
-- Saved objects/workspace can be loaded back in a new R session.
-
-```{r eval = FALSE}
-# load a workspace into the current session
-load("path/to/filename.rda")
-
-# read just the previously saved 1 object
-object <- readRDS("path/to/filename.rds")
-```
 
 
 
