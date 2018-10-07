@@ -1,15 +1,17 @@
 ---
 title: "Homework"
-subtitle: "CME/STAT 195, Fall 2018"
-author: "Assigned: October 6, 2018"
-date: "Due: October 19, 2018 at 11:59pm"
-output: 
+author: 'Assigned: October 6, 2018'
+date: 'Due: October 19, 2018 at 11:59pm'
+output:
+  word_document:
+    toc: yes
   pdf_document:
     number_sections: no
   html_notebook:
-    toc: true
-    toc_float: true
     df_print: paged
+    toc: yes
+    toc_float: yes
+subtitle: CME/STAT 195, Fall 2018
 ---
 
 ```{r setup, include=FALSE}

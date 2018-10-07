@@ -4,8 +4,8 @@ layout: cme195
 
 # [](#homework) Homework
 
-- Homework 1. Due Thu October 18, 2018 at 11:59pm
-[Homework 1](./assets/assignments/homework.nb.html)
+- Homework. Due Frid October 19, 2018 at 11:59pm
+[[html](./assets/assignments/homework.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.rmd)]
 [[pdf](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.pdf)]  
 
