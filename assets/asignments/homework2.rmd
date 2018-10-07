@@ -27,8 +27,8 @@ contains data on fossil fuel emissions.
 a. Read data to R. Note that rows 1-3 contain information on the dataset itself.
 Delete these rows as they do not contain relevant information.
 
-b. Compute the total yearly $CO_2$ emissions (column "Total.CO2.emissions.from.fossil.fuels.and.cement.production..thousand.metric.tons.of.C.") 
-summed over all countries (the world total $CO_2$ emission). 
+b. Compute the total yearly $CO_2$ emissions (column "Total.CO2.emissions.from.fossil.fuels.and.cement.production..thousand.metric.
+tons.of.C.") summed over all countries (the world total $CO_2$ emission). 
 You can use a forloop over "years" or `dplyr` functions.
 
 c. Plot the world (summed over all countries) $CO_2$ emission over time in 

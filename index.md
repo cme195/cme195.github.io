@@ -19,7 +19,7 @@ which you can use for the final class project.
 
 **Instructor:** Lan Huong Nguyen (lanhuong at stanford dot edu)
 
-**Office hours:** Mon 3:30pm, [Huang Basement Student Area](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang)  
+**Office hours:** Mon 3:30-4:30pm, [Huang Basement Student Area](https://campus-map.stanford.edu/?id=04-080&lat=37.42787956&lng=-122.17429865&zoom=17&srch=huang)  
 Room B015 on Oct 8th, and Room B007 the following weeks
 
 **Communication:** Please direct your questions on class materials and

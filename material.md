@@ -22,8 +22,8 @@ Exploring data:
 **Lecture 5:** Exploratory Data Analysis (EDA).    
 
 Modeling data:  
-**Lecture 6:** Hypothesis testing and linear regression.  
-**Lecture 7:** Supervised techniques in R.  
+**Lecture 6:** Model building and linear regression.  
+**Lecture 7:** Hypothesis testing and classification.  
 **Lecture 8:** Unsupervised techniques in R.    
 
 Disclaimer: these lecture slides are subject to change and can be updated
@@ -42,9 +42,7 @@ any time. Please check regularly.
 **Exercise 3:**
 [[html](./assets/exercises/Lec3_Exercises.nb.html)]
 [[rmd](./assets/exercises/Lec3_Exercises.Rmd)]
-<!---
-[[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]
---->  
+[[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]  
 **Exercise 4:**
 <!---
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
