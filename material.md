@@ -33,44 +33,44 @@ any time. Please check regularly.
 
 **Exercise 1:**
 [[html](./assets/exercises/Lec1_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec3_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)]
 [[solutions](./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
 **Exercise 2:**
 [[html](./assets/exercises/Lec2_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec2_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec2_Exercises.Rmd)]
 [[solutions](./assets/exercises/Lec2_Exercises_with_Answers.nb.html)]  
 **Exercise 3:**
 [[html](./assets/exercises/Lec3_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec3_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)]
 [[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]  
 **Exercise 4:**
 <!---
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec4_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)]
 [[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 5:**
 <!---
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec5_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)]
 [[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 6:**
 <!---
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec6_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)]
 [[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 7:**
 <!---
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec7_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)]
 [[solutions]] (./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 8:**
 <!---
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
-[[rmd](./assets/exercises/Lec8_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]
 [[solutions]] (./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
 --->  
 

@@ -7,7 +7,7 @@ layout: cme195
 - Homework 1. Due Thu October 18, 2018 at 11:59pm
 [Homework 1](./assets/assignments/homework.nb.html)
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.rmd)]
-[[pdf](./assets/assignments/homework.pdf)]  
+[[pdf](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.pdf)]  
 
 # [](#project) Final Project 
 
