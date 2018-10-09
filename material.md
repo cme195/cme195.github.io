@@ -19,8 +19,8 @@ Exploring data:
 [[html](./assets/lectures/Lecture3_Importing_and_Transforming.html)]
 [[pdf](./assets/lectures/Lecture3_Importing_and_Transforming.pdf)]  
 **Lecture 4:** Visualizing data.
-[[html](./assets/lectures/Lecture4_Visualizing_data.html)]
-[[pdf](./assets/lectures/Lecture4_Visualizing_data.pdf)]  
+[[html](./assets/lectures/Lecture4_Visualizing_Data.html)]
+[[pdf](./assets/lectures/Lecture4_Visualizing_Data.pdf)]  
 **Lecture 5:** Exploratory Data Analysis (EDA).  
 
 Modeling data:  
