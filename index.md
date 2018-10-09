@@ -8,7 +8,7 @@ layout: cme195
 ## [](#announcements) Announcements
 
 Register for [**Gear Up** for Social Science Data Event](https://events.stanford.edu/events/805/80540/)!
-You will be able to about publicly available and library purchased data sets,
+You will be able to learn about publicly available and library purchased data sets,
 which you can use for the final class project.
 
 ## [](#logistics) Logistics

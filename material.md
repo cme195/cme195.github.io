@@ -35,7 +35,7 @@ any time. Please check regularly.
 
 **Exercise 1:**
 [[html](./assets/exercises/Lec1_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec1_Exercises.Rmd)]
 [[solutions](./assets/exercises/Lec1_Exercises_with_Answers.nb.html)]  
 **Exercise 2:**
 [[html](./assets/exercises/Lec2_Exercises.nb.html)]
