@@ -146,14 +146,14 @@ ggplot(data = <DATA>) +
 
 ## `ggplot()` function
 
-- `ggplot()` function is initializes a basic graph structure;
-It cannot produce a plot alone by itself. 
+- `ggplot()` function is initializes a basic graph structure.
 
-- You need to add extra components to generate a graph; 
+- It cannot produce a plot alone by itself. 
+
+- You need to add extra components to generate a graph. 
 
 - Different parts of a plot can be added together using `+`. 
 Note similarity with the `%>%` operator.
-
 
 - Any data or arguments you supply to `ggplot()` function, can later be 
 used by added functions without repeated specification.
@@ -168,8 +168,8 @@ used by added functions without repeated specification.
 
 - is **less verbose for complex/custom** graphics,
 
-- generates graphs by adding building blocks, instead calling different 
-functions to draw new layers on top,
+- generates graphs by adding building blocks, instead of calling 
+different functions to draw new layers on top,
 
 - makes it easier to edit and tweak elements of a plot,
 
@@ -190,7 +190,7 @@ economics <- mutate(economics, unemp_rate = unemploy/pop)
 ## R base graphics
 
 ```{r}
-plot(unemploy/pop ~ date, data = economics,  type = "l")
+plot(unemp_rate ~ date, data = economics,  type = "l")
 ```
 
 ## `ggplot2` package
@@ -257,10 +257,18 @@ ggplot(data = economics %>% filter(year %in% c(2014, 2009)),
 
 ```{r, fig.width = 12, fig.height=6}
 ggplot(data = economics, aes(x = month, y = unemp_rate)) + 
-  geom_line(aes(group = year, color = factor(year))) +
+  geom_line(aes(color = year)) +
   theme(axis.text.x = element_text(angle = 45))
 ```
 
+
+## Plotting all the years together is easy
+
+```{r, fig.width = 12, fig.height=6}
+ggplot(data = economics, aes(x = month, y = unemp_rate)) + 
+  geom_line(aes(group = year, color = pop)) +
+  theme(axis.text.x = element_text(angle = 45))
+```
 
 # Geometric objects
 
@@ -283,7 +291,7 @@ Spreadsheet view in RStudio with `View(diamonds)`.
 Geometric objects are the actual elements you put on the plot. Examples include:
 
 - points (`geom_point()`, used for scatter plots)
-- text (`geom_text()`, `geom_lebel()`, used for text labels)
+- text (`geom_text()`, `geom_label()`, used for text labels)
 - lines (`geom_line()`, used for time series, trend lines, etc.)
 - boxplots (`geom_boxplot()` used for, well, boxplots!)
 
@@ -419,6 +427,222 @@ a3 <- p + geom_point(alpha = 1/500)
 # We use grid.arrange from gridExtra to display multiple plots
 library(gridExtra)
 grid.arrange(a1, a2, a3, ncol = 3)
+```
+
+
+# Scales
+
+## Aesthetic mapping vs variable scaling
+
+- `aes()` assign an aesthetic to a variable; it doesn't 
+determine how mapping should be done. 
+
+- For example, `aes(shape = x)` or `aes(color = z)` do not specify what shapes
+or what colors should be used. 
+
+- To choose colors/shapes/sizes etc. you need 
+to **modify the corresponding scale**. 
+
+- `ggplot2` includes scales for:
+    + position
+    + color and fill
+    + size
+    + shape
+    + line type
+
+## 
+
+- Scales can be modified with functions of the form:
+`scale_<aesthetic>_<type>()`, e.g. `scale_color_discrete()`.
+</br>
+
+- Try typing `scale_<tab>()` to see a list of scale modification functions.
+</br>
+
+- **Common Scale Arguments:**
+
+    + **name**: the first argument gives the axis or legend title
+    + **limits**: the minimum and maximum of the scale
+    + **breaks**: the points along the scale where labels should appear
+    + **labels**: the labels that appear at each break
+
+
+## Scales for the axes
+
+```{r fig.height=5, fig.width=14}
+# Square root y-axis transformation
+p1 <- ggplot(dsmall, aes(x = carat, y = price)) 
+psqrt <- p1 + geom_point() + scale_y_sqrt()
+# Log base 10 y-axis transformation
+plog10 <- p1 + geom_point() + scale_y_log10()
+grid.arrange(psqrt, plog10, ncol = 2)
+```
+
+
+##
+
+Log base 10 transformation of x and y axes. Note the differences.
+
+```{r fig.height=5, fig.width=14}
+ploglog1 <- p1 + geom_point() + scale_y_log10() + scale_x_log10()
+ploglog2 <- ggplot(dsmall, aes(x = log(carat), y = log(price))) + geom_point()
+grid.arrange(ploglog1, ploglog2, ncol = 2)
+```
+
+
+## Scales for shapes
+
+```{r fig.width = 14, fig.height = 5}
+p11 <- p1 + geom_point(aes(shape = cut), size = 3)  
+p12 <- p1 + geom_point(aes(shape = cut), size = 3) + 
+  scale_shape_manual(values = c(1:5))
+grid.arrange(p11, p12, ncol = 2)
+```
+
+## Scales for colors
+
+To choose specific colors for **discrete** variables we use `scale_color_manual`.
+
+```{r}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_manual(values = c("red", "orange", "yellow", "green", "blue"))
+```
+
+## 
+
+For **continuous** variables we use `scale_color_gradient`, and specify
+the ends of the color spectrum.
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red")
+```
+
+##
+
+You can also **scale the values of the variable corresponding to color**.
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red", trans = "log10")
+```
+
+##
+
+Or and add your own breaks 
+
+```{r}
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradient(low = "blue", high = "red", trans = "log10",
+                       breaks = c(1000, 2000, 5000, 10000),
+                       labels = c("  1000", "  2000", "  5000", "10000")) 
+```
+
+
+
+##
+
+`scale_color_brewer` lets you choose **nice color palettes for discrete variables**.
+
+```{r}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_brewer(palette = "Set2")
+```
+
+##
+
+Unfortunately, `scale_color_brewer` doesn't work for continuous variables:
+
+```{r error = TRUE}
+# This will result in an error
+p1 + geom_point(aes(shape = price), size = 3) + 
+  scale_color_brewer(palette = "Spectral")
+```
+
+
+
+## 
+We can get around this issue using the `RColorBrewer` package
+and `scale_color_gradientn` function, which **interpolates colors**
+from the brewer palettes.
+
+```{r}
+# install.packages("RColorBrewer")
+library(RColorBrewer)
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradientn(colours = brewer.pal(name = "Spectral", n = 10))
+```
+
+## 
+
+Another popular color scheme package, `viridis`, supports both discrete
+and continuous variables:
+
+```{r, message=FALSE, warning=FALSE}
+# install.packages("viridis")
+library(viridis)
+p1 + geom_point(aes(color = price), size = 3) + scale_color_viridis()
+```
+
+## 
+
+
+```{r, message=FALSE, warning=FALSE}
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_viridis(discrete = TRUE, option = "magma")
+```
+
+
+##
+... there are also other unconventional schemes such as, [one
+based on Wes Anderson movies](http://wesandersonpalettes.tumblr.com/) :
+
+```{r}
+#install.packages("wesanderson")
+library(wesanderson)
+names(wes_palettes)
+```
+
+## Wes Anderson color palette:
+
+```{r}
+# For discrete variables
+p1 + geom_point(aes(color = cut), size = 3) + 
+  scale_color_manual(values = wes_palette("Darjeeling1", n = 5))
+```
+
+## 
+
+```{r}
+# For continuous variables:
+p1 + geom_point(aes(color = price), size = 3) + 
+  scale_color_gradientn(colours = wes_palette("Darjeeling1", 100, type = "continuous"))
+```
+
+
+
+# Faceting
+
+##
+**Facettng** allows you to split up your data by 
+one or more variables and plot the subsets of data together.
+
+<div style = "font-size: 36px">
+```{r fig.height=5, fig.width=14, warning=FALSE, message=FALSE}
+dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
+p0 <- ggplot(data = dsmall, aes(x = carat, y = price)) +geom_point(size = 1) +
+  geom_smooth(aes(colour = cut, fill = cut)) 
+p1 <- p0 + facet_wrap(~ cut)
+grid.arrange(p0, p1, ncol = 2)
+```
+</div>
+
+##
+
+```{r}
+ggplot(diamonds, aes(x = carat)) +
+  geom_density() + 
+  facet_grid(color ~ cut)
 ```
 
 
@@ -589,18 +813,24 @@ category beforehand. The computation is done automatically for you.
 rather than the default `stat = "count"`.
 
 ```{r}
-diamond.counts <- diamonds %>% group_by(color) %>% summarise(count = n())
+diamond.counts <- diamonds %>%
+    group_by(color) %>% 
+    summarise(count = n())
 diamond.counts
 ```
 
 
 ##
 
+With the frequency counts already computed, 
+the default options of the barplot generates an error:
+
 ```{r error = TRUE}
-# The default option generates an error:
+diamond.counts
 ggplot(diamond.counts, aes(x=color, y=count)) +  geom_bar()
-# Error: stat_count() must not be used with a y aesthetic.
 ```
+
+##
 
 ```{r}
 # You need to do the following:
@@ -608,265 +838,23 @@ ggplot(diamond.counts, aes(x=color, y=count)) +  geom_bar(stat="identity")
 ```
 
 
-## Regression lines
+## Smoothers and trend lines
 
-<div style = "font-size: 36px">
 ```{r}
-# You can fit a linear model with lm(y ~ x, data) and use it for prediction.
-dsmall <- dsmall %>% 
-  mutate(pred.price = predict(lm(price ~ carat, data = dsmall)))
-# And add the regression line in a standard way
-p1 <- ggplot(dsmall, aes(x = carat, y = price))
-p1 + geom_point(aes(color = color)) + geom_line(aes(y = pred.price))
+# Smoothers help discern patterns in the data
+set.seed(438756)
+dsmall <- diamonds %>% sample_frac(0.1)
+ggplot(dsmall, aes(x = carat, y = price)) + 
+    geom_point(aes(color = color)) + geom_smooth()
 ```
-</div>
 
 ## Regression lines with ggplot2
 
 ```{r}
-# Or you can simply use geom_smooth()!
-p1 + geom_point(aes(color = color)) + geom_smooth(method = "lm")
+ggplot(dsmall, aes(x = carat, y = price)) + 
+    geom_point(aes(color = color)) + geom_smooth(method = "lm")
 ```
 
-
-
-## Smoothers are trend lines
-
-```{r}
-# Smoothers help discern patterns in the data
-ggplot(data = diamonds, aes(x = carat, y = price)) +
-  geom_point() + geom_smooth()
-```
-
-
-## Exercise 2
-
-* Go back to "Lec4_Exercises.Rmd"
-
-* Complete the exercise 2
-
-
-# Scales
-
-## Aesthetic mapping vs variable scaling
-
-- `aes()` assign an aesthetic to a variable; it doesn't 
-determine how mapping should be done. 
-
-- For example, `aes(shape = x)` or `aes(color = z)` do not specify what shapes
-or what colors should be used. 
-
-- To choose colors/shapes/sizes etc. you need 
-to **modify the corresponding scale**. 
-
-- `ggplot2` includes scales for:
-    + position
-    + color and fill
-    + size
-    + shape
-    + line type
-
-## 
-
-Scales can be modified with functions of the form:
-`scale_<aesthetic>_<type>()`, e.g. `scale_color_discrete()`.
-</br>
-
-Try typing `scale_<tab>()` to see a list of scale modification functions.
-</br>
-
->- **Common Scale Arguments:**
-
->   + **name**: the first argument gives the axis or legend title
->   + **limits**: the minimum and maximum of the scale
->   + **breaks**: the points along the scale where labels should appear
->   + **labels**: the labels that appear at each break
-
-
-## Scale for axes
-
-```{r fig.height=5, fig.width=14}
-# Square root y-axis transformation
-p1 <- ggplot(dsmall, aes(x = carat, y = price)) + geom_point()  
-psqrt <- p1 + scale_y_sqrt()
-# Log base 10 y-axis transformation
-plog10 <- p1 + geom_point() + scale_y_log10()
-grid.arrange(psqrt, plog10, ncol = 2)
-```
-
-
-##
-
-Log base 10 transformation of x and y axes. Note the differences.
-
-```{r fig.height=5, fig.width=14}
-ploglog1 <- p1 + geom_point() + scale_y_log10() + scale_x_log10()
-ploglog2 <- ggplot(dsmall, aes(x = log(carat), y = log(price))) + geom_point()
-grid.arrange(ploglog1, ploglog2, ncol = 2)
-```
-
-
-## Scale for shapes
-
-```{r fig.width = 14, fig.height = 5}
-p11 <- p1 + geom_point(aes(shape = cut), size = 3)  
-p12 <- p1 + geom_point(aes(shape = cut), size = 3) + 
-  scale_shape_manual(values = c(1:5))
-grid.arrange(p11, p12, ncol = 2)
-```
-
-## Scale for colors
-
-To choose specific colors for **discrete** variables we use `scale_color_manual`.
-
-```{r}
-p1 + geom_point(aes(color = cut), size = 3) + 
-  scale_color_manual(values = c("red", "orange", "yellow", "green", "blue"))
-```
-
-## 
-
-For **continuous** variables we use `scale_color_gradient`, and specify
-the ends of the color spectrum.
-
-```{r}
-p1 + geom_point(aes(color = price), size = 3) + 
-  scale_color_gradient(low = "blue", high = "red")
-```
-
-##
-
-`scale_color_brewer` lets you choose **nice color palettes for discrete variables**.
-
-```{r}
-p1 + geom_point(aes(color = cut), size = 3) + 
-  scale_color_brewer(palette = "Set2")
-```
-
-##
-
-Unfortunately, `scale_color_brewer` doesn't work for continuous variables:
-
-```{r eval = FALSE}
-# scale_color_brewer() does not work with continuous variables 
-# and will result in an error
-p1 + geom_point(aes(shape = price), size = 3) + 
-  scale_color_brewer(palette = "Spectral")
-# Error: A continuous variable can not be mapped to shape
-```
-
-We can get around this issue using the `RColorBrewer` package
-and `scale_color_gradientn` function, which **interpolates colors**
-from the brewer palettes.
-
-
-## 
-
-```{r}
-# install.packages("RColorBrewer")
-library(RColorBrewer)
-p1 + geom_point(aes(color = price), size = 3) + 
-  scale_color_gradientn(colours = brewer.pal(name = "Spectral", n = 10))
-```
-
-## 
-
-Another popular color scheme package, `viridis`, supports both discrete
-and continuous variables:
-
-```{r, message=FALSE, warning=FALSE}
-# install.packages("viridis")
-library(viridis)
-p1 + geom_point(aes(color = price), size = 3) + scale_color_viridis()
-```
-
-## 
-
-
-```{r, message=FALSE, warning=FALSE}
-p1 + geom_point(aes(color = cut), size = 3) + 
-  scale_color_viridis(discrete = TRUE, option = "magma")
-```
-
-
-##
-... there are also other unconventional schemes such as, [one
-based on Wes Anderson movies](http://wesandersonpalettes.tumblr.com/) :
-
-```{r}
-#install.packages("wesanderson")
-library(wesanderson)
-names(wes_palettes)
-```
-
-## Wes Anderson color palette:
-
-```{r}
-# For discrete variables
-p1 + geom_point(aes(color = cut), size = 3) + 
-  scale_color_manual(values = wes_palette("Darjeeling", n = 5))
-```
-
-## 
-
-```{r}
-# For continuous variables:
-p1 + geom_point(aes(color = price), size = 3) + 
-  scale_color_gradientn(colours = wes_palette("Darjeeling", 100, type = "continuous"))
-```
-
-##
-
-You can also **scale the values of the variable corresponding to color**.
-
-```{r}
-p1 + geom_point(aes(color = price), size = 3) + 
-  scale_color_gradient(low = "blue", high = "red", trans = "log10")
-```
-
-##
-
-Or and add your own breaks 
-
-```{r}
-p1 + geom_point(aes(color = price), size = 3) + 
-  scale_color_gradient(low = "blue", high = "red", trans = "log10",
-                       breaks = c(1000, 2000, 5000, 10000),
-                       labels = c("  1000", "  2000", "  5000", "10000")) 
-```
-
-
-
-## Exercise 3
-
-* Go to back "Lec4_Exercises.Rmd"
-
-* Complete Exercise 3
-
-
-# Faceting
-
-##
-**Facettng** allows you to split up your data by 
-one or more variables and plot the subsets of data together.
-
-<div style = "font-size: 36px">
-```{r fig.height=5, fig.width=14, warning=FALSE, message=FALSE}
-dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-p0 <- ggplot(data = dsmall, aes(x = carat, y = price)) +geom_point(size = 1) +
-  geom_smooth(aes(colour = cut, fill = cut)) 
-p1 <- p0 + facet_wrap(~ cut)
-grid.arrange(p0, p1, ncol = 2)
-```
-</div>
-
-##
-
-```{r}
-ggplot(diamonds, aes(x = carat)) +
-  geom_density() + 
-  facet_grid(color ~ cut)
-```
 
 ## Saving plots
 
@@ -889,9 +877,8 @@ ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
 “tex” (pictex), “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” or “wmf” (windows only).
 
 
+## Exercise 2, 3
 
-## Exercise 4,5
+* Go back to "Lec4_Exercises.Rmd"
 
-* Go to back "Lec4_Exercises.Rmd"
-
-* Complete Exercise 4,5
+* Complete the exercise 2 and 3

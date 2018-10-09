@@ -1,13 +1,96 @@
 ---
 title: "Lecture 7: Exercises with Answers"
-date: October 24th, 2017
+date: October 18th, 2018
 output: 
   html_notebook:
     toc: true
     toc_float: true
 ---
 
-# Exercise 1: Logistic Regression
+```{r}
+library(tidyverse)
+```
+
+
+# Exercise 1: Hypothesis testing
+
+Similarly to dataset `mtcars`, the dataset `mpg` from `ggplot` package 
+includes data on automobiles. However, `mpg` includes data for newer
+cars from year 1999 and 2008. The variables measured for each car is slighly 
+different. Here we are interested in the variable, `hwy`, the highway miles per 
+gallon.
+
+
+```{r}
+# We create a new culumn with manual/automatic data only
+mpg <- mpg %>% 
+  mutate(
+    transmission = factor(
+        gsub("\\((.*)", "", trans), levels = c("auto", "manual"))
+  )
+mpg
+```
+
+## Part 2: One-sample test
+
+a. Subset the `mpg` dataset to inlude only cars from  year 2008.
+
+```{r}
+mpg2008 <- mpg %>% 
+  filter(year == 2008)
+```
+
+b. Test whether cars from 2008 have mean the highway miles per gallon, `hwy`, 
+equal to 30 mpg.
+
+```{r}
+t.test(mpg2008$hwy, mu = 30, alternative = "two.sided")
+```
+
+c. Test whether cars from 2008 with 4 cylinders have mean `hwy` equal to 30 mpg.
+
+```{r}
+mpg2008_4cyl <- mpg %>% 
+  filter(year == 2008, cyl == 4)
+
+t.test(mpg2008_4cyl$hwy, mu = 30, alternative = "two.sided")
+```
+
+## Part 2: Two-sample test
+
+a. Test if the mean `hwy` for automatic is **less than** that for manual cars
+**in 2008**. Generate a boxplot with jittered points for `hwy` for each 
+transmission group.
+
+```{r}
+t.test(data = mpg2008, hwy ~ transmission, alternative = "less")
+# or
+# t.test(x = mpg2008 %>% filter(transmission == "auto") %>% pull(hwy),
+#        y = mpg2008 %>% filter(transmission == "manual") %>% pull(hwy), 
+#        alternative = "less")
+```
+
+```{r}
+ggplot(mpg2008, aes(x = transmission, y = hwy)) +
+  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
+```
+
+b. Test if the mean `hwy` for cars from 1999 and is greater than that for
+cars from 2008. Generate a boxplot with jittered points
+for `hwy` for each year group.
+
+```{r}
+t.test(data = mpg, hwy ~ year, alternative = "greater")
+```
+
+```{r}
+ggplot(mpg, aes(x = factor(year), y = hwy)) +
+  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
+```
+
+
+
+# Exercise 2: Logistic Regression
 
 In this you will use a dataset `Default`, on customer default records for 
 a credit card company, which is included in [ISL book](www.statlearning.com). 
@@ -16,7 +99,6 @@ To obtain the data you will need to install a package `ISLR`.
 ```{r}
 # install.packages("ISLR")
 library(ISLR)
-library(dplyr)
 (Default <- tbl_df(Default))
 ```
 
@@ -70,7 +152,7 @@ the 'color = student'.
 ```{r}
 train$default.numeric <- as.numeric(train$default) - 1
 test$default.numeric <- as.numeric(test$default) - 1
-library(ggplot2)
+
 ggplot(test, aes(x = balance, color = student)) +
   geom_point(aes(y = default.numeric)) + 
   geom_line(aes(y = pred.prob.default), lwd = 1)
@@ -79,18 +161,19 @@ ggplot(test, aes(x = balance, color = student)) +
 
 
 
-# Exercise 2: Random Forest
+# Exercise 3: Random Forest
 
 In this exercise we will build a random forest model based
 on the data used to create the visualization [here](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/).
 
 ```{r}
-library(dplyr)
 # Skip first 2 lines since they were comments
-url <- "https://raw.githubusercontent.com/jadeyee/r2d3-part-1-data/master/part_1_data.csv"
+url <- paste0("https://raw.githubusercontent.com/jadeyee/r2d3-part-1-data/",
+              "master/part_1_data.csv")
 houses <- read.csv(url, skip = 2)
 houses <- tbl_df(houses)
-houses <- mutate(houses, city = factor(in_sf, levels = c(1, 0), labels = c("SF", "NYC")))
+houses <- houses %>%
+    mutate(city = factor(in_sf, levels = c(1, 0), labels = c("SF", "NYC")))
 houses 
 ```
 
@@ -146,86 +229,6 @@ varImpPlot(houses.rf)
 
 
 
-# Exercise 3: Support Vector Machines
 
-In this exercise you will use SVM to classify cases included in a dataset 
-on breast cancer into malignant and begnign tumors.  
-
-In this dataset, the first column indicates the diagnosis (M = malignant, 
-B = benign), the remaining 30 columns are real-valued input attributes of the 
-cancer tissue computed from a digitized image of a fine needle aspirate (FNA) 
-of the breast mass.
-
-First read the data into R using the following commands, and rename the 
-columns.
-
-```{r}
-url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data"
-cancer <- read.csv(url, header = F, row.names = 1)
-head(cancer)
-colnames(cancer) <- c("diagnosis", paste0("FNA", 1:(ncol(cancer)-1)))
-cancer <- tbl_df(cancer)
-cancer
-```
-
-a. Check if the classes are balanced by inspecting the frequency of observations 
-in each malignant and begnign cases.
-
-```{r}
-table(cancer$diagnosis)
-```
-b. Divide the observations into the train and the test set, with 60%-40% split.
-How many observations are in your train and test sets?
-
-```{r}
-set.seed(123)
-train.idx <- sample(nrow(cancer), 0.6 * nrow(cancer))
-train <- cancer[train.idx, ]
-test <- cancer[-train.idx, ]
-dim(train)
-dim(test)
-```
-
-c. Load the `e1071` package, and use SVM with a "radial" (default) kernel to 
-classify the tumors in  the train set. Set `scale = FALSE` to supress scaling 
-of the variables, as they already are in the same units. Evaluate your 
-prediction accuracy on the test set.
-
-
-```{r}
-library(e1071)
-svm1 <- svm(diagnosis ~ ., data = train, kernel="radial", scale = FALSE)
-summary(svm1)
-```
-
-```{r}
-prediction <- predict(svm1, test[, -1])
-(tab <- table(pred = prediction, true = test$diagnosis))
-(accuracy <- sum(diag(tab))/nrow(test))
-```
-
-d. Now, train a "radial" SVM again but tune the model parameters 
-("gamma" and "cost") using `tune.svm`. You should input a set of
-values for the two parameters for `tune.svm()` to use. Print
-the summary of the best model you obtained. What were the parameters used?
-
-```{r}
-tuned <- tune.svm(diagnosis ~., data = train, 
-                  gamma = 10^(-6:-1), cost = 10^(-1:1))
-summary(tuned)
-```
-
-```{r}
-summary(tuned$best.model)
-```
-
-e. Compute the test accuracy of your best model after tuning and compare it
-to the accuracy of your initial model. Did tuning improve your predictions?
-
-```{r}
-pred.tuned <- predict(tuned$best.model, test[, -1])
-(tab.tuned <- table(pred = pred.tuned, true = test$diagnosis))
-(accuracy.tuned <- sum(diag(tab.tuned))/nrow(test))
-```
 
 

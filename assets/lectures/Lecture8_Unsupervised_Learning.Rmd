@@ -28,6 +28,7 @@ sapply(.packages, require, character.only = TRUE)
 
 ## Contents
 
+<div class="right", style="width: 50%">
 * Unsupervised learning
 * Dimensionality reduction
     + Principal Component Analysis (PCA)
@@ -37,6 +38,12 @@ sapply(.packages, require, character.only = TRUE)
 * Extra: Other unsupervised techniques
     + Multidimensional Scaling (MDS)
     + t-Stochastic Neighbor Embedding (tSNE)
+
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture8-figure/data-science-model.png)
+</div>
 
 
 ## Unsupervised Learning

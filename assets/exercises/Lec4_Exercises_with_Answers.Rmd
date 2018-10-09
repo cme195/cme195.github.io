@@ -80,7 +80,7 @@ p5 + facet_wrap(~ Region)
 ```
 
 
-# Exercise 3: Bar plots
+# Exercise 2: Distribution of categorical variables
 
 1. Generate a bar plot showing the number of countries included in the
 dataset from each `Region`.
@@ -228,7 +228,7 @@ library(ggthemes)
 
 Format the legend
 
-```{r, fig.width=9, fig.height=5}
+```{r, fig.width=7, fig.height=5}
 p + theme(
   text = element_text(color = "grey35", size = 11),
   legend.text = element_text(size = 10),
@@ -248,7 +248,7 @@ pointsToLabel <- c(
   "Poland", "China", "Serbia", "United States", "United Kingdom")
 ```
 
-```{r, fig.width=9, fig.height=5}
+```{r, fig.width=7, fig.height=5}
 # install.packages("ggrepel")
 library(ggrepel)
 (p <- p + 

@@ -1,25 +1,191 @@
 ---
-title: "Lecture 5: Exercises with answers"
-date: October 17th, 2017
+title: "Lecture 5: Exercises"
+date: October 11th, 2018
 output: 
   html_notebook:
     toc: true
     toc_float: true
 ---
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
 
+# Exercise 1: Data Manipulation
 
-# Exercise 1: `plotly`
+## Part 1: The map functions from `purrr` 
+
+a. Use `purrr` functions to find the column means for `mtcars` dataset.
+Note that the mean performance cars in this dataset is very 
+poor. That's because these models are from the 70s!
+
+b. Use `purrr` functions to generate 10 random normals for each of 
+the mean parameter: $\mu = -18, 5, 10, 30$.
+
+
+c. What is the difference between running ``map(1:5, runif)` 
+`map(list(1:5), rnorm)`, `map(list(1, 2, 3, 4, 5), rnorm)` and 
+`map(1:5, rnorm, n = 5)`?
+
+
+d. For looping over multiple arguments you can use `map2()` or `pmap()`
+function. Use `map2()` to generate 5 random numbers with for 
+each pair of mean, and standard devtaion equal to:
+`c(2, 1), c(-3, 10), c(20, 0.1), c(-17, 2)`.
+
+## Part 2: Merging
+
+a. Identify the keys in the following datasets
+(you might need to install some packages and read some documentation):
+
+
+* `Lahman::Batting`
+* `nasaweather::atmos`
+* `ggplot2::diamonds`
+
+
+b. Add the location (i.e. the lat and lon) of the destination airport  
+to `flights` dataset from `nycflights13` package. Then, construct a new
+data table `mean_delay` containing information on the average arrival
+delay for each destination airport and its location (i.e. the lat and lon).
+Remember that some of the records are missing, so use `na.rm = TRUE`
+when computing means.
+
+
+## Part 3: Export datasets
+
+a. Export the `mean_delay` data as a '.tsv' file. Save it on your "Desktop"
+then check the file was properly saved, then delete it.
+
+b. Check what objects are currently stored in your environment using `ls()`.
+Save `mean_delay` as a R object using `saveRDS()` function to save
+it as am '.rds' file. Then, select 2 different objects from the environment 
+and use `save()` to save them to an '.rda' file. Then, remove these
+objects and the `mean_delay` tibble. Check that you can reload these
+objects from files you saved.
+
+
+# Exercise 2: Exploratory Data Analysis
+
+Zillow provides data on home prices, including median rental
+price per square feet and the median estimated home value. 
+There are many more statistics provided by zillow in [this website](https://www.zillow.com/research/data/) 
+that you can explore.
+
+```{r}
+zillow_url1 <- paste0("http://files.zillowstatic.com/research/public/City/",
+                    "City_MedianRentalPricePerSqft_AllHomes.csv")
+zillow_url2 <- paste0("http://files.zillowstatic.com/research/public/City/",
+                      "City_ZriPerSqft_AllHomes.csv")
+
+price_per_sqft <- read_csv(zillow_url1) 
+value_per_sqft <- read_csv(zillow_url2) 
+```
+
+
+```{r}
+# First, we tidy the datasets:
+price_per_sqft <- price_per_sqft %>%
+    select(-Metro) %>%
+    gather(`2010-01`:`2018-08`, key = "date", value = "price") 
+value_per_sqft <- value_per_sqft %>%
+    select(RegionID:CountyName, `2011-01`:`2018-08`) %>%
+    gather(`2011-01`:`2018-08`, key = "date", value = "value") 
+
+# Do the inner join:
+home_per_sqft <- price_per_sqft %>%
+    inner_join(value_per_sqft)
+
+# Format dates:
+home_per_sqft <- home_per_sqft %>%
+    mutate(date = paste0(date, "-01"),
+           date = as.Date(date))
+
+# We filter to only top 10 priciest states this year
+# excluding DC and HI:
+top10_States <- home_per_sqft %>%
+    filter(date >= as.Date("2018-01-01")) %>%
+    filter(State != "HI", State != "DC") %>%
+    group_by(State) %>%
+    summarise(price = mean(price, na.rm = TRUE)) %>%
+    top_n(10)
+
+home_per_sqft <- home_per_sqft %>%
+    filter(State %in% top10_States$State)
+
+#rm(price_per_sqft, value_per_sqft)
+```
+
+The most expensive states by median home price per sq. ft. are:
+
+```{r}
+top10_States
+```
+
+
+a. For the current year (2018), 
+using the filtered `home_per_sqft` dataset show the relationship
+between the value and the price per square foot of homes in
+10 chosen states. The value is a dollar-denominated 
+and estimated by Zillow.
+
+* Is there a correlation between the price and the value per square foot?
+* Are there any atypical trends you observe?
+* Are there any clusters of regions that are pricier than,
+expected based on their estimated value? Find, the `RegionName`
+for an example these outliers, and see if it makes sense.
+* Are there any clusters of regions that have higher value than,
+expected based on how cheap they are? Find, the `RegionName`
+for an example of these outliers, and see if it makes sense.
+
+
+b. Collapse the data by computing the average of the median home price 
+per square foot for each (state, date) pair. Then show the price trend 
+over time for each of the top 10 states. 
+
+
+c. Now, subset your `home_per_sqft` dataset to homes located in the Bay Area:
+
+```{r}
+bayarea_counties <- c("Alameda", "Napa", "Santa Clara", "Contra Costa", 
+                      "San Francisco", "Solano", "Marin", "San Mateo", 
+                      "Sonoma")
+bay_area_home <- home_per_sqft %>%
+    filter(CountyName %in% bayarea_counties)
+```
+
+![](http://www.bayareacensus.ca.gov/graphics/BayAreaCounties10.gif)
+
+Filter your observations to the once after "2013-09-01".
+Then generate a boxplot of home prices per square foot for
+the following regions: 
+
+```{r}
+cities <- c("Oakland", "San Francisco", "Berkeley", "San Jose",
+            "San Mateo", "Redwood City", "Mountain View", "Napa",
+            "South San Francisco", "Menlo Park", "Cupertino")
+```
+
+For which region were the median home prices per square foot
+highest over the most recent 5 years period?
+
+
+d. For the same regions plot the prices over time.
+
+
+If you are curious, you can repeat this type of analysis for 
+the listing prices of home sales using the following
+files from zillow: 'City_MedianListingPricePerSqft_AllHomes.csv',
+'City_Zhvi_AllHomes.csv'.
+
+
+# Exercise 3: Interactive graphics with `plotly`
 
 First generate the following (x,y,z) coordinates for your scatter 3D plot:
 ```{r}
 library(plotly)
-
-theta <- 2*pi * runif(1000)
+theta <- 2 * pi * runif(1000)
 phi <- pi * runif(1000)
 x <- sin(phi) * cos(theta)
 y <- sin(phi) * sin(theta)
@@ -30,11 +196,7 @@ dat <- data.frame(x, y, z)
 a. Generate a scatter plot with (x, y, z) coordinates, just computed. What do
 you observe?
 
-
-
-b. Now generate new points as follows. And use `plotly` to create a 3D 
-scatter point plot and a separate line plot. Color the points by
-their ordering in the data-frame.
+b. Now generate new points as follows. 
 
 ```{r}
 N <- 10
@@ -46,5 +208,8 @@ z <- cos(phi)
 dat <- data.frame(x, y, z)
 ```
 
+Then, use `plotly` to create a 3D 
+scatter point plot and a separate line plot. Color the points by
+their ordering in the data-frame.
 
 

@@ -40,7 +40,7 @@ t1 <- "1705"     # 5:05PM
 Download this NCHS dataset on leading Causes of death in the United States, 
 from 1999 to 2015: https://data.cdc.gov/api/views/bi63-dtpu/rows.csv.
 
-Then, import it into R. Are some of the colums the worng type?
+Then, import it into R. Are some of the colums the wrong type?
 If not is there any column that could be a factor instead of character
 type?
 

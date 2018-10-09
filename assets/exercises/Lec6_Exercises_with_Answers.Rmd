@@ -8,6 +8,18 @@ output:
 ---
 
 
+```{r}
+library(tidyverse)
+```
+
+
+# Exercise 1
+
+
+```{r}
+
+```
+
 The flights dataset
 Now we can perform a similar analysis on the flights dataset.
 
@@ -153,85 +165,6 @@ daily %>%
 We can’t do much with this pattern quantitatively, because we only have a single year of data
 
 
-
-# Exercise 1: Hypothesis testing
-
-Similarly to dataset `mtcars`, the dataset `mpg` from `ggplot` package 
-includes data on automobiles. However, `mpg` includes data for newer
-cars from year 1999 and 2008. The variables measured for each car is slighly 
-different. Here we are interested in the variable, `hwy`, the highway miles per 
-gallon.
-
-
-```{r}
-library(ggplot2)
-library(dplyr)
-
-mpg
-# We create a new culumn with manual/automatic data only
-mpg <- mpg %>% 
-  mutate(
-    transmission = factor(gsub("\\((.*)", "", trans), levels = c("auto", "manual"))
-  )
-mpg
-```
-
-## Part 2: One-sample test
-
-a. Subset the `mpg` dataset to inlude only cars from  year 2008.
-
-```{r}
-mpg2008 <- mpg %>% 
-  filter(year == 2008)
-```
-
-b. Test whether cars from 2008 have mean the highway miles per gallon, `hwy`, 
-equal to 30 mpg.
-
-```{r}
-t.test(mpg2008$hwy, mu = 30, alternative = "two.sided")
-```
-
-c. Test whether cars from 2008 with 4 cylinders have mean `hwy` equal to 30 mpg.
-
-```{r}
-mpg2008_4cyl <- mpg %>% 
-  filter(year == 2008, cyl == 4)
-
-t.test(mpg2008_4cyl$hwy, mu = 30, alternative = "two.sided")
-```
-
-## Part 2: Two-sample test
-
-a. Test if the mean `hwy` for automatic is **less than** that for manual cars
-**in 2008**. Generate a boxplot with jittered points for `hwy` for each 
-transmission group.
-
-```{r}
-t.test(data = mpg2008, hwy ~ transmission, alternative = "less")
-# or
-# t.test(x = mpg2008 %>% filter(transmission == "auto") %>% pull(hwy),
-#        y = mpg2008 %>% filter(transmission == "manual") %>% pull(hwy), 
-#        alternative = "less")
-```
-
-```{r}
-ggplot(mpg2008, aes(x = transmission, y = hwy)) +
-  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
-```
-
-b. Test if the mean `hwy` for cars from 1999 and is greater than that for
-cars from 2008. Generate a boxplot with jittered points
-for `hwy` for each year group.
-
-```{r}
-t.test(data = mpg, hwy ~ year, alternative = "greater")
-```
-
-```{r}
-ggplot(mpg, aes(x = factor(year), y = hwy)) +
-  geom_boxplot() + geom_jitter(height = 0, width = 0.2)
-```
 
 
 # Exercise 2: Linear Regression

@@ -1,6 +1,6 @@
 ---
 title: 'Lecture 6: Hypothesis testing and Linear Regression'
-date: "October 19, 2017"
+date: "October 16, 2018"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -25,9 +25,23 @@ lapply(.packages, require, character.only = TRUE)
 
 ## Contents
 
+
+
+<div class="left", style="width: 50%">
+
 * Building Models
+
 * Linear Regression
+
 * Lasso Regression
+
+
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture6-figure/data-science-model.png)
+</div>
+
 
 ## Useful Books
 
@@ -805,7 +819,6 @@ them if necessary to a correct format.
 4. Compute the predictions for the test dataset the two choices of the tuning
 parameter, `lambda.min` and `lambda.1se`. 
 Evaluate the MSE for each.
-
 
 
 

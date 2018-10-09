@@ -47,7 +47,7 @@ parse_time(t1, format = "%H%M")
 
 Download this NCHS dataset on leading Causes of death in the United States, from 1999 to 2015: https://data.cdc.gov/api/views/bi63-dtpu/rows.csv.
 
-Then, import it into R. Are some of the colums the worng type?
+Then, import it into R. Are some of the colums the wrong type?
 If not is there any column that could be a factor instead of character
 type?
 
@@ -127,9 +127,9 @@ movies.summary
 
 ## Part 2: Chaining
 
-Using chaining and pipes, for each genre find the three directors the
-top mean movie scores received for the movies produced after 2000,
-after filtering out the directors with fewer than 5 movies in total.
+Using chaining and pipes, for each genre find the three directors with the
+top mean movie scores received for the movies produced after 2000, but
+do not include the directors with fewer than 3 movies in total.
 Hint: Use `top_n()` function to select top n from each group.
 
 ```{r}

@@ -1,6 +1,6 @@
 ---
 title: "Lecture 8: Exercises with Answers"
-date: October 26th, 2017
+date: October 23th, 2018
 output: 
   html_notebook:
     toc: true
@@ -207,7 +207,7 @@ images of digits (0-9). The data is composed of:
 (on the scale of 0-255), and together form the vectorized version of 
 the 28x28 pixel digit image
 
-![](../lectures/Lecture8_Unsupervised_Learning_files/mnistExamples.png)
+![](../lectures/Lecture8-figure//mnistExamples.png)
 
 Download the data from the course repository:
 

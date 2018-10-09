@@ -5,7 +5,13 @@ output:
   html_notebook:
     toc: true
     toc_float: true
+    df_print: kable
 ---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
 
 # Exercise 1: Customized scatter plot 
 
@@ -18,10 +24,12 @@ The data for the exercises `EconomistData.csv` can be downloaded from
 the class github repository.
 
 ```{r}
-library(tidyverse)
 url <- paste0("https://raw.githubusercontent.com/cme195/cme195.github.io/",
               "master/assets/data/EconomistData.csv")
 dat <- read_csv(url)
+```
+
+```{r}
 head(dat)
 ```
 
@@ -38,7 +46,7 @@ change the span argument in `geom_smooth` to a low value and see what happens.
 Hint: use `geom_smooth` with an appropriate method argument. 
 1. Facet the previous plot by `Region`.
 
-# Exercise 3: Bar plots
+# Exercise 2: Distribution of categorical variables
 
 1. Generate a bar plot showing the number of countries included in the
 dataset from each `Region`.

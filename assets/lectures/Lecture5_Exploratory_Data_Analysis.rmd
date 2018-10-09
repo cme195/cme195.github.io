@@ -332,9 +332,12 @@ flights %>%
   left_join(airlines, by = "carrier")
 ```
 
+## Mutating joins
 
 There are four mutating join functions: 
-- `inner_join()`, 
+
+- `inner_join()`
+
 - outer joins;
     + `left_join()`
     + `right_join()`
@@ -558,6 +561,11 @@ object <- readRDS("path/to/filename.rds")
 ```
 
 
+## Exercise 1
+
+* Go to "Lec5_Exercises.Rmd" on the class website.
+
+* Complete Exercise 1.
 
 # Exploratory data analysis
 
@@ -769,6 +777,12 @@ ggplot(data = diamonds) +
 
 </div>
 
+## Exercise 2
+
+* Go to "Lec5_Exercises.Rmd" on the class website.
+
+* Complete Exercise 2.
+
 # Interactive graphics
 
 ## The `plotly` package
@@ -861,7 +875,11 @@ plot_ly(z = volcano) %>% add_surface()
 
 
 
+## Exercise 3
 
+* Go to "Lec5_Exercises.Rmd" on the class website.
+
+* Complete Exercise 3.
 
 
 

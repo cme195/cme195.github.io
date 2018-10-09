@@ -18,8 +18,10 @@ Exploring data:
 **Lecture 3:** Importing and transforming data.
 [[html](./assets/lectures/Lecture3_Importing_and_Transforming.html)]
 [[pdf](./assets/lectures/Lecture3_Importing_and_Transforming.pdf)]  
-**Lecture 4:** Visualizing data.  
-**Lecture 5:** Exploratory Data Analysis (EDA).    
+**Lecture 4:** Visualizing data.
+[[html](./assets/lectures/Lecture4_Visualizing_data.html)]
+[[pdf](./assets/lectures/Lecture4_Visualizing_data.pdf)]  
+**Lecture 5:** Exploratory Data Analysis (EDA).  
 
 Modeling data:  
 **Lecture 6:** Model building and linear regression.  
@@ -44,10 +46,9 @@ any time. Please check regularly.
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec3_Exercises.Rmd)]
 [[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]  
 **Exercise 4:**
-<!---
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)]
-[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]
+<!---[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 5:**
 <!---

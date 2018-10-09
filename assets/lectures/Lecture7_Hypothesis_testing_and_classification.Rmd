@@ -1,6 +1,6 @@
 ---
 title: 'Lecture 7: Classification'
-date: "October 24, 2017"
+date: "October 18, 2018"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
@@ -26,10 +26,19 @@ sapply(.packages, require, character.only = TRUE)
 
 ## Contents
 
+<div class="left", style="width: 50%">
+
 * Hypothesis testing
+
 * Logistic Regression
+
 * Random Forest
 
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture6-figure/data-science-model.png)
+</div>
 
 # Hypothesis testing
 

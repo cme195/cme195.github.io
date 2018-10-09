@@ -1,96 +1,361 @@
 ---
 title: "Lecture 5: Exercises with answers"
-date: October 11th, 2017
+date: October 11th, 2018
 output: 
   html_notebook:
     toc: true
     toc_float: true
 ---
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
 
 # Exercise 1: Data Manipulation
 
-## Part 1: `purrr` package
+## Part 1: The map functions from `purrr` 
+
+a. Use `purrr` functions to find the column means for `mtcars` dataset.
+Note that the mean performance cars in this dataset is very 
+poor. That's because these models are from the 70s!
+
+```{r}
+map_dbl(mtcars, mean)
+```
+
+b. Use `purrr` functions to generate 10 random normals for each of 
+the mean parameter: $\mu = -18, 5, 10, 30$.
+
+```{r}
+map(c(-18, 5, 10, 30), rnorm, n = 10)
+```
+
+
+c. What is the difference between running ``map(1:5, runif)` 
+`map(list(1:5), rnorm)`, `map(list(1, 2, 3, 4, 5), rnorm)` and 
+`map(1:5, rnorm, n = 5)`?
+
+Below, `map` takes in each argument from a vector: 1, 2, 3, 4, 5
+as the first argument `n = ` for `rnorm()`. So the function
+will generate iteratively: one, two, three, four, five 
+random normal numbers (with default mean 0, and standard deviaton 1).
+
+```{r}
+map(1:5, rnorm)
+```
+
+Below, note that `list(1:5)` is a list of one argument. This first 
+argument is equal to a vector `c(1,2,3,4,5)`, and is supplied to
+`rnorm()` as the first argument, so map only loops over 
+once and is equivalent to calling: `rnorm(c(1,2,3,4,5))`.
+
+```{r}
+map(list(1:5), rnorm)
+```
+
+The syntax below will be equivalent to the first example,
+since now `list(1, 2, 3, 4, 5)` is a list of 5 elements.
+
+```{r}
+map(list(1, 2, 3, 4, 5), rnorm)
+```
+
+The example below is slightly different. Here, since we already
+force the `n` parameter to equal 7, the `map` function will loop over
+the vector `1:5` and supply each of the five elements to `rnorm()` as the
+second argument, `mean = `. Thus, resulting in a list of random normals,
+each of length 7, and each with different mean parameter.
+
+```{r}
+map(1:5, rnorm, n = 7)
+```
+
+d. For looping over multiple arguments you can use `map2()` or `pmap()`
+function. Use `map2()` to generate 5 random numbers with for 
+each pair of mean, and standard devtaion equal to:
+`c(2, 1), c(-3, 10), c(20, 0.1), c(-17, 2)`.
+
+```{r}
+map2(c(2, -3, 20, -17), c(1, 10, 0.1, 2), rnorm, n = 5)
+```
+
+
 
 ## Part 2: Merging
 
+a. Identify the keys in the following datasets
+(you might need to install some packages and read some documentation):
+
+
+* `Lahman::Batting`
+* `nasaweather::atmos`
+* `ggplot2::diamonds`
+
+
+```{r}
+Lahman::Batting %>% 
+    count(playerID, yearID, teamID, lgID, stint) %>% 
+    filter(n > 1)
+```
+
+```{r}
+nasaweather::atmos %>%
+    count(lat, long, year, month) %>% 
+    filter(n > 1)
+```
+
+None of the combination of the variables uniquely identifies observations.
+Thus, the `row number` is the key for the `diamonds` dataset.
+
+```{r}
+ggplot2::diamonds %>%
+    count(carat, cut, color, clarity, depth, table, price, x, y, z)  %>% 
+    filter(n > 1)
+```
+
+b. Add the location (i.e. the lat and lon) of the destination airport  
+to `flights` dataset from `nycflights13` package. Then, construct a new
+data table `mean_delay` containing information on the average arrival
+delay for each destination airport and its location (i.e. the lat and lon).
+Remember that some of the recoreds are missing, so use `na.rm = TRUE`
+when computing means.
+
+```{r}
+library(nycflights13)
+flights2 <- flights %>%
+    left_join(airports, by = c("dest" = "faa")) 
+mean_delay <- flights2 %>%
+    group_by(lat, lon, origin) %>%
+    summarise(mean_dep_delay = mean(arr_delay, na.rm = TRUE))
+```
+
+
+You can plot your data on the map as follows:
+
+```{r, fig.width=8, fig.height=5}
+(plt <- ggplot(mean_delay, aes(lon, lat)) +
+    borders("state") +
+    geom_point(aes(color = mean_dep_delay), size = 3) +
+    coord_quickmap() + theme_bw() +
+    scale_color_viridis_c())
+```
+
+
+
 ## Part 3: Export datasets
 
-Consider the two data-frames below:
+a. Export the `mean_delay` data as a '.tsv' file. Save it on your "Desktop"
+then check the file was properly saved, then delete it.
 
-
-a. Merge the two data tables so that you have all the entries from dataset 
-'election' but for each candidate you have personal information added.
-
-Merge 'personal' to 'elections' the two data tables using `left_join()`
-
-
-Observe what happened to the "year" columns.
-
-Note also, that this did not quite get a reasonable result as `left_join()`
-by default merges two tables by ALL shared variables, so in this case
-"name" AND "year". However, "year" in two data-frames here mean two different 
-things, one is the election year and the other is the year married.
-What we really want is to **merge by** "name" only.
-
-```{r}
-# Note that you need to use QUOTATION marks
-elections %>% left_join(personal, by = "name")
+```{r, eval = FALSE}
+write_tsv(mean_delay, path = "~/Desktop/mean_delay.tsv")
 ```
 
-We can do the reverse operatio and merge 'elections' to 'personal':
+
+b. Check what objects are currently stored in your environment using `ls()`.
+Save `mean_delay` as a R object using `saveRDS()` function to save
+it as am '.rds' file. Then, select 2 different objects from the environment 
+and use `save()` to save them to an '.rda' file. Then, remove these
+objects and the `mean_delay` tibble. Check that you can reload these
+objects from files you saved.
+
 
 ```{r}
-# Note that this gives you fewer rows:
-personal %>% left_join(elections, by = "name")
+ls()
 ```
 
-b. Imagine that you have two data-frames where the columns you want to merge
-by do not share the same name like in the example below. Try to merge
-the two datasets now, by using appropriate input arguments to `left_join()`.
+Saving as R objects:
+
+```{r, eval = FALSE}
+saveRDS(mean_delay, file = "~/Desktop/mean_delay.rds")
+save(list = c("plt", "flights2"), file = "~/Desktop/two_objects.rda")
+```
+
+Now, you can delete the objects:
+
+```{r}
+rm(mean_delay, flights2, plt)
+ls()
+```
+
+And then load them in using the following:
+
+```{r}
+mean_delay <- readRDS("~/Desktop/mean_delay.rds")
+mean_delay
+```
+
+
+```{r}
+load("~/Desktop/two_objects.rda")
+ls()
+```
+
+
 
 # Exercise 2: Exploratory Data Analysis
 
-Task: relationship between distance and average delay for each location.
+Zillow provides data on home prices, including median rental
+price per square feet and the median estimated home value. 
+There are many more statistics provided by zillow in [this website](https://www.zillow.com/research/data/) 
+that you can explore.
 
 ```{r}
-by_dest <- group_by(flights, dest)
-delay <- summarise(by_dest,
-  count = n(),                 # Count the number of occurrences
-  dist = mean(distance, na.rm = TRUE),
-  delay = mean(arr_delay, na.rm = TRUE) )
-delay <- filter(delay, count > 20, dest != "HNL")
-```
+zillow_url1 <- paste0("http://files.zillowstatic.com/research/public/City/",
+                    "City_MedianRentalPricePerSqft_AllHomes.csv")
+zillow_url2 <- paste0("http://files.zillowstatic.com/research/public/City/",
+                      "City_ZriPerSqft_AllHomes.csv")
 
-It looks like delays increase
-with distance up to ~750 miles
-and then decrease.
-
-```{r}
-ggplot(delay, 
-  aes(x=dist, y=delay)) +
-  geom_point(aes(size=count),
-             alpha=1/3) +
-  geom_smooth(se = FALSE)
-
+price_per_sqft <- read_csv(zillow_url1) 
+value_per_sqft <- read_csv(zillow_url2) 
 ```
 
 
-## Understanding missing values
+```{r}
+# First, we tidy the datasets:
+price_per_sqft <- price_per_sqft %>%
+    select(-Metro) %>%
+    gather(`2010-01`:`2018-08`, key = "date", value = "price") 
+value_per_sqft <- value_per_sqft %>%
+    select(RegionID:CountyName, `2011-01`:`2018-08`) %>%
+    gather(`2011-01`:`2018-08`, key = "date", value = "value") 
 
-What makes observations with missing values different?
+# Do the inner join:
+home_per_sqft <- price_per_sqft %>%
+    inner_join(value_per_sqft)
 
-For example, in flights, missing dep_time for cancelled flights.
+# Format dates:
+home_per_sqft <- home_per_sqft %>%
+    mutate(date = paste0(date, "-01"),
+           date = as.Date(date))
 
-Compare scheduled departure times for cancelled and non-cancelled times.
+# We filter to only top 10 priciest states this year
+# excluding DC and HI:
+top10_States <- home_per_sqft %>%
+    filter(date >= as.Date("2018-01-01")) %>%
+    filter(State != "HI", State != "DC") %>%
+    group_by(State) %>%
+    summarise(price = mean(price, na.rm = TRUE)) %>%
+    top_n(10)
+
+home_per_sqft <- home_per_sqft %>%
+    filter(State %in% top10_States$State)
+
+#rm(price_per_sqft, value_per_sqft)
+```
+
+The most expensive states by median home price per sq. ft. are:
 
 ```{r}
-nycflights13::flights %>% mutate(cancelled = is.na(dep_time),
-    sched_hour=sched_dep_time%/%100, sched_min=sched_dep_time%%100,
-    sched_dep_time=sched_hour+sched_min/60
-  ) %>% ggplot(aes(sched_dep_time)) + scale_y_log10() + 
-    geom_freqpoly(aes(color=cancelled), binwidth=1/4)
+top10_States
 ```
+
+
+a. For the current year (2018), 
+using the filtered `home_per_sqft` dataset show the relationship
+between the value and the price per square foot of homes in
+10 chosen states. The value is a dollar-denominated 
+and estimated by Zillow.
+
+* Is there a correlation between the price and the value per square foot?
+* Are there any atypical trends you observe?
+* Are there any clusters of regions that are pricier than,
+expected based on their estimated value? Find, the `RegionName`
+for an example these outliers, and see if it makes sense.
+* Are there any clusters of regions that have higher value than,
+expected based on how cheap they are? Find, the `RegionName`
+for an example of these outliers, and see if it makes sense.
+
+```{r }
+home_per_sqft %>%
+    filter(date >= as.Date("2018-01-01")) %>%
+    ggplot(aes(x = value, y = price)) +
+    geom_point(aes(color = State), alpha = 0.3) +
+    theme(legend.position = "bottom") +
+    geom_smooth()
+```
+
+```{r}
+home_per_sqft %>% 
+    filter(date >= as.Date("2018-01-01")) %>%
+    filter(price > 5, value > 4)
+```
+
+```{r}
+home_per_sqft %>% 
+    filter(date >= as.Date("2018-01-01")) %>%
+    filter(price > 3, value < 2)
+```
+
+```{r}
+home_per_sqft %>% 
+    filter(date >= as.Date("2018-01-01")) %>%
+    filter(price < 2.2, value > 2.8)
+```
+
+b. Collapse the data by computing the average of the median home price 
+per square foot for each (state, date) pair. Then show the price trend 
+over time for each of the top 10 states. 
+
+```{r}
+df <- home_per_sqft %>%
+    group_by(State, date) %>%
+    summarise(
+        price = mean(price, na.rm = TRUE),
+        value = mean(value, na.rm = TRUE)) 
+
+ggplot(data = df, aes(x = date, y = price, color = State)) +
+    geom_line(lwd = 0.7)
+```
+
+
+c. Now, subset your `home_per_sqft` dataset to homes located in the Bay Area:
+
+```{r}
+bayarea_counties <- c("Alameda", "Napa", "Santa Clara", "Contra Costa", 
+                      "San Francisco", "Solano", "Marin", "San Mateo", 
+                      "Sonoma")
+bay_area_home <- home_per_sqft %>%
+    filter(CountyName %in% bayarea_counties)
+```
+
+![](http://www.bayareacensus.ca.gov/graphics/BayAreaCounties10.gif)
+
+Filter your observations to the once after "2013-09-01".
+Then generate a boxplot of home prices per square foot for
+the following regions: 
+
+```{r}
+cities <- c("Oakland", "San Francisco", "Berkeley", "San Jose",
+            "San Mateo", "Redwood City", "Mountain View", "Napa",
+            "South San Francisco", "Menlo Park", "Cupertino")
+```
+
+For which region were the median home prices per square foot
+highest over the most recent 5 years period?
+
+```{r}
+df <- bay_area_home %>%
+    filter(date >= as.Date("2013-09-01")) %>%
+    filter(RegionName %in% cities) 
+ggplot(df, aes(x = RegionName, y = price)) +
+    geom_boxplot(aes(color = CountyName)) +
+    coord_flip()
+```
+
+d. For the same regions plot the prices over time.
+
+```{r}
+ggplot(df) +
+    geom_line(aes(date, price, color = RegionName))
+```
+
+
+If you are curious, you can repeat this type of analysis for 
+the listing prices of home sales using the following
+files from zillow: 'City_MedianListingPricePerSqft_AllHomes.csv',
+'City_Zhvi_AllHomes.csv'.
 
 
 # Exercise 3: Interactive graphics with `plotly`
@@ -98,8 +363,7 @@ nycflights13::flights %>% mutate(cancelled = is.na(dep_time),
 First generate the following (x,y,z) coordinates for your scatter 3D plot:
 ```{r}
 library(plotly)
-
-theta <- 2*pi * runif(1000)
+theta <- 2 * pi * runif(1000)
 phi <- pi * runif(1000)
 x <- sin(phi) * cos(theta)
 y <- sin(phi) * sin(theta)
@@ -115,9 +379,7 @@ plot_ly(dat, x = ~x, y = ~y, z = ~z,
         type = "scatter3d", mode = "markers", marker = list(size = 3))
 ```
 
-b. Now generate new points as follows. And use `plotly` to create a 3D 
-scatter point plot and a separate line plot. Color the points by
-their ordering in the data-frame.
+b. Now generate new points as follows. 
 
 ```{r}
 N <- 10
@@ -128,6 +390,10 @@ y <- sin(phi) * sin(theta)
 z <- cos(phi)
 dat <- data.frame(x, y, z)
 ```
+
+Then, use `plotly` to create a 3D 
+scatter point plot and a separate line plot. Color the points by
+their ordering in the data-frame.
 
 
 ```{r}

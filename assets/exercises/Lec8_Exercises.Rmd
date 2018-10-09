@@ -1,11 +1,15 @@
 ---
-title: "Lecture 8: Exercises with Answers"
-date: October 26th, 2017
+title: "Lecture 8: Exercises"
+date: October 23th, 2018
 output: 
   html_notebook:
     toc: true
     toc_float: true
 ---
+
+```{r}
+library(tidyverse)
+```
 
 
 # Exercise I: Principal Component Analysis
@@ -23,18 +27,23 @@ a. Use `prcomp()` to compute a PCA for `mtcars`. Remember to set the
 scale parameter, as the variables are in different units and have different
 ranges
 
+
 b. Generate a scree plot and note how many dimensions should you retain.
+
 
 c. Compute the percentage of variance explained by each of the principal
 components.
+
 
 d. Generate a biplot for the PCA projection. Use the loadings matrix to inspect
 which variables contributes most to PC1 and which to PC2. What do the PC1 and
 PC2 correspond to? How are the cars distributed on this representation?
 Does the "car map" make sense?
 
+
 e. You can install the package `ggfortify` and use `autoplot` on `prcomp`
 objects to generate easily ggplots.
+
 
 
 # Exercise 2: Cluster Analysis
@@ -46,9 +55,12 @@ We will generate synthetic clustered data to use for k-means clustering.
 ```{r}
 set.seed(489576)
 N <- 1000
-C1 <- data.frame(cluster = "C1", x = rnorm(n = N, mean = 1), y = rnorm(n = N, mean = 1))
-C2 <- data.frame(cluster = "C2", x = rnorm(n = N, mean = -2), y = rnorm(n = N, mean = -5))
-C3 <- data.frame(cluster = "C3", x = rnorm(n = N, mean = 5), y = rnorm(n = N, mean = 1))
+C1 <- data.frame(cluster = "C1", x = rnorm(n = N, mean = 1),
+                 y = rnorm(n = N, mean = 1))
+C2 <- data.frame(cluster = "C2", x = rnorm(n = N, mean = -2), 
+                 y = rnorm(n = N, mean = -5))
+C3 <- data.frame(cluster = "C3", x = rnorm(n = N, mean = 5), 
+                 y = rnorm(n = N, mean = 1))
 DF <- rbind(C1, C2, C3)
 ```
 
@@ -60,10 +72,13 @@ ggplot(DF, aes(x, y, color = cluster)) +
 a. Apply k-means with k = 3 (as you know the true number of clusters).
 Pring the cluster centers.
 
+
 b. Print a confusion map to compare k-means cluster assignment with
 the true cluster labels.
 
+
 c. Generate a scatter plot of points, now colored by the cluster assignment.
+
 
 d. Now pretend that you don't know the real number of clusters. Use k = 4
 and recompute kmeans. Plot the results and see what happened.
@@ -92,10 +107,11 @@ gene.expression <- Khan$xtrain
 dim(gene.expression)
 ```
 
-
 a. Compute a (Euclidean) distance matrix between each pair of samples.
 
+
 b. Perform hierarchical clustering using average linkage.
+
 
 c. Plot a dendrogram associated with the hierarchical clustering you just
 computed. In this example, you actually have the lables of the tissue samples,
@@ -104,7 +120,7 @@ corresponding to `Khan$ytrain`, check if the clustering performed groups the
 observations from same tumor class nearby. 
 
 
-# Exercise Extra: 2D visualization of MNIST data
+## Exercise Extra: 2D visualization of MNIST data
 
 * Download MNIST data of the digits images from 
 [Kaggle competition](https://www.kaggle.com/c/digit-recognizer).
@@ -118,7 +134,7 @@ images of digits (0-9). The data is composed of:
 (on the scale of 0-255), and together form the vectorized version of 
 the 28x28 pixel digit image
 
-![](../lectures/Lecture8_Unsupervised_Learning_files/mnistExamples.png)
+![](../lectures/Lecture8-figure/mnistExamples.png)
 
 Download the data from the course repository:
 
@@ -133,10 +149,24 @@ train[1:10, 1:10]
 a. Compute and the PCA for the data. Then, extract the first two principal
 component scores for the data.
 
+
 b. Plot the 2D principal component scores matrix.
+
 
 c. Compute a tSNE embedding.
 
+
 d. Visualize the tSNE 2D projection.
 
+
 e. What do you observe? How does tSNE compare with PCA in this case?
+
+tSNE seems to be much better at separating digits from each other
+
+
+
+
+
+
+
+

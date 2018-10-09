@@ -3,8 +3,6 @@ title: "Homework"
 author: 'Assigned: October 6, 2018'
 date: 'Due: October 19, 2018 at 11:59pm'
 output:
-  word_document:
-    toc: yes
   pdf_document:
     number_sections: no
   html_notebook:
@@ -68,11 +66,12 @@ to the specific homework problems.
 
 Compute the following using R:
 
-* $4.84 * \log_10(51!)$
+* $4.84 * \log_{10}(51!)$, where $x!$ is factorial of $x$
 * $4.02 \sqrt[3]{7^2 + e^7}$
 * $20\cos( 2\pi + 0.25) + 32 \sin \left({3 \pi \over 4} \right)$
 * $\left \lfloor {4.011 \pi \over 3}  {5 \choose 2} \right \rfloor$, where
 $\lfloor x \rfloor$ means rounding to the largest integer not greater than x.
+where ${x \choose y}$ is the notation for [combination](https://en.wikipedia.org/wiki/Combination)
 * $8.1 \sum_{i = 1}^{100} {1 \over i}$
 
 
