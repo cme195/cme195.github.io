@@ -24,7 +24,7 @@ Exploring data:
 **Lecture 5:** Exploratory Data Analysis (EDA).  
 
 Modeling data:  
-**Lecture 6:** Model building and linear regression.  
+**Lecture 6:** Data modeling and linear regression.  
 **Lecture 7:** Hypothesis testing and classification.  
 **Lecture 8:** Unsupervised techniques in R.    
 
@@ -47,9 +47,7 @@ any time. Please check regularly.
 [[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]  
 **Exercise 4:**
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)]
-<!---[[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]
---->  
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)][[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]  
 **Exercise 5:**
 <!---
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]

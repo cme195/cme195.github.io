@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Lan Huong Nguyen" />
+  <meta name="dcterms.date" content="2018-10-16" />
+  <title>Lecture 6: Data modeling and linear regression</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 6: Data modeling and linear regression</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
+    <h2 class="author">Lan Huong Nguyen</h2>
+    <h3 class="date">October 16, 2018</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><p>Data Modeling</p></li>
+<li><p>Linear Regression</p></li>
+<li><p>Lasso Regression</p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture6-figure/data-science-model.png" /></p>
+</div>
+</section>
+<section><section id="data-modeling" class="titleslide slide level1"><h1>Data Modeling</h1></section><section id="introduction-to-models" class="slide level2">
+<h2>Introduction to models</h2>
+<blockquote>
+<p>“<strong>All models are wrong, but some are useful</strong>. Now it would be very remarkable if any system existing in the real world could be exactly represented by any simple model. However, <strong>cunningly chosen parsimonious models often do provide remarkably useful approximations</strong> (…). For such a model there is no need to ask the question”Is the model true?“. If”truth&quot; is to be the “whole truth” the answer must be “No”. The only question of interest is “Is the model illuminating and useful?” – George E.P. Box, 1976</p>
+</blockquote>
+<ul>
+<li><p>The goal of a model is to <strong>provide a simple low-dimensional summary of a dataset</strong>.</p></li>
+<li><p>Models can be used to <strong>partition data into patterns of interest and residuals</strong> (other sources of variation and random noise).</p></li>
+</ul>
+</section><section id="hypothesis-generation-vs.hypothesis-confirmation" class="slide level2">
+<h2>Hypothesis generation vs. hypothesis confirmation</h2>
+<p></br></p>
+<ul>
+<li><p>Usually models are used for inference or confirmation of a pre-specified hypothesis.</p></li>
+<li><p>Doing inference correctly is hard. The key idea you must understand is that: <strong>Each observation can either be used for exploration or confirmation, NOT both.</strong></p></li>
+<li><p>Observation can be used many times for exploration, but only once for confirmation.</p></li>
+<li><p>There is nothing wrong with exploration, but you should <strong>never sell an exploratory analysis as a confirmatory analysis</strong> because it is fundamentally misleading.</p></li>
+</ul>
+</section><section id="confirmatory-analysis" class="slide level2">
+<h2>Confirmatory analysis</h2>
+<p>If you plan to do confirmatory analysis at some point after EDA, one approach is to split your data into three pieces before you begin the analysis:</p>
+<ul>
+<li><p><strong>Training set</strong> – the bulk (e.g. 60%) of the dataset which can be used to do anything: visualising, fitting multiple models.</p></li>
+<li><p><strong>Validation set</strong> – a smaller set (e.g. 20%) used for manually comparing models and visualizations.</p></li>
+<li><p><strong>Test set</strong> – a set (e.g. 20%) held back used only ONCE to test and asses your final model.</p></li>
+</ul>
+</section><section id="confirmatory-analysis-1" class="slide level2">
+<h2>Confirmatory analysis</h2>
+<ul>
+<li><p>Partitioning the dataset allows you to explore the training data, generate a number of candidate hypotheses and models.</p></li>
+<li><p>You can select a final model based on its performace on the validation set.</p></li>
+<li><p>Finally, when you are confident with the chosen model you can check how good it is using the test data.</p></li>
+<li><p><em>Note that even when doing confirmatory modeling, you will still need to do EDA. If you don’t do any EDA you might remain blind to some quality problems with your data.</em></p></li>
+</ul>
+</section><section id="model-basics" class="slide level2">
+<h2>Model Basics</h2>
+<p></br></p>
+<p>There are two parts to data modeling:</p>
+<ul>
+<li><strong>defining a family of models</strong>: deciding on a set of models that can express a type of pattern you want to capture, e.g. a straight line, or a quadratic curve.</li>
+<li><strong>fitting a model</strong>: finding a model within the family that the closest to your data.</li>
+</ul>
+<p></br></p>
+<p>A fitted model is just the best model from a chosen family of models, i.e. the “best” according to some set criteria.</p>
+<p>This does not necessarily imply that the model is a good and certainly does NOT imply that the model is true.</p>
+</section><section id="the-modelr-package" class="slide level2">
+<h2>The <code>modelr</code> package</h2>
+<p></br></p>
+<ul>
+<li><p>The <code>modelr</code> package, provides a few useful functions that are wrappers around base R’s modeling functions.</p></li>
+<li><p>These functions facilitate the data analysis process as they are nicely integrated with the <code>tidyverse</code> pipeline.</p></li>
+<li><p><code>modelr</code> is not automatically loaded when you load in <code>tidyverse</code> package, you need to do it separately:</p></li>
+</ul>
+<p></br></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(modelr)</code></pre></div>
+</section><section id="a-toy-dataset" class="slide level2">
+<h2>A toy dataset</h2>
+<p>We will work with a simulated dataset <code>sim1</code> from <code>modelr</code>:</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1</code></pre></div>
+<pre><code>## # A tibble: 30 x 2
+##        x     y
+##    &lt;int&gt; &lt;dbl&gt;
+##  1     1  4.20
+##  2     1  7.51
+##  3     1  2.13
+##  4     2  8.99
+##  5     2 10.2 
+##  6     2 11.3 
+##  7     3  7.36
+##  8     3 10.5 
+##  9     3 10.5 
+## 10     4 12.4 
+## # ... with 20 more rows</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" /></p>
+</div>
+</section><section id="defining-a-family-of-models" class="slide level2">
+<h2>Defining a family of models</h2>
+<p>The relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> for the points in <code>sim1</code> look linear. So, will look for models which belong to <strong>a family of models</strong> of the following form:</p>
+<div class="left" ,="" style="width: 50%">
+<p></br></p>
+<p><span class="math display">\[y= \beta_0 + \beta_1 \cdot x\]</span></p>
+<p></br></p>
+<p>The models that can be expressed by the above formula, can adequately capture a linear trend.</p>
+<p>We generate a few examples of the models from this family on the right.</p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">b0 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, <span class="op">-</span><span class="dv">20</span>, <span class="dv">40</span>),
+    <span class="dt">b1 =</span> <span class="kw">runif</span>(<span class="dv">250</span>, <span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>))
+
+<span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_abline</span>(
+      <span class="dt">data =</span> models, 
+      <span class="kw">aes</span>(<span class="dt">intercept =</span> b0, <span class="dt">slope =</span> b1), 
+      <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" /></p>
+</div>
+</section><section id="fitting-a-model" class="slide level2">
+<h2>Fitting a model</h2>
+<p>From all the lines in the linear family of models, we need to find the best one, i.e. the one that is <strong>the closest to the data</strong>.</p>
+<p>This means that we need to find parameters <span class="math inline">\(\hat a_0\)</span> and <span class="math inline">\(\hat a_1\)</span> that identify such a fitted line.</p>
+<div class="left" ,="" style="width: 50%">
+<p>The closest to the data can be defined as the one with the minimum distance to the data points in the <span class="math inline">\(y\)</span> direction (the minimum residuals):</p>
+<span class="math display">\[\begin{align*}
+\|\hat e\|^2_2 &amp;= \|\vec y - \hat y\|_2^2\\
+&amp;= \|\vec y - (\hat \beta_0 + \hat \beta_1 x)\|_2^2\\
+&amp;= \sum_{i = 1}^n (y_i - (\hat \beta_0 + \hat \beta_1 x_i))^2
+\end{align*}\]</span>
+</div>
+<div class="right", style="width: 50%">
+
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
+</section></section>
+<section><section id="linear-regression" class="titleslide slide level1"><h1>Linear Regression</h1></section><section id="linear-regression-1" class="slide level2">
+<h2>Linear Regression</h2>
+<p></br></p>
+<ul>
+<li class="fragment">Regression is a supervised learning method, whose goal is inferring the relationship between input data, <span class="math inline">\(x\)</span>, and a <strong>continuous</strong> response variable, <span class="math inline">\(y\)</span>.</li>
+</ul>
+<ul>
+<li class="fragment"><strong>Linear regression</strong> is a type of regression where <strong><span class="math inline">\(y\)</span> is modeled as a linear function of <span class="math inline">\(x\)</span></strong>.</li>
+</ul>
+<ul>
+<li class="fragment"><strong>Simple linear regression</strong> predicts the output <span class="math inline">\(y\)</span> from a single predictor <span class="math inline">\(x\)</span>. <span class="math display">\[y = \beta_0 + \beta_1 x + \epsilon\]</span></li>
+</ul>
+<ul>
+<li class="fragment"><strong>Multiple linear regression</strong> assumes <span class="math inline">\(y\)</span> relies on many covariates: <span class="math display">\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
+\vec \beta \vec x + \epsilon\]</span></li>
+</ul>
+<ul>
+<li class="fragment">here <span class="math inline">\(\epsilon\)</span> denotes a random noise term with zero mean.</li>
+</ul>
+</section><section id="objective-function" class="slide level2">
+<h2>Objective function</h2>
+<p>Linear regression seeks a solution <span class="math inline">\(\hat y = \hat \beta \cdot \vec x\)</span> that <strong>minimizes the difference between the true outcome <span class="math inline">\(y\)</span> and the prediction <span class="math inline">\(\hat y\)</span></strong>, in terms of the residual sum of squares (RSS).</p>
+<p><span class="math display">\[
+arg \min\limits_{\hat \beta} 
+\sum_i \left(y_i - \boldsymbol{\hat \beta}^T \boldsymbol{x}_i\right)^2
+\]</span></p>
+</section><section id="simple-linear-regression" class="slide level2">
+<h2>Simple Linear Regression</h2>
+<ul>
+<li><p>Predict the mileage per gallon using the weight of the car.</p></li>
+<li><p>In R the linear models can be fit with a <code>lm()</code> function.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, mtcars)
+<span class="co"># The fitted coefficients beta are:</span>
+<span class="kw">coef</span>(mtcars_fit)</code></pre></div>
+<pre><code>## (Intercept)          wt 
+##   37.285126   -5.344472</code></pre>
+<p>We can check the details on the fitted model by calling:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mtcars_fit)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+</section><section id="predictions" class="slide level2">
+<h2>Predictions</h2>
+<p>We can compute <span class="math inline">\(\hat y\)</span>, the predicted <code>mpg</code> values for observations in <code>mtcars</code> using <code>modelr::add_predictions()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
+<span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+##                       pred
+## Mazda RX4         23.28261
+## Mazda RX4 Wag     21.91977
+## Datsun 710        24.88595
+## Hornet 4 Drive    20.10265
+## Hornet Sportabout 18.90014
+## Valiant           18.79325</code></pre>
+<p>To predict the <code>mpg</code> for <strong>new observations</strong>, e.g. cars not in the dataset, we first need to generate a data table with predictors <span class="math inline">\(x\)</span>, in this case the car weights:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.1</span>, <span class="fl">3.14</span>, <span class="fl">4.1</span>, <span class="fl">4.3</span>))
+newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
+<span class="kw">head</span>(newcars)</code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##      wt  pred
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  2     26.6
+## 2  2.1   26.1
+## 3  3.14  20.5
+## 4  4.1   15.4
+## 5  4.3   14.3</code></pre>
+</section><section id="visualizing-the-model" class="slide level2">
+<h2>Visualizing the model</h2>
+<p>Now we can compare our predictions (grey) to the observed (black) values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mpg)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">size =</span> <span class="dv">2</span>) </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-10-1.png" width="768" /></p>
+</section><section id="visualizing-the-residuals" class="slide level2">
+<h2>Visualizing the residuals</h2>
+<p><strong>The residuals tell you what the model has missed</strong>. We can compute and add residuals to data with <code>add_residuals()</code> from <code>modelr</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_residuals</span>(mtcars_fit)
+<span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+##                       pred      resid
+## Mazda RX4         23.28261 -2.2826106
+## Mazda RX4 Wag     21.91977 -0.9197704
+## Datsun 710        24.88595 -2.0859521
+## Hornet 4 Drive    20.10265  1.2973499
+## Hornet Sportabout 18.90014 -0.2001440
+## Valiant           18.79325 -0.6932545</code></pre>
+<p>Ploting residuals is a good practice – you want the residuals to look like random noise.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, resid)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="768" /></p>
+</section><section id="formulae-in-r" class="slide level2">
+<h2>Formulae in R</h2>
+<p>You have seen that <code>lm()</code> takes in a formula relation <code>y ~ x</code> as an argument.</p>
+<p>You can take a look at what R actually does, you can use the <code>model_matrix()</code>.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(sim1, y <span class="op">~</span><span class="st"> </span>x)</code></pre></div>
+<pre><code>## # A tibble: 30 x 2
+##    `(Intercept)`     x
+##            &lt;dbl&gt; &lt;dbl&gt;
+##  1             1     1
+##  2             1     1
+##  3             1     1
+##  4             1     2
+##  5             1     2
+##  6             1     2
+##  7             1     3
+##  8             1     3
+##  9             1     3
+## 10             1     4
+## # ... with 20 more rows</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(mtcars, mpg <span class="op">~</span><span class="st"> </span>wt)</code></pre></div>
+<pre><code>## # A tibble: 32 x 2
+##    `(Intercept)`    wt
+##            &lt;dbl&gt; &lt;dbl&gt;
+##  1             1  2.62
+##  2             1  2.88
+##  3             1  2.32
+##  4             1  3.22
+##  5             1  3.44
+##  6             1  3.46
+##  7             1  3.57
+##  8             1  3.19
+##  9             1  3.15
+## 10             1  3.44
+## # ... with 22 more rows</code></pre>
+</div>
+</section><section id="formulae-with-categorical-variables" class="slide level2">
+<h2>Formulae with categorical variables</h2>
+<ul>
+<li><p>It doesn’t make sense to parametrize the model with categorical variables, as we did before.</p></li>
+<li><p><code>trans</code> variable is not a number, so R creates <strong>an indicator column</strong> that is 1 if “male”, and 0 if “female”.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span>),
+             <span class="dt">response =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>))
+<span class="kw">model_matrix</span>(df, response <span class="op">~</span><span class="st"> </span>sex)</code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   `(Intercept)` sexmale
+##           &lt;dbl&gt;   &lt;dbl&gt;
+## 1             1       1
+## 2             1       0
+## 3             1       0
+## 4             1       0
+## 5             1       1
+## 6             1       1</code></pre>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>In general, it creates k−1 columns, where k is the number of categories.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">rating =</span> <span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),
+             <span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>))
+<span class="kw">model_matrix</span>(df, score <span class="op">~</span><span class="st"> </span>rating)</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   `(Intercept)` ratingbad ratinggood
+##           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1             1         0          1
+## 2             1         1          0
+## 3             1         0          0
+## 4             1         0          0
+## 5             1         0          1
+## 6             1         1          0</code></pre>
+<p>But you don’t need to worry about the parametrization to make predictions.</p>
+</section><section id="multiple-linear-regression" class="slide level2">
+<h2>Multiple Linear Regression</h2>
+<p>We might like to predict <code>mpg</code> using weight, displacement and the number of cylinders in the car.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">col=</span>cyl, <span class="dt">size=</span>disp)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_color_viridis_c</span>()</code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-17-1.png" width="1152" /></p>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_mfit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)
+
+<span class="co"># Summarize the results </span>
+<span class="kw">summary</span>(mtcars_mfit)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp + cyl, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4035 -1.4028 -0.4955  1.3387  6.0722 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 41.107678   2.842426  14.462 1.62e-14 ***
+## wt          -3.635677   1.040138  -3.495  0.00160 ** 
+## disp         0.007473   0.011845   0.631  0.53322    
+## cyl         -1.784944   0.607110  -2.940  0.00651 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.595 on 28 degrees of freedom
+## Multiple R-squared:  0.8326, Adjusted R-squared:  0.8147 
+## F-statistic: 46.42 on 3 and 28 DF,  p-value: 5.399e-11</code></pre>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<p>To <strong>predict <code>mpg</code> for new cars</strong>, you must first create a data frame describing the attributes of the new cars:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(newcars &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
+    <span class="dt">wt =</span> <span class="kw">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>, <span class="fl">5.1</span>), <span class="dt">disp =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">250</span>), <span class="dt">cyl =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">6</span>)))</code></pre></div>
+<pre><code>##     wt disp cyl
+## 1  2.1  150   4
+## 2  3.6  150   4
+## 3  5.1  150   4
+## 4  2.1  250   4
+## 5  3.6  250   4
+## 6  5.1  250   4
+## 7  2.1  150   6
+## 8  3.6  150   6
+## 9  5.1  150   6
+## 10 2.1  250   6
+## 11 3.6  250   6
+## 12 5.1  250   6</code></pre>
+<p>Then you can compute the predicted <code>mpg</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_mfit)
+<span class="kw">head</span>(newcars)</code></pre></div>
+<pre><code>##    wt disp cyl     pred
+## 1 2.1  150   4 27.45392
+## 2 3.6  150   4 22.00041
+## 3 5.1  150   4 16.54689
+## 4 2.1  250   4 28.20121
+## 5 3.6  250   4 22.74770
+## 6 5.1  250   4 17.29418</code></pre>
+</section><section id="interaction-terms" class="slide level2">
+<h2>Interaction terms</h2>
+<ul>
+<li><p>An interaction occurs when <strong>an independent variable has a different effect on the outcome depending on the values of another independent</strong>. variable.</p></li>
+<li><p>For example, one variable, <span class="math inline">\(x_1\)</span> might have a different effect on <span class="math inline">\(y\)</span> within different categories or groups, given by variable <span class="math inline">\(x_2\)</span>.</p></li>
+<li><p>If you are not familiar with the concept of the interaction terms, read <a href="http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/interaction.pdf">this</a>.</p></li>
+</ul>
+</section><section id="formulas-with-interactions" class="slide level2">
+<h2>Formulas with interactions</h2>
+<p>In the <code>sim3</code> dataset, there is a categorical, <code>x2</code>, and a continuous, <code>x1</code>, predictor.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> x2)) </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" /></p>
+</section><section id="models-with-interactions" class="slide level2">
+<h2>Models with interactions</h2>
+<p>We could fit two different models</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)  <span class="co"># Model without interactions</span>
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)  <span class="co"># Model with interactions</span></code></pre></div>
+<p>The model that uses * has a different slope and intercept for each line.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data_grid</span>(x1, x2) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># data grid for two variables</span>
+<span class="st">    </span><span class="kw">gather_predictions</span>(mod1, mod2)       <span class="co"># predictions from both models</span>
+
+<span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y, <span class="dt">color=</span>x2)) <span class="op">+</span><span class="st">   </span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">                       </span><span class="co"># plot data points</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>grid, <span class="kw">aes</span>(<span class="dt">y=</span>pred)) <span class="op">+</span><span class="st">  </span><span class="co"># add predictions for each model</span>
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)                  <span class="co"># show one plot for each model</span></code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" /></p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<p>Now we fit <strong>interaction effects</strong> for the <code>mtcars</code> dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_inter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>am <span class="op">*</span><span class="st"> </span>wt, mtcars)
+<span class="kw">names</span>(<span class="kw">coefficients</span>(mfit_inter))</code></pre></div>
+<pre><code>## [1] &quot;(Intercept)&quot; &quot;am&quot;          &quot;wt&quot;          &quot;am:wt&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mfit_inter)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ am * wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.6004 -1.5446 -0.5325  0.9012  6.0909 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
+## am           14.8784     4.2640   3.489  0.00162 ** 
+## wt           -3.7859     0.7856  -4.819 4.55e-05 ***
+## am:wt        -5.2984     1.4447  -3.667  0.00102 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.591 on 28 degrees of freedom
+## Multiple R-squared:  0.833,  Adjusted R-squared:  0.8151 
+## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
+</section><section id="exercise-1" class="slide level2">
+<h2>Exercise 1</h2>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec6_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="lasso-regression" class="titleslide slide level1"><h1>Lasso Regression</h1></section><section id="choosing-a-model" class="slide level2">
+<h2>Choosing a model</h2>
+<ul>
+<li>Modern datasets often have “too” many variables, e.g. predict the risk of a disease from the single nucleotide polymorphisms (SNPs) data.</li>
+<li><strong>Issue:</strong> <span class="math inline">\(n \ll p\)</span> i.e. no. of predictors is much larger than than the no. of observations.</li>
+<li><strong>Lasso regression</strong> is especially useful for problems, where</li>
+</ul>
+<blockquote>
+<p>the number of available covariates is extremely large, but only a handful of them are relevant for the prediction of the outcome.</p>
+</blockquote>
+</section><section id="lasso-regression-1" class="slide level2">
+<h2>Lasso Regression</h2>
+<ul>
+<li>Lasso regression is simply regression with <span class="math inline">\(L_1\)</span> penalty.</li>
+<li>That is, it solves the problem:</li>
+</ul>
+<p><span class="math display">\[\hat \beta ^*  = arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} 
+- \hat \beta x^{(i)}\right)^2 + \lambda \|\hat \beta\|_1\]</span></p>
+<ul>
+<li><p>It turns out that the <span class="math inline">\(L_1\)</span> norm <span class="math inline">\(\|\vec x\|_1 = \sum_j |x_j|\)</span> <strong>promotes sparsity</strong>.</p></li>
+<li><p>The solution, <span class="math inline">\(\hat \beta^*\)</span>, usually has only a small number of non-zero coefficients.</p></li>
+<li><p>The number of non-zero coefficients depends on the choice of the tuning parameter, <span class="math inline">\(\lambda\)</span>. The higher the <span class="math inline">\(\lambda\)</span> the fewer non-zero coefficients.</p></li>
+</ul>
+</section><section id="glmnet" class="slide level2">
+<h2><code>glmnet</code></h2>
+<ul>
+<li>Lasso regression is implemented in an R package <code>glmnet</code>.</li>
+<li>An introductory tutorial to the package can be found <a href="https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html">here</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;glmnet&quot;)</span>
+<span class="kw">library</span>(glmnet)</code></pre></div>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<ul>
+<li>We go back to <code>mtcars</code> datasets and use Lasso regression to predict the <code>mpg</code> using all variables.</li>
+<li>Lasso will pick a subset of predictors (the ones with non-zero coefficents) that best predict the <code>mpg</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+##                       pred      resid
+## Mazda RX4         23.28261 -2.2826106
+## Mazda RX4 Wag     21.91977 -0.9197704
+## Datsun 710        24.88595 -2.0859521
+## Hornet 4 Drive    20.10265  1.2973499
+## Hornet Sportabout 18.90014 -0.2001440
+## Valiant           18.79325 -0.6932545</code></pre>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>mtcars[, <span class="dv">1</span>]  <span class="co"># mileage per gallon </span>
+x &lt;-<span class="st"> </span>mtcars[, <span class="op">-</span><span class="dv">1</span>] <span class="co"># all other variables treated as predictors</span>
+x &lt;-<span class="st"> </span><span class="kw">data.matrix</span>(x, <span class="st">&quot;matrix&quot;</span>) <span class="co"># converts to NUMERIC matrix</span>
+<span class="co"># Choose a training set</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+trainIdx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mtcars), <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(mtcars)))
+fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], y[trainIdx])
+<span class="kw">names</span>(fit)</code></pre></div>
+<pre><code>##  [1] &quot;a0&quot;        &quot;beta&quot;      &quot;df&quot;        &quot;dim&quot;       &quot;lambda&quot;   
+##  [6] &quot;dev.ratio&quot; &quot;nulldev&quot;   &quot;npasses&quot;   &quot;jerr&quot;      &quot;offset&quot;   
+## [11] &quot;call&quot;      &quot;nobs&quot;</code></pre>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<ul>
+<li><code>glmnet()</code> compute the Lasso regression for a sequence of different tuning parameters, <span class="math inline">\(\lambda\)</span>.</li>
+<li>Each row of <code>print(fit)</code> corresponds to a particular <span class="math inline">\(\lambda\)</span> in the sequence.</li>
+<li>column <code>Df</code> denotes the number of non-zero coefficients (degrees of freedom),</li>
+<li><code>%Dev</code> is the percentage variance explained,</li>
+<li><code>Lambda</code> is the value of the currently chosen tuning parameter.</li>
+</ul>
+</section><section id="section-7" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.</span>
+<span class="kw">plot</span>(fit, <span class="dt">label =</span> <span class="ot">TRUE</span>) </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-28-1.png" width="480" /></p>
+<ul>
+<li>the y-axis corresponds the value of the coefficients.</li>
+<li>the x-axis is denoted “<span class="math inline">\(L_1\)</span> norm” but is scaled to indicate the number of non-zero coefficients (the effective degrees of freedom).</li>
+</ul>
+</section><section id="section-8" class="slide level2">
+<h2></h2>
+<ul>
+<li>Each curve corresponds to a single variable, and shows the value of the coefficient as the tuning parameter varies.</li>
+<li><span class="math inline">\(\|\hat \beta\|_{L_1}\)</span> increases and <span class="math inline">\(\lambda\)</span> decreases from left to right.</li>
+<li>When <span class="math inline">\(\lambda\)</span> is small (right) there are more non-zero coefficients.</li>
+</ul>
+<p>The computed Lasso coefficient for a particular choice of <span class="math inline">\(\lambda\)</span> can be printed using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Lambda = 1</span>
+<span class="kw">coef</span>(fit, <span class="dt">s =</span> <span class="dv">1</span>)</code></pre></div>
+<pre><code>## 13 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                         1
+## (Intercept)  3.420946e+01
+## cyl         -4.330870e-01
+## disp         .           
+## hp           .           
+## drat         .           
+## wt          -3.607123e+00
+## qsec         .           
+## vs           .           
+## am           .           
+## gear         .           
+## carb         .           
+## pred         5.277804e-14
+## resid        4.487821e-01</code></pre>
+</section><section id="section-9" class="slide level2">
+<h2></h2>
+<ul>
+<li>Like for <code>lm()</code>, we can use a function <code>predict()</code> to predict the <code>mpg</code> for the training or the test data.</li>
+<li>However, we need specify the value of <span class="math inline">\(\lambda\)</span> using the argument <code>s</code>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict for the test set:</span>
+<span class="kw">predict</span>(fit, <span class="dt">newx =</span> x[<span class="op">-</span>trainIdx, ], <span class="dt">s =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">2</span>))</code></pre></div>
+<pre><code>##                           1        2        3
+## Datsun 710         22.98787 23.35680 23.22262
+## Valiant            18.46043 19.17780 19.41920
+## Duster 360         15.20733 17.02203 17.74858
+## Merc 230           22.48611 21.85228 21.50396
+## Merc 450SE         16.42561 16.48012 16.71324
+## Cadillac Fleetwood 11.36782 13.29995 14.26985
+## Chrysler Imperial  14.42390 13.87395 14.07314
+## Fiat 128           30.01150 25.24027 23.47110
+## Toyota Corolla     31.31826 26.16220 24.22690
+## Toyota Corona      21.95892 22.86836 22.92237</code></pre>
+<p>Each of the columns corresponds to a choice of <span class="math inline">\(\lambda\)</span>.</p>
+</section><section id="choosing-lambda" class="slide level2">
+<h2>Choosing <span class="math inline">\(\lambda\)</span></h2>
+<ul>
+<li>To choose <span class="math inline">\(\lambda\)</span> can use <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">cross-validation</a>.</li>
+<li>Use <code>cv.glmnet()</code> function to perform a k-fold cross validation.</li>
+</ul>
+<blockquote>
+<p>In k-fold cross-validation, the original sample is randomly partitioned into k equal sized subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</blockquote>
+</section><section id="section-10" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="co"># `nfolds` argument sets the number of folds (k).</span>
+cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx, ], y[trainIdx], <span class="dt">nfolds =</span> <span class="dv">5</span>)
+<span class="kw">plot</span>(cvfit)</code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-31-1.png" width="480" /></p>
+<ul>
+<li>The <span style="color:red">red dots</span> are the average MSE over the k-folds.</li>
+<li>The two chosen <span class="math inline">\(\lambda\)</span> values are the one with <span class="math inline">\(MSE_{min}\)</span> and one with <span class="math inline">\(MSE_{min} + sd_{min}\)</span></li>
+</ul>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
+<p><span class="math inline">\(\lambda\)</span> with minimum MSE:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit<span class="op">$</span>lambda.min</code></pre></div>
+<pre><code>## [1] 0.1242844</code></pre>
+<p>The biggest <span class="math inline">\(\lambda\)</span> such that the MSE is within one standard error of the minimum MSE.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit<span class="op">$</span>lambda.1se</code></pre></div>
+<pre><code>## [1] 0.1242844</code></pre>
+</section><section id="extra-exercise" class="slide level2">
+<h2>Extra Exercise</h2>
+<p>In this exercise you will perform Lasso regression yourself. We will use the <code>Boston</code> dataset from the <code>MASS</code> package. The dataset contains information on the Boston suburbs housing market collected by David Harrison in 1978.</p>
+<p>We will try to predict the median value of of homes in the region based on its attributes recorded in other variables.</p>
+<p>First install the package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;MASS&quot;)</span>
+<span class="kw">library</span>(MASS)</code></pre></div>
+</section><section id="section-12" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Boston, <span class="dv">3</span>)</code></pre></div>
+<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
+## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+##   lstat medv
+## 1  4.98 24.0
+## 2  9.14 21.6
+## 3  4.03 34.7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(Boston)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    506 obs. of  14 variables:
+##  $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...
+##  $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...
+##  $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...
+##  $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...
+##  $ rm     : num  6.58 6.42 7.18 7 7.15 ...
+##  $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 100 85.9 ...
+##  $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...
+##  $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...
+##  $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...
+##  $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...
+##  $ black  : num  397 397 393 395 397 ...
+##  $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...
+##  $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 16.5 18.9 ...</code></pre>
+</section><section id="section-13" class="slide level2">
+<h2></h2>
+<p>Split the data to training and testing subsets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+trainIdx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Boston), <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(Boston)))
+boston.test &lt;-<span class="st"> </span>Boston[<span class="op">-</span>trainIdx,<span class="st">&quot;medv&quot;</span>]</code></pre></div>
+<p>Perform a Lasso regression with <code>glmnet</code>. Steps:</p>
+<ol type="1">
+<li>Extract the input and output data from the <code>Boston</code> <code>data.frame</code> and convert them if necessary to a correct format.</li>
+<li>Use cross-validation to select the value for <span class="math inline">\(\lambda\)</span>.</li>
+<li>Inspect comuted coefficients for <code>lambda.min</code>.</li>
+<li>Compute the predictions for the test dataset the two choices of the tuning parameter, <code>lambda.min</code> and <code>lambda.1se</code>. Evaluate the MSE for each.</li>
+</ol>
+</section></section>
+<section><section id="more-on-models" class="titleslide slide level1"><h1>More on models</h1></section><section id="building-models" class="slide level2">
+<h2>Building Models</h2>
+<p>Building models is an important part of EDA.</p>
+<p>It takes practice to gain an intutition for which patterns to look for and what predictors to select that are likely to have an important effect.</p>
+<p>You should go over examples in <a href="http://r4ds.had.co.nz/model-building.html" class="uri">http://r4ds.had.co.nz/model-building.html</a> to see concrete examples of how a model is built for <code>diamonds</code> and <code>nycflights2013</code> datasets we have seen before.</p>
+</section><section id="other-model-families" class="slide level2">
+<h2>Other model families</h2>
+<p>This chapter has focussed exclusively on the class of linear models <span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
+\vec \beta \vec x + \epsilon
+\]</span></p>
+<p>and penalised linear models.</p>
+<p>There are a large set of other model classes.</p>
+<p>Extensions of linear models:</p>
+<ul>
+<li>Generalised linear models, <code>stats::glm()</code>, binary or count data.</li>
+<li>Generalised additive models, <code>mgcv::gam()</code>, extend generalised linear models to incorporate arbitrary smooth functions.</li>
+<li>Robust linear models, <code>MASS:rlm()</code>, less sensitive to outliers.</li>
+</ul>
+<p>Completely different models:</p>
+<ul>
+<li>Trees, <code>rpart::rpart()</code>, fit a piece-wise constant model splitting the data into progressively smaller and smaller pieces.</li>
+<li>Random forests, <code>randomForest::randomForest()</code>, aggregate many different trees.</li>
+<li>Gradient boosting machines, <code>xgboost::xgboost()</code>, aggregate trees.</li>
+</ul>
+</section><section id="useful-books" class="slide level2">
+<h2>Useful Books</h2>
+<ul>
+<li><p><a href="http://www-bcf.usc.edu/~gareth/ISL/getbook.html">“An introduction to Statistical Learning”</a> [ISL] by James, Witten, Hastie and Tibshirani</p></li>
+<li><p><a href="http://www.springer.com/gp/book/9780387848570">“Elements of statistical learning”</a> [ESL] by Hastie, Tibshirani and Friedman</p></li>
+<li><p><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html">“Introduction to Linear Regression Analysis”</a> by Montgomery, Peck, Vinning</p></li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation" class="uri">https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation</a><a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

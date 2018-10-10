@@ -1,5 +1,5 @@
 ---
-title: 'Lecture 8: Unsupervised Learning'
+title: 'Lecture 8: Unsupervised learning'
 subtitle: 'CME/STATS 195'
 date: "October 23, 2018" 
 author: "Lan Huong Nguyen"

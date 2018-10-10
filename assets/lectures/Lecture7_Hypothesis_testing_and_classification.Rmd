@@ -1,5 +1,7 @@
 ---
-title: 'Lecture 7: Classification'
+title: 'Lecture 7: Hypothesis testing and classification'
+subtitle: 'CME/STATS 195'
+author: "Lan Huong Nguyen"
 date: "October 18, 2018"
 output: 
   revealjs::revealjs_presentation:

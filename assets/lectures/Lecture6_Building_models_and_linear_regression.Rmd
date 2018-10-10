@@ -1,0 +1,784 @@
+---
+title: "Lecture 6: Data modeling and linear regression"
+subtitle: 'CME/STATS 195'
+author: "Lan Huong Nguyen"
+date: "October 16, 2018"
+output: 
+  revealjs::revealjs_presentation:
+    self_contained: false
+    lib_dir: libs
+    theme: simple
+    hightlights: haddock
+    smart: true
+    center: true
+    transition: slide
+    css: cme195.css
+    fig_width: 8
+    fig_height: 5
+    reveal_options:
+      slideNumber: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+library(tidyverse)
+theme_set(theme_bw())
+theme_update(text = element_text(size = 20))
+```
+
+## Contents
+
+
+<div class="left", style="width: 50%">
+
+* Data Modeling 
+
+* Linear Regression
+
+* Lasso Regression
+
+
+</div>
+
+<div class="right", style="width: 50%">
+![](./Lecture6-figure/data-science-model.png)
+</div>
+
+
+# Data Modeling
+
+## Introduction to models
+
+> "**All models are wrong, but some are useful**. Now it would be very remarkable 
+if any system existing in the real world could be exactly represented by any 
+simple model. However, **cunningly chosen parsimonious models often do provide 
+remarkably useful approximations** (...). For such a model there is no need 
+to ask the question "Is the model true?". If "truth" is to be the "whole truth"
+the answer must be "No". The only question of interest is "Is the model 
+illuminating and useful?" -- George E.P. Box, 1976
+
+* The goal of a model is to **provide a simple low-dimensional summary 
+of a dataset**.
+
+* Models can be used to **partition data into patterns of interest 
+and residuals** (other sources of variation and random noise).
+
+
+## Hypothesis generation vs. hypothesis confirmation
+
+</br>
+
+* Usually models are used for inference or confirmation of a pre-specified
+hypothesis.
+
+* Doing inference correctly is hard. The key idea you must understand is that:
+**Each observation can either be used for exploration or confirmation, 
+NOT both.**
+
+* Observation can be used many times for exploration, but only once for 
+confirmation. 
+
+* There is nothing wrong with exploration, but you should **never sell 
+an exploratory analysis as a confirmatory analysis** because it is 
+fundamentally misleading.
+
+
+## Confirmatory analysis
+
+
+If you plan to do confirmatory analysis at some point after EDA,
+one approach is to split your data into three pieces before you 
+begin the analysis:
+
+* **Training set** -- the bulk (e.g. 60%) of the dataset which can be used to
+do anything: visualising, fitting multiple models.
+
+* **Validation set** -- a smaller set (e.g. 20%) used for manually comparing 
+models and visualizations.
+
+* **Test set** -- a set (e.g. 20%) held back used only ONCE to test and
+asses your final model.
+
+
+## Confirmatory analysis
+
+- Partitioning the dataset allows you to explore the training data, generate
+a number of candidate hypotheses and models.
+
+- You can select a final model based on its performace on the validation
+set.
+
+- Finally, when you are confident with the chosen model you can
+check how good it is using the test data.
+
+- *Note that even when doing confirmatory modeling, you will still need to 
+do EDA. If you don’t do any EDA you might remain blind to some quality 
+problems with your data.*
+
+
+## Model Basics
+
+</br>
+
+There are two parts to data modeling:
+
+* **defining a family of models**: deciding on a set of models
+that can express a type of pattern you want to capture, e.g. a straight line, 
+or a quadratic curve.
+* **fitting a model**: finding a model within the family that the closest to 
+your data.
+
+</br>
+
+A fitted model is just the best model from a chosen family of models,
+i.e. the "best" according to some set criteria.
+
+This does not necessarily imply that the model is a good and certainly does 
+NOT imply that the model is true.
+
+
+## The `modelr` package
+
+</br>
+
+* The `modelr` package, provides a few useful functions that are wrappers 
+around base R’s modeling functions.
+
+* These functions facilitate the data analysis process
+as they are nicely integrated with the `tidyverse` pipeline.
+
+* `modelr` is not automatically loaded when you load in `tidyverse` package,
+you need to do it separately:
+
+</br>
+
+```{r}
+library(modelr)
+```
+
+
+
+## A toy dataset
+
+We will work with a simulated dataset `sim1` from `modelr`:
+
+<div class="left", style="width: 50%">
+```{r}
+sim1
+```
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+ggplot(sim1, aes(x, y)) + geom_point()
+```
+
+</div>
+
+## Defining a family of models
+
+The relationship between $x$ and $y$ for the points in `sim1` look linear.
+So, will look for models which belong to **a family of models** of 
+the following form:
+
+
+<div class="left", style="width: 50%">
+</br>
+
+$$y= \beta_0 + \beta_1 \cdot x$$
+
+</br>
+
+The models that can be expressed by the above formula, can adequately
+capture a linear trend. 
+
+We generate a few examples of the models from this family on the right. 
+
+</div>
+
+<div class="right", style="width: 50%">
+```{r}
+models <- tibble(
+    b0 = runif(250, -20, 40),
+    b1 = runif(250, -5, 5))
+
+ggplot(sim1, aes(x, y)) + 
+  geom_abline(
+      data = models, 
+      aes(intercept = b0, slope = b1), 
+      alpha = 1/4) +
+  geom_point() 
+```
+
+
+</div>
+
+
+## Fitting a model
+
+From all the lines in the linear family of models, we need to find the best 
+one, i.e. the one that is **the closest to the data**. 
+
+This means that we need to find parameters $\hat a_0$ and $\hat a_1$ that 
+identify such a fitted line.
+
+<div class="left", style="width: 50%">
+
+The closest to the data can be defined as the one with the minimum distance to
+the data points in the $y$ direction (the minimum residuals):
+
+\begin{align*}
+\|\hat e\|^2_2 &= \|\vec y - \hat y\|_2^2\\
+&= \|\vec y - (\hat \beta_0 + \hat \beta_1 x)\|_2^2\\
+&= \sum_{i = 1}^n (y_i - (\hat \beta_0 + \hat \beta_1 x_i))^2
+\end{align*}
+
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r, echo = FALSE}
+fit.lm <- lm(y ~ x, data = sim1)
+sim1 <- sim1 %>% add_predictions(fit.lm)
+ggplot(sim1, aes(x, y)) +
+    geom_line(aes(y = pred), colour = "black", size = 1) +
+    geom_segment(aes(xend = x, yend = pred), color = "royalblue", size =  1) +
+    geom_point(color = "grey60") 
+```
+
+
+# Linear Regression
+
+## Linear Regression
+
+</br>
+
+> - Regression is a supervised learning method, whose goal is inferring the 
+relationship between input data, $x$, and a **continuous** response 
+variable, $y$.
+
+> - **Linear regression** is a type of regression where **$y$ is modeled as a 
+linear function of $x$**. 
+
+> - **Simple linear regression** predicts the output $y$ from a single predictor 
+$x$. 
+\[y = \beta_0 + \beta_1 x + \epsilon\]
+
+> - **Multiple linear regression** assumes $y$ relies on many covariates:
+\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
+\vec \beta \vec x + \epsilon\]
+
+> - here $\epsilon$ denotes a random noise term with zero mean.
+
+## Objective function
+
+Linear regression seeks a solution $\hat y = \hat \beta \cdot \vec x$ 
+that **minimizes the difference between the true outcome $y$ and the 
+prediction $\hat y$**, in terms of the residual sum of squares (RSS).
+
+$$
+arg \min\limits_{\hat \beta} 
+\sum_i \left(y_i - \boldsymbol{\hat \beta}^T \boldsymbol{x}_i\right)^2
+$$
+
+
+## Simple Linear Regression
+
+* Predict the mileage per gallon using the weight of the car.
+
+* In R the linear models can be fit with a `lm()` function.
+
+```{r}
+mtcars_fit <- lm(mpg ~ wt, mtcars)
+# The fitted coefficients beta are:
+coef(mtcars_fit)
+```
+
+We can check the details on the fitted model by calling:
+```{r}
+summary(mtcars_fit)
+```
+
+## Predictions
+
+We can compute $\hat y$, the predicted `mpg` values for observations
+in `mtcars` using `modelr::add_predictions()` function.
+
+```{r}
+mtcars <- mtcars %>% add_predictions(mtcars_fit)
+head(mtcars)
+```
+
+To predict the `mpg` for **new observations**, e.g. cars not in the dataset,
+we first need to generate a data table with predictors $x$, in this case
+the car weights:
+
+```{r}
+newcars <- tibble(wt = c(2, 2.1, 3.14, 4.1, 4.3))
+newcars <- newcars %>% add_predictions(mtcars_fit)
+head(newcars)
+```
+
+
+## Visualizing the model
+
+Now we can compare our predictions (grey) to the observed (black) values.
+
+```{r}
+ggplot(mtcars, aes(wt)) + geom_point(aes(y = mpg)) +
+    geom_line(aes(y = pred), color = "red", size = 1) +
+    geom_point(aes(y = pred), fill = "grey", color = "black", shape = 21, size = 2) 
+```
+
+
+  
+  
+## Visualizing the residuals
+
+**The residuals tell you what the model has missed**. We can compute and add
+residuals to data with `add_residuals()` from `modelr` package:
+
+```{r}
+mtcars <- mtcars %>% add_residuals(mtcars_fit)
+head(mtcars)
+```
+
+Ploting residuals is a good practice -- you want the residuals to look 
+like random noise.
+
+```{r}
+ggplot(mtcars, aes(wt, resid)) + geom_ref_line(h = 0, colour = "grey") + geom_point() 
+```
+
+## Formulae in R
+
+You have seen that `lm()` takes in a formula relation `y ~ x` as an argument.
+
+You can take a look at what R actually does, you can use the `model_matrix()`.
+
+<div class="left", style="width: 50%">
+
+```{r}
+model_matrix(sim1, y ~ x)
+```
+
+
+</div>
+
+<div class="right", style="width: 50%">
+
+```{r}
+model_matrix(mtcars, mpg ~ wt)
+```
+
+</div>
+
+
+## Formulae with categorical variables
+
+* It doesn't make sense to parametrize the model with categorical variables,
+as we did before. 
+
+* `trans` variable is not a number, so R creates **an indicator column**
+that is 1 if "male", and 0 if "female".
+
+```{r}
+df <- tibble(sex = c("male", "female", "female", "female", "male", "male"),
+             response = c(2, 5, 1, 3, 6, 8))
+model_matrix(df, response ~ sex)
+```
+
+## 
+
+* In general, it creates k−1 columns, where k is the number of categories.
+
+```{r}
+df <- tibble(rating = c("good", "bad", "average", "average", "good", "bad"),
+             score = c(2, 5, 1, 3, 6, 8))
+model_matrix(df, score ~ rating)
+```
+
+But you don’t need to worry about the parametrization to make predictions.
+
+
+## Multiple Linear Regression
+
+We might like to predict `mpg` using weight, displacement and the number of 
+cylinders in the car.
+
+```{r fig.height=5.5, fig.width=12}
+ggplot(mtcars, aes(x=wt, y=mpg, col=cyl, size=disp)) + 
+    geom_point() +
+    scale_color_viridis_c()
+```
+
+##
+
+```{r}
+mtcars_mfit <- lm(mpg ~ wt + disp + cyl, data = mtcars)
+
+# Summarize the results 
+summary(mtcars_mfit)
+```
+
+
+##
+
+To **predict `mpg` for new cars**, you must first create a data frame 
+describing the attributes of the new cars:
+
+```{r}
+(newcars <- expand.grid(
+    wt = c(2.1, 3.6, 5.1), disp = c(150, 250), cyl = c(4, 6)))
+```
+
+Then you can compute the predicted `mpg`
+
+```{r}
+newcars <- newcars %>% add_predictions(mtcars_mfit)
+head(newcars)
+```
+
+
+## Interaction terms
+
+* An interaction occurs when **an independent variable has a different
+effect on the outcome depending on the values of another independent**. 
+variable.
+
+* For example, one variable, $x_1$ might have a different effect on $y$ within 
+different categories or groups, given by variable $x_2$.
+
+* If you are not familiar with the concept of the interaction terms,
+read [this](http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/interaction.pdf).
+
+
+## Formulas with interactions
+
+In the `sim3` dataset, there is a categorical, `x2`, and a continuous, `x1`,
+predictor.
+
+```{r}
+ggplot(sim3, aes(x=x1, y=y)) + geom_point(aes(color = x2)) 
+```
+
+
+
+## Models with interactions
+
+We could fit two different models
+
+```{r}
+mod1 <- lm(y ~ x1 + x2, data = sim3)  # Model without interactions
+mod2 <- lm(y ~ x1 * x2, data = sim3)  # Model with interactions
+```
+
+The model that uses * has a different slope and intercept for each line.
+
+```{r}
+grid <- sim3 %>% data_grid(x1, x2) %>% # data grid for two variables
+    gather_predictions(mod1, mod2)       # predictions from both models
+
+ggplot(sim3, aes(x=x1, y=y, color=x2)) +   
+    geom_point() +                       # plot data points
+    geom_line(data=grid, aes(y=pred)) +  # add predictions for each model
+    facet_wrap(~ model)                  # show one plot for each model
+```
+
+
+
+## 
+
+Now we fit **interaction effects** for the `mtcars` dataset:
+```{r}
+mfit_inter <- lm(mpg ~ am * wt, mtcars)
+names(coefficients(mfit_inter))
+summary(mfit_inter)
+```
+
+
+## Exercise 1
+
+</br>
+
+- Go to the "Lec6_Exercises.Rmd" file, which can be downloaded
+from the class website under the Lecture tab.
+
+- Complete Exercise 1.
+
+
+# Lasso Regression
+
+## Choosing a model
+
+* Modern datasets often have "too" many variables, e.g. predict the risk 
+of a disease from the single nucleotide polymorphisms (SNPs) data.
+* **Issue:** $n \ll p$ i.e. no. of predictors is much larger than than the
+no. of observations. 
+* **Lasso regression** is especially useful for problems,
+where 
+
+> the number of available covariates is extremely large, but
+only a handful of them are relevant for the prediction of the outcome.
+
+
+## Lasso Regression
+
+* Lasso regression is simply regression with $L_1$ penalty. 
+* That is, it solves the problem:
+
+\[\hat \beta ^*  = arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} 
+- \hat \beta x^{(i)}\right)^2 + \lambda \|\hat \beta\|_1\]
+
+* It turns out that the $L_1$ norm $\|\vec x\|_1 = \sum_j |x_j|$ **promotes
+sparsity**.
+
+* The solution, $\hat \beta^*$, usually has only a small number of 
+non-zero coefficients. 
+
+* The number of non-zero coefficients depends on the choice of 
+the tuning parameter, $\lambda$. The higher the
+$\lambda$ the fewer non-zero coefficients.
+
+
+## `glmnet`
+
+* Lasso regression is implemented in an R package `glmnet`.
+* An introductory tutorial to the package can be found 
+[here](https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html).
+
+```{r}
+# install.packages("glmnet")
+library(glmnet)
+```
+
+
+##
+
+* We go back to `mtcars` datasets and use Lasso regression
+to predict the `mpg` using all variables.
+* Lasso will pick a subset of predictors (the ones with non-zero 
+coefficents) that best predict the `mpg`.
+
+```{r}
+head(mtcars)
+```
+
+## 
+```{r}
+y <- mtcars[, 1]  # mileage per gallon 
+x <- mtcars[, -1] # all other variables treated as predictors
+x <- data.matrix(x, "matrix") # converts to NUMERIC matrix
+# Choose a training set
+set.seed(123)
+trainIdx <- sample(1:nrow(mtcars), round(0.7 * nrow(mtcars)))
+fit <- glmnet(x[trainIdx, ], y[trainIdx])
+names(fit)
+```
+
+##
+
+* `glmnet()` compute the Lasso regression for a sequence of 
+different tuning parameters, $\lambda$. 
+* Each row of `print(fit)` corresponds to a particular
+$\lambda$ in the sequence.
+* column `Df` denotes the number of non-zero coefficients
+(degrees of freedom), 
+* `%Dev` is the percentage variance explained, 
+* `Lambda` is the value of the currently chosen tuning parameter. 
+
+##
+
+```{r fig.height=3.5, fig.width=5}
+# label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.
+plot(fit, label = TRUE) 
+```
+
+* the y-axis corresponds the value of the coefficients.
+* the x-axis is denoted "$L_1$ norm" but is scaled to indicate
+the number of non-zero coefficients (the effective degrees 
+of freedom).
+
+##
+
+* Each curve corresponds to a single variable, and shows the value
+of the coefficient as the tuning parameter varies.
+* $\|\hat \beta\|_{L_1}$ increases and $\lambda$
+decreases from left to right.
+* When $\lambda$ is small (right) there are more non-zero coefficients.
+
+
+The computed Lasso coefficient for a particular choice of $\lambda$ can be
+printed using:
+
+```{r}
+# Lambda = 1
+coef(fit, s = 1)
+```
+
+##
+
+* Like for `lm()`, we can use a function `predict()` to 
+predict the `mpg` for the training or the test data. 
+* However, we need specify the value of $\lambda$ using
+the argument `s`.
+
+```{r}
+# Predict for the test set:
+predict(fit, newx = x[-trainIdx, ], s = c(0.5, 1.5, 2))
+```
+
+Each of the columns corresponds to a choice of $\lambda$.
+
+## Choosing $\lambda$
+
+* To choose $\lambda$ can use [cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics)).
+* Use `cv.glmnet()` function to perform a k-fold cross validation.
+
+> In k-fold cross-validation, the original sample is randomly partitioned into 
+k equal sized subsamples. Of the k subsamples, a single subsample is retained 
+as the validation data for testing the model, and the remaining k − 1 
+subsamples are used as training data. ^[https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation]
+
+
+##
+
+```{r fig.width=5, fig.height=3.5}
+set.seed(1)
+# `nfolds` argument sets the number of folds (k).
+cvfit <- cv.glmnet(x[trainIdx, ], y[trainIdx], nfolds = 5)
+plot(cvfit)
+```
+
+* The <span style="color:red">red dots</span> are the average MSE over the k-folds.
+* The two chosen $\lambda$ values are the one with $MSE_{min}$ and 
+one with $MSE_{min} + sd_{min}$
+
+## 
+
+$\lambda$ with minimum MSE:
+```{r}
+cvfit$lambda.min
+```
+
+
+The biggest $\lambda$ such that the MSE is within one standard error 
+of the minimum MSE.
+```{r}
+cvfit$lambda.1se
+```
+
+
+## Extra Exercise
+
+In this exercise you will perform Lasso regression yourself.
+We will use the `Boston` dataset from the `MASS` package.
+The dataset contains information on the Boston suburbs 
+housing market collected by David Harrison in 1978.
+
+We will try to predict the median value of of homes in the region based on 
+its attributes recorded in other variables.
+
+First install the package:
+```{r}
+# install.packages("MASS")
+library(MASS)
+```
+
+##
+```{r}
+head(Boston, 3)
+str(Boston)
+```
+
+##
+
+Split the data to training and testing subsets.
+```{r}
+set.seed(123)
+trainIdx <- sample(1:nrow(Boston), round(0.7 * nrow(Boston)))
+boston.test <- Boston[-trainIdx,"medv"]
+```
+
+
+Perform a Lasso regression with `glmnet`. Steps:
+  
+1. Extract the input and output data from the `Boston` `data.frame` and convert
+them if necessary to a correct format.
+2. Use cross-validation to select the value for $\lambda$.
+3. Inspect comuted coefficients for `lambda.min`.
+4. Compute the predictions for the test dataset the two choices of the tuning
+parameter, `lambda.min` and `lambda.1se`. 
+Evaluate the MSE for each.
+
+
+# More on models 
+
+## Building Models
+
+Building models is an important part of EDA.
+
+It takes practice to gain an intutition for which patterns to look for
+and what predictors to select that are likely to have an important effect.
+
+You should go over examples in http://r4ds.had.co.nz/model-building.html
+to see concrete examples of how a model is built for `diamonds`
+and `nycflights2013` datasets we have seen before.
+
+## Other model families
+
+This chapter has focussed exclusively on the class of linear models
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
+\vec \beta \vec x + \epsilon
+\]
+
+and penalised linear models.
+
+There are a large set of other model classes.
+
+Extensions of linear models:
+    
+* Generalised linear models, `stats::glm()`, binary or count data.
+* Generalised additive models, `mgcv::gam()`, extend generalised linear models
+to incorporate arbitrary smooth functions.
+* Robust linear models, `MASS:rlm()`, less sensitive to outliers.
+
+Completely different models:
+    
+* Trees, `rpart::rpart()`, fit a piece-wise constant model splitting the 
+data into progressively smaller and smaller pieces.
+* Random forests, `randomForest::randomForest()`, aggregate many different 
+trees.
+* Gradient boosting machines, `xgboost::xgboost()`, aggregate trees.
+
+
+## Useful Books
+
+* ["An introduction to Statistical Learning"](http://www-bcf.usc.edu/~gareth/ISL/getbook.html) [ISL] by James, Witten, Hastie and Tibshirani 
+
+* ["Elements of statistical learning"](http://www.springer.com/gp/book/9780387848570) [ESL] by Hastie, Tibshirani and Friedman 
+
+* ["Introduction to Linear Regression Analysis"](http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470542810.html) by Montgomery, Peck, Vinning
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
