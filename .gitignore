@@ -4,3 +4,4 @@ assets/*/*_cache/*
 .Rproj.user
 *.Rproj
 */*.Rproj
+.Rhistory
