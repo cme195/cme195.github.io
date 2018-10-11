@@ -22,7 +22,8 @@ Exploring data:
 [[html](./assets/lectures/Lecture4_Visualizing_Data.html)]
 [[pdf](./assets/lectures/Lecture4_Visualizing_Data.pdf)]  
 **Lecture 5:** Exploratory Data Analysis (EDA).  
-
+[[html](./assets/lectures/Lecture5_Exploratory_Data_Analysis.html)]
+[[pdf](./assets/lectures/Lecture5_Exploratory_Data_Analysis.pdf)]  
 Modeling data:  
 **Lecture 6:** Data modeling and linear regression.  
 **Lecture 7:** Hypothesis testing and classification.  
@@ -49,9 +50,9 @@ any time. Please check regularly.
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)][[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]  
 **Exercise 5:**
-<!---
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)]  
+<!---
 [[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 6:**

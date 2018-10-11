@@ -53,7 +53,7 @@ theme_update(text = element_text(size = 20))
 </div>
 
 <div class="right", style="width: 50%">
-![](./Lecture4-figure/data-science-explore.png)
+![](./Lecture5-figure/data-science-explore.png)
 </div>
 
 
@@ -571,6 +571,9 @@ object <- readRDS("path/to/filename.rds")
 
 ## What is exploratory data analysis (EDA)?
 
+> There are no routine statistical questions, only questionable 
+statistical routines. \ — Sir David Cox
+
 EDA is an iterative process:
 
 - Generate questions about your data
@@ -578,24 +581,17 @@ EDA is an iterative process:
 
 Use what you learn to refine your questions or generate new ones.
 
-Some comments about EDA:
 
-- It is not a formal process with a strict set of rules.
-- Explore many ideas: some will pan out, others will be dead ends.
-- Even if questions are predefined, quality of data still needs to be assessed
-
+![](./Lecture5-figure/data-science-explore.png)
 
 
 ## Asking questions
 
 Your goal during EDA is to develop an understanding of your data.
 
-> “There are no routine statistical questions, only questionable statistical routines.” \
-— Sir David Cox
+> EDA is fundamentally a creative process. And like most creative processes, 
+the key to asking quality questions is to generate a large quantity of questions.[^1]
 
-
-*EDA is fundamentally a creative process. And like most creative processes, 
-the key to asking quality questions is to generate a large quantity of questions.* [^1]
 [^1]: (http://r4ds.had.co.nz/exploratory-data-analysis.html#questions)
 
 Two types of questions will always be useful for making
@@ -603,6 +599,12 @@ discoveries within your data:
 
 1. What type of variation occurs within my variables?
 1. What type of covariation occurs between my variables?
+
+Some comments about EDA:
+
+- It is not a formal process with a strict set of rules.
+- Explore many ideas: some will pan out, others will be dead ends.
+- Even if questions are predefined, quality of data still needs to be assessed
 
 
 

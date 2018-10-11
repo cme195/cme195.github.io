@@ -120,7 +120,7 @@ home_per_sqft <- home_per_sqft %>%
 The most expensive states by median home price per sq. ft. are:
 
 ```{r}
-top10_States
+top10_States$State
 ```
 
 
