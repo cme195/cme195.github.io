@@ -21,7 +21,7 @@ Exploring data:
 **Lecture 4:** Visualizing data.
 [[html](./assets/lectures/Lecture4_Visualizing_Data.html)]
 [[pdf](./assets/lectures/Lecture4_Visualizing_Data.pdf)]  
-**Lecture 5:** Exploratory Data Analysis (EDA).  
+**Lecture 5:** Exploratory Data Analysis (EDA).
 [[html](./assets/lectures/Lecture5_Exploratory_Data_Analysis.html)]
 [[pdf](./assets/lectures/Lecture5_Exploratory_Data_Analysis.pdf)]  
 Modeling data:  
