@@ -48,7 +48,7 @@ any time. Please check regularly.
 [[solutions](./assets/exercises/Lec3_Exercises_with_Answers.nb.html)]  
 **Exercise 4:**
 [[html](./assets/exercises/Lec4_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)][[solutions]] (./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]  
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec4_Exercises.Rmd)][[solutions](./assets/exercises/Lec4_Exercises_with_Answers.nb.html)]  
 **Exercise 5:**
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)]  
@@ -59,7 +59,7 @@ any time. Please check regularly.
 <!---
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)]
-[[solutions]] (./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
+[[solutions](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 7:**
 <!---
@@ -71,7 +71,7 @@ any time. Please check regularly.
 <!---
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]
-[[solutions]] (./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
+[[solutions](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
 --->  
 
 ## [](#tut) Introductory Tutorials
