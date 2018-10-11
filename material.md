@@ -24,6 +24,7 @@ Exploring data:
 **Lecture 5:** Exploratory Data Analysis (EDA).
 [[html](./assets/lectures/Lecture5_Exploratory_Data_Analysis.html)]
 [[pdf](./assets/lectures/Lecture5_Exploratory_Data_Analysis.pdf)]  
+
 Modeling data:  
 **Lecture 6:** Data modeling and linear regression.  
 **Lecture 7:** Hypothesis testing and classification.  
