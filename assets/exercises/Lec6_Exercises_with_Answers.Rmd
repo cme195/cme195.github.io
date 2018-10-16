@@ -1,6 +1,6 @@
 ---
 title: "Lecture 6: Exercises with answers"
-date: October 19th, 2017
+date: October 16th, 2018
 output: 
   html_notebook:
     toc: true
@@ -87,7 +87,7 @@ newobs
 
 ```{r}
 income_test <- income_test %>% add_predictions(fit)
-(RMSE <- sqrt(sum((income_test$Income - income_test$pred)^2)))
+(RMSE <- sqrt(mean((income_test$Income - income_test$pred)^2)))
 ```
 
 
@@ -131,7 +131,7 @@ d. Evaluate the RMSE of the model on the test set.
 
 ```{r}
 income2_test <- income2_test %>% add_predictions(mfit)
-(RMSE_mfit <- sqrt(sum((income2_test$Income - income2_test$pred)^2)))
+(RMSE_mfit <- sqrt(mean((income2_test$Income - income2_test$pred)^2)))
 ```
 
 Note that since we don't have the validation test, we cannot use these RMSE
@@ -153,10 +153,13 @@ its attributes recorded in other variables.
 First install the package:
 ```{r}
 # install.packages("MASS")
-library(MASS)
 ```
 
 ```{r}
+# We are not loading the entire library MASS because we are using only 
+# one dataset (also MASS has a select function which is in conflict with 
+# dplyr::select)
+Boston <- MASS::Boston
 head(Boston, 3)
 str(Boston)
 ```
@@ -213,6 +216,6 @@ head(final_pred)
 ```
 
 ```{r}
-(RMSE <- sqrt(sum((final_pred - y_test)^2)))
+(RMSE <- sqrt(mean((final_pred - y_test)^2)))
 ```
 

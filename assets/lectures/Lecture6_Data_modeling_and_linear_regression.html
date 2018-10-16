@@ -584,7 +584,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim1, <span class="kw">aes</span>(x, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" /></p>
 </div>
 </section><section id="defining-a-family-of-models" class="slide level2">
 <h2>Defining a family of models</h2>
@@ -607,7 +607,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
       <span class="kw">aes</span>(<span class="dt">intercept =</span> b0, <span class="dt">slope =</span> b1), 
       <span class="dt">alpha =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" /></p>
 </div>
 </section><section id="fitting-a-model" class="slide level2">
 <h2>Fitting a model</h2>
@@ -623,7 +623,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <div class="right", style="width: 50%">
 
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
 </section></section>
 <section><section id="linear-regression" class="titleslide slide level1"><h1>Linear Regression</h1></section><section id="linear-regression-1" class="slide level2">
 <h2>Linear Regression</h2>
@@ -750,16 +750,16 @@ newcars</code></pre></div>
 ## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  23.9
 ## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  19.1</code></pre>
 <p>Compute the root mean square error:</p>
-<p><span class="math inline">\(RMSE = \|\vec{y} - \vec{\hat y}\| = \sqrt{\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>(mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred))</code></pre></div>
-<pre><code>## [1] 5.701588</code></pre>
+<p><span class="math inline">\(RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred))</code></pre></div>
+<pre><code>## [1] 1.425397</code></pre>
 </section><section id="visualizing-the-model" class="slide level2">
 <h2>Visualizing the model</h2>
 <p>Now we can compare our predictions (grey) to the observed (black) values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars_train, <span class="kw">aes</span>(wt)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mpg)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">size =</span> <span class="dv">2</span>) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="768" /></p>
 </section><section id="visualizing-the-residuals" class="slide level2">
 <h2>Visualizing the residuals</h2>
 <p><strong>The residuals tell you what the model has missed</strong>. We can compute and add residuals to data with <code>add_residuals()</code> from <code>modelr</code> package:</p>
@@ -793,7 +793,7 @@ mtcars_train <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars_train, <span class="kw">aes</span>(wt, resid)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>() </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" /></p>
 </div>
 </section><section id="formulae-in-r" class="slide level2">
 <h2>Formulae in R</h2>
@@ -913,7 +913,7 @@ mtcars_train <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">col=</span>cyl, <span class="dt">size=</span>disp)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_color_viridis_c</span>()</code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-21-1.png" width="1152" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-21-1.png" width="1152" /></p>
 </section><section id="section-1" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_mult_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars_train)
@@ -993,9 +993,9 @@ newcars</code></pre></div>
 ## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  25.5
 ## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  20.1</code></pre>
 <p>Compute the root mean square error:</p>
-<p><span class="math inline">\(RMSE = \|\vec{y} - \vec{\hat y}\| = \sqrt{\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>(mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred))</code></pre></div>
-<pre><code>## [1] 4.15601</code></pre>
+<p><span class="math inline">\(RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred))</code></pre></div>
+<pre><code>## [1] 1.039002</code></pre>
 </section><section id="interaction-terms" class="slide level2">
 <h2>Interaction terms</h2>
 <ul>
@@ -1007,7 +1007,7 @@ newcars</code></pre></div>
 <h2>Formulas with interactions</h2>
 <p>In the <code>sim3</code> dataset, there is a categorical, <code>x2</code>, and a continuous, <code>x1</code>, predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> x2)) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" /></p>
 </section><section id="models-with-interactions" class="slide level2">
 <h2>Models with interactions</h2>
 <p>We could fit two different models, one without and one with (<code>mod2</code>) different slopes and intercepts for each line (for each <code>x2</code> category).</p>
@@ -1040,7 +1040,7 @@ grid &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span clas
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">                       </span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>grid, <span class="kw">aes</span>(<span class="dt">y=</span>pred)) <span class="op">+</span><span class="st">  </span>
 <span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)                  </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" /></p>
 </div>
 </section><section id="section-3" class="slide level2">
 <h2></h2>
@@ -1251,7 +1251,7 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(X_train, y_trai
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.</span>
 <span class="kw">plot</span>(fit, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">xvar =</span> <span class="st">&quot;lambda&quot;</span>) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" /></p>
 <ul>
 <li>the y-axis corresponds the value of the coefficients.</li>
 <li>the x-axis is denoted “Log Lambda” corresponds to the value of <span class="math inline">\(\lambda\)</span> parameter penalizing the L1 norm of <span class="math inline">\(\boldsymbol{ \hat \beta}\)</span></li>
@@ -1314,7 +1314,7 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(X_train, y_trai
 <span class="co"># `nfolds` argument sets the number of folds (k).</span>
 cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(X_train, y_train, <span class="dt">nfolds =</span> <span class="dv">5</span>)
 <span class="kw">plot</span>(cvfit)</code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" /></p>
+<p><img src="Lecture6_Data_modeling_and_linear_regression_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" /></p>
 <ul>
 <li>The <span style="color:red">red dots</span> are the average MSE over the k-folds.</li>
 <li>The two chosen <span class="math inline">\(\lambda\)</span> values are the one with <span class="math inline">\(MSE_{min}\)</span> and one with <span class="math inline">\(MSE_{min} + sd_{min}\)</span></li>
