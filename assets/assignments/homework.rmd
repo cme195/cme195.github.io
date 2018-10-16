@@ -21,7 +21,7 @@ library(tidyverse)
 # Instructions
 
 This assignment is due on Friday October 19, 2018 at 11:59pm. You must submit 
-your homework as report including a writeup and all relevant code, and 
+your homework as report including a write up and all relevant code, and 
 associated outputs it generated. You should learn how to use R Markdown to
 generate such a report and render it either as an HTML, PDF or Word Document.
 You can refer to chapter 3 of 
@@ -30,7 +30,7 @@ to review details on generating reports using R Markdown. If you generate
 your report with R Markdown, submit both the ".Rmd" file 
 AND a rendered document.
 
-Remmarks:
+Remarks:
 
 * This homework covers the material of lectures 1-6, so you are encouraged 
 to start working on it early and continue gradually as we advance into the 
@@ -44,11 +44,11 @@ entries in your homework, since it would produce an unnecessarily large
 file, when you render your document.
 
 * Clearly label your final answer to the questions asked instead of only
-procuding output of your code. Your answers should be as concise as possible 
+producing output of your code. Your answers should be as concise as possible 
 and your code should be easily understandable. 
 
 * You are welcome to work with other students, but you must write your own code,
-and prepare your own writeup separately. If you choose to collaborate,
+and prepare your own write up separately. If you choose to collaborate,
 indicate who you worked with on your submission. 
 
 * You are free to use the web or any books to look up the documentation of 
@@ -66,7 +66,7 @@ to the specific homework problems.
 
 Compute the following using R:
 
-* $4.84 * \log_{10}(51!)$, where $x!$ is factorial of $x$
+* $4.84 \log_{10}(51!)$, where $x!$ is factorial of $x$
 * $4.02 \sqrt[3]{7^2 + e^7}$
 * $20\cos( 2\pi + 0.25) + 32 \sin \left({3 \pi \over 4} \right)$
 * $\left \lfloor {4.011 \pi \over 3}  {5 \choose 2} \right \rfloor$, where
@@ -81,7 +81,7 @@ Generate a matrix $A$ with 15 rows and 5 columns with entries
 being random uniform numbers on an interval $[0, 1]$.
 Then generate a matrix $B$ with 5 rows and 7 columns where entries
 drawn from a Gaussian distribution with mean 0 and variance 10.
-Use `set.seed()` function with a chosen seed (recored the seed)
+Use `set.seed()` function with a chosen seed (record the seed)
 for reproducibility. Type in `?set.seed` in the R console to learn
 more about the function. With the two matrices compute:
 
@@ -91,16 +91,16 @@ the sum of entries in the resulting vector, then check that agrees with
 a corresponding term in the matrix product you computed in the previous
 part.
 * obtain a vector which is a product of matrix multiplication
-betweein matrix $A$ and the 4th column of $B$. 
+between in matrix $A$ and the 4th column of $B$. 
 
 
-##c. Factors [5pt] 
+## c. Factors [5pt] 
 
 In this part of the exercise we use a built-in data set, `sleep`, 
-on student's sleep. This data stores infomation on the 
+on student's sleep. This data stores information on the 
 increase in hours of sleep, type of drug administered, and the patient ID,
 in respective columns. You can learn more about this dataset from the page,
-acessed by calling `?sleep`. 
+accessed by calling `?sleep`. 
 
 The column `ID` for patient identity is a factor with labels from 1 to 10.
 Rename the ID labels to letters of the alphabet in the reverse order,
@@ -116,12 +116,12 @@ The data table should have columns:
 
 1. 'first': first name
 2. 'last': last name
-3. 'birthday': the person's birthday in formapt YYYY-MM-DD ("%Y-%m-%d")
+3. 'birthday': the person's birthday in format YYYY-MM-DD ("%Y-%m-%d")
 4. 'city': city where the person lives
 
 Convert the birthdays to date objects using `as.Date()` function.
 Compute the difference (in days) between your birthday and the birthday 
-of each of the people and apppend that information as a new column 
+of each of the people and append that information as a new column 
 'bday_diff' of the data-frame.
 
 
@@ -197,12 +197,12 @@ combination of departure airport,'origin', destination airport, 'dest',
 and 'carrier': the average 'dep_delay', the average 'air_time'
 and the average ratio 'dep_delay'/'air_time'
 
-For each 'carrier' report the route ('origin'-'dest') wth
-the highest mean ratio of depature delay over air time. Now, you know
+For each 'carrier' report the route ('origin'-'dest') with
+the highest mean ratio of departure delay over air time. Now, you know
 which flights not to take with a given carrier.
 
 
-**Note**: Since, the dataset contatins missiing values, when computing the 
+**Note**: Since, the dataset contains missing values, when computing the 
 averages, remember to exclude the missing values (use 'na.rm = TRUE' in 
 `mean()` function).
 
@@ -256,7 +256,7 @@ This dataset is messy, and you will need to fix the warning messages
 
 * Rows 1-3 in contain information on the dataset itself, and not the variables;
 so after reading the data in, we need to delete these rows. 
-* The datasets contains characters "." whcih needs to be replaced
+* The datasets contains characters "." which needs to be replaced
 with `NA` for missing data.
 * Rename column `Total CO2 emissions from fossil-fuels and cement production (thousand metric tons of C)` to something shorter, e.g. 'Total_CO2'
 
@@ -313,17 +313,17 @@ the test set.
 Fit a linear model to the training set, where the sales values are
 predicted by the amount of TV advertising. Print the summary of the fitted model.
 Then, predict the sales values for the test set and evaluate the test model 
-accuracy in terms of root mean squared error (MSE), which measures 
+accuracy in terms of root mean squared error (RMSE), which measures 
 the average level of error between the prediction and the true response.
 $$RMSE = \sqrt{\frac{1}{n} \sum\limits_{i = 1}^n(\hat y_i - y_i)^2}$$
 
 
 ## c. Multiple linear regression [5pt]
 
-Fit a multiple linerar regression model including all the variables 'TV',
+Fit a multiple linear regression model including all the variables 'TV',
 'radio', 'newspaper' to model the 'sales' in the training set. Then, compute 
-the predicted sales for the test set with the new model and evalued the RMSE.  
-Did the error decrease from the one correspodning to the previous model?
+the predicted sales for the test set with the new model and evaluate the RMSE.  
+Did the error decrease from the one corresponding to the previous model?
 
 
 ## d. Evaluate the model [5pt]
