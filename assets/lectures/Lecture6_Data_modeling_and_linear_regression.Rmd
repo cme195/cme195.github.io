@@ -359,7 +359,7 @@ RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| =
 $$
 
 ```{r}
-sqrt(mean(mtcars_test$mpg - mtcars_test$pred))
+sqrt(mean((mtcars_test$mpg - mtcars_test$pred)^2))
 ```
 
 
@@ -559,7 +559,7 @@ RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| =
 $$
 
 ```{r}
-sqrt(mean(mtcars_test_mult$mpg - mtcars_test_mult$pred))
+sqrt(mean((mtcars_test_mult$mpg - mtcars_test_mult$pred)^2))
 ```
 
 ## Interaction terms

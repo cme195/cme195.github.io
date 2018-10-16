@@ -58,10 +58,7 @@ any time. Please check regularly.
 [[solutions](./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]  
 **Exercise 6:**
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)]
-<!---
-[[solutions](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
---->  
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)][[solutions](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]  
 **Exercise 7:**
 <!---
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]

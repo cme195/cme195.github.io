@@ -754,8 +754,8 @@ newcars</code></pre></div>
 RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
 \sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred))</code></pre></div>
-<pre><code>## [1] 1.425397</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>((mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 3.902534</code></pre>
 </section><section id="visualizing-the-model" class="slide level2">
 <h2>Visualizing the model</h2>
 <p>Now we can compare our predictions (grey) to the observed (black) values.</p>
@@ -1000,8 +1000,8 @@ newcars</code></pre></div>
 RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
 \sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
 \]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred))</code></pre></div>
-<pre><code>## [1] 1.039002</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>((mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 3.172103</code></pre>
 </section><section id="interaction-terms" class="slide level2">
 <h2>Interaction terms</h2>
 <ul>
