@@ -27,6 +27,8 @@ Exploring data:
 
 Modeling data:  
 **Lecture 6:** Data modeling and linear regression.  
+[[html](./assets/lectures/Lecture6_Data_modeling_and_linear_regression.html)]
+[[pdf](./assets/lectures/Lecture6_Data_modeling_and_linear_regression.pdf)]  
 **Lecture 7:** Hypothesis testing and classification.  
 **Lecture 8:** Unsupervised techniques in R.    
 
@@ -53,13 +55,12 @@ any time. Please check regularly.
 **Exercise 5:**
 [[html](./assets/exercises/Lec5_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec5_Exercises.Rmd)]
-<!---
-[[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]
---->  
+[[solutions]] (./assets/exercises/Lec5_Exercises_with_Answers.nb.html)]  
+  
 **Exercise 6:**
-<!---
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)]
+<!---
 [[solutions](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 7:**

@@ -529,7 +529,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Confirmatory analysis</h2>
 <p>If you plan to do confirmatory analysis at some point after EDA, one approach is to split your data into three pieces before you begin the analysis:</p>
 <ul>
-<li><p><strong>Training set</strong> – the bulk (e.g. 60%) of the dataset which can be used to do anything: visualising, fitting multiple models.</p></li>
+<li><p><strong>Training set</strong> – the bulk (e.g. 60%) of the dataset which can be used to do anything: visualizing, fitting multiple models.</p></li>
 <li><p><strong>Validation set</strong> – a smaller set (e.g. 20%) used for manually comparing models and visualizations.</p></li>
 <li><p><strong>Test set</strong> – a set (e.g. 20%) held back used only ONCE to test and asses your final model.</p></li>
 </ul>
@@ -537,7 +537,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Confirmatory analysis</h2>
 <ul>
 <li><p>Partitioning the dataset allows you to explore the training data, generate a number of candidate hypotheses and models.</p></li>
-<li><p>You can select a final model based on its performace on the validation set.</p></li>
+<li><p>You can select a final model based on its performance on the validation set.</p></li>
 <li><p>Finally, when you are confident with the chosen model you can check how good it is using the test data.</p></li>
 <li><p><em>Note that even when doing confirmatory modeling, you will still need to do EDA. If you don’t do any EDA you might remain blind to some quality problems with your data.</em></p></li>
 </ul>
@@ -632,14 +632,17 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Regression is a supervised learning method, whose goal is inferring the relationship between input data, <span class="math inline">\(x\)</span>, and a <strong>continuous</strong> response variable, <span class="math inline">\(y\)</span>.</li>
 </ul>
 <ul>
-<li class="fragment"><strong>Linear regression</strong> is a type of regression where <strong><span class="math inline">\(y\)</span> is modeled as a linear function of <span class="math inline">\(x\)</span></strong>.</li>
+<li class="fragment">Linear regression is a type of regression where <strong><span class="math inline">\(y\)</span> is modeled as a linear function of <span class="math inline">\(x\)</span></strong>.</li>
 </ul>
 <ul>
 <li class="fragment"><strong>Simple linear regression</strong> predicts the output <span class="math inline">\(y\)</span> from a single predictor <span class="math inline">\(x\)</span>. <span class="math display">\[y = \beta_0 + \beta_1 x + \epsilon\]</span></li>
 </ul>
 <ul>
-<li class="fragment"><strong>Multiple linear regression</strong> assumes <span class="math inline">\(y\)</span> relies on many covariates: <span class="math display">\[y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
-\vec \beta \vec x + \epsilon\]</span></li>
+<li class="fragment"><strong>Multiple linear regression</strong> assumes <span class="math inline">\(y\)</span> relies on many covariates:
+<span class="math display">\[\begin{align*}
+y &amp;= \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon \\
+&amp;= \boldsymbol{\beta}^T \boldsymbol{x} + \epsilon
+\end{align*}\]</span></li>
 </ul>
 <ul>
 <li class="fragment">here <span class="math inline">\(\epsilon\)</span> denotes a random noise term with zero mean.</li>
@@ -657,96 +660,163 @@ arg \min\limits_{\hat \beta}
 <li><p>Predict the mileage per gallon using the weight of the car.</p></li>
 <li><p>In R the linear models can be fit with a <code>lm()</code> function.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, mtcars)
-<span class="co"># The fitted coefficients beta are:</span>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># convert &#39;data.frame&#39; to &#39;tibble&#39;:</span>
+mtcars &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(mtcars)
+
+<span class="co"># Separate the data into train and test:</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+n &lt;-<span class="st"> </span><span class="kw">nrow</span>(mtcars)
+idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">size =</span> <span class="kw">floor</span>(n<span class="op">/</span><span class="dv">2</span>))
+mtcars_train &lt;-<span class="st"> </span>mtcars[idx, ]
+mtcars_test &lt;-<span class="st"> </span>mtcars[<span class="op">-</span>idx, ]
+
+<span class="co"># Fit a simple linear model:</span>
+mtcars_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, mtcars_train)
+<span class="co"># Extract the fitted model coefficients:</span>
 <span class="kw">coef</span>(mtcars_fit)</code></pre></div>
 <pre><code>## (Intercept)          wt 
-##   37.285126   -5.344472</code></pre>
-<p>We can check the details on the fitted model by calling:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mtcars_fit)</code></pre></div>
+##   36.469815   -5.406813</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># check the details on the fitted model:</span>
+<span class="kw">summary</span>(mtcars_fit)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = mpg ~ wt, data = mtcars)
+## lm(formula = mpg ~ wt, data = mtcars_train)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## -3.5302 -1.9952  0.0179  1.3017  3.5194 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
-## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## (Intercept)   36.470      2.108  17.299 7.61e-11 ***
+## wt            -5.407      0.621  -8.707 5.04e-07 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 3.046 on 30 degrees of freedom
-## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
-## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
-</section><section id="predictions" class="slide level2">
-<h2>Predictions</h2>
-<p>We can compute <span class="math inline">\(\hat y\)</span>, the predicted <code>mpg</code> values for observations in <code>mtcars</code> using <code>modelr::add_predictions()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
-<span class="kw">head</span>(mtcars)</code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-##                       pred
-## Mazda RX4         23.28261
-## Mazda RX4 Wag     21.91977
-## Datsun 710        24.88595
-## Hornet 4 Drive    20.10265
-## Hornet Sportabout 18.90014
-## Valiant           18.79325</code></pre>
+## Residual standard error: 2.2 on 14 degrees of freedom
+## Multiple R-squared:  0.8441, Adjusted R-squared:  0.833 
+## F-statistic: 75.81 on 1 and 14 DF,  p-value: 5.043e-07</code></pre>
+</div>
+</section><section id="fitted-values" class="slide level2">
+<h2>Fitted values</h2>
+<p>We can compute the fitted values <span class="math inline">\(\hat y\)</span>, a.k.a. the predicted <code>mpg</code> values for existing observations using <code>modelr::add_predictions()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_train &lt;-<span class="st"> </span>mtcars_train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
+mtcars_train</code></pre></div>
+<pre><code>## # A tibble: 16 x 12
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb  pred
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  19.2     6 168.    123  3.92  3.44  18.3     1     0     4     4 17.9 
+##  2  19.2     8 400     175  3.08  3.84  17.0     0     0     3     2 15.7 
+##  3  17.3     8 276.    180  3.07  3.73  17.6     0     0     3     3 16.3 
+##  4  27.3     4  79      66  4.08  1.94  18.9     1     1     4     1 26.0 
+##  5  26       4 120.     91  4.43  2.14  16.7     0     1     5     2 24.9 
+##  6  21       6 160     110  3.9   2.88  17.0     0     1     4     4 20.9 
+##  7  15.2     8 276.    180  3.07  3.78  18       0     0     3     3 16.0 
+##  8  15.2     8 304     150  3.15  3.44  17.3     0     0     3     2 17.9 
+##  9  15.8     8 351     264  4.22  3.17  14.5     0     1     5     4 19.3 
+## 10  17.8     6 168.    123  3.92  3.44  18.9     1     0     4     4 17.9 
+## 11  15.5     8 318     150  2.76  3.52  16.9     0     0     3     2 17.4 
+## 12  21.4     4 121     109  4.11  2.78  18.6     1     1     4     2 21.4 
+## 13  13.3     8 350     245  3.73  3.84  15.4     0     0     3     4 15.7 
+## 14  15       8 301     335  3.54  3.57  14.6     0     1     5     8 17.2 
+## 15  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2 28.3 
+## 16  10.4     8 460     215  3     5.42  17.8     0     0     3     4  7.14</code></pre>
+</section><section id="predictions-for-new-observations" class="slide level2">
+<h2>Predictions for new observations</h2>
 <p>To predict the <code>mpg</code> for <strong>new observations</strong>, e.g. cars not in the dataset, we first need to generate a data table with predictors <span class="math inline">\(x\)</span>, in this case the car weights:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.1</span>, <span class="fl">3.14</span>, <span class="fl">4.1</span>, <span class="fl">4.3</span>))
 newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
-<span class="kw">head</span>(newcars)</code></pre></div>
+newcars</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##      wt  pred
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  2     26.6
-## 2  2.1   26.1
-## 3  3.14  20.5
-## 4  4.1   15.4
-## 5  4.3   14.3</code></pre>
+## 1  2     25.7
+## 2  2.1   25.1
+## 3  3.14  19.5
+## 4  4.1   14.3
+## 5  4.3   13.2</code></pre>
+</section><section id="predictions-for-the-test-set" class="slide level2">
+<h2>Predictions for the test set</h2>
+<p>Remember that we already set aside a test set check our model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_test &lt;-<span class="st"> </span>mtcars_test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_fit)
+<span class="kw">head</span>(mtcars_test, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 12
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb  pred
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4  22.3
+## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  23.9
+## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  19.1</code></pre>
+<p>Compute the root mean square error:</p>
+<p><span class="math inline">\(RMSE = \|\vec{y} - \vec{\hat y}\| = \sqrt{\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>(mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred))</code></pre></div>
+<pre><code>## [1] 5.701588</code></pre>
 </section><section id="visualizing-the-model" class="slide level2">
 <h2>Visualizing the model</h2>
 <p>Now we can compare our predictions (grey) to the observed (black) values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mpg)) <span class="op">+</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars_train, <span class="kw">aes</span>(wt)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> mpg)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pred), <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">size =</span> <span class="dv">2</span>) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-10-1.png" width="768" /></p>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="768" /></p>
 </section><section id="visualizing-the-residuals" class="slide level2">
 <h2>Visualizing the residuals</h2>
 <p><strong>The residuals tell you what the model has missed</strong>. We can compute and add residuals to data with <code>add_residuals()</code> from <code>modelr</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_residuals</span>(mtcars_fit)
-<span class="kw">head</span>(mtcars)</code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-##                       pred      resid
-## Mazda RX4         23.28261 -2.2826106
-## Mazda RX4 Wag     21.91977 -0.9197704
-## Datsun 710        24.88595 -2.0859521
-## Hornet 4 Drive    20.10265  1.2973499
-## Hornet Sportabout 18.90014 -0.2001440
-## Valiant           18.79325 -0.6932545</code></pre>
-<p>Ploting residuals is a good practice – you want the residuals to look like random noise.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, resid)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-12-1.png" width="768" /></p>
+<p>Plotting residuals is a good practice – you want the residuals to look like random noise.</p>
+<div class="left" ,="" style="width: 40%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_train &lt;-<span class="st"> </span>mtcars_train <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">add_residuals</span>(mtcars_fit)
+mtcars_train <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">select</span>(mpg, mpg, resid, pred)</code></pre></div>
+<pre><code>## # A tibble: 16 x 3
+##      mpg   resid  pred
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1  19.2  1.33   17.9 
+##  2  19.2  3.52   15.7 
+##  3  17.3  0.998  16.3 
+##  4  27.3  1.29   26.0 
+##  5  26    1.10   24.9 
+##  6  21    0.0748 20.9 
+##  7  15.2 -0.832  16.0 
+##  8  15.2 -2.70   17.9 
+##  9  15.8 -3.53   19.3 
+## 10  17.8 -0.0704 17.9 
+## 11  15.5 -1.94   17.4 
+## 12  21.4 -0.0389 21.4 
+## 13  13.3 -2.41   15.7 
+## 14  15   -2.17   17.2 
+## 15  30.4  2.11   28.3 
+## 16  10.4  3.26    7.14</code></pre>
+</div>
+<div class="right" ,="" style="width: 60%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars_train, <span class="kw">aes</span>(wt, resid)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" /></p>
+</div>
 </section><section id="formulae-in-r" class="slide level2">
 <h2>Formulae in R</h2>
 <p>You have seen that <code>lm()</code> takes in a formula relation <code>y ~ x</code> as an argument.</p>
 <p>You can take a look at what R actually does, you can use the <code>model_matrix()</code>.</p>
 <div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sim1</code></pre></div>
+<pre><code>## # A tibble: 30 x 3
+##        x     y  pred
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  4.20  6.27
+##  2     1  7.51  6.27
+##  3     1  2.13  6.27
+##  4     2  8.99  8.32
+##  5     2 10.2   8.32
+##  6     2 11.3   8.32
+##  7     3  7.36 10.4 
+##  8     3 10.5  10.4 
+##  9     3 10.5  10.4 
+## 10     4 12.4  12.4 
+## # ... with 20 more rows</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(sim1, y <span class="op">~</span><span class="st"> </span>x)</code></pre></div>
 <pre><code>## # A tibble: 30 x 2
 ##    `(Intercept)`     x
@@ -763,32 +833,30 @@ newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><spa
 ## 10             1     4
 ## # ... with 20 more rows</code></pre>
 </div>
-<div class="right" ,="" style="width: 50%">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(mtcars, mpg <span class="op">~</span><span class="st"> </span>wt)</code></pre></div>
-<pre><code>## # A tibble: 32 x 2
-##    `(Intercept)`    wt
-##            &lt;dbl&gt; &lt;dbl&gt;
-##  1             1  2.62
-##  2             1  2.88
-##  3             1  2.32
-##  4             1  3.22
-##  5             1  3.44
-##  6             1  3.46
-##  7             1  3.57
-##  8             1  3.19
-##  9             1  3.15
-## 10             1  3.44
-## # ... with 22 more rows</code></pre>
-</div>
 </section><section id="formulae-with-categorical-variables" class="slide level2">
 <h2>Formulae with categorical variables</h2>
 <ul>
 <li><p>It doesn’t make sense to parametrize the model with categorical variables, as we did before.</p></li>
 <li><p><code>trans</code> variable is not a number, so R creates <strong>an indicator column</strong> that is 1 if “male”, and 0 if “female”.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span>),
-             <span class="dt">response =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>))
-<span class="kw">model_matrix</span>(df, response <span class="op">~</span><span class="st"> </span>sex)</code></pre></div>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, 
+            <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;male&quot;</span>),
+     <span class="dt">response =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>)
+))</code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   sex    response
+##   &lt;chr&gt;     &lt;dbl&gt;
+## 1 male          2
+## 2 female        5
+## 3 female        1
+## 4 female        3
+## 5 male          6
+## 6 male          8</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, response <span class="op">~</span><span class="st"> </span>sex)</code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   `(Intercept)` sexmale
 ##           &lt;dbl&gt;   &lt;dbl&gt;
@@ -798,62 +866,90 @@ newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><spa
 ## 4             1       0
 ## 5             1       1
 ## 6             1       1</code></pre>
+</div>
 </section><section id="section" class="slide level2">
 <h2></h2>
 <ul>
 <li>In general, it creates k−1 columns, where k is the number of categories.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">rating =</span> <span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>),
-             <span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>))
-<span class="kw">model_matrix</span>(df, score <span class="op">~</span><span class="st"> </span>rating)</code></pre></div>
-<pre><code>## # A tibble: 6 x 3
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(df &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">rating =</span> <span class="kw">c</span>(<span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;average&quot;</span>, <span class="st">&quot;bad&quot;</span>,
+               <span class="st">&quot;average&quot;</span>, <span class="st">&quot;good&quot;</span>, <span class="st">&quot;bad&quot;</span>, <span class="st">&quot;good&quot;</span>),
+    <span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">6</span>)
+))</code></pre></div>
+<pre><code>## # A tibble: 8 x 2
+##   rating  score
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 good        2
+## 2 bad         5
+## 3 average     1
+## 4 bad         3
+## 5 average     6
+## 6 good        8
+## 7 bad        10
+## 8 good        6</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model_matrix</span>(df, score <span class="op">~</span><span class="st"> </span>rating)</code></pre></div>
+<pre><code>## # A tibble: 8 x 3
 ##   `(Intercept)` ratingbad ratinggood
 ##           &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
 ## 1             1         0          1
 ## 2             1         1          0
 ## 3             1         0          0
-## 4             1         0          0
-## 5             1         0          1
-## 6             1         1          0</code></pre>
+## 4             1         1          0
+## 5             1         0          0
+## 6             1         0          1
+## 7             1         1          0
+## 8             1         0          1</code></pre>
+</div>
+<div class="left" ,="" style="width: 100%">
 <p>But you don’t need to worry about the parametrization to make predictions.</p>
+</div>
 </section><section id="multiple-linear-regression" class="slide level2">
 <h2>Multiple Linear Regression</h2>
-<p>We might like to predict <code>mpg</code> using weight, displacement and the number of cylinders in the car.</p>
+<p>Models often include <strong>multiple predictors</strong>, e.g. we might like to predict <code>mpg</code> using three variables: <code>wt</code>, <code>disp</code> and <code>cyl</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">col=</span>cyl, <span class="dt">size=</span>disp)) <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_color_viridis_c</span>()</code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-17-1.png" width="1152" /></p>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-21-1.png" width="1152" /></p>
 </section><section id="section-1" class="slide level2">
 <h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_mfit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_mult_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars_train)
 
 <span class="co"># Summarize the results </span>
-<span class="kw">summary</span>(mtcars_mfit)</code></pre></div>
+<span class="kw">summary</span>(mtcars_mult_fit)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = mpg ~ wt + disp + cyl, data = mtcars)
+## lm(formula = mpg ~ wt + disp + cyl, data = mtcars_train)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.4035 -1.4028 -0.4955  1.3387  6.0722 
+## -2.4016 -0.9539  0.0017  0.6243  3.4510 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 41.107678   2.842426  14.462 1.62e-14 ***
-## wt          -3.635677   1.040138  -3.495  0.00160 ** 
-## disp         0.007473   0.011845   0.631  0.53322    
-## cyl         -1.784944   0.607110  -2.940  0.00651 ** 
+## (Intercept) 40.259994   2.692593  14.952 4.03e-09 ***
+## wt          -3.986230   0.984659  -4.048  0.00162 ** 
+## disp         0.009933   0.010756   0.924  0.37394    
+## cyl         -1.644638   0.629635  -2.612  0.02272 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.595 on 28 degrees of freedom
-## Multiple R-squared:  0.8326, Adjusted R-squared:  0.8147 
-## F-statistic: 46.42 on 3 and 28 DF,  p-value: 5.399e-11</code></pre>
+## Residual standard error: 1.818 on 12 degrees of freedom
+## Multiple R-squared:  0.9088, Adjusted R-squared:  0.886 
+## F-statistic: 39.88 on 3 and 12 DF,  p-value: 1.616e-06</code></pre>
 </section><section id="section-2" class="slide level2">
 <h2></h2>
-<p>To <strong>predict <code>mpg</code> for new cars</strong>, you must first create a data frame describing the attributes of the new cars:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(newcars &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
-    <span class="dt">wt =</span> <span class="kw">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>, <span class="fl">5.1</span>), <span class="dt">disp =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">250</span>), <span class="dt">cyl =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">6</span>)))</code></pre></div>
+<p>To <strong>predict <code>mpg</code> for new cars</strong>, you must first create a data frame describing the attributes of the new cars, before computing predicted <code>mpg</code> values.</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(
+    <span class="dt">wt =</span> <span class="kw">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>, <span class="fl">5.1</span>), 
+    <span class="dt">disp =</span> <span class="kw">c</span>(<span class="dv">150</span>, <span class="dv">250</span>), 
+    <span class="dt">cyl =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">6</span>)
+)
+newcars</code></pre></div>
 <pre><code>##     wt disp cyl
 ## 1  2.1  150   4
 ## 2  3.6  150   4
@@ -867,16 +963,39 @@ newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><spa
 ## 10 2.1  250   6
 ## 11 3.6  250   6
 ## 12 5.1  250   6</code></pre>
-<p>Then you can compute the predicted <code>mpg</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_mfit)
-<span class="kw">head</span>(newcars)</code></pre></div>
-<pre><code>##    wt disp cyl     pred
-## 1 2.1  150   4 27.45392
-## 2 3.6  150   4 22.00041
-## 3 5.1  150   4 16.54689
-## 4 2.1  250   4 28.20121
-## 5 3.6  250   4 22.74770
-## 6 5.1  250   4 17.29418</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">add_predictions</span>(mtcars_mult_fit)
+newcars</code></pre></div>
+<pre><code>##     wt disp cyl     pred
+## 1  2.1  150   4 26.80031
+## 2  3.6  150   4 20.82097
+## 3  5.1  150   4 14.84162
+## 4  2.1  250   4 27.79361
+## 5  3.6  250   4 21.81427
+## 6  5.1  250   4 15.83492
+## 7  2.1  150   6 23.51104
+## 8  3.6  150   6 17.53169
+## 9  5.1  150   6 11.55235
+## 10 2.1  250   6 24.50434
+## 11 3.6  250   6 18.52499
+## 12 5.1  250   6 12.54565</code></pre>
+</div>
+</section><section id="predictions-for-the-test-set-1" class="slide level2">
+<h2>Predictions for the test set</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_test_mult &lt;-<span class="st"> </span>mtcars_test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_predictions</span>(mtcars_mult_fit)
+<span class="kw">head</span>(mtcars_test_mult, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 12
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb  pred
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4  21.5
+## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  25.5
+## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  20.1</code></pre>
+<p>Compute the root mean square error:</p>
+<p><span class="math inline">\(RMSE = \|\vec{y} - \vec{\hat y}\| = \sqrt{\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">sum</span>(mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred))</code></pre></div>
+<pre><code>## [1] 4.15601</code></pre>
 </section><section id="interaction-terms" class="slide level2">
 <h2>Interaction terms</h2>
 <ul>
@@ -888,48 +1007,68 @@ newcars &lt;-<span class="st"> </span>newcars <span class="op">%&gt;%</span><spa
 <h2>Formulas with interactions</h2>
 <p>In the <code>sim3</code> dataset, there is a categorical, <code>x2</code>, and a continuous, <code>x1</code>, predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> x2)) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" /></p>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" /></p>
 </section><section id="models-with-interactions" class="slide level2">
 <h2>Models with interactions</h2>
-<p>We could fit two different models</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)  <span class="co"># Model without interactions</span>
-mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)  <span class="co"># Model with interactions</span></code></pre></div>
-<p>The model that uses * has a different slope and intercept for each line.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grid &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data_grid</span>(x1, x2) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># data grid for two variables</span>
-<span class="st">    </span><span class="kw">gather_predictions</span>(mod1, mod2)       <span class="co"># predictions from both models</span>
-
-<span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y, <span class="dt">color=</span>x2)) <span class="op">+</span><span class="st">   </span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">                       </span><span class="co"># plot data points</span>
-<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>grid, <span class="kw">aes</span>(<span class="dt">y=</span>pred)) <span class="op">+</span><span class="st">  </span><span class="co"># add predictions for each model</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)                  <span class="co"># show one plot for each model</span></code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" /></p>
+<p>We could fit two different models, one without and one with (<code>mod2</code>) different slopes and intercepts for each line (for each <code>x2</code> category).</p>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Model without interactions:</span>
+mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)    
+<span class="co"># Model with interactions:</span>
+mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x2, <span class="dt">data =</span> sim3)     
+<span class="co"># Generate a data grid for two variables </span>
+<span class="co"># and compute predictions from both models</span>
+grid &lt;-<span class="st"> </span>sim3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">data_grid</span>(x1, x2) <span class="op">%&gt;%</span><span class="st">   </span>
+<span class="st">    </span><span class="kw">gather_predictions</span>(mod1, mod2)
+<span class="kw">head</span>(grid, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##   model    x1 x2     pred
+##   &lt;chr&gt; &lt;int&gt; &lt;fct&gt; &lt;dbl&gt;
+## 1 mod1      1 a      1.67
+## 2 mod1      1 b      4.56
+## 3 mod1      1 c      6.48</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(grid, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##   model    x1 x2      pred
+##   &lt;chr&gt; &lt;int&gt; &lt;fct&gt;  &lt;dbl&gt;
+## 1 mod2     10 b     -0.162
+## 2 mod2     10 c      5.48 
+## 3 mod2     10 d      3.98</code></pre>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sim3, <span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">y=</span>y, <span class="dt">color=</span>x2)) <span class="op">+</span><span class="st">   </span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">                       </span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>grid, <span class="kw">aes</span>(<span class="dt">y=</span>pred)) <span class="op">+</span><span class="st">  </span>
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>model)                  </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" /></p>
+</div>
 </section><section id="section-3" class="slide level2">
 <h2></h2>
-<p>Now we fit <strong>interaction effects</strong> for the <code>mtcars</code> dataset:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_inter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>am <span class="op">*</span><span class="st"> </span>wt, mtcars)
+<p>Now, we fit <strong>interaction effects</strong> for the <code>mtcars</code> dataset. Note the ‘<code>:</code>’-notation for the interaction term.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mfit_inter &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>am <span class="op">*</span><span class="st"> </span>wt, mtcars_train)
 <span class="kw">names</span>(<span class="kw">coefficients</span>(mfit_inter))</code></pre></div>
 <pre><code>## [1] &quot;(Intercept)&quot; &quot;am&quot;          &quot;wt&quot;          &quot;am:wt&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mfit_inter)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = mpg ~ am * wt, data = mtcars)
+## lm(formula = mpg ~ am * wt, data = mtcars_train)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.6004 -1.5446 -0.5325  0.9012  6.0909 
+## -2.5603 -1.0064  0.0679  0.7265  3.3565 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
-## am           14.8784     4.2640   3.489  0.00162 ** 
-## wt           -3.7859     0.7856  -4.819 4.55e-05 ***
-## am:wt        -5.2984     1.4447  -3.667  0.00102 ** 
+## (Intercept)  28.7955     3.7796   7.619 6.18e-06 ***
+## am           13.7636     4.5621   3.017  0.01072 *  
+## wt           -3.3685     0.9759  -3.452  0.00479 ** 
+## am:wt        -4.4730     1.3701  -3.265  0.00677 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.591 on 28 degrees of freedom
-## Multiple R-squared:  0.833,  Adjusted R-squared:  0.8151 
-## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
+## Residual standard error: 1.721 on 12 degrees of freedom
+## Multiple R-squared:  0.9183, Adjusted R-squared:  0.8978 
+## F-statistic: 44.94 on 3 and 12 DF,  p-value: 8.43e-07</code></pre>
 </section><section id="exercise-1" class="slide level2">
 <h2>Exercise 1</h2>
 <p></br></p>
@@ -954,11 +1093,12 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op"
 <li>Lasso regression is simply regression with <span class="math inline">\(L_1\)</span> penalty.</li>
 <li>That is, it solves the problem:</li>
 </ul>
-<p><span class="math display">\[\hat \beta ^*  = arg \min\limits_{\hat \beta} \sum_i \left(y^{(i)} 
-- \hat \beta x^{(i)}\right)^2 + \lambda \|\hat \beta\|_1\]</span></p>
+<p><span class="math display">\[\boldsymbol{\hat \beta}  = arg \min\limits_{\boldsymbol{\beta}}
+\sum_i \left(y^{(i)} 
+- \boldsymbol{\beta}^T \boldsymbol{x}^{(i)}\right)^2 + 
+\lambda \|\boldsymbol{\beta}\|_1\]</span></p>
 <ul>
-<li><p>It turns out that the <span class="math inline">\(L_1\)</span> norm <span class="math inline">\(\|\vec x\|_1 = \sum_j |x_j|\)</span> <strong>promotes sparsity</strong>.</p></li>
-<li><p>The solution, <span class="math inline">\(\hat \beta^*\)</span>, usually has only a small number of non-zero coefficients.</p></li>
+<li><p>It turns out that the <span class="math inline">\(L_1\)</span> norm <span class="math inline">\(\|\vec \beta\|_1 = \sum_i |beta_i|\)</span> <strong>promotes sparsity</strong>, i.e. only a handful of <span class="math inline">\(\hat\beta_i\)</span> will actually be non-zero.</p></li>
 <li><p>The number of non-zero coefficients depends on the choice of the tuning parameter, <span class="math inline">\(\lambda\)</span>. The higher the <span class="math inline">\(\lambda\)</span> the fewer non-zero coefficients.</p></li>
 </ul>
 </section><section id="glmnet" class="slide level2">
@@ -973,8 +1113,12 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op"
 <h2></h2>
 <ul>
 <li>We go back to <code>mtcars</code> datasets and use Lasso regression to predict the <code>mpg</code> using all variables.</li>
-<li>Lasso will pick a subset of predictors (the ones with non-zero coefficents) that best predict the <code>mpg</code>.</li>
+<li>Lasso will pick a subset of predictors that best predict the <code>mpg</code>.</li>
+<li>This means that we technically allow for all variables to be included, but due to penalization, most of the fitted coefficients will be zero.</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mtcars)
+<span class="kw">class</span>(mtcars)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -982,28 +1126,27 @@ mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op"
 ## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 ## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-##                       pred      resid
-## Mazda RX4         23.28261 -2.2826106
-## Mazda RX4 Wag     21.91977 -0.9197704
-## Datsun 710        24.88595 -2.0859521
-## Hornet 4 Drive    20.10265  1.2973499
-## Hornet Sportabout 18.90014 -0.2001440
-## Valiant           18.79325 -0.6932545</code></pre>
-</section><section id="section-5" class="slide level2">
-<h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>mtcars[, <span class="dv">1</span>]  <span class="co"># mileage per gallon </span>
-x &lt;-<span class="st"> </span>mtcars[, <span class="op">-</span><span class="dv">1</span>] <span class="co"># all other variables treated as predictors</span>
-x &lt;-<span class="st"> </span><span class="kw">data.matrix</span>(x, <span class="st">&quot;matrix&quot;</span>) <span class="co"># converts to NUMERIC matrix</span>
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+</section><section id="fitting-a-sparse-model" class="slide level2">
+<h2>Fitting a sparse model</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Convert to &#39;glmnet&#39; required input format:</span>
+y &lt;-<span class="st"> </span>mtcars[, <span class="dv">1</span>]  <span class="co"># response vector, &#39;mpg&#39;</span>
+X &lt;-<span class="st"> </span>mtcars[, <span class="op">-</span><span class="dv">1</span>] <span class="co"># all other variables treated as predictors</span>
+X &lt;-<span class="st"> </span><span class="kw">data.matrix</span>(X, <span class="st">&quot;matrix&quot;</span>) <span class="co"># converts to NUMERIC matrix</span>
+
 <span class="co"># Choose a training set</span>
 <span class="kw">set.seed</span>(<span class="dv">123</span>)
-trainIdx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mtcars), <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(mtcars)))
-fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], y[trainIdx])
+idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mtcars), <span class="kw">floor</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(mtcars)))
+X_train &lt;-<span class="st"> </span>X[idx, ]; y_train &lt;-<span class="st"> </span>y[idx]
+X_test &lt;-<span class="st"> </span>X[<span class="op">-</span>idx, ]; y_test &lt;-<span class="st"> </span>y[<span class="op">-</span>idx]
+
+<span class="co"># Fit a sparse model</span>
+fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(X_train, y_train)
 <span class="kw">names</span>(fit)</code></pre></div>
 <pre><code>##  [1] &quot;a0&quot;        &quot;beta&quot;      &quot;df&quot;        &quot;dim&quot;       &quot;lambda&quot;   
 ##  [6] &quot;dev.ratio&quot; &quot;nulldev&quot;   &quot;npasses&quot;   &quot;jerr&quot;      &quot;offset&quot;   
 ## [11] &quot;call&quot;      &quot;nobs&quot;</code></pre>
-</section><section id="section-6" class="slide level2">
+</section><section id="section-5" class="slide level2">
 <h2></h2>
 <ul>
 <li><code>glmnet()</code> compute the Lasso regression for a sequence of different tuning parameters, <span class="math inline">\(\lambda\)</span>.</li>
@@ -1012,16 +1155,108 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <li><code>%Dev</code> is the percentage variance explained,</li>
 <li><code>Lambda</code> is the value of the currently chosen tuning parameter.</li>
 </ul>
-</section><section id="section-7" class="slide level2">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
+<pre><code>## 
+## Call:  glmnet(x = X_train, y = y_train) 
+## 
+##       Df   %Dev   Lambda
+##  [1,]  0 0.0000 4.679000
+##  [2,]  1 0.1383 4.264000
+##  [3,]  2 0.2626 3.885000
+##  [4,]  2 0.3700 3.540000
+##  [5,]  2 0.4593 3.225000
+##  [6,]  2 0.5333 2.939000
+##  [7,]  2 0.5948 2.678000
+##  [8,]  2 0.6459 2.440000
+##  [9,]  2 0.6883 2.223000
+## [10,]  2 0.7235 2.026000
+## [11,]  2 0.7527 1.846000
+## [12,]  2 0.7770 1.682000
+## [13,]  3 0.7993 1.532000
+## [14,]  3 0.8179 1.396000
+## [15,]  3 0.8335 1.272000
+## [16,]  3 0.8463 1.159000
+## [17,]  3 0.8570 1.056000
+## [18,]  3 0.8659 0.962300
+## [19,]  3 0.8733 0.876800
+## [20,]  4 0.8797 0.798900
+## [21,]  4 0.8862 0.727900
+## [22,]  4 0.8915 0.663300
+## [23,]  4 0.8960 0.604300
+## [24,]  4 0.8997 0.550700
+## [25,]  4 0.9028 0.501700
+## [26,]  4 0.9054 0.457200
+## [27,]  4 0.9075 0.416600
+## [28,]  4 0.9093 0.379500
+## [29,]  5 0.9108 0.345800
+## [30,]  6 0.9124 0.315100
+## [31,]  5 0.9139 0.287100
+## [32,]  5 0.9152 0.261600
+## [33,]  5 0.9162 0.238400
+## [34,]  5 0.9171 0.217200
+## [35,]  5 0.9178 0.197900
+## [36,]  5 0.9184 0.180300
+## [37,]  5 0.9189 0.164300
+## [38,]  5 0.9193 0.149700
+## [39,]  4 0.9197 0.136400
+## [40,]  4 0.9199 0.124300
+## [41,]  4 0.9201 0.113200
+## [42,]  4 0.9203 0.103200
+## [43,]  5 0.9215 0.094020
+## [44,]  7 0.9263 0.085660
+## [45,]  7 0.9313 0.078050
+## [46,]  6 0.9350 0.071120
+## [47,]  6 0.9361 0.064800
+## [48,]  6 0.9371 0.059050
+## [49,]  7 0.9379 0.053800
+## [50,]  7 0.9387 0.049020
+## [51,]  8 0.9396 0.044670
+## [52,]  9 0.9414 0.040700
+## [53,] 10 0.9443 0.037080
+## [54,] 10 0.9473 0.033790
+## [55,] 10 0.9499 0.030790
+## [56,] 10 0.9520 0.028050
+## [57,] 10 0.9538 0.025560
+## [58,] 10 0.9553 0.023290
+## [59,] 10 0.9565 0.021220
+## [60,] 10 0.9575 0.019330
+## [61,] 10 0.9584 0.017620
+## [62,] 10 0.9591 0.016050
+## [63,] 10 0.9597 0.014630
+## [64,] 10 0.9602 0.013330
+## [65,] 10 0.9606 0.012140
+## [66,] 10 0.9609 0.011060
+## [67,] 10 0.9612 0.010080
+## [68,] 10 0.9614 0.009186
+## [69,] 10 0.9616 0.008369
+## [70,] 10 0.9618 0.007626
+## [71,] 10 0.9619 0.006949
+## [72,] 10 0.9620 0.006331
+## [73,] 10 0.9621 0.005769
+## [74,] 10 0.9622 0.005256
+## [75,] 10 0.9623 0.004789
+## [76,] 10 0.9623 0.004364
+## [77,] 10 0.9624 0.003976
+## [78,] 10 0.9624 0.003623
+## [79,] 10 0.9625 0.003301
+## [80,] 10 0.9625 0.003008
+## [81,] 10 0.9625 0.002741
+## [82,] 10 0.9625 0.002497
+## [83,] 10 0.9626 0.002275
+## [84,] 10 0.9626 0.002073
+## [85,] 10 0.9626 0.001889
+## [86,] 10 0.9626 0.001721
+## [87,] 10 0.9626 0.001568</code></pre>
+</section><section id="section-6" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># label = TRUE makes the plot annotate the curves with the corresponding coeffients labels.</span>
-<span class="kw">plot</span>(fit, <span class="dt">label =</span> <span class="ot">TRUE</span>) </code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-28-1.png" width="480" /></p>
+<span class="kw">plot</span>(fit, <span class="dt">label =</span> <span class="ot">TRUE</span>, <span class="dt">xvar =</span> <span class="st">&quot;lambda&quot;</span>) </code></pre></div>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" /></p>
 <ul>
 <li>the y-axis corresponds the value of the coefficients.</li>
-<li>the x-axis is denoted “<span class="math inline">\(L_1\)</span> norm” but is scaled to indicate the number of non-zero coefficients (the effective degrees of freedom).</li>
+<li>the x-axis is denoted “Log Lambda” corresponds to the value of <span class="math inline">\(\lambda\)</span> parameter penalizing the L1 norm of <span class="math inline">\(\boldsymbol{ \hat \beta}\)</span></li>
 </ul>
-</section><section id="section-8" class="slide level2">
+</section><section id="section-7" class="slide level2">
 <h2></h2>
 <ul>
 <li>Each curve corresponds to a single variable, and shows the value of the coefficient as the tuning parameter varies.</li>
@@ -1031,40 +1266,38 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <p>The computed Lasso coefficient for a particular choice of <span class="math inline">\(\lambda\)</span> can be printed using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Lambda = 1</span>
 <span class="kw">coef</span>(fit, <span class="dt">s =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## 13 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
-##                         1
-## (Intercept)  3.420946e+01
-## cyl         -4.330870e-01
-## disp         .           
-## hp           .           
-## drat         .           
-## wt          -3.607123e+00
-## qsec         .           
-## vs           .           
-## am           .           
-## gear         .           
-## carb         .           
-## pred         5.277804e-14
-## resid        4.487821e-01</code></pre>
-</section><section id="section-9" class="slide level2">
+<pre><code>## 11 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                        1
+## (Intercept) 34.877093111
+## cyl         -0.867649618
+## disp         .          
+## hp          -0.005778702
+## drat         .          
+## wt          -2.757808266
+## qsec         .          
+## vs           .          
+## am           .          
+## gear         .          
+## carb         .</code></pre>
+</section><section id="section-8" class="slide level2">
 <h2></h2>
 <ul>
 <li>Like for <code>lm()</code>, we can use a function <code>predict()</code> to predict the <code>mpg</code> for the training or the test data.</li>
 <li>However, we need specify the value of <span class="math inline">\(\lambda\)</span> using the argument <code>s</code>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict for the test set:</span>
-<span class="kw">predict</span>(fit, <span class="dt">newx =</span> x[<span class="op">-</span>trainIdx, ], <span class="dt">s =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">2</span>))</code></pre></div>
+<span class="kw">predict</span>(fit, <span class="dt">newx =</span> X_test, <span class="dt">s =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">2</span>))</code></pre></div>
 <pre><code>##                           1        2        3
-## Datsun 710         22.98787 23.35680 23.22262
-## Valiant            18.46043 19.17780 19.41920
-## Duster 360         15.20733 17.02203 17.74858
-## Merc 230           22.48611 21.85228 21.50396
-## Merc 450SE         16.42561 16.48012 16.71324
-## Cadillac Fleetwood 11.36782 13.29995 14.26985
-## Chrysler Imperial  14.42390 13.87395 14.07314
-## Fiat 128           30.01150 25.24027 23.47110
-## Toyota Corolla     31.31826 26.16220 24.22690
-## Toyota Corona      21.95892 22.86836 22.92237</code></pre>
+## Datsun 710         25.36098 23.87240 23.22262
+## Valiant            19.82245 19.42427 19.41920
+## Duster 360         16.19324 17.27111 17.74858
+## Merc 230           22.62471 21.86937 21.50396
+## Merc 450SE         15.20595 16.16123 16.71324
+## Cadillac Fleetwood 11.25687 13.28117 14.26985
+## Chrysler Imperial  10.81730 13.01570 14.07314
+## Fiat 128           25.88928 24.20103 23.47110
+## Toyota Corolla     27.01880 25.08206 24.22690
+## Toyota Corona      24.89106 23.51713 22.92237</code></pre>
 <p>Each of the columns corresponds to a choice of <span class="math inline">\(\lambda\)</span>.</p>
 </section><section id="choosing-lambda" class="slide level2">
 <h2>Choosing <span class="math inline">\(\lambda\)</span></h2>
@@ -1075,90 +1308,59 @@ fit &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[trainIdx, ], 
 <blockquote>
 <p>In k-fold cross-validation, the original sample is randomly partitioned into k equal sized subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
-</section><section id="section-10" class="slide level2">
+</section><section id="section-9" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 <span class="co"># `nfolds` argument sets the number of folds (k).</span>
-cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[trainIdx, ], y[trainIdx], <span class="dt">nfolds =</span> <span class="dv">5</span>)
+cvfit &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(X_train, y_train, <span class="dt">nfolds =</span> <span class="dv">5</span>)
 <span class="kw">plot</span>(cvfit)</code></pre></div>
-<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-31-1.png" width="480" /></p>
+<p><img src="Lecture6_Building_models_and_linear_regression_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" /></p>
 <ul>
 <li>The <span style="color:red">red dots</span> are the average MSE over the k-folds.</li>
 <li>The two chosen <span class="math inline">\(\lambda\)</span> values are the one with <span class="math inline">\(MSE_{min}\)</span> and one with <span class="math inline">\(MSE_{min} + sd_{min}\)</span></li>
 </ul>
-</section><section id="section-11" class="slide level2">
+</section><section id="section-10" class="slide level2">
 <h2></h2>
-<p><span class="math inline">\(\lambda\)</span> with minimum MSE:</p>
+<p><span class="math inline">\(\lambda\)</span> with minimum mean squared error, MSE:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit<span class="op">$</span>lambda.min</code></pre></div>
-<pre><code>## [1] 0.1242844</code></pre>
-<p>The biggest <span class="math inline">\(\lambda\)</span> such that the MSE is within one standard error of the minimum MSE.</p>
+<pre><code>## [1] 0.2171905</code></pre>
+<p>The “best” <span class="math inline">\(\lambda\)</span> in a practical sense is usually chosen to be the biggest <span class="math inline">\(\lambda\)</span> whose MSE is within one standard error of the minimum MSE.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvfit<span class="op">$</span>lambda.1se</code></pre></div>
-<pre><code>## [1] 0.1242844</code></pre>
-</section><section id="extra-exercise" class="slide level2">
-<h2>Extra Exercise</h2>
-<p>In this exercise you will perform Lasso regression yourself. We will use the <code>Boston</code> dataset from the <code>MASS</code> package. The dataset contains information on the Boston suburbs housing market collected by David Harrison in 1978.</p>
-<p>We will try to predict the median value of of homes in the region based on its attributes recorded in other variables.</p>
-<p>First install the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;MASS&quot;)</span>
-<span class="kw">library</span>(MASS)</code></pre></div>
-</section><section id="section-12" class="slide level2">
-<h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Boston, <span class="dv">3</span>)</code></pre></div>
-<pre><code>##      crim zn indus chas   nox    rm  age    dis rad tax ptratio  black
-## 1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
-## 2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
-## 3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
-##   lstat medv
-## 1  4.98 24.0
-## 2  9.14 21.6
-## 3  4.03 34.7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(Boston)</code></pre></div>
-<pre><code>## &#39;data.frame&#39;:    506 obs. of  14 variables:
-##  $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...
-##  $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...
-##  $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...
-##  $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...
-##  $ rm     : num  6.58 6.42 7.18 7 7.15 ...
-##  $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 100 85.9 ...
-##  $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...
-##  $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...
-##  $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...
-##  $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...
-##  $ black  : num  397 397 393 395 397 ...
-##  $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...
-##  $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 16.5 18.9 ...</code></pre>
-</section><section id="section-13" class="slide level2">
-<h2></h2>
-<p>Split the data to training and testing subsets.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
-trainIdx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Boston), <span class="kw">round</span>(<span class="fl">0.7</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(Boston)))
-boston.test &lt;-<span class="st"> </span>Boston[<span class="op">-</span>trainIdx,<span class="st">&quot;medv&quot;</span>]</code></pre></div>
-<p>Perform a Lasso regression with <code>glmnet</code>. Steps:</p>
-<ol type="1">
-<li>Extract the input and output data from the <code>Boston</code> <code>data.frame</code> and convert them if necessary to a correct format.</li>
-<li>Use cross-validation to select the value for <span class="math inline">\(\lambda\)</span>.</li>
-<li>Inspect comuted coefficients for <code>lambda.min</code>.</li>
-<li>Compute the predictions for the test dataset the two choices of the tuning parameter, <code>lambda.min</code> and <code>lambda.1se</code>. Evaluate the MSE for each.</li>
-</ol>
+<pre><code>## [1] 0.6632685</code></pre>
+<p>Predictions using the “best” <span class="math inline">\(\lambda\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(cvfit, <span class="dt">newx=</span>X_test, <span class="dt">s=</span><span class="st">&quot;lambda.1se&quot;</span>)
+final_pred</code></pre></div>
+<pre><code>##                           1
+## Datsun 710         25.01062
+## Valiant            19.68422
+## Duster 360         16.32664
+## Merc 230           22.44375
+## Merc 450SE         15.35370
+## Cadillac Fleetwood 11.58909
+## Chrysler Imperial  11.13782
+## Fiat 128           25.54984
+## Toyota Corolla     26.64431
+## Toyota Corona      24.55160</code></pre>
 </section></section>
 <section><section id="more-on-models" class="titleslide slide level1"><h1>More on models</h1></section><section id="building-models" class="slide level2">
 <h2>Building Models</h2>
 <p>Building models is an important part of EDA.</p>
-<p>It takes practice to gain an intutition for which patterns to look for and what predictors to select that are likely to have an important effect.</p>
+<p>It takes practice to gain an intuition for which patterns to look for and what predictors to select that are likely to have an important effect.</p>
 <p>You should go over examples in <a href="http://r4ds.had.co.nz/model-building.html" class="uri">http://r4ds.had.co.nz/model-building.html</a> to see concrete examples of how a model is built for <code>diamonds</code> and <code>nycflights2013</code> datasets we have seen before.</p>
 </section><section id="other-model-families" class="slide level2">
 <h2>Other model families</h2>
-<p>This chapter has focussed exclusively on the class of linear models <span class="math display">\[
+<p>This chapter has focused exclusively on the class of linear models <span class="math display">\[
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon =
 \vec \beta \vec x + \epsilon
 \]</span></p>
-<p>and penalised linear models.</p>
+<p>and penalized linear models.</p>
 <p>There are a large set of other model classes.</p>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
 <p>Extensions of linear models:</p>
 <ul>
-<li>Generalised linear models, <code>stats::glm()</code>, binary or count data.</li>
-<li>Generalised additive models, <code>mgcv::gam()</code>, extend generalised linear models to incorporate arbitrary smooth functions.</li>
+<li>Generalized linear models, <code>stats::glm()</code>, binary or count data.</li>
+<li>Generalized additive models, <code>mgcv::gam()</code>, extend generalized linear models to incorporate arbitrary smooth functions.</li>
 <li>Robust linear models, <code>MASS:rlm()</code>, less sensitive to outliers.</li>
 </ul>
 <p>Completely different models:</p>
