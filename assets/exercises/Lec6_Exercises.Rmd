@@ -16,30 +16,34 @@ The data in the following URL "http://www-bcf.usc.edu/~gareth/ISL/Income1.csv"
 includes observation on income levels (in tens of thousands of dollars)
 and years of education. *The data is not real and was actually simulated*.
 
-a. Read the data into R.
+a. Read the data into R and generate a ggplot with a fitted line.
 
-b. Generate a ggplot with a fitted line.
+b. Split the data into train and test set. Note that here we do not form
+a validation set as we have very few observations and will only consider
+a single model.
 
-c. Fit a linear model with education as input variable and income as response 
-variable. Then, print the model summary
+c. Fit a linear model with education (years of education) as input variable 
+and income as response variable. What are the model coefficients obtained and 
+how can you extract them? Inspect the model fit using `summary()`
 
-d. Print out just the model coefficients.
-
-d. Print out the predicted values of income for the observations
-included in the dataset.
+d. Compute the fitted values of income for the observations
+included in the train set.
 
 e. Predict the income for new observations, for people with 
-16.00, 12.52, 15.55, 21.09, and 18.36 years of education.
+16.00, 12.52, 15.55, 21.09, and 18.36 years of education. Then,
+make predictions also for the test set and evaluate the root mean squared 
+error on the test set.
 
 
 ## Part 2
 
 a. Now download data from "http://www-bcf.usc.edu/~gareth/ISL/Income2.csv"
 which include the same observations but also records data on "senority".
+Again, split the data into train and test.
 
 b. Fit a new model including a new variable and print the model summary.
 
-c. Print the predicted values of income for the existing observations.
+c. Predicted values of income for the observations in the train set.
 
 d. Predict the income levels for new observations with years of education
 equal to 16.00, 12.52, 15.55, 21.09, 18.36 and seniority to
@@ -75,7 +79,7 @@ b. Perform a Lasso regression with `glmnet`. Steps:
 1. Extract the input and output data from the `Boston` `data.frame` and convert
 them if necessary to a correct format.
 2. Use cross-validation to select the value for $\lambda$.
-3. Inspect computed coefficients for `lambda.min`.
+3. Inspect computed coefficients for `lambda.min` and `lambda.1se`.
 4. Compute the predictions for the test dataset the two choices of the tuning
 parameter, `lambda.min` and `lambda.1se`. 
 Evaluate the MSE for each.

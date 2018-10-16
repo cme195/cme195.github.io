@@ -281,20 +281,19 @@ div.tocify {
 <h2>Part 1</h2>
 <p>The data in the following URL “<a href="http://www-bcf.usc.edu/~gareth/ISL/Income1.csv" class="uri">http://www-bcf.usc.edu/~gareth/ISL/Income1.csv</a>” includes observation on income levels (in tens of thousands of dollars) and years of education. <em>The data is not real and was actually simulated</em>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Read the data into R.</p></li>
-<li><p>Generate a ggplot with a fitted line.</p></li>
-<li><p>Fit a linear model with education as input variable and income as response variable. Then, print the model summary</p></li>
-<li><p>Print out just the model coefficients.</p></li>
-<li><p>Print out the predicted values of income for the observations included in the dataset.</p></li>
-<li><p>Predict the income for new observations, for people with 16.00, 12.52, 15.55, 21.09, and 18.36 years of education.</p></li>
+<li><p>Read the data into R and generate a ggplot with a fitted line.</p></li>
+<li><p>Split the data into train and test set. Note that here we do not form a validation set as we have very few observations and will only consider a single model.</p></li>
+<li><p>Fit a linear model with education (years of education) as input variable and income as response variable. What are the model coefficients obtained and how can you extract them? Inspect the model fit using <code>summary()</code></p></li>
+<li><p>Compute the fitted values of income for the observations included in the train set.</p></li>
+<li><p>Predict the income for new observations, for people with 16.00, 12.52, 15.55, 21.09, and 18.36 years of education. Then, make predictions also for the test set and evaluate the root mean squared error on the test set.</p></li>
 </ol>
 </div>
 <div id="part-2" class="section level2">
 <h2>Part 2</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Now download data from “<a href="http://www-bcf.usc.edu/~gareth/ISL/Income2.csv" class="uri">http://www-bcf.usc.edu/~gareth/ISL/Income2.csv</a>” which include the same observations but also records data on “senority”.</p></li>
+<li><p>Now download data from “<a href="http://www-bcf.usc.edu/~gareth/ISL/Income2.csv" class="uri">http://www-bcf.usc.edu/~gareth/ISL/Income2.csv</a>” which include the same observations but also records data on “senority”. Again, split the data into train and test.</p></li>
 <li><p>Fit a new model including a new variable and print the model summary.</p></li>
-<li><p>Print the predicted values of income for the existing observations.</p></li>
+<li><p>Predicted values of income for the observations in the train set.</p></li>
 <li><p>Predict the income levels for new observations with years of education equal to 16.00, 12.52, 15.55, 21.09, 18.36 and seniority to 123.74, 83.63, 90.94, 178.96, 125.17.</p></li>
 </ol>
 </div>
@@ -314,10 +313,35 @@ library(MASS)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChCb3N0b24sIDMpXG5zdHIoQm9zdG9uKVxuYGBgIn0= -->
-<pre class="r"><code>head(Boston, 3)
-str(Boston)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChCb3N0b24sIDMpXG5gYGAifQ== -->
+<pre class="r"><code>head(Boston, 3)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBjcmltIHpuIGluZHVzIGNoYXMgICBub3ggICAgcm0gIGFnZSAgICBkaXMgcmFkIHRheCBwdHJhdGlvICBibGFjayBsc3RhdCBtZWR2XG4xIDAuMDA2MzIgMTggIDIuMzEgICAgMCAwLjUzOCA2LjU3NSA2NS4yIDQuMDkwMCAgIDEgMjk2ICAgIDE1LjMgMzk2LjkwICA0Ljk4IDI0LjBcbjIgMC4wMjczMSAgMCAgNy4wNyAgICAwIDAuNDY5IDYuNDIxIDc4LjkgNC45NjcxICAgMiAyNDIgICAgMTcuOCAzOTYuOTAgIDkuMTQgMjEuNlxuMyAwLjAyNzI5ICAwICA3LjA3ICAgIDAgMC40NjkgNy4xODUgNjEuMSA0Ljk2NzEgICAyIDI0MiAgICAxNy44IDM5Mi44MyAgNC4wMyAzNC43XG4ifQ== -->
+<pre><code>     crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat medv
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98 24.0
+2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14 21.6
+3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03 34.7</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKEJvc3RvbilcbmBgYCJ9 -->
+<pre class="r"><code>str(Boston)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0NTA2IG9icy4gb2YgIDE0IHZhcmlhYmxlczpcbiAkIGNyaW0gICA6IG51bSAgMC4wMDYzMiAwLjAyNzMxIDAuMDI3MjkgMC4wMzIzNyAwLjA2OTA1IC4uLlxuICQgem4gICAgIDogbnVtICAxOCAwIDAgMCAwIDAgMTIuNSAxMi41IDEyLjUgMTIuNSAuLi5cbiAkIGluZHVzICA6IG51bSAgMi4zMSA3LjA3IDcuMDcgMi4xOCAyLjE4IDIuMTggNy44NyA3Ljg3IDcuODcgNy44NyAuLi5cbiAkIGNoYXMgICA6IGludCAgMCAwIDAgMCAwIDAgMCAwIDAgMCAuLi5cbiAkIG5veCAgICA6IG51bSAgMC41MzggMC40NjkgMC40NjkgMC40NTggMC40NTggMC40NTggMC41MjQgMC41MjQgMC41MjQgMC41MjQgLi4uXG4gJCBybSAgICAgOiBudW0gIDYuNTggNi40MiA3LjE4IDcgNy4xNSAuLi5cbiAkIGFnZSAgICA6IG51bSAgNjUuMiA3OC45IDYxLjEgNDUuOCA1NC4yIDU4LjcgNjYuNiA5Ni4xIDEwMCA4NS45IC4uLlxuICQgZGlzICAgIDogbnVtICA0LjA5IDQuOTcgNC45NyA2LjA2IDYuMDYgLi4uXG4gJCByYWQgICAgOiBpbnQgIDEgMiAyIDMgMyAzIDUgNSA1IDUgLi4uXG4gJCB0YXggICAgOiBudW0gIDI5NiAyNDIgMjQyIDIyMiAyMjIgMjIyIDMxMSAzMTEgMzExIDMxMSAuLi5cbiAkIHB0cmF0aW86IG51bSAgMTUuMyAxNy44IDE3LjggMTguNyAxOC43IDE4LjcgMTUuMiAxNS4yIDE1LjIgMTUuMiAuLi5cbiAkIGJsYWNrICA6IG51bSAgMzk3IDM5NyAzOTMgMzk1IDM5NyAuLi5cbiAkIGxzdGF0ICA6IG51bSAgNC45OCA5LjE0IDQuMDMgMi45NCA1LjMzIC4uLlxuICQgbWVkdiAgIDogbnVtICAyNCAyMS42IDM0LjcgMzMuNCAzNi4yIDI4LjcgMjIuOSAyNy4xIDE2LjUgMTguOSAuLi5cbiJ9 -->
+<pre><code>'data.frame':   506 obs. of  14 variables:
+ $ crim   : num  0.00632 0.02731 0.02729 0.03237 0.06905 ...
+ $ zn     : num  18 0 0 0 0 0 12.5 12.5 12.5 12.5 ...
+ $ indus  : num  2.31 7.07 7.07 2.18 2.18 2.18 7.87 7.87 7.87 7.87 ...
+ $ chas   : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ nox    : num  0.538 0.469 0.469 0.458 0.458 0.458 0.524 0.524 0.524 0.524 ...
+ $ rm     : num  6.58 6.42 7.18 7 7.15 ...
+ $ age    : num  65.2 78.9 61.1 45.8 54.2 58.7 66.6 96.1 100 85.9 ...
+ $ dis    : num  4.09 4.97 4.97 6.06 6.06 ...
+ $ rad    : int  1 2 2 3 3 3 5 5 5 5 ...
+ $ tax    : num  296 242 242 222 222 222 311 311 311 311 ...
+ $ ptratio: num  15.3 17.8 17.8 18.7 18.7 18.7 15.2 15.2 15.2 15.2 ...
+ $ black  : num  397 397 393 395 397 ...
+ $ lstat  : num  4.98 9.14 4.03 2.94 5.33 ...
+ $ medv   : num  24 21.6 34.7 33.4 36.2 28.7 22.9 27.1 16.5 18.9 ...</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol style="list-style-type: lower-alpha">
@@ -327,13 +351,13 @@ str(Boston)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Extract the input and output data from the <code>Boston</code> <code>data.frame</code> and convert them if necessary to a correct format.</li>
 <li>Use cross-validation to select the value for <span class="math inline">\(\lambda\)</span>.</li>
-<li>Inspect computed coefficients for <code>lambda.min</code>.</li>
+<li>Inspect computed coefficients for <code>lambda.min</code> and <code>lambda.1se</code>.</li>
 <li>Compute the predictions for the test dataset the two choices of the tuning parameter, <code>lambda.min</code> and <code>lambda.1se</code>. Evaluate the MSE for each.</li>
 </ol>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSA2OiBFeGVyY2lzZXMiCmRhdGU6IE9jdG9iZXIgMTZ0aCwgMjAxOApvdXRwdXQ6IAogIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogdHJ1ZQotLS0KCgojIEV4ZXJjaXNlIDE6IExpbmVhciBSZWdyZXNzaW9uCgojIyBQYXJ0IDEKClRoZSBkYXRhIGluIHRoZSBmb2xsb3dpbmcgVVJMICJodHRwOi8vd3d3LWJjZi51c2MuZWR1L35nYXJldGgvSVNML0luY29tZTEuY3N2IgppbmNsdWRlcyBvYnNlcnZhdGlvbiBvbiBpbmNvbWUgbGV2ZWxzIChpbiB0ZW5zIG9mIHRob3VzYW5kcyBvZiBkb2xsYXJzKQphbmQgeWVhcnMgb2YgZWR1Y2F0aW9uLiAqVGhlIGRhdGEgaXMgbm90IHJlYWwgYW5kIHdhcyBhY3R1YWxseSBzaW11bGF0ZWQqLgoKYS4gUmVhZCB0aGUgZGF0YSBpbnRvIFIuCgpiLiBHZW5lcmF0ZSBhIGdncGxvdCB3aXRoIGEgZml0dGVkIGxpbmUuCgpjLiBGaXQgYSBsaW5lYXIgbW9kZWwgd2l0aCBlZHVjYXRpb24gYXMgaW5wdXQgdmFyaWFibGUgYW5kIGluY29tZSBhcyByZXNwb25zZSAKdmFyaWFibGUuIFRoZW4sIHByaW50IHRoZSBtb2RlbCBzdW1tYXJ5CgpkLiBQcmludCBvdXQganVzdCB0aGUgbW9kZWwgY29lZmZpY2llbnRzLgoKZC4gUHJpbnQgb3V0IHRoZSBwcmVkaWN0ZWQgdmFsdWVzIG9mIGluY29tZSBmb3IgdGhlIG9ic2VydmF0aW9ucwppbmNsdWRlZCBpbiB0aGUgZGF0YXNldC4KCmUuIFByZWRpY3QgdGhlIGluY29tZSBmb3IgbmV3IG9ic2VydmF0aW9ucywgZm9yIHBlb3BsZSB3aXRoIAoxNi4wMCwgMTIuNTIsIDE1LjU1LCAyMS4wOSwgYW5kIDE4LjM2IHllYXJzIG9mIGVkdWNhdGlvbi4KCgojIyBQYXJ0IDIKCmEuIE5vdyBkb3dubG9hZCBkYXRhIGZyb20gImh0dHA6Ly93d3ctYmNmLnVzYy5lZHUvfmdhcmV0aC9JU0wvSW5jb21lMi5jc3YiCndoaWNoIGluY2x1ZGUgdGhlIHNhbWUgb2JzZXJ2YXRpb25zIGJ1dCBhbHNvIHJlY29yZHMgZGF0YSBvbiAic2Vub3JpdHkiLgoKYi4gRml0IGEgbmV3IG1vZGVsIGluY2x1ZGluZyBhIG5ldyB2YXJpYWJsZSBhbmQgcHJpbnQgdGhlIG1vZGVsIHN1bW1hcnkuCgpjLiBQcmludCB0aGUgcHJlZGljdGVkIHZhbHVlcyBvZiBpbmNvbWUgZm9yIHRoZSBleGlzdGluZyBvYnNlcnZhdGlvbnMuCgpkLiBQcmVkaWN0IHRoZSBpbmNvbWUgbGV2ZWxzIGZvciBuZXcgb2JzZXJ2YXRpb25zIHdpdGggeWVhcnMgb2YgZWR1Y2F0aW9uCmVxdWFsIHRvIDE2LjAwLCAxMi41MiwgMTUuNTUsIDIxLjA5LCAxOC4zNiBhbmQgc2VuaW9yaXR5IHRvCjEyMy43NCwgODMuNjMsICA5MC45NCwgMTc4Ljk2LCAxMjUuMTcuCgoKIyBFeGVyY2lzZSAyCgpJbiB0aGlzIGV4ZXJjaXNlIHlvdSB3aWxsIHBlcmZvcm0gTGFzc28gcmVncmVzc2lvbiB5b3Vyc2VsZi4KV2Ugd2lsbCB1c2UgdGhlIGBCb3N0b25gIGRhdGFzZXQgZnJvbSB0aGUgYE1BU1NgIHBhY2thZ2UuClRoZSBkYXRhc2V0IGNvbnRhaW5zIGluZm9ybWF0aW9uIG9uIHRoZSBCb3N0b24gc3VidXJicyAKaG91c2luZyBtYXJrZXQgY29sbGVjdGVkIGJ5IERhdmlkIEhhcnJpc29uIGluIDE5NzguCgpXZSB3aWxsIHRyeSB0byBwcmVkaWN0IHRoZSBtZWRpYW4gdmFsdWUgb2Ygb2YgaG9tZXMgaW4gdGhlIHJlZ2lvbiBiYXNlZCBvbiAKaXRzIGF0dHJpYnV0ZXMgcmVjb3JkZWQgaW4gb3RoZXIgdmFyaWFibGVzLgoKRmlyc3QgaW5zdGFsbCB0aGUgcGFja2FnZToKYGBge3J9CiMgaW5zdGFsbC5wYWNrYWdlcygiTUFTUyIpCmxpYnJhcnkoTUFTUykKYGBgCgpgYGB7cn0KaGVhZChCb3N0b24sIDMpCnN0cihCb3N0b24pCmBgYAoKCmEuIFNwbGl0IHRoZSBkYXRhIHRvIHRyYWluaW5nIGFuZCB0ZXN0aW5nIHN1YnNldHMuCgpiLiBQZXJmb3JtIGEgTGFzc28gcmVncmVzc2lvbiB3aXRoIGBnbG1uZXRgLiBTdGVwczoKICAKMS4gRXh0cmFjdCB0aGUgaW5wdXQgYW5kIG91dHB1dCBkYXRhIGZyb20gdGhlIGBCb3N0b25gIGBkYXRhLmZyYW1lYCBhbmQgY29udmVydAp0aGVtIGlmIG5lY2Vzc2FyeSB0byBhIGNvcnJlY3QgZm9ybWF0LgoyLiBVc2UgY3Jvc3MtdmFsaWRhdGlvbiB0byBzZWxlY3QgdGhlIHZhbHVlIGZvciAkXGxhbWJkYSQuCjMuIEluc3BlY3QgY29tcHV0ZWQgY29lZmZpY2llbnRzIGZvciBgbGFtYmRhLm1pbmAuCjQuIENvbXB1dGUgdGhlIHByZWRpY3Rpb25zIGZvciB0aGUgdGVzdCBkYXRhc2V0IHRoZSB0d28gY2hvaWNlcyBvZiB0aGUgdHVuaW5nCnBhcmFtZXRlciwgYGxhbWJkYS5taW5gIGFuZCBgbGFtYmRhLjFzZWAuIApFdmFsdWF0ZSB0aGUgTVNFIGZvciBlYWNoLgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSA2OiBFeGVyY2lzZXMiCmRhdGU6IE9jdG9iZXIgMTZ0aCwgMjAxOApvdXRwdXQ6IAogIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogdHJ1ZQotLS0KCgojIEV4ZXJjaXNlIDE6IExpbmVhciBSZWdyZXNzaW9uCgojIyBQYXJ0IDEKClRoZSBkYXRhIGluIHRoZSBmb2xsb3dpbmcgVVJMICJodHRwOi8vd3d3LWJjZi51c2MuZWR1L35nYXJldGgvSVNML0luY29tZTEuY3N2IgppbmNsdWRlcyBvYnNlcnZhdGlvbiBvbiBpbmNvbWUgbGV2ZWxzIChpbiB0ZW5zIG9mIHRob3VzYW5kcyBvZiBkb2xsYXJzKQphbmQgeWVhcnMgb2YgZWR1Y2F0aW9uLiAqVGhlIGRhdGEgaXMgbm90IHJlYWwgYW5kIHdhcyBhY3R1YWxseSBzaW11bGF0ZWQqLgoKYS4gUmVhZCB0aGUgZGF0YSBpbnRvIFIgYW5kIGdlbmVyYXRlIGEgZ2dwbG90IHdpdGggYSBmaXR0ZWQgbGluZS4KCmIuIFNwbGl0IHRoZSBkYXRhIGludG8gdHJhaW4gYW5kIHRlc3Qgc2V0LiBOb3RlIHRoYXQgaGVyZSB3ZSBkbyBub3QgZm9ybQphIHZhbGlkYXRpb24gc2V0IGFzIHdlIGhhdmUgdmVyeSBmZXcgb2JzZXJ2YXRpb25zIGFuZCB3aWxsIG9ubHkgY29uc2lkZXIKYSBzaW5nbGUgbW9kZWwuCgpjLiBGaXQgYSBsaW5lYXIgbW9kZWwgd2l0aCBlZHVjYXRpb24gKHllYXJzIG9mIGVkdWNhdGlvbikgYXMgaW5wdXQgdmFyaWFibGUgCmFuZCBpbmNvbWUgYXMgcmVzcG9uc2UgdmFyaWFibGUuIFdoYXQgYXJlIHRoZSBtb2RlbCBjb2VmZmljaWVudHMgb2J0YWluZWQgYW5kIApob3cgY2FuIHlvdSBleHRyYWN0IHRoZW0/IEluc3BlY3QgdGhlIG1vZGVsIGZpdCB1c2luZyBgc3VtbWFyeSgpYAoKZC4gQ29tcHV0ZSB0aGUgZml0dGVkIHZhbHVlcyBvZiBpbmNvbWUgZm9yIHRoZSBvYnNlcnZhdGlvbnMKaW5jbHVkZWQgaW4gdGhlIHRyYWluIHNldC4KCmUuIFByZWRpY3QgdGhlIGluY29tZSBmb3IgbmV3IG9ic2VydmF0aW9ucywgZm9yIHBlb3BsZSB3aXRoIAoxNi4wMCwgMTIuNTIsIDE1LjU1LCAyMS4wOSwgYW5kIDE4LjM2IHllYXJzIG9mIGVkdWNhdGlvbi4gVGhlbiwKbWFrZSBwcmVkaWN0aW9ucyBhbHNvIGZvciB0aGUgdGVzdCBzZXQgYW5kIGV2YWx1YXRlIHRoZSByb290IG1lYW4gc3F1YXJlZCAKZXJyb3Igb24gdGhlIHRlc3Qgc2V0LgoKCiMjIFBhcnQgMgoKYS4gTm93IGRvd25sb2FkIGRhdGEgZnJvbSAiaHR0cDovL3d3dy1iY2YudXNjLmVkdS9+Z2FyZXRoL0lTTC9JbmNvbWUyLmNzdiIKd2hpY2ggaW5jbHVkZSB0aGUgc2FtZSBvYnNlcnZhdGlvbnMgYnV0IGFsc28gcmVjb3JkcyBkYXRhIG9uICJzZW5vcml0eSIuCkFnYWluLCBzcGxpdCB0aGUgZGF0YSBpbnRvIHRyYWluIGFuZCB0ZXN0LgoKYi4gRml0IGEgbmV3IG1vZGVsIGluY2x1ZGluZyBhIG5ldyB2YXJpYWJsZSBhbmQgcHJpbnQgdGhlIG1vZGVsIHN1bW1hcnkuCgpjLiBQcmVkaWN0ZWQgdmFsdWVzIG9mIGluY29tZSBmb3IgdGhlIG9ic2VydmF0aW9ucyBpbiB0aGUgdHJhaW4gc2V0LgoKZC4gUHJlZGljdCB0aGUgaW5jb21lIGxldmVscyBmb3IgbmV3IG9ic2VydmF0aW9ucyB3aXRoIHllYXJzIG9mIGVkdWNhdGlvbgplcXVhbCB0byAxNi4wMCwgMTIuNTIsIDE1LjU1LCAyMS4wOSwgMTguMzYgYW5kIHNlbmlvcml0eSB0bwoxMjMuNzQsIDgzLjYzLCAgOTAuOTQsIDE3OC45NiwgMTI1LjE3LgoKCiMgRXhlcmNpc2UgMgoKSW4gdGhpcyBleGVyY2lzZSB5b3Ugd2lsbCBwZXJmb3JtIExhc3NvIHJlZ3Jlc3Npb24geW91cnNlbGYuCldlIHdpbGwgdXNlIHRoZSBgQm9zdG9uYCBkYXRhc2V0IGZyb20gdGhlIGBNQVNTYCBwYWNrYWdlLgpUaGUgZGF0YXNldCBjb250YWlucyBpbmZvcm1hdGlvbiBvbiB0aGUgQm9zdG9uIHN1YnVyYnMgCmhvdXNpbmcgbWFya2V0IGNvbGxlY3RlZCBieSBEYXZpZCBIYXJyaXNvbiBpbiAxOTc4LgoKV2Ugd2lsbCB0cnkgdG8gcHJlZGljdCB0aGUgbWVkaWFuIHZhbHVlIG9mIG9mIGhvbWVzIGluIHRoZSByZWdpb24gYmFzZWQgb24gCml0cyBhdHRyaWJ1dGVzIHJlY29yZGVkIGluIG90aGVyIHZhcmlhYmxlcy4KCkZpcnN0IGluc3RhbGwgdGhlIHBhY2thZ2U6CmBgYHtyfQojIGluc3RhbGwucGFja2FnZXMoIk1BU1MiKQpsaWJyYXJ5KE1BU1MpCmBgYAoKYGBge3J9CmhlYWQoQm9zdG9uLCAzKQpzdHIoQm9zdG9uKQpgYGAKCgphLiBTcGxpdCB0aGUgZGF0YSB0byB0cmFpbmluZyBhbmQgdGVzdGluZyBzdWJzZXRzLgoKYi4gUGVyZm9ybSBhIExhc3NvIHJlZ3Jlc3Npb24gd2l0aCBgZ2xtbmV0YC4gU3RlcHM6CiAgCjEuIEV4dHJhY3QgdGhlIGlucHV0IGFuZCBvdXRwdXQgZGF0YSBmcm9tIHRoZSBgQm9zdG9uYCBgZGF0YS5mcmFtZWAgYW5kIGNvbnZlcnQKdGhlbSBpZiBuZWNlc3NhcnkgdG8gYSBjb3JyZWN0IGZvcm1hdC4KMi4gVXNlIGNyb3NzLXZhbGlkYXRpb24gdG8gc2VsZWN0IHRoZSB2YWx1ZSBmb3IgJFxsYW1iZGEkLgozLiBJbnNwZWN0IGNvbXB1dGVkIGNvZWZmaWNpZW50cyBmb3IgYGxhbWJkYS5taW5gIGFuZCBgbGFtYmRhLjFzZWAuCjQuIENvbXB1dGUgdGhlIHByZWRpY3Rpb25zIGZvciB0aGUgdGVzdCBkYXRhc2V0IHRoZSB0d28gY2hvaWNlcyBvZiB0aGUgdHVuaW5nCnBhcmFtZXRlciwgYGxhbWJkYS5taW5gIGFuZCBgbGFtYmRhLjFzZWAuIApFdmFsdWF0ZSB0aGUgTVNFIGZvciBlYWNoLgoK</div>
 
 
 </div>
