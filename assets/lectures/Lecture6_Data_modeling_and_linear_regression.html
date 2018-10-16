@@ -750,7 +750,10 @@ newcars</code></pre></div>
 ## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  23.9
 ## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  19.1</code></pre>
 <p>Compute the root mean square error:</p>
-<p><span class="math inline">\(RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<p><span class="math display">\[
+RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
+\sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
+\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test<span class="op">$</span>pred))</code></pre></div>
 <pre><code>## [1] 1.425397</code></pre>
 </section><section id="visualizing-the-model" class="slide level2">
@@ -993,7 +996,10 @@ newcars</code></pre></div>
 ## 2  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1  25.5
 ## 3  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1  20.1</code></pre>
 <p>Compute the root mean square error:</p>
-<p><span class="math inline">\(RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}\)</span></p>
+<p><span class="math display">\[
+RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
+\sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
+\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>(mtcars_test_mult<span class="op">$</span>mpg <span class="op">-</span><span class="st"> </span>mtcars_test_mult<span class="op">$</span>pred))</code></pre></div>
 <pre><code>## [1] 1.039002</code></pre>
 </section><section id="interaction-terms" class="slide level2">

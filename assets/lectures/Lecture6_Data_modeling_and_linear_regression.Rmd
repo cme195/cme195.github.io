@@ -353,7 +353,10 @@ head(mtcars_test, 3)
 
 Compute the root mean square error:
 
-$RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}$
+$$
+RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
+\sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
+$$
 
 ```{r}
 sqrt(mean(mtcars_test$mpg - mtcars_test$pred))
@@ -550,7 +553,10 @@ head(mtcars_test_mult, 3)
 
 Compute the root mean square error:
 
-$RMSE = {1 \over \sqrt{n}}\|\vec{y} - \vec{\hat y}\| = \sqrt{{1 \over n}\sum_{i = 1}^n(y_i - \hat y_i)^2}$
+$$
+RMSE = \frac{1}{\sqrt{n}}\|\vec{y} - \vec{\hat y}\| = 
+\sqrt{\frac{1}{n}\sum_{i = 1}^n(y_i - \hat y_i)^2}
+$$
 
 ```{r}
 sqrt(mean(mtcars_test_mult$mpg - mtcars_test_mult$pred))
