@@ -19,11 +19,10 @@ output:
       slideNumber: true
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 rm(list = ls())
 knitr::opts_chunk$set(cache=TRUE)
-.packages <- c("ggplot2", "dplyr")
-sapply(.packages, require, character.only = TRUE)
+library(tidyverse)
 ```
 
 ## Contents
@@ -46,26 +45,14 @@ sapply(.packages, require, character.only = TRUE)
 
 ## Hypothesis testing can answer questions:
 
-> - **Is the measured quantity equal to/higher/lower than a given threshold?**
+- **Is the measured quantity equal to/higher/lower than a given threshold?**
 e.g. is the number of faulty items in an order statistically higher
 than the one guaranteed by a manufacturer? 
-> - **Is there a  difference between two groups or observations**? 
+- **Is there a  difference between two groups or observations**? 
 e.g. Do treated patient have a higher survival rate than the untreated ones?
-> - **Is the level of one quantity related to the value of the other quantity?**
+- **Is the level of one quantity related to the value of the other quantity?**
 e.g. Is hyperactivity related to eating sugar? Is lung cancer related to smoking?
 
-##
-
-Everyday life examples
-[(top answer from Quora)](https://www.quora.com/What-are-some-examples-of-how-hypothesis-testing-can-be-applied-in-everyday-life):
-
-* Test weather route A or route B is the faster way to get from your home to your school.
-* Test whether acetaminophen (Tylenol) or ibuprofen (Advil) helps faster with your headaches.
-* If you are 21 or older, test whether Tequila or beer gives you worse hangover.
-*  Test if you run faster in the morning compared to the afternoon.
-* Test if you weight is lower in the morning compared to the afternoon.
-
- 
 ## To perform a hypothesis test you need to:
 
 > 1. Define the null and alternative hypotheses.
@@ -92,77 +79,68 @@ hypothesis or not**.
 
 ![](./Lecture7-figure/failed_reject.jpg)
 
-![](./Lecture7-figure/penguin.jpg)
 
 ## Student's t-test
 
-> - William Gosset (1908), a chemist at **the Guiness brewery**.
-> - Published in Biometrika under a **pseudonym Student**.
-> - Used to select best yielding varieties of barley.
-> - Now one of the standard/traditional methods for hypothesis testing.
+- William Gosset (1908), a chemist at **the Guiness brewery**.
+- Published in Biometrika under a **pseudonym Student**.
+- Used to select best yielding varieties of barley.
+- Now one of the standard/traditional methods for hypothesis testing.
 
-## Distribution of the statistic
+Among the typical applications:
 
-p-value is the probability of an observed (or more extreme) result assuming 
-that the null hypothesis is true, i.e. $P[observations \mid H_0]$. Note that:
+- Comparing population mean to a constant value
+- Comparing the means of two populations
+- Comparing the slope of a regression line to a constant
 
-$$P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
+In general, used when the test statistic would follow a normal distribution 
+if the value of a scaling term in the test statistic were known.
 
-</br>
+## Distribution of the t-statistic
 
-<div class = "left">
+![](./Lecture7-figure/t-statistic.png)
 
-![](./Lecture7-figure/tdist.gif)
 
-</div>
+If $X_i \sim \mathcal{N}(\mu, \sigma^2)$, the empirical estimates for mean
+and variance are:
+$\bar X = \frac{1}{n}\sum_{i = 1}^{n} X_i$ and 
+$s^2 = \frac{1}{n - 1}\sum_{i = 1}^n(X_i -\bar X)^2$
 
-<div class = "right">
+The t-statistic is:
 
-**This is the reason why p-values should NOT be used a "ranking"/"scoring"
-system for your hypotheses**. You should only use it to potentially reject
-your null hypothesis. Null hypothesis cannot be proven true, **you can only 
-fail to reject it**.
-</div>
-
+$$
+T = \frac{\bar X −mu}{s/\sqrt{n}}\sim t_{\nu=n-1}
+$$
 
 ## p-value
 
-> - p-value is the **probability of obtaining a result equal to or "more extreme" than what 
-was actually observed, when the null hypothesis is true**.
-> - A small p-value (typically $\le 0.05$) indicates strong evidence against the null hypothesis, 
-so you reject the null hypothesis.
-> - A large p-value (> 0.05) indicates weak evidence against the null hypothesis, 
-so you do NOT to reject the null hypothesis.
+- p-value is the **probability of obtaining the same or "more extreme" event 
+than the one observed, assuming the null hypothesis holds (is true)**.
+
+- A small p-value, typically < 0.05, indicates **strong evidence** against the
+null hypothesis; in this case you can reject the null hypothesis.
+
+- A large p-value, > 0.05, indicates **weak evidence** against the null 
+hypothesis; in this case, you do NOT reject the null hypothesis.
 
 
+$$p-value = P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
+![](./Lecture7-figure/tdist.gif)
 
 
-## Dataset
+**p-values should NOT be used a "ranking"/"scoring" system for your hypotheses**
 
-* A built-in dataset, `mtcars`,  that comes from a 1974 issue of Motor Trends 
-magazine. 
-
-```{r}
-data("mtcars")
-head(mtcars)
-```
-
-* rows correspond to car models,
-* column are car attributes: miles per gallon, number of 
-cylinders, displacement, transmission etc.
-
-## Testing mpg equal to a value
+## Two-sided test of the mean
 
 <div class = "left">
-Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
-statistically equal to 25? 
+Is the mean flight arrival delay statistically equal to 0?
 
 </br>
 **Test the null hypothesis:**
 
-\[H_0: \mu = 25 \\
-H_a: \mu \ne 25\]
-where $\mu$ is the mean mpg of cars in the dataset
+\[H_0: \mu = \mu_0 = 0 \\
+H_a: \mu \ne \mu_0 = 0\]
+where $\mu$ is where $\mu$ is the average arrival delay.
 </div>
 
 <div class = "right">
@@ -172,12 +150,21 @@ where $\mu$ is the mean mpg of cars in the dataset
 
 ##
 ```{r}
-mtcars$mpg
-tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "two.sided")
-tt
+library(tidyverse)
+library(nycflights13)
+mean(flights$arr_delay, na.rm = T)
+```
+
+Is this statistically significant?
+
+```{r}
+( tt = t.test(x=flights$arr_delay, mu=0, alternative="two.sided" ) )
 ```
 
 ##
+
+The function t.test returns an object containing the following components:
+
 ```{r}
 names(tt)
 ```
@@ -193,30 +180,40 @@ tt$conf.int
 ```
 
 
-## Testing mpg  smaller than a value
+## One-sided test of the mean
 
 <div class = "left">
+One-sided can be more powerful, but the intepretation is more difficult.
 
-Is the mean fuel efficiency (mpg) in the cars in `mtcars` 
-statistically less than 25? 
 
 </br>
 **Test the null hypothesis:**
 
-\[H_0: \mu = 25 \\
-H_a: \mu < 25\]
-where $\mu$ is the mean mpg of cars in the dataset
+\[H_0: \mu = \mu_0 =0 \\
+H_a: \mu < \mu_0 = 0\]
+
 </div>
 
 <div class = "right">
 ![](./Lecture7-figure/left-sided.png)
+
+```{r, eval = FALSE}
+t.test(x, mu=0, alternative="less")
+```
+
 </div>
 
 ##
+
+Is the average delay 5 or is it lower?
+
+
 ```{r}
-tt <- t.test(x = mtcars$mpg, mu = 25, alternative = "less")
-tt
+( tt = t.test(x=flights$arr_delay, mu=5, alternative="less" ) )
 ```
+
+Failure to reject is not acceptance of the null hypothesis.
+
 
 ## Testing difference between groups 
 
@@ -232,38 +229,39 @@ H_a: \mu_a \ne \mu_m\]
 where $\mu_a$ mean mpg of automatic cars and $\mu_m$ is the mean mpg of manual
 cars.
 
-## 
-Convert the column `am` (transmission) to a factor:  
-```{r}
-#  convert am (0 = automatic, 1 = manual) column to a factor
-mtcars <- mtcars %>%
-  mutate(am = factor(am, levels = c(0, 1), 
-                               labels = c("automatic", "manual")))
-head(mtcars)
+```{r, eval = FALSE}
+t.test(x, y)
 ```
 
-##
-First, visualize the data
 
-```{r, fig.width=8, fig.height=6}
-library(ggplot2)
-ggplot(mtcars, aes(x = am, y = mpg)) + geom_boxplot() +
-  xlab("Trasmission") + ylab("Fuel efficiency") +
-  geom_jitter(width = 0.2, height = 0)
-```
-
-## 
-
-The R implementation of the Student's t-test is `t.test()` function:
+## Seasonal differences in flight delay
 
 ```{r}
-tt <- t.test(x = mtcars$mpg[mtcars$am == "automatic"], 
-             y = mtcars$mpg[mtcars$am == "manual"])
-# or
-(tt <- t.test(formula = mpg ~ am, data = mtcars))
+flights %>% 
+  mutate(season = cut(month, breaks = c(0,3,6,9,12))) %>% 
+  ggplot(aes(x = season, y = arr_delay)) + geom_boxplot (alpha=0.1) +
+    xlab("Season" ) + ylab("Arrival delay" )
 ```
 
-* **A tilde symbol, `~`**, means "explained by". 
+## Seasonal differences in flight delay
+
+```{r}
+flights %>% 
+  filter(arr_delay < 120) %>%
+  mutate(season = cut(month, breaks = c(0,3,6,9,12))) %>% 
+  ggplot(aes(x = season, y = arr_delay)) + geom_boxplot (alpha=0.01) +
+    xlab("Season" ) + ylab("Arrival delay" )
+```
+
+
+## Testing seasonal differences in flight delay
+
+```{r}
+flights.winter = filter(flights, month %in% c(1,2,3))
+flights.summer = filter(flights, month %in% c(7,8,9))
+t.test(x=flights.winter$arr_delay, y=flights.summer$arr_delay)
+```
+
 
 ## Exercise
 
@@ -368,8 +366,7 @@ Suppose we would like to predict students' admission to graduate school
 based on their GRE, GPA, and the rank of their undergraduate institution.
 
 ```{r}
-admissions <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
-admissions <- tbl_df(admissions)
+admissions <- read_csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
 admissions
 ```
 
@@ -405,6 +402,7 @@ Note that currently the column 'admit' and 'rank' in `admissions` are integers.
 ```{r}
 sapply(admissions, class)
 ```
+
 We convert the two columns to factors.
 
 ```{r}
@@ -418,13 +416,22 @@ admissions
 ## Split data
 
 Divide data into train and test set so that we can evaluate the model
-accuracy later on. Here we use 70%-30% split.
+accuracy later on. Here we use 60%-20%-20% split.
 
 ```{r}
-set.seed(123456)
-train.idx <- sample(nrow(admissions), 0.7*nrow(admissions))
+set.seed(78356)
+n <- nrow(admissions)
+idx <- sample(1:n, size = n)
+train.idx <- idx[seq(1, floor(0.6*n))]
+valid.idx <- idx[seq(floor(0.6*n)+1, floor(0.8*n))]
+
 train <- admissions[train.idx, ]
-test <- admissions[-train.idx, ]
+valid <- admissions[valid.idx, ]
+test <- admissions[-c(train.idx, valid.idx), ]
+
+nrow(train)
+nrow(valid)
+nrow(test)
 ```
 
 
@@ -432,8 +439,8 @@ test <- admissions[-train.idx, ]
 ## Fitting a logistic regression model 
 
 ```{r}
-fit.logit <- glm(admit ~ gre + gpa + rank, data = train, 
-                 family = "binomial")
+logit_fit <- glm(
+    admit ~ gre + gpa + rank, data = train, family = "binomial")
 ```
 
 
@@ -444,13 +451,6 @@ specifies the linear predictor part, $\eta = X\beta$.
 * You need to set the family to `family = "binomial"` equivalent to choosing
 a logistic regression, i.e. using **a logit link function** $g(\cdot)$ in
 a GLM model.
-
-
-##
-
-```{r}
-summary(fit.logit)
-```
 
 
 ##
@@ -473,7 +473,7 @@ is recorded with that level.
 
 $$
 \begin{align*}
-\beta_{facL} &= \log \left({P[Y = 1 \;| \; X_{fac} =  L ] \over P[Y = 1\;|\; X_{fac} \ne L ]} \right)\\
+\beta_{factor} &= \log \left({P[Y = 1 \;| \; X_{fac} =  L ] \over P[Y = 1\;|\; X_{fac} \ne L ]} \right)\\
 \end{align*}
 $$
 
@@ -481,20 +481,20 @@ $$
 ## 
 
 ```{r}
-coef(fit.logit)
+coef(logit_fit)
 ```
 
 </br> 
 
 * For every unit increase in `gre`, the log odds of admitted 
-(versus rejected) increases by $\approx$ `r coef(fit.logit)[["gre"]]`.
+(versus rejected) increases by $\approx$ `r coef(logit_fit)[["gre"]]`.
 
 * For every unit increase in `gpa`, the log odds increases by $\approx$
-`r coef(fit.logit)[["gpa"]]`. 
+`r coef(logit_fit)[["gpa"]]`. 
 
 * There are three coefficients for the rank variable, e.g. 
 a student attending a college with rank 2, one with rank 1 (base level), has
-the log admission odds decreased by $\approx$ `r coef(fit.logit)[["rank2"]]`.
+the log admission odds decreased by $\approx$ `r coef(logit_fit)[["rank2"]]`.
 
 
 ##
@@ -503,10 +503,16 @@ You can get the confidence intervals for the coefficients with the `confint()`
 fuinction
 
 ```{r}
-confint(fit.logit)
+confint(logit_fit)
 ```
 
 The $95\%$ CI are away from zero which indicates significance.
+
+##
+
+```{r}
+summary(logit_fit)
+```
 
 ##
 
@@ -518,7 +524,7 @@ effect of 'rank'.
 ```{r}
 # install.packages(aod)
 library(aod)
-wald.test(b = coef(fit.logit), Sigma = vcov(fit.logit), Terms = 4:6)
+wald.test(b = coef(logit_fit), Sigma = vcov(logit_fit), Terms = 4:6)
 ```
 
 * `b` supplies the coefficients, 
@@ -529,6 +535,25 @@ corresponding to 'rank'.
 The p-value indicates that the overall effect of rank 
 is statistically significant.
 
+## Fitted values
+
+```{r}
+library(modelr)
+head(train %>% add_predictions(logit_fit, var = "log_odds"))
+
+(train <- train %>%
+    mutate(
+        admit_odds = predict(logit_fit),
+        admit_prob = predict(logit_fit, type = "response"),
+        admit_pred = factor(admit_prob < 0.5, levels = c(TRUE, FALSE), 
+                            labels = c("rejected", "admitted")),
+        admit_pred2 = factor(admit_odds < 0, levels = c(TRUE, FALSE), 
+                            labels = c("rejected", "admitted"))
+    ))
+```
+
+
+
 ## Predictions
 
 Predictions can be computed using `predict()` function, with the argument
@@ -537,33 +562,80 @@ on the scale of the linear predictors.
 
 ```{r}
 # Must have the same column names as the variables in the model 
-newStudents <- data.frame(gre = c(670, 790, 550), 
-                          gpa = c(3.56, 4.00, 3.87), 
-                          rank = factor(c(1, 2, 2)))
+new_students <- data.frame(
+    gre = c(670, 790, 550), 
+    gpa = c(3.56, 4.00, 3.87), 
+    rank = factor(c(1, 2, 2)))
 
 # The output is the probability of admissions for each of the new students.
-newStudents <- newStudents %>% 
+new_students <- new_students %>% 
   mutate(
-    pred.prob.admit = predict(fit.logit, newdata = newStudents, 
-                              type = "response"),
-    admit = factor(pred.prob.admit < 0.5, levels = c(TRUE, FALSE),
+    admit_odds = predict(logit_fit, newdata = new_students),
+    admit_pred = factor(admit_odds < 0, levels = c(TRUE, FALSE),
                    labels = c("rejected", "admitted"))
   )
-newStudents
+new_students
 ```
 
-## Test Set Predictions 
+
+## Multiple models
 
 ```{r}
-pred.prob.admit <- predict(fit.logit, newdata = test, type = "response")
-admit <- factor(pred.prob.admit < 0.5, levels = c(TRUE, FALSE),
-                labels = c("rejected", "admitted"))
-(confusion.matrix <- table(pred = admit, true = test$admit))
-# Accuracy
-sum(diag(confusion.matrix))/nrow(test)
+logit_fit2 <- glm(
+    admit ~ rank, data = train, family = "binomial")
+
+valid <- valid %>%
+    mutate(
+        admit_odds_fit1 = predict(logit_fit, newdata = valid),
+        admit_odds_fit2 = predict(logit_fit2, newdata = valid),
+        admit_fit1 = factor(admit_odds_fit1 < 0, 
+                            levels = c(TRUE, FALSE), 
+                            labels = c("rejected", "admitted")),
+        admit_fit2 = factor(admit_odds_fit2 < 0, 
+                            levels = c(TRUE, FALSE), 
+                            labels = c("rejected", "admitted"))
+    )
+valid
 ```
 
+## Evaluating accuracy
 
+```{r}
+# Confusion Matrix for model 1
+(confusion_matrix_fit1 <- table(true = valid$admit, pred = valid$admit_fit1))
+
+# Confusion Matrix for model 2
+(confusion_matrix_fit2 <- table(true = valid$admit, pred = valid$admit_fit2))
+
+# Accuracy for model 1
+(accuracy_fit1 <- sum(diag(confusion_matrix_fit1))/sum(confusion_matrix_fit1))
+
+# Accuracy for model 2
+(accuracy_fit2 <- sum(diag(confusion_matrix_fit2))/sum(confusion_matrix_fit2))
+```
+
+We choose a simpler model `logit_fit2`
+
+## Expected `logit_fit2` performance
+
+Performance of our chosen model, `logit_fit2` can be evaluated
+on the `test`set
+
+```{r}
+test <- test %>%
+    mutate(
+        admit_odds = predict(logit_fit2, newdata = test),
+        admit_pred = factor(admit_odds < 0, 
+                             levels = c(TRUE, FALSE),
+                             labels = c("rejected", "admitted"))
+    )
+    
+(test_confusion_matrix <- table(pred = test$admit, true = test$admit_pred))
+(test_accuracy <- sum(diag(test_confusion_matrix))/sum(test_confusion_matrix))
+```
+
+So, you should expect your model accuracy to be around `r test_accuracy`
+for a new dataset you collect later.
 
 
 ## Exercise
@@ -597,18 +669,11 @@ also a good write-up can also be found
 * Cool visualization explaining what decision trees are:
 [link](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
 
-* Decision tree on classification of Titanic Survivors:
+* Example of decision trees
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width=8, fig.height=6, fig.align='center'}
-library(rpart)
-library(rpart.plot)
-data(ptitanic)
-tree <- rpart(survived ~ ., data=ptitanic, cp=.02)
-cols <- c("darkred", "green4")[tree$frame$yval] # green if survived
-prp(tree, tweak=1.4, extra=106, under=TRUE, branch=.5, faclen=0,
-    ge=" > ", eq=" ", split.prefix="is ", split.suffix="?",
-    col=cols, border.col=cols, trace=FALSE)
-```
+![](./Lecture7-figure/decision_tree.jpg)
+
+![](./Lecture7-figure/titanic_decision_tree.png)
 
 ## Tree bagging Algorithm
 
@@ -683,23 +748,23 @@ on physicochemical and sensory characteristics of the wine quality score.
 
 We will use the white wines dataset to classify wines according to their quality classes.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 url <- 'https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv'
-wines <- tbl_df(read.csv(url, sep = ";"))
-print(wines, n = 6)
+wines <- read.csv(url, sep = ";")
+head(wines, 6)
 ```
 
 ## Class Frequency
 
 ```{r, fig.width=10, fig.height=6, fig.align='center'}
+table(wines$quality)
+
 ggplot(wines, aes(x = quality)) +
   geom_bar() + theme_classic() +
   ggtitle("Barplot for Quality Scores")
 ```
 
-<p style="font-size: 30px"> 
 The classes are ordered and not balanced (munch more normal wines than excellent/poor ones). 
-</p>
 
 ##
 
@@ -714,9 +779,10 @@ qualClass <- function(quality) {
   if(quality < 6) return("bad")
   return("average")
 }
-wines <- mutate(wines, taste = sapply(quality, qualClass),
-         taste = factor(taste, levels = c("bad", "average", "good")))
-wines
+wines <- wines %>%
+    mutate(taste = sapply(quality, qualClass),
+           taste = factor(taste, levels = c("bad", "average", "good")))
+head(wines)
 ```
 
 
@@ -734,10 +800,10 @@ ggplot(wines, aes(x = taste)) +
 
 We include 60% of the data in a train set and the remaining into a test set.
 ```{r}
-set.seed(123)
-train.idx <- sample(nrow(wines), 0.6 * nrow(wines))
-train <- wines[train.idx, ]
-test <- wines[-train.idx, ]
+set.seed(98475)
+idx <- sample(nrow(wines), 0.6 * nrow(wines))
+train <- wines[idx, ]
+test <- wines[-idx, ]
 dim(train)
 dim(test)
 ```
@@ -750,8 +816,9 @@ In R there is a convenient function `randomForest` from `randomForest` package.
 ```{r}
 # install.packages("randomForest")
 library(randomForest)
-rf.wines <- randomForest(taste ~ . - quality, data = train,
-                         mtry = 6, ntree = 600, importance = TRUE)
+wines_fit_rf <- randomForest(
+    taste ~ . - quality, data = train,
+    mtry = 5, ntree = 500, importance = TRUE)
 ```
 
 * Note that in the formula '`taste ~ . - quality`' means we include all features 
@@ -772,7 +839,7 @@ from"good" wines, but still struggles when it comes to
 "average" wines.
 
 ```{r}
-rf.wines
+wines_fit_rf
 ```
 
 ## Model Accuracy
@@ -787,20 +854,21 @@ trees for observations unseen by the tree.
 
 * Inspect the confusion matrix to asses the model accuracy.
 ```{r}
-pred <- predict(rf.wines, newdata = test)
-(confusion.mat <- table(pred, truth = test$taste))
+(confusion_matrix <- table(
+    true = test$taste, pred = predict(wines_fit_rf, newdata = test)))
 ```
 
 ```{r}
-(rf.accuracy <- sum(diag(confusion.mat)) / nrow(test))
+(accuracy_rf <- sum(diag(confusion_matrix)) / sum(confusion_matrix))
 ```
 
 ## 
 
 https://stats.stackexchange.com/questions/197827/how-to-interpret-mean-decrease-in-accuracy-and-mean-decrease-gini-in-random-fore
+
 ```{r}
 ## Look at variable importance:
-importance(rf.wines)
+importance(wines_fit_rf)
 ```
 
 ##
@@ -809,7 +877,7 @@ What seems to be the conclusion? What are the characteristics that are predictiv
 of the wine quality score?
 
 ```{r}
-varImpPlot(rf.wines)
+varImpPlot(wines_fit_rf)
 ```
 
 
@@ -822,222 +890,6 @@ from the class website under the Lecture tab.
 
 - Complete Exercise 3.
 
-
-# Support Vector Machines
-
-## Suport Vector Machines (SVM)
-
-* Method invented by Vladimir N. Vapnik and Alexey Ya. Chervonenkis in 1963. 
-
-* The idea is to find the best hyperplane sepparating observations from 2 different classes,
-where the best means the one that represents the largest separation or margin.
-
-* The Andrew Ng's CS229 [lecture](https://www.youtube.com/watch?v=_PwhiWxHK8o)
-and [notes](http://cs229.stanford.edu/notes/cs229-notes3.pdf) are good resources 
-to learn about principles of SVMs.
-
-* More details can also be found in Chapter 9 
-[ISL](http://statweb.stanford.edu/~tibs/ElemStatLearn/)
-and Chapter 12 [ESL](http://statweb.stanford.edu/~tibs/ElemStatLearn/)
-
-
-##
-
-<div style="text-align: center">
-
-![](./Lecture7-figure/support_vecs.png)
-
-
-![](./Lecture7-figure/SVM_optimize.png)
-
-
-</div>
-
-## SVM Problem
-
-\begin{align}
-\max_{w, b} & \quad \frac{2}{\|w\|} \\
-s.t. \; \forall i: \;  y_i (w \cdot & x_i + b) \ge 1
-\end{align}
-
-which can be converted to:
-
-\begin{align}
-\min_{w, b} \quad  {1 \over 2}& \|w\|^2  \\
-s.t. \; \forall i: \; y_i (w \cdot x_i & + b) \ge 1
-\end{align}
-
-## SVM Problem
-
-Sometimes the data is not linearly separable,
-and regularization/soft-margin works better:
-\begin{align}
-\min_{w, b}  {1 \over 2} \|w\|^2 & + C \sum_{i = 1}^n \xi_i\\
-s.t. \; \forall i: \; y_i (w \cdot x_i + b) &\ge 1 - \xi_i\\
-\xi_i &\ge 0
-\end{align}
-
-Lagrangian:
-
-\begin{align}
-\mathcal{L}(w, b, \xi, \alpha, r)
-= {1\over 2} & w^Tw + C \sum_{i = 1}^n \xi_i - \sum_{i = 1}^n r_i \xi_i \\
-& -\sum_{i = 1}^n \alpha_i\left[ y_i (w \cdot x_i + b) - 1 + \xi_i\right] 
-\end{align}
-
-## SVM Example
-
-We will do a simple example from the ISL computing SVM on a simulated data:
-```{r}
-set.seed(1)
-x <- matrix(rnorm(40*2), ncol=2)
-y <- c(rep(-1,20), rep(1,20))
-x[y == 1, ] <- x[y == 1, ] + 2
-dat <- data.frame(x = x, y=as.factor(y))
-head(dat)
-```
-
-##
-
-```{r}
-plot(x[, 2], x[, 1], col=(3-y))
-```
-
-## SVM in R
-
-You can use the `e1071` package to perform svm in R.
-```{r fig.height=3.5}
-library(e1071)
-# Set scale to be FALSE otherwise by default x is scaled to zero mean and unit variance
-svmfit <- svm(y ~ ., data=dat, kernel="linear", cost = 10, scale=FALSE)
-summary(svmfit)
-```
-
-##
-
-```{r}
-svmfit$index
-plot(svmfit, dat)
-```
-
-##
-
-```{r}
-svmfit <- svm(y~., data=dat, kernel="linear", cost=0.05, scale=FALSE)
-svmfit$index
-summary(svmfit)
-```
-##
-
-```{r}
-plot(svmfit, dat)
-```
-
-
-##
-
-To find a best choice of the tuning parameter "C" use the `tune()` function
-
-```{r}
-set.seed(1)
-tune.out <- tune(svm,y ~ ., data=dat, kernel="linear",
-                 ranges=list(cost=c(0.001, 0.01, 0.05, 0.1, 1,5,10,20)))
-summary(tune.out)
-```
-##
-
-```{r}
-bestmod <- tune.out$best.model
-plot(bestmod, dat)
-```
-
-##
-
-We build a new test dataset from a similar model as we did for the train data.
-
-```{r}
-set.seed(1)
-xtest <- matrix(rnorm(30*2), ncol=2)
-ytest <- sample(c(-1,1), 30, rep=TRUE)
-xtest[ytest == 1, ] <- xtest[ytest == 1,] + 2
-testdat <- data.frame(x = xtest, y = as.factor(ytest))
-plot(xtest[, 2], xtest[, 1], col=(3-ytest))
-```
-
-##
-
-```{r}
-ypred <- predict(bestmod, testdat)
-table(predict = ypred, truth = testdat$y)
-```
-
-And for the non-tuned model we have:
-
-```{r}
-svmfit <- svm(y~., data=dat, kernel = "linear", cost=10, scale = FALSE)
-ypred <- predict(svmfit, testdat)
-table(predict = ypred, truth = testdat$y)
-```
-
-## Kernel SVM
-
-![](./Lecture7-figure/Kernel_Machine.png)
-
-## Kernel SVM Example
-
-Now suppose we have non-linearly separable data:
-
-```{r}
-set.seed(1)
-# Generate 200 points
-x <- matrix(rnorm(400*2), ncol=2)
-x[1:100,] <- x[1:100,] + 2
-x[101:200,] <- x[101:200, ] - 2
-y <- c(rep(1,200), rep(2,200))
-dat <- data.frame(x = x, y = as.factor(y))
-# Let a random half be a training set
-trainIdx <- sample(400, 200)
-```
-
-##
-
-```{r}
-plot(x[trainIdx, 2], x[trainIdx, 1], col=y[trainIdx])
-```
-
-##
-
-We will use the SVM with **a radial kernel**. Note that here we can additionally 
-specify the `gamma` parameter for the radial function:
-
-```{r}
-svmfit <- svm(y~., data=dat[trainIdx,], kernel = "radial",  gamma=1, cost=1)
-table(true = dat[-trainIdx,"y"], pred=predict(svmfit, newdata = dat[-trainIdx, ]))
-```
-
-##
-
-```{r}
-plot(svmfit, dat[trainIdx,])
-```
-
-##
-
-We can tune both `gamma` and `cost` parameters:
-
-```{r}
-tune.out <- tune(svm, y~., data=dat[trainIdx,], kernel="radial", 
-              ranges=list(cost=seq(0.01, 15, length.out = 10), 
-                          gamma=seq(0.01, 5, length.out = 5)))
-table(true = dat[-trainIdx,"y"], 
-      pred = predict(tune.out$best.model, newdata = dat[-trainIdx,]))
-```
-
-##
-
-```{r}
-plot(tune.out$best.model, dat[trainIdx,])
-```
 
 
 

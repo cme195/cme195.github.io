@@ -22,11 +22,12 @@ gallon.
 
 
 ```{r}
-# We create a new culumn with manual/automatic data only
+# We first format the column trans to contain only info on transmission auto/manual
+mpg
 mpg <- mpg %>% 
   mutate(
-    transmission = factor(
-        gsub("\\((.*)", "", trans), levels = c("auto", "manual"))
+    trans = strsplit(trans, "\\(")[[1]][1],
+    trans = factor(trans, levels = c("auto", "manual"))
   )
 mpg
 ```

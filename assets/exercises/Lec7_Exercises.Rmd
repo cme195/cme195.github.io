@@ -96,11 +96,11 @@ the 'color = student'.
 In this exercise we will build a random forest model based
 on the data used to create the visualization [here](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/).
 
-```{r}
+```{r, message=FALSE}
 # Skip first 2 lines since they were comments
 url <- paste0("https://raw.githubusercontent.com/jadeyee/r2d3-part-1-data/",
               "master/part_1_data.csv")
-houses <- read.csv(url, skip = 2)
+houses <- read_csv(url, skip = 2)
 houses <- tbl_df(houses)
 houses <- houses %>%
     mutate(city = factor(in_sf, levels = c(1, 0), labels = c("SF", "NYC")))

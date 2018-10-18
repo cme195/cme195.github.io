@@ -29,7 +29,9 @@ Modeling data:
 **Lecture 6:** Data modeling and linear regression.
 [[html](./assets/lectures/Lecture6_Data_modeling_and_linear_regression.html)]
 [[pdf](./assets/lectures/Lecture6_Data_modeling_and_linear_regression.pdf)]  
-**Lecture 7:** Hypothesis testing and classification.  
+**Lecture 7:** Hypothesis testing and classification.
+[[html](./assets/lectures/Lecture7_Hypothesis_testing_and_classification.html)]
+[[pdf](./assets/lectures/Lecture7_Hypothesis_testing_and_classification.pdf)]  
 **Lecture 8:** Unsupervised techniques in R.    
 
 Disclaimer: these lecture slides are subject to change and can be updated
@@ -60,9 +62,9 @@ any time. Please check regularly.
 [[html](./assets/exercises/Lec6_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec6_Exercises.Rmd)][[solutions](./assets/exercises/Lec6_Exercises_with_Answers.nb.html)]  
 **Exercise 7:**
-<!---
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)]
+<!---
 [[solutions](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]
 --->  
 **Exercise 8:**
