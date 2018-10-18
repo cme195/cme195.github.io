@@ -2870,9 +2870,8 @@ div.tocify {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGBcbmBgYCJ9 -->
-<p><code>r</code>r library(tidyverse)</p>
-<pre><code></code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2883,8 +2882,13 @@ div.tocify {
 <p>Generate the correct format string to parse each of the following dates and times:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZDEgPC0gXFxKYW51YXJ5IDFcbmBgYCJ9 -->
-<p><code>r</code>r d1 &lt;- 1 ```</p>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZDEgPC0gXCJKYW51YXJ5IDEsIDIwMTBcIlxuZDIgPC0gXCIyMDE1LU1hci0wN1wiXG5kMyA8LSBcIjA2LUp1bi0yMDE3XCJcbmQ0IDwtIGMoXCJBdWd1c3QgMTkgKDIwMTUpIC0gMzowNFBNXCIsIFwiSnVseSAxICgyMDE1KSAtIDQ6MDRQTVwiKVxuZDUgPC0gXCIxMi8zMC8xNFwiICMgRGVjIDMwLCAyMDE0XG50MSA8LSBcIjE3MDVcIiAgICAgIyA1OjA1UE1cbmBgYCJ9 -->
+<pre class="r"><code>d1 &lt;- &quot;January 1, 2010&quot;
+d2 &lt;- &quot;2015-Mar-07&quot;
+d3 &lt;- &quot;06-Jun-2017&quot;
+d4 &lt;- c(&quot;August 19 (2015) - 3:04PM&quot;, &quot;July 1 (2015) - 4:04PM&quot;)
+d5 &lt;- &quot;12/30/14&quot; # Dec 30, 2014
+t1 &lt;- &quot;1705&quot;     # 5:05PM</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2902,10 +2906,9 @@ div.tocify {
 <p>Load in the dataset <code>movies.csv</code> used in the lecture:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxudXJsIDwtIFxcaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0p1YW5ldHMvbW92aWUtc3RhdHMvbWFzdGVyL21vdmllcy5jc3ZcXFxubW92aWVzIDwtIHJlYWRfY3N2KHVybClcbmBgYFxuYGBgIn0= -->
-<p><code>r</code>r url &lt;- ://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv<br />
-movies &lt;- read_csv(url)</p>
-<pre><code></code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudXJsIDwtIFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0p1YW5ldHMvbW92aWUtc3RhdHMvbWFzdGVyL21vdmllcy5jc3ZcIlxubW92aWVzIDwtIHJlYWRfY3N2KHVybClcbmBgYCJ9 -->
+<pre class="r"><code>url &lt;- &quot;https://raw.githubusercontent.com/Juanets/movie-stats/master/movies.csv&quot;
+movies &lt;- read_csv(url)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBidWRnZXQgPSBjb2xfZG91YmxlKCksXG4gIGNvbXBhbnkgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGNvdW50cnkgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGRpcmVjdG9yID0gY29sX2NoYXJhY3RlcigpLFxuICBnZW5yZSA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgZ3Jvc3MgPSBjb2xfZG91YmxlKCksXG4gIG5hbWUgPSBjb2xfY2hhcmFjdGVyKCksXG4gIHJhdGluZyA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgcmVsZWFzZWQgPSBjb2xfY2hhcmFjdGVyKCksXG4gIHJ1bnRpbWUgPSBjb2xfaW50ZWdlcigpLFxuICBzY29yZSA9IGNvbF9kb3VibGUoKSxcbiAgc3RhciA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgdm90ZXMgPSBjb2xfaW50ZWdlcigpLFxuICB3cml0ZXIgPSBjb2xfY2hhcmFjdGVyKCksXG4gIHllYXIgPSBjb2xfaW50ZWdlcigpXG4pXG4ifQ== -->
 <pre><code>Parsed with column specification:

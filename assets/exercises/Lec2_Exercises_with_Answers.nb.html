@@ -3118,12 +3118,11 @@ no_of_integers &lt;- function(vec, k) {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKHZlYyA8LSBzYW1wbGUoMToyMCwgMTAwLCByZXBsYWNlID0gVFJVRSkpXG5gYGAifQ== -->
 <pre class="r"><code>(vec &lt;- sample(1:20, 100, replace = TRUE))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gMTQgMTEgIDYgMTkgIDYgMTcgIDYgIDYgIDQgIDUgIDcgIDcgIDQgIDEgIDUgMTcgMTEgMTkgMTcgIDEgMTAgIDYgIDcgMTFcbiBbMjVdICA0IDE2ICA1ICA2IDIwIDE3IDEyIDEzICA3IDEzICA3IDExIDE0IDEwICA1IDE2ICAyICA3IDE1IDExICA0IDExIDEwIDE2XG4gWzQ5XSAgNCAxNyAxOCAgMSAgNyAgMSAgNSAxNSAgNyAxMSAgMiAxMiAgMyAxOCAgMSAxNiAgMiAxMSAgOCAgMiAgNyAxNCAxOSAxMFxuIFs3M10gIDMgMTEgIDQgMTggIDggIDcgIDQgMTggIDQgMTkgIDMgIDMgIDMgMTEgIDcgIDEgIDcgMTUgIDEgMTIgIDYgIDUgIDMgIDdcbiBbOTddICA0ICAzICA5ICAxXG4ifQ== -->
-<pre><code>  [1] 14 11  6 19  6 17  6  6  4  5  7  7  4  1  5 17 11 19 17  1 10  6  7 11
- [25]  4 16  5  6 20 17 12 13  7 13  7 11 14 10  5 16  2  7 15 11  4 11 10 16
- [49]  4 17 18  1  7  1  5 15  7 11  2 12  3 18  1 16  2 11  8  2  7 14 19 10
- [73]  3 11  4 18  8  7  4 18  4 19  3  3  3 11  7  1  7 15  1 12  6  5  3  7
- [97]  4  3  9  1</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gMTQgMTEgIDYgMTkgIDYgMTcgIDYgIDYgIDQgIDUgIDcgIDcgIDQgIDEgIDUgMTcgMTEgMTkgMTcgIDEgMTAgIDYgIDcgMTEgIDQgMTYgIDUgIDYgMjBcbiBbMzBdIDE3IDEyIDEzICA3IDEzICA3IDExIDE0IDEwICA1IDE2ICAyICA3IDE1IDExICA0IDExIDEwIDE2ICA0IDE3IDE4ICAxICA3ICAxICA1IDE1ICA3IDExXG4gWzU5XSAgMiAxMiAgMyAxOCAgMSAxNiAgMiAxMSAgOCAgMiAgNyAxNCAxOSAxMCAgMyAxMSAgNCAxOCAgOCAgNyAgNCAxOCAgNCAxOSAgMyAgMyAgMyAxMSAgN1xuIFs4OF0gIDEgIDcgMTUgIDEgMTIgIDYgIDUgIDMgIDcgIDQgIDMgIDkgIDFcbiJ9 -->
+<pre><code>  [1] 14 11  6 19  6 17  6  6  4  5  7  7  4  1  5 17 11 19 17  1 10  6  7 11  4 16  5  6 20
+ [30] 17 12 13  7 13  7 11 14 10  5 16  2  7 15 11  4 11 10 16  4 17 18  1  7  1  5 15  7 11
+ [59]  2 12  3 18  1 16  2 11  8  2  7 14 19 10  3 11  4 18  8  7  4 18  4 19  3  3  3 11  7
+ [88]  1  7 15  1 12  6  5  3  7  4  3  9  1</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KFwiTnVtYmVyIG9mIHRpbWVzIDEyIG9jY3VycyBpbiB0aGUgdmVjIGlzOlwiLCBub19vZl9pbnRlZ2Vycyh2ZWMsIDEyKSlcbmBgYCJ9 -->
 <pre class="r"><code>cat(&quot;Number of times 12 occurs in the vec is:&quot;, no_of_integers(vec, 12))</code></pre>
@@ -3152,9 +3151,8 @@ no_of_integers &lt;- function(vec, k) {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueCA8LSBteV9mdW5jdGlvbihtdGNhcnMpXG5gYGAifQ== -->
 <pre class="r"><code>x &lt;- my_function(mtcars)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIm1wZ1wiICBcImN5bFwiICBcImRpc3BcIiBcImhwXCIgICBcImRyYXRcIiBcInd0XCIgICBcInFzZWNcIiBcInZzXCIgICBcImFtXCIgICBcImdlYXJcIlxuWzExXSBcImNhcmJcIlxuIn0= -->
-<pre><code> [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
-[11] &quot;carb&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIm1wZ1wiICBcImN5bFwiICBcImRpc3BcIiBcImhwXCIgICBcImRyYXRcIiBcInd0XCIgICBcInFzZWNcIiBcInZzXCIgICBcImFtXCIgICBcImdlYXJcIiBcImNhcmJcIlxuIn0= -->
+<pre><code> [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot; &quot;carb&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
@@ -3178,15 +3176,13 @@ no_of_integers &lt;- function(vec, k) {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChtdGNhcnMpXG5gYGAifQ== -->
 <pre class="r"><code>head(mtcars)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgIG1wZyBjeWwgZGlzcCAgaHAgZHJhdCAgICB3dCAgcXNlYyB2cyBhbSBnZWFyIGNhcmJcbk1hemRhIFJYNCAgICAgICAgIDIxLjAgICA2ICAxNjAgMTEwIDMuOTAgMi42MjAgMTYuNDYgIDAgIDEgICAgNCAgICA0XG5NYXpkYSBSWDQgV2FnICAgICAyMS4wICAgNiAgMTYwIDExMCAzLjkwIDIuODc1IDE3LjAyICAwICAxICAgIDQgICAgNFxuRGF0c3VuIDcxMCAgICAgICAgMjIuOCAgIDQgIDEwOCAgOTMgMy44NSAyLjMyMCAxOC42MSAgMSAgMSAgICA0ICAgIDFcbkhvcm5ldCA0IERyaXZlICAgIDIxLjQgICA2ICAyNTggMTEwIDMuMDggMy4yMTUgMTkuNDQgIDEgIDAgICAgMyAgICAxXG5Ib3JuZXQgU3BvcnRhYm91dCAxOC43ICAgOCAgMzYwIDE3NSAzLjE1IDMuNDQwIDE3LjAyICAwICAwICAgIDMgICAgMlxuVmFsaWFudCAgICAgICAgICAgMTguMSAgIDYgIDIyNSAxMDUgMi43NiAzLjQ2MCAyMC4yMiAgMSAgMCAgICAzICAgIDFcbiJ9 -->
-<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MTEsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFBM1ZUTVhEVE1CUlZIZHRwN0dzSTF3NndjQjVabW11Y3RMQncxWkM3c2pCUTdtaU9kbEZzTi9YaHlLcHNwOUNKaFptWkhodk1YVmc2TThQTUNqTUxDNHdGeWRiMzFhTDhPK205LzZRbi9TOG51K09KNzB3Y2hKQ0JXcGFZVzRLYWhwaVdrSWs2RWw4ZzFGb1Z4QldqSzRhTk4xRVpOVzU5bHZFRmJ4NldnZjJQUXhuWXYvMVd4Rm50dTZYMkEvYTAzR3ZtdFM5VU91QytRbFlaOE9KVmhZblg5TzBySFhBUE4vUG9XNFhQY05OM1kxalZEOWhWL1MyLy8rbzhZQjl3UituMjJ1bjNuZk8xMm1mKyt2VG00TzV2M0ZiMUdTSVRFdTVjUFA3eCtzNEZkc1VrR0hiUFMyUHQyeWdxMzhDcTF2MTMwbmFBaDB4ZWVGenJvL3ZsT2VCRFdtei9iS0t1ZzAvZnArKy9KcW82ZTZvdkhaZXZ4Ly81OUh2eFAzVTJmb0FXSmZNb0UwVGFYU1cyNW13R05IaVpLR3FHY2NZVU40NVlyWEtTZzNvQ3pEek9vZ0RVUlFhTXpHRjlGaEVPUENCOHFwWFY0ZWxKLzJwcE5pdzhJcWNoOFhZbkl5V3MxSUszUjZCcVowenlyS0RldmNHR1Vyb1BVMDZqM0J0NVl4NHZJcVhlVk9vVGx2S2NUTk1DNm04L0pVbE1hSzYvVnBDUURFb0MwUWxKVHZxSFhGUXJza3ZOMGs1WkhxZFVtQXo1UDdjMDh4TFhoRjVCWmQvaGVuQlUwT2ZyQTEvZVVLNVhZMFdoZllXNzFaM0dIM1dXcGM2eUl6cUxLVFJySldRYXdjZnNpZ2N1MzdmUGVFeWhiVWVvV1Q5UGN3TDduQ0JOUUNtYlE1ZC9BV1RCZ0dmV0JBQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["disp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["drat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["qsec"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["vs"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["am"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["gear"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["carb"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.620","7":"16.46","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4"},{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.875","7":"17.02","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4 Wag"},{"1":"22.8","2":"4","3":"108","4":"93","5":"3.85","6":"2.320","7":"18.61","8":"1","9":"1","10":"4","11":"1","_rn_":"Datsun 710"},{"1":"21.4","2":"6","3":"258","4":"110","5":"3.08","6":"3.215","7":"19.44","8":"1","9":"0","10":"3","11":"1","_rn_":"Hornet 4 Drive"},{"1":"18.7","2":"8","3":"360","4":"175","5":"3.15","6":"3.440","7":"17.02","8":"0","9":"0","10":"3","11":"2","_rn_":"Hornet Sportabout"},{"1":"18.1","2":"6","3":"225","4":"105","5":"2.76","6":"3.460","7":"20.22","8":"1","9":"0","10":"3","11":"1","_rn_":"Valiant"}],"options":{"columns":{"min":{},"max":[10],"total":[11]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Use <code>apply()</code> function to find the standard deviation and the 0.8-quantile<br />
@@ -3196,11 +3192,11 @@ of each of the automobile characteristic.</p>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXBwbHkobXRjYXJzLCAyLCBmdW5jdGlvbih4KSBzZCh4KSlcbmBgYCJ9 -->
 <pre class="r"><code>apply(mtcars, 2, function(x) sd(x))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICBtcGcgICAgICAgICBjeWwgICAgICAgIGRpc3AgICAgICAgICAgaHAgICAgICAgIGRyYXQgICAgICAgICAgd3QgXG4gIDYuMDI2OTQ4MSAgIDEuNzg1OTIxNiAxMjMuOTM4NjkzOCAgNjguNTYyODY4NSAgIDAuNTM0Njc4NyAgIDAuOTc4NDU3NCBcbiAgICAgICBxc2VjICAgICAgICAgIHZzICAgICAgICAgIGFtICAgICAgICBnZWFyICAgICAgICBjYXJiIFxuICAxLjc4Njk0MzIgICAwLjUwNDAxNjEgICAwLjQ5ODk5MDkgICAwLjczNzgwNDEgICAxLjYxNTIwMDAgXG4ifQ== -->
-<pre><code>        mpg         cyl        disp          hp        drat          wt 
-  6.0269481   1.7859216 123.9386938  68.5628685   0.5346787   0.9784574 
-       qsec          vs          am        gear        carb 
-  1.7869432   0.5040161   0.4989909   0.7378041   1.6152000 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICBtcGcgICAgICAgICBjeWwgICAgICAgIGRpc3AgICAgICAgICAgaHAgICAgICAgIGRyYXQgICAgICAgICAgd3QgICAgICAgIHFzZWMgXG4gIDYuMDI2OTQ4MSAgIDEuNzg1OTIxNiAxMjMuOTM4NjkzOCAgNjguNTYyODY4NSAgIDAuNTM0Njc4NyAgIDAuOTc4NDU3NCAgIDEuNzg2OTQzMiBcbiAgICAgICAgIHZzICAgICAgICAgIGFtICAgICAgICBnZWFyICAgICAgICBjYXJiIFxuICAwLjUwNDAxNjEgICAwLjQ5ODk5MDkgICAwLjczNzgwNDEgICAxLjYxNTIwMDAgXG4ifQ== -->
+<pre><code>        mpg         cyl        disp          hp        drat          wt        qsec 
+  6.0269481   1.7859216 123.9386938  68.5628685   0.5346787   0.9784574   1.7869432 
+         vs          am        gear        carb 
+  0.5040161   0.4989909   0.7378041   1.6152000 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -3209,11 +3205,9 @@ of each of the automobile characteristic.</p>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXBwbHkobXRjYXJzLCAyLCBmdW5jdGlvbih4KSB7IHF1YW50aWxlKHgsIDAuOCl9KVxuYGBgIn0= -->
 <pre class="r"><code>apply(mtcars, 2, function(x) { quantile(x, 0.8)})</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgIG1wZyAgICAgY3lsICAgIGRpc3AgICAgICBocCAgICBkcmF0ICAgICAgd3QgICAgcXNlYyAgICAgIHZzICAgICAgYW0gXG4gMjQuMDgwICAgOC4wMDAgMzUwLjgwMCAyMDAuMDAwICAgNC4wNDggICAzLjc3MCAgMTkuMzMyICAgMS4wMDAgICAxLjAwMCBcbiAgIGdlYXIgICAgY2FyYiBcbiAgNC4wMDAgICA0LjAwMCBcbiJ9 -->
-<pre><code>    mpg     cyl    disp      hp    drat      wt    qsec      vs      am 
- 24.080   8.000 350.800 200.000   4.048   3.770  19.332   1.000   1.000 
-   gear    carb 
-  4.000   4.000 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIG1wZyAgICAgY3lsICAgIGRpc3AgICAgICBocCAgICBkcmF0ICAgICAgd3QgICAgcXNlYyAgICAgIHZzICAgICAgYW0gICAgZ2VhciAgICBjYXJiIFxuIDI0LjA4MCAgIDguMDAwIDM1MC44MDAgMjAwLjAwMCAgIDQuMDQ4ICAgMy43NzAgIDE5LjMzMiAgIDEuMDAwICAgMS4wMDAgICA0LjAwMCAgIDQuMDAwIFxuIn0= -->
+<pre><code>    mpg     cyl    disp      hp    drat      wt    qsec      vs      am    gear    carb 
+ 24.080   8.000 350.800 200.000   4.048   3.770  19.332   1.000   1.000   4.000   4.000 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -3238,9 +3232,9 @@ length(y2018)</code></pre>
 y2018_sample &lt;- sample(y2018, size = 10)
 y2018_sample</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjIwMTgtMDItMTFcIiBcIjIwMTgtMDgtMTVcIiBcIjIwMTgtMDgtMTBcIiBcIjIwMTgtMDgtMTRcIiBcIjIwMTgtMTEtMDdcIlxuIFs2XSBcIjIwMTgtMDgtMTlcIiBcIjIwMTgtMDEtMDRcIiBcIjIwMTgtMDMtMjVcIiBcIjIwMTgtMDgtMjZcIiBcIjIwMTgtMDctMDNcIlxuIn0= -->
-<pre><code> [1] &quot;2018-02-11&quot; &quot;2018-08-15&quot; &quot;2018-08-10&quot; &quot;2018-08-14&quot; &quot;2018-11-07&quot;
- [6] &quot;2018-08-19&quot; &quot;2018-01-04&quot; &quot;2018-03-25&quot; &quot;2018-08-26&quot; &quot;2018-07-03&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIjIwMTgtMDItMTFcIiBcIjIwMTgtMDgtMTVcIiBcIjIwMTgtMDgtMTBcIiBcIjIwMTgtMDgtMTRcIiBcIjIwMTgtMTEtMDdcIiBcIjIwMTgtMDgtMTlcIlxuIFs3XSBcIjIwMTgtMDEtMDRcIiBcIjIwMTgtMDMtMjVcIiBcIjIwMTgtMDgtMjZcIiBcIjIwMTgtMDctMDNcIlxuIn0= -->
+<pre><code> [1] &quot;2018-02-11&quot; &quot;2018-08-15&quot; &quot;2018-08-10&quot; &quot;2018-08-14&quot; &quot;2018-11-07&quot; &quot;2018-08-19&quot;
+ [7] &quot;2018-01-04&quot; &quot;2018-03-25&quot; &quot;2018-08-26&quot; &quot;2018-07-03&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -3253,11 +3247,11 @@ weeks.to.2019 &lt;- sapply(y2018_sample, function(d) ceiling((ny2019 - d)/7))
 names(weeks.to.2019) &lt;- y2018_sample
 weeks.to.2019</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMjAxOC0wMi0xMSAyMDE4LTA4LTE1IDIwMTgtMDgtMTAgMjAxOC0wOC0xNCAyMDE4LTExLTA3IDIwMTgtMDgtMTkgMjAxOC0wMS0wNCBcbiAgICAgICAgNDcgICAgICAgICAyMCAgICAgICAgIDIxICAgICAgICAgMjAgICAgICAgICAgOCAgICAgICAgIDIwICAgICAgICAgNTIgXG4yMDE4LTAzLTI1IDIwMTgtMDgtMjYgMjAxOC0wNy0wMyBcbiAgICAgICAgNDEgICAgICAgICAxOSAgICAgICAgIDI2IFxuIn0= -->
-<pre><code>2018-02-11 2018-08-15 2018-08-10 2018-08-14 2018-11-07 2018-08-19 2018-01-04 
-        47         20         21         20          8         20         52 
-2018-03-25 2018-08-26 2018-07-03 
-        41         19         26 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiMjAxOC0wMi0xMSAyMDE4LTA4LTE1IDIwMTgtMDgtMTAgMjAxOC0wOC0xNCAyMDE4LTExLTA3IDIwMTgtMDgtMTkgMjAxOC0wMS0wNCAyMDE4LTAzLTI1IFxuICAgICAgICA0NyAgICAgICAgIDIwICAgICAgICAgMjEgICAgICAgICAyMCAgICAgICAgICA4ICAgICAgICAgMjAgICAgICAgICA1MiAgICAgICAgIDQxIFxuMjAxOC0wOC0yNiAyMDE4LTA3LTAzIFxuICAgICAgICAxOSAgICAgICAgIDI2IFxuIn0= -->
+<pre><code>2018-02-11 2018-08-15 2018-08-10 2018-08-14 2018-11-07 2018-08-19 2018-01-04 2018-03-25 
+        47         20         21         20          8         20         52         41 
+2018-08-26 2018-07-03 
+        19         26 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -3266,7 +3260,7 @@ weeks.to.2019</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Vzc2lvbkluZm8oKVxuYGBgIn0= -->
 <pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDMuNS4wICgyMDE4LTA0LTIzKVxuUGxhdGZvcm06IHg4Nl82NC1hcHBsZS1kYXJ3aW4xNS42LjAgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IG1hY09TIFNpZXJyYSAxMC4xMi42XG5cbk1hdHJpeCBwcm9kdWN0czogZGVmYXVsdFxuQkxBUzogL1N5c3RlbS9MaWJyYXJ5L0ZyYW1ld29ya3MvQWNjZWxlcmF0ZS5mcmFtZXdvcmsvVmVyc2lvbnMvQS9GcmFtZXdvcmtzL3ZlY0xpYi5mcmFtZXdvcmsvVmVyc2lvbnMvQS9saWJCTEFTLmR5bGliXG5MQVBBQ0s6IC9MaWJyYXJ5L0ZyYW1ld29ya3MvUi5mcmFtZXdvcmsvVmVyc2lvbnMvMy41L1Jlc291cmNlcy9saWIvbGliUmxhcGFjay5keWxpYlxuXG5sb2NhbGU6XG5bMV0gZW5fVVMuVVRGLTgvZW5fVVMuVVRGLTgvZW5fVVMuVVRGLTgvQy9lbl9VUy5VVEYtOC9lbl9VUy5VVEYtOFxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHBhcmFsbGVsICBzdGF0cyAgICAgZ3JhcGhpY3MgIGdyRGV2aWNlcyB1dGlscyAgICAgZGF0YXNldHMgIG1ldGhvZHMgIFxuWzhdIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gVXBTZXRSXzEuMy4zICAgICAgICAgZWRnZVJfMy4yMi40ICAgICAgICAgbGltbWFfMy4zNi41ICAgICAgICBcbiBbNF0gQmlvYmFzZV8yLjQwLjAgICAgICAgQmlvY0dlbmVyaWNzXzAuMjYuMCAgdmlyaWRpc18wLjUuMSAgICAgICBcbiBbN10gdmlyaWRpc0xpdGVfMC4zLjAgICAgZm9yY2F0c18wLjMuMCAgICAgICAgc3RyaW5ncl8xLjMuMSAgICAgICBcblsxMF0gZHBseXJfMC43Ljk5LjkwMDAgICAgcHVycnJfMC4yLjUgICAgICAgICAgcmVhZHJfMS4xLjEgICAgICAgICBcblsxM10gdGlkeXJfMC44LjEgICAgICAgICAgdGliYmxlXzEuNC4yICAgICAgICAgZ2dwbG90Ml8zLjAuMC45MDAwICBcblsxNl0gdGlkeXZlcnNlXzEuMi4xLjkwMDAgdmlzdGltZXNlcV8wLjk5LjAgICBcblxubG9hZGVkIHZpYSBhIG5hbWVzcGFjZSAoYW5kIG5vdCBhdHRhY2hlZCk6XG4gIFsxXSBjb2xvcnNwYWNlXzEuMy0yICAgICAgICAgICAgcmpzb25fMC4yLjE1ICAgICAgICAgICAgICAgXG4gIFszXSBycHJvanJvb3RfMS4zLTIgICAgICAgICAgICAgZHluYW1pY1RyZWVDdXRfMS42My0xICAgICAgXG4gIFs1XSBjaXJjbGl6ZV8wLjQuNCAgICAgICAgICAgICAgaHRtbFRhYmxlXzEuMTEuMiAgICAgICAgICAgXG4gIFs3XSBYVmVjdG9yXzAuMjAuMCAgICAgICAgICAgICAgR2Vub21pY1Jhbmdlc18xLjMyLjIgICAgICAgXG4gIFs5XSBHbG9iYWxPcHRpb25zXzAuMS4wICAgICAgICAgYmFzZTY0ZW5jXzAuMS0zICAgICAgICAgICAgXG4gWzExXSByc3R1ZGlvYXBpXzAuNyAgICAgICAgICAgICAgcHJveHlfMC40LTIyICAgICAgICAgICAgICAgXG4gWzEzXSBiaXQ2NF8wLjktNyAgICAgICAgICAgICAgICAgQW5ub3RhdGlvbkRiaV8xLjQyLjEgICAgICAgXG4gWzE1XSBsdWJyaWRhdGVfMS43LjQgICAgICAgICAgICAgeG1sMl8xLjIuMCAgICAgICAgICAgICAgICAgXG4gWzE3XSBzcGxpbmVzXzMuNS4wICAgICAgICAgICAgICAgZ2VuZXBsb3R0ZXJfMS41OC4wICAgICAgICAgXG4gWzE5XSBrbml0cl8xLjIwICAgICAgICAgICAgICAgICAgRm9ybXVsYV8xLjItMiAgICAgICAgICAgICAgXG4gWzIxXSBqc29ubGl0ZV8xLjUgICAgICAgICAgICAgICAgYnJvb21fMC41LjAgICAgICAgICAgICAgICAgXG4gWzIzXSBhbm5vdGF0ZV8xLjU4LjAgICAgICAgICAgICAgY2x1c3Rlcl8yLjAuNy0xICAgICAgICAgICAgXG4gWzI1XSBjb21waWxlcl8zLjUuMCAgICAgICAgICAgICAgaHR0cl8xLjMuMSAgICAgICAgICAgICAgICAgXG4gWzI3XSBiYWNrcG9ydHNfMS4xLjIgICAgICAgICAgICAgYXNzZXJ0dGhhdF8wLjIuMCAgICAgICAgICAgXG4gWzI5XSBNYXRyaXhfMS4yLTE0ICAgICAgICAgICAgICAgbGF6eWV2YWxfMC4yLjEgICAgICAgICAgICAgXG4gWzMxXSBjbGlfMS4wLjAgICAgICAgICAgICAgICAgICAgYWNlcGFja18xLjQuMSAgICAgICAgICAgICAgXG4gWzMzXSBodG1sdG9vbHNfMC4zLjYgICAgICAgICAgICAgdG9vbHNfMy41LjAgICAgICAgICAgICAgICAgXG4gWzM1XSBndGFibGVfMC4yLjAgICAgICAgICAgICAgICAgZ2x1ZV8xLjMuMCAgICAgICAgICAgICAgICAgXG4gWzM3XSBHZW5vbWVJbmZvRGJEYXRhXzEuMS4wICAgICAgUmNwcF8wLjEyLjE5LjEgICAgICAgICAgICAgXG4gWzM5XSBjZWxscmFuZ2VyXzEuMS4wICAgICAgICAgICAgbmxtZV8zLjEtMTM3ICAgICAgICAgICAgICAgXG4gWzQxXSBydmVzdF8wLjMuMiAgICAgICAgICAgICAgICAgZGV2dG9vbHNfMS4xMy41ICAgICAgICAgICAgXG4gWzQzXSBYTUxfMy45OC0xLjExICAgICAgICAgICAgICAgemxpYmJpb2NfMS4yNi4wICAgICAgICAgICAgXG4gWzQ1XSBNQVNTXzcuMy00OSAgICAgICAgICAgICAgICAgc2NhbGVzXzEuMC4wICAgICAgICAgICAgICAgXG4gWzQ3XSBCaW9jSW5zdGFsbGVyXzEuMzAuMCAgICAgICAgaG1zXzAuNC4yICAgICAgICAgICAgICAgICAgXG4gWzQ5XSBTdW1tYXJpemVkRXhwZXJpbWVudF8xLjEwLjEgUkNvbG9yQnJld2VyXzEuMS0yICAgICAgICAgXG4gWzUxXSBDb21wbGV4SGVhdG1hcF8xLjE3LjEgICAgICAgeWFtbF8yLjIuMCAgICAgICAgICAgICAgICAgXG4gWzUzXSBjdXJsXzMuMiAgICAgICAgICAgICAgICAgICAgbWVtb2lzZV8xLjEuMCAgICAgICAgICAgICAgXG4gWzU1XSBncmlkRXh0cmFfMi4zICAgICAgICAgICAgICAgcnBhcnRfNC4xLTEzICAgICAgICAgICAgICAgXG4gWzU3XSBsYXR0aWNlRXh0cmFfMC42LTI4ICAgICAgICAgc3RyaW5naV8xLjIuNCAgICAgICAgICAgICAgXG4gWzU5XSBSU1FMaXRlXzIuMS4xICAgICAgICAgICAgICAgZ2VuZWZpbHRlcl8xLjYyLjAgICAgICAgICAgXG4gWzYxXSBTNFZlY3RvcnNfMC4xOC4zICAgICAgICAgICAgY2hlY2ttYXRlXzEuOC41ICAgICAgICAgICAgXG4gWzYzXSBwZXJtdXRlXzAuOS00ICAgICAgICAgICAgICAgQmlvY1BhcmFsbGVsXzEuMTQuMSAgICAgICAgXG4gWzY1XSBzaGFwZV8xLjQuNCAgICAgICAgICAgICAgICAgR2Vub21lSW5mb0RiXzEuMTYuMCAgICAgICAgXG4gWzY3XSBybGFuZ18wLjIuMi45MDAxICAgICAgICAgICAgcGtnY29uZmlnXzIuMC4yICAgICAgICAgICAgXG4gWzY5XSBtYXRyaXhTdGF0c18wLjUzLjEgICAgICAgICAgYml0b3BzXzEuMC02ICAgICAgICAgICAgICAgXG4gWzcxXSBldmFsdWF0ZV8wLjExICAgICAgICAgICAgICAgbGF0dGljZV8wLjIwLTM1ICAgICAgICAgICAgXG4gWzczXSBodG1sd2lkZ2V0c18xLjIgICAgICAgICAgICAgbGFiZWxpbmdfMC4zICAgICAgICAgICAgICAgXG4gWzc1XSBiaXRfMS4xLTEyICAgICAgICAgICAgICAgICAgdGlkeXNlbGVjdF8wLjIuNCAgICAgICAgICAgXG4gWzc3XSBwbHlyXzEuOC40ICAgICAgICAgICAgICAgICAgbWFncml0dHJfMS41ICAgICAgICAgICAgICAgXG4gWzc5XSBERVNlcTJfMS4yMC4wICAgICAgICAgICAgICAgUjZfMi4yLjIgICAgICAgICAgICAgICAgICAgXG4gWzgxXSBJUmFuZ2VzXzIuMTQuMTAgICAgICAgICAgICAgSG1pc2NfNC4xLTEgICAgICAgICAgICAgICAgXG4gWzgzXSBEZWxheWVkQXJyYXlfMC42LjAgICAgICAgICAgREJJXzEuMC4wICAgICAgICAgICAgICAgICAgXG4gWzg1XSBwaWxsYXJfMS4zLjAgICAgICAgICAgICAgICAgaGF2ZW5fMS4xLjIgICAgICAgICAgICAgICAgXG4gWzg3XSBmb3JlaWduXzAuOC03MCAgICAgICAgICAgICAgd2l0aHJfMi4xLjIgICAgICAgICAgICAgICAgXG4gWzg5XSBtZ2N2XzEuOC0yMyAgICAgICAgICAgICAgICAgc3Vydml2YWxfMi40Mi0zICAgICAgICAgICAgXG4gWzkxXSBSQ3VybF8xLjk1LTQuMTAgICAgICAgICAgICAgbm5ldF83LjMtMTIgICAgICAgICAgICAgICAgXG4gWzkzXSBtb2RlbHJfMC4xLjIgICAgICAgICAgICAgICAgY3JheW9uXzEuMy40ICAgICAgICAgICAgICAgXG4gWzk1XSBybWFya2Rvd25fMS4xMCAgICAgICAgICAgICAgR2V0b3B0TG9uZ18wLjEuNiAgICAgICAgICAgXG4gWzk3XSBsb2NmaXRfMS41LTkuMSAgICAgICAgICAgICAgZ3JpZF8zLjUuMCAgICAgICAgICAgICAgICAgXG4gWzk5XSByZWFkeGxfMS4xLjAgICAgICAgICAgICAgICAgZGF0YS50YWJsZV8xLjExLjQgICAgICAgICAgXG5bMTAxXSBibG9iXzEuMS4xICAgICAgICAgICAgICAgICAgZ2l0MnJfMC4yMS4wICAgICAgICAgICAgICAgXG5bMTAzXSB2ZWdhbl8yLjUtMiAgICAgICAgICAgICAgICAgZGlnZXN0XzAuNi4xNyAgICAgICAgICAgICAgXG5bMTA1XSB4dGFibGVfMS44LTIgICAgICAgICAgICAgICAgc3RhdHM0XzMuNS4wICAgICAgICAgICAgICAgXG5bMTA3XSBtdW5zZWxsXzAuNS4wICAgICAgICAgICAgICBcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDMuNS4wICgyMDE4LTA0LTIzKVxuUGxhdGZvcm06IHg4Nl82NC1hcHBsZS1kYXJ3aW4xNS42LjAgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IG1hY09TIFNpZXJyYSAxMC4xMi42XG5cbk1hdHJpeCBwcm9kdWN0czogZGVmYXVsdFxuQkxBUzogL1N5c3RlbS9MaWJyYXJ5L0ZyYW1ld29ya3MvQWNjZWxlcmF0ZS5mcmFtZXdvcmsvVmVyc2lvbnMvQS9GcmFtZXdvcmtzL3ZlY0xpYi5mcmFtZXdvcmsvVmVyc2lvbnMvQS9saWJCTEFTLmR5bGliXG5MQVBBQ0s6IC9MaWJyYXJ5L0ZyYW1ld29ya3MvUi5mcmFtZXdvcmsvVmVyc2lvbnMvMy41L1Jlc291cmNlcy9saWIvbGliUmxhcGFjay5keWxpYlxuXG5sb2NhbGU6XG5bMV0gZW5fVVMuVVRGLTgvZW5fVVMuVVRGLTgvZW5fVVMuVVRGLTgvQy9lbl9VUy5VVEYtOC9lbl9VUy5VVEYtOFxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gcmFuZG9tRm9yZXN0XzQuNi0xNCBJU0xSXzEuMiAgICAgICAgICAgIGZvcmNhdHNfMC4zLjAgICAgICAgc3RyaW5ncl8xLjMuMSAgICAgIFxuIFs1XSBkcGx5cl8wLjcuOTkuOTAwMCAgIHB1cnJyXzAuMi41ICAgICAgICAgcmVhZHJfMS4xLjEgICAgICAgICB0aWR5cl8wLjguMSAgICAgICAgXG4gWzldIHRpYmJsZV8xLjQuMiAgICAgICAgZ2dwbG90Ml8zLjAuMC45MDAwICB0aWR5dmVyc2VfMS4yLjEgICAgXG5cbmxvYWRlZCB2aWEgYSBuYW1lc3BhY2UgKGFuZCBub3QgYXR0YWNoZWQpOlxuIFsxXSBSY3BwXzAuMTIuMTkuMiAgIGNlbGxyYW5nZXJfMS4xLjAgcGlsbGFyXzEuMy4wICAgICBjb21waWxlcl8zLjUuMCAgIHBseXJfMS44LjQgICAgICBcbiBbNl0gYmFzZTY0ZW5jXzAuMS0zICB0b29sc18zLjUuMCAgICAgIGRpZ2VzdF8wLjYuMTcgICAgZXZhbHVhdGVfMC4xMSAgICBqc29ubGl0ZV8xLjUgICAgXG5bMTFdIGx1YnJpZGF0ZV8xLjcuNCAgZ3RhYmxlXzAuMi4wICAgICBubG1lXzMuMS0xMzcgICAgIGxhdHRpY2VfMC4yMC0zNSAgcGtnY29uZmlnXzIuMC4yIFxuWzE2XSBybGFuZ18wLjIuMi45MDAyIGNsaV8xLjAuMCAgICAgICAgcnN0dWRpb2FwaV8wLjcgICBjdXJsXzMuMiAgICAgICAgIHlhbWxfMi4yLjAgICAgICBcblsyMV0gaGF2ZW5fMS4xLjIgICAgICB3aXRocl8yLjEuMiAgICAgIHhtbDJfMS4yLjAgICAgICAgaHR0cl8xLjMuMSAgICAgICBrbml0cl8xLjIwICAgICAgXG5bMjZdIGhtc18wLjQuMiAgICAgICAgcnByb2pyb290XzEuMy0yICBncmlkXzMuNS4wICAgICAgIHRpZHlzZWxlY3RfMC4yLjQgZ2x1ZV8xLjMuMCAgICAgIFxuWzMxXSBSNl8yLjIuMiAgICAgICAgIHJlYWR4bF8xLjEuMCAgICAgcm1hcmtkb3duXzEuMTAgICBtb2RlbHJfMC4xLjIgICAgIG1hZ3JpdHRyXzEuNSAgICBcblszNl0gaHRtbHRvb2xzXzAuMy42ICBiYWNrcG9ydHNfMS4xLjIgIHNjYWxlc18xLjAuMCAgICAgcnZlc3RfMC4zLjIgICAgICBhc3NlcnR0aGF0XzAuMi4wXG5bNDFdIGNvbG9yc3BhY2VfMS4zLTIgbGFiZWxpbmdfMC4zICAgICBzdHJpbmdpXzEuMi40ICAgIGxhenlldmFsXzAuMi4xICAgbXVuc2VsbF8wLjUuMCAgIFxuWzQ2XSBicm9vbV8wLjUuMCAgICAgIGNyYXlvbl8xLjMuNCAgICBcbiJ9 -->
 <pre><code>R version 3.5.0 (2018-04-23)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 Running under: macOS Sierra 10.12.6
@@ -3279,72 +3273,24 @@ locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] parallel  stats     graphics  grDevices utils     datasets  methods  
-[8] base     
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] UpSetR_1.3.3         edgeR_3.22.4         limma_3.36.5        
- [4] Biobase_2.40.0       BiocGenerics_0.26.0  viridis_0.5.1       
- [7] viridisLite_0.3.0    forcats_0.3.0        stringr_1.3.1       
-[10] dplyr_0.7.99.9000    purrr_0.2.5          readr_1.1.1         
-[13] tidyr_0.8.1          tibble_1.4.2         ggplot2_3.0.0.9000  
-[16] tidyverse_1.2.1.9000 vistimeseq_0.99.0   
+ [1] randomForest_4.6-14 ISLR_1.2            forcats_0.3.0       stringr_1.3.1      
+ [5] dplyr_0.7.99.9000   purrr_0.2.5         readr_1.1.1         tidyr_0.8.1        
+ [9] tibble_1.4.2        ggplot2_3.0.0.9000  tidyverse_1.2.1    
 
 loaded via a namespace (and not attached):
-  [1] colorspace_1.3-2            rjson_0.2.15               
-  [3] rprojroot_1.3-2             dynamicTreeCut_1.63-1      
-  [5] circlize_0.4.4              htmlTable_1.11.2           
-  [7] XVector_0.20.0              GenomicRanges_1.32.2       
-  [9] GlobalOptions_0.1.0         base64enc_0.1-3            
- [11] rstudioapi_0.7              proxy_0.4-22               
- [13] bit64_0.9-7                 AnnotationDbi_1.42.1       
- [15] lubridate_1.7.4             xml2_1.2.0                 
- [17] splines_3.5.0               geneplotter_1.58.0         
- [19] knitr_1.20                  Formula_1.2-2              
- [21] jsonlite_1.5                broom_0.5.0                
- [23] annotate_1.58.0             cluster_2.0.7-1            
- [25] compiler_3.5.0              httr_1.3.1                 
- [27] backports_1.1.2             assertthat_0.2.0           
- [29] Matrix_1.2-14               lazyeval_0.2.1             
- [31] cli_1.0.0                   acepack_1.4.1              
- [33] htmltools_0.3.6             tools_3.5.0                
- [35] gtable_0.2.0                glue_1.3.0                 
- [37] GenomeInfoDbData_1.1.0      Rcpp_0.12.19.1             
- [39] cellranger_1.1.0            nlme_3.1-137               
- [41] rvest_0.3.2                 devtools_1.13.5            
- [43] XML_3.98-1.11               zlibbioc_1.26.0            
- [45] MASS_7.3-49                 scales_1.0.0               
- [47] BiocInstaller_1.30.0        hms_0.4.2                  
- [49] SummarizedExperiment_1.10.1 RColorBrewer_1.1-2         
- [51] ComplexHeatmap_1.17.1       yaml_2.2.0                 
- [53] curl_3.2                    memoise_1.1.0              
- [55] gridExtra_2.3               rpart_4.1-13               
- [57] latticeExtra_0.6-28         stringi_1.2.4              
- [59] RSQLite_2.1.1               genefilter_1.62.0          
- [61] S4Vectors_0.18.3            checkmate_1.8.5            
- [63] permute_0.9-4               BiocParallel_1.14.1        
- [65] shape_1.4.4                 GenomeInfoDb_1.16.0        
- [67] rlang_0.2.2.9001            pkgconfig_2.0.2            
- [69] matrixStats_0.53.1          bitops_1.0-6               
- [71] evaluate_0.11               lattice_0.20-35            
- [73] htmlwidgets_1.2             labeling_0.3               
- [75] bit_1.1-12                  tidyselect_0.2.4           
- [77] plyr_1.8.4                  magrittr_1.5               
- [79] DESeq2_1.20.0               R6_2.2.2                   
- [81] IRanges_2.14.10             Hmisc_4.1-1                
- [83] DelayedArray_0.6.0          DBI_1.0.0                  
- [85] pillar_1.3.0                haven_1.1.2                
- [87] foreign_0.8-70              withr_2.1.2                
- [89] mgcv_1.8-23                 survival_2.42-3            
- [91] RCurl_1.95-4.10             nnet_7.3-12                
- [93] modelr_0.1.2                crayon_1.3.4               
- [95] rmarkdown_1.10              GetoptLong_0.1.6           
- [97] locfit_1.5-9.1              grid_3.5.0                 
- [99] readxl_1.1.0                data.table_1.11.4          
-[101] blob_1.1.1                  git2r_0.21.0               
-[103] vegan_2.5-2                 digest_0.6.17              
-[105] xtable_1.8-2                stats4_3.5.0               
-[107] munsell_0.5.0              </code></pre>
+ [1] Rcpp_0.12.19.2   cellranger_1.1.0 pillar_1.3.0     compiler_3.5.0   plyr_1.8.4      
+ [6] base64enc_0.1-3  tools_3.5.0      digest_0.6.17    evaluate_0.11    jsonlite_1.5    
+[11] lubridate_1.7.4  gtable_0.2.0     nlme_3.1-137     lattice_0.20-35  pkgconfig_2.0.2 
+[16] rlang_0.2.2.9002 cli_1.0.0        rstudioapi_0.7   curl_3.2         yaml_2.2.0      
+[21] haven_1.1.2      withr_2.1.2      xml2_1.2.0       httr_1.3.1       knitr_1.20      
+[26] hms_0.4.2        rprojroot_1.3-2  grid_3.5.0       tidyselect_0.2.4 glue_1.3.0      
+[31] R6_2.2.2         readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2     magrittr_1.5    
+[36] htmltools_0.3.6  backports_1.1.2  scales_1.0.0     rvest_0.3.2      assertthat_0.2.0
+[41] colorspace_1.3-2 labeling_0.3     stringi_1.2.4    lazyeval_0.2.1   munsell_0.5.0   
+[46] broom_0.5.0      crayon_1.3.4    </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

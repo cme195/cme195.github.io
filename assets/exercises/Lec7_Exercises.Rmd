@@ -31,7 +31,7 @@ mpg <- mpg %>%
 mpg
 ```
 
-## Part 2: One-sample test
+## Part 1: One-sample test
 
 a. Subset the `mpg` dataset to inlude only cars from  year 2008.
 

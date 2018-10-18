@@ -94,7 +94,7 @@ a. Identify the keys in the following datasets
 
 
 ```{r}
-Lahman::Batting %>% 
+Lahman::Batting %>% tbl_df()
     count(playerID, yearID, teamID, lgID, stint) %>% 
     filter(n > 1)
 ```
@@ -167,7 +167,7 @@ ls()
 
 Saving as R objects:
 
-```{r, eval = FALSE}
+```{r}
 saveRDS(mean_delay, file = "~/Desktop/mean_delay.rds")
 save(list = c("plt", "flights2"), file = "~/Desktop/two_objects.rda")
 ```

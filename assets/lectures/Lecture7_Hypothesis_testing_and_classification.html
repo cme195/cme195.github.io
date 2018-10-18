@@ -562,6 +562,8 @@ T = \frac{\bar X −mu}{s/\sqrt{n}}\sim t_{\nu=n-1}
 <li><p>A small p-value, typically &lt; 0.05, indicates <strong>strong evidence</strong> against the null hypothesis; in this case you can reject the null hypothesis.</p></li>
 <li><p>A large p-value, &gt; 0.05, indicates <strong>weak evidence</strong> against the null hypothesis; in this case, you do NOT reject the null hypothesis.</p></li>
 </ul>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
 <p><span class="math display">\[p-value = P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]\]</span> <img src="Lecture7-figure/tdist.gif" /></p>
 <p><strong>p-values should NOT be used a “ranking”/“scoring” system for your hypotheses</strong></p>
 </section><section id="two-sided-test-of-the-mean" class="slide level2">
@@ -575,7 +577,7 @@ H_a: \mu \ne \mu_0 = 0\]</span> where <span class="math inline">\(\mu\)</span> i
 <div class="right">
 <p><img src="Lecture7-figure/both-sided.png" /></p>
 </div>
-</section><section id="section-1" class="slide level2">
+</section><section id="section-2" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(nycflights13)
@@ -594,7 +596,7 @@ H_a: \mu \ne \mu_0 = 0\]</span> where <span class="math inline">\(\mu\)</span> i
 ## sample estimates:
 ## mean of x 
 ##  6.895377</code></pre>
-</section><section id="section-2" class="slide level2">
+</section><section id="section-3" class="slide level2">
 <h2></h2>
 <p>The function t.test returns an object containing the following components:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(tt)</code></pre></div>
@@ -620,7 +622,7 @@ H_a: \mu &lt; \mu_0 = 0\]</span></p>
 <p><img src="Lecture7-figure/left-sided.png" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(x, <span class="dt">mu=</span><span class="dv">0</span>, <span class="dt">alternative=</span><span class="st">&quot;less&quot;</span>)</code></pre></div>
 </div>
-</section><section id="section-3" class="slide level2">
+</section><section id="section-4" class="slide level2">
 <h2></h2>
 <p>Is the average delay 5 or is it lower?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">( <span class="dt">tt =</span> <span class="kw">t.test</span>(<span class="dt">x=</span>flights<span class="op">$</span>arr_delay, <span class="dt">mu=</span><span class="dv">5</span>, <span class="dt">alternative=</span><span class="st">&quot;less&quot;</span> ) )</code></pre></div>
@@ -638,11 +640,11 @@ H_a: \mu &lt; \mu_0 = 0\]</span></p>
 <p>Failure to reject is not acceptance of the null hypothesis.</p>
 </section><section id="testing-difference-between-groups" class="slide level2">
 <h2>Testing difference between groups</h2>
-<p>Is the fuel efficiency (mpg) the same for the cars with automatic and manual transmission?</p>
+<p>Is the average arrival delay the same for the winter and summer?</p>
 <p></br> <strong>Test the null hypothesis:</strong></p>
-<p><span class="math display">\[H_0: \mu_a = \mu_m\\
-H_a: \mu_a \ne \mu_m\]</span></p>
-<p>where <span class="math inline">\(\mu_a\)</span> mean mpg of automatic cars and <span class="math inline">\(\mu_m\)</span> is the mean mpg of manual cars.</p>
+<p><span class="math display">\[H_0: \mu_{a} = \mu_{b}\\
+H_a: \mu_{a} \ne \mu_{b}\]</span></p>
+<p>where <span class="math inline">\(\mu_{a}\)</span> mean <code>arr_delay</code> in the winter and <span class="math inline">\(\mu_b\)</span> is the mean <code>arr_delay</code> in the summer.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(x, y)</code></pre></div>
 </section><section id="seasonal-differences-in-flight-delay" class="slide level2">
 <h2>Seasonal differences in flight delay</h2>
@@ -709,7 +711,7 @@ p = P[Y = 1 \mid X]\\
 <ul>
 <li>The method performs <strong>binary classification</strong> (k = 2), but can be generalized to handle <span class="math inline">\(k &gt; 2\)</span> classes (<strong>multinomial logistic regression</strong>).</li>
 </ul>
-</section><section id="section-4" class="slide level2">
+</section><section id="section-5" class="slide level2">
 <h2></h2>
 <p><span class="math display">\[
 \begin{align*}
@@ -722,10 +724,10 @@ E[Y] &amp;= P[Y = 1 \mid X = x] \quad \; \text{ ( probability of outcome ) } \\
 &amp; = {1 \over 1 + e^{-X\beta}}
 \end{align*}
 \]</span></p>
-</section><section id="section-5" class="slide level2">
+</section><section id="section-6" class="slide level2">
 <h2></h2>
 <p><img src="Lecture7_Hypothesis_testing_and_classification_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" /></p>
-</section><section id="section-6" class="slide level2">
+</section><section id="section-7" class="slide level2">
 <h2></h2>
 <p><img src="Lecture7_Hypothesis_testing_and_classification_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" /></p>
 </section><section id="grad-school-admissions" class="slide level2">
@@ -754,7 +756,7 @@ E[Y] &amp;= P[Y = 1 \mid X = x] \quad \; \text{ ( probability of outcome ) } \\
 ##  9     1   540  3.39     3
 ## 10     0   700  3.92     2
 ## # ... with 390 more rows</code></pre>
-</section><section id="section-7" class="slide level2">
+</section><section id="section-8" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(admissions)</code></pre></div>
 <pre><code>##      admit             gre             gpa             rank      
@@ -781,7 +783,7 @@ E[Y] &amp;= P[Y = 1 \mid X = x] \quad \; \text{ ( probability of outcome ) } \\
 <li>The function can fit many other regression models. Use <code>?glm</code> to learn more.</li>
 <li>For cases with <span class="math inline">\(k &gt;2\)</span> classes, <code>multinom()</code> function from <code>nnet</code> package can be used. To see how go over this <a href="https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/">example</a>.</li>
 </ul>
-</section><section id="section-8" class="slide level2">
+</section><section id="section-9" class="slide level2">
 <h2></h2>
 <p>Note that currently the column ‘admit’ and ‘rank’ in <code>admissions</code> are integers.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(admissions, class)</code></pre></div>
@@ -836,7 +838,7 @@ test &lt;-<span class="st"> </span>admissions[<span class="op">-</span><span cla
 specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)</span>.</p></li>
 <li><p>You need to set the family to <code>family = &quot;binomial&quot;</code> equivalent to choosing a logistic regression, i.e. using <strong>a logit link function</strong> <span class="math inline">\(g(\cdot)\)</span> in a GLM model.</p></li>
 </ul>
-</section><section id="section-9" class="slide level2">
+</section><section id="section-10" class="slide level2">
 <h2></h2>
 <p>Logistic regression <strong>coefficients</strong> for continuous predictors (covariates) give <strong>the log fold change in the odds of the outcome corresponding to a unit increase in the predictor</strong>.</p>
 <p><span class="math display">\[
@@ -850,7 +852,7 @@ specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)
 \beta_{factor} &amp;= \log \left({P[Y = 1 \;| \; X_{fac} =  L ] \over P[Y = 1\;|\; X_{fac} \ne L ]} \right)\\
 \end{align*}
 \]</span></p>
-</section><section id="section-10" class="slide level2">
+</section><section id="section-11" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(logit_fit)</code></pre></div>
 <pre><code>##  (Intercept)          gre          gpa        rank2        rank3 
@@ -863,7 +865,7 @@ specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)
 <li><p>For every unit increase in <code>gpa</code>, the log odds increases by <span class="math inline">\(\approx\)</span> 0.6580453.</p></li>
 <li><p>There are three coefficients for the rank variable, e.g. a student attending a college with rank 2, one with rank 1 (base level), has the log admission odds decreased by <span class="math inline">\(\approx\)</span> -0.5100045.</p></li>
 </ul>
-</section><section id="section-11" class="slide level2">
+</section><section id="section-12" class="slide level2">
 <h2></h2>
 <p>You can get the confidence intervals for the coefficients with the <code>confint()</code> fuinction</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">confint</span>(logit_fit)</code></pre></div>
@@ -876,7 +878,7 @@ specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)
 ## rank3       -2.483360377 -0.677844965
 ## rank4       -2.140151201 -0.167386365</code></pre>
 <p>The <span class="math inline">\(95\%\)</span> CI are away from zero which indicates significance.</p>
-</section><section id="section-12" class="slide level2">
+</section><section id="section-13" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(logit_fit)</code></pre></div>
 <pre><code>## 
@@ -906,7 +908,7 @@ specifies the linear predictor part, <span class="math inline">\(\eta = X\beta\)
 ## AIC: 301.83
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-</section><section id="section-13" class="slide level2">
+</section><section id="section-14" class="slide level2">
 <h2></h2>
 <p>Rank variable effect is given with three different coeffients.</p>
 <p>We can sse <code>wald.test()</code> function from the <code>aod</code> package to test the overall effect of ‘rank’.</p>
@@ -1102,12 +1104,12 @@ valid</code></pre></div>
 <li><p>At each candidate split in the learning process, <strong>only a random subset of the features is included in a pool</strong> from which the variables can be selected for splitting the branch.</p></li>
 <li><p>Introducing <strong>randomness</strong> into the candidate splitting variables, <strong>reduces correlation between the generated trees.</strong></p></li>
 </ul>
-</section><section id="section-14" class="slide level2">
+</section><section id="section-15" class="slide level2">
 <h2></h2>
 <div style="text-align: center">
 <p><img src="Lecture7-figure/rfparams.png" /></p>
 </div>
-</section><section id="section-15" class="slide level2">
+</section><section id="section-16" class="slide level2">
 <h2></h2>
 <div style="text-align: center">
 <p><img src="Lecture7-figure/randomForest.jpg" /></p>
@@ -1152,7 +1154,7 @@ wines &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span 
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Barplot for Quality Scores&quot;</span>)</code></pre></div>
 <p><img src="Lecture7_Hypothesis_testing_and_classification_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The classes are ordered and not balanced (munch more normal wines than excellent/poor ones).</p>
-</section><section id="section-16" class="slide level2">
+</section><section id="section-17" class="slide level2">
 <h2></h2>
 <p>To make things easier, we will wines into <strong>“good”, “average” and “bad”</strong> categories.</p>
 <p>The new classes will be more balanced, and it will be easier to fit the model.</p>
@@ -1186,7 +1188,7 @@ wines &lt;-<span class="st"> </span>wines <span class="op">%&gt;%</span>
 ## 4       6 average
 ## 5       6 average
 ## 6       6 average</code></pre>
-</section><section id="section-17" class="slide level2">
+</section><section id="section-18" class="slide level2">
 <h2></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(wines<span class="op">$</span>quality)</code></pre></div>
 <pre><code>## 
@@ -1221,7 +1223,7 @@ wines_fit_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(
 <li><p><code>ntree</code> - the number of trees in the forest.</p></li>
 <li><p><code>importance</code> - whether importance of predictors be computed.</p></li>
 </ul>
-</section><section id="section-18" class="slide level2">
+</section><section id="section-19" class="slide level2">
 <h2></h2>
 <p>Observe, that RF is good at distinguishing “bad” wines from“good” wines, but still struggles when it comes to “average” wines.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wines_fit_rf</code></pre></div>
@@ -1254,7 +1256,7 @@ wines_fit_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(
 ##   good     13     143  254</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(accuracy_rf &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">diag</span>(confusion_matrix)) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(confusion_matrix))</code></pre></div>
 <pre><code>## [1] 0.7168367</code></pre>
-</section><section id="section-19" class="slide level2">
+</section><section id="section-20" class="slide level2">
 <h2></h2>
 <p><a href="https://stats.stackexchange.com/questions/197827/how-to-interpret-mean-decrease-in-accuracy-and-mean-decrease-gini-in-random-fore" class="uri">https://stats.stackexchange.com/questions/197827/how-to-interpret-mean-decrease-in-accuracy-and-mean-decrease-gini-in-random-fore</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Look at variable importance:
@@ -1283,7 +1285,7 @@ wines_fit_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(
 ## pH                           162.8367
 ## sulphates                    138.5101
 ## alcohol                      258.7888</code></pre>
-</section><section id="section-20" class="slide level2">
+</section><section id="section-21" class="slide level2">
 <h2></h2>
 <p>What seems to be the conclusion? What are the characteristics that are predictive of the wine quality score?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(wines_fit_rf)</code></pre></div>

@@ -26,13 +26,13 @@ gallon.
 mpg
 mpg <- mpg %>% 
   mutate(
-    trans = strsplit(trans, "\\(")[[1]][1],
-    trans = factor(trans, levels = c("auto", "manual"))
+    transmission = factor(
+        gsub("\\((.*)", "", trans), levels = c("auto", "manual"))
   )
 mpg
 ```
 
-## Part 2: One-sample test
+## Part 1: One-sample test
 
 a. Subset the `mpg` dataset to inlude only cars from  year 2008.
 
@@ -102,6 +102,7 @@ To obtain the data you will need to install a package `ISLR`.
 library(ISLR)
 (Default <- tbl_df(Default))
 ```
+
 
 a. First, divide your dataset into a train and test set. Randomly sample
 6000 observations and include them in the train set, and the remaining use

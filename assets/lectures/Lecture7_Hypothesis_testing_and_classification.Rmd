@@ -123,6 +123,7 @@ null hypothesis; in this case you can reject the null hypothesis.
 - A large p-value, > 0.05, indicates **weak evidence** against the null 
 hypothesis; in this case, you do NOT reject the null hypothesis.
 
+## 
 
 $$p-value = P[observations \; \mid \; hypothesis] \ne P[hypothesis \; \mid \; ovservations]$$
 ![](./Lecture7-figure/tdist.gif)
@@ -217,17 +218,16 @@ Failure to reject is not acceptance of the null hypothesis.
 
 ## Testing difference between groups 
 
-Is the fuel efficiency (mpg) the same for the cars 
-with automatic and manual transmission? 
+Is the average arrival delay the same for the winter and summer?
 
 </br>
 **Test the null hypothesis:**
 
-\[H_0: \mu_a = \mu_m\\
-H_a: \mu_a \ne \mu_m\]
+\[H_0: \mu_{a} = \mu_{b}\\
+H_a: \mu_{a} \ne \mu_{b}\]
 
-where $\mu_a$ mean mpg of automatic cars and $\mu_m$ is the mean mpg of manual
-cars.
+where $\mu_{a}$ mean `arr_delay` in the winter 
+and $\mu_b$ is the mean `arr_delay` in the summer.
 
 ```{r, eval = FALSE}
 t.test(x, y)
