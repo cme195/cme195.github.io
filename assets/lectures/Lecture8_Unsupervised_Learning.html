@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Lan Huong Nguyen" />
+  <meta name="dcterms.date" content="2018-10-23" />
+  <title>Lecture 8: Unsupervised learning</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="cme195.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Lecture 8: Unsupervised learning</h1>
+  <h1 class="subtitle">CME/STATS 195</h1>
+    <h2 class="author">Lan Huong Nguyen</h2>
+    <h3 class="date">October 23, 2018</h3>
+</section>
+
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<div class="left" ,="" style="width: 50%">
+<ul>
+<li><p>What is unsupervised learning?</p></li>
+<li><p>Dimensionality reduction with PCA</p></li>
+<li>Cluster Analysis:
+<ul>
+<li>k-means Clustering</li>
+<li>Hierarchical Clustering</li>
+</ul></li>
+<li><p>Course wrap-up</p></li>
+</ul>
+</div>
+<div class="right" ,="" style="width: 50%">
+<p><img src="Lecture8-figure/data-science-model.png" /></p>
+</div>
+</section>
+<section><section id="unsupervised-learning" class="titleslide slide level1"><h1>Unsupervised Learning</h1></section><section id="unsupervised-learning-1" class="slide level2">
+<h2>Unsupervised Learning</h2>
+<ul>
+<li><p>Deals with a task of <strong>inferring latent (hidden) patterns and structures unlabeled data</strong>.</p></li>
+<li><p>The goal is to understand the <strong>relationships between features or among observations</strong>.</p></li>
+<li><p>There is only <span class="math inline">\(X\)</span> and no <span class="math inline">\(Y\)</span>, i.e. there are <strong>no special variables</strong> such as response or output variables, and <strong>no prespecified classes labels</strong> for the observations.</p></li>
+</ul>
+</section><section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>Unsupervised learning encompasses:
+<ul>
+<li>dimensionality reduction, manifold learning<br />
+<em>e.g. PCA, MDS, Isomap, Diffusion Map, t-SNE, Autoencoder</em></li>
+<li>clustering <em>e.g. k-means, hierarchical clustering, mixture models</em></li>
+<li>anomaly detection</li>
+<li>latent variable models</li>
+</ul></li>
+</ul>
+<p></br></p>
+<ul>
+<li>It can handle the tasks such as:
+<ul>
+<li>image segmentation,</li>
+<li>image clustering / automatic labeling,</li>
+<li>visualization of high dimensional data <em>e.g. gene expression</em>,</li>
+<li>finding cell subtypes.</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="dimensionality-reduction" class="titleslide slide level1"><h1>Dimensionality Reduction</h1></section><section id="dimensionality-reduction-1" class="slide level2">
+<h2>Dimensionality Reduction</h2>
+<ul>
+<li>Most of <strong>modern datasets are high-dimensional</strong> e.g. genetic sequencing, medical records, user internet activity data etc.</li>
+<li>DR or feature extraction methods <strong>can reduce the number of variables.</strong></li>
+<li>The methods can be used to:
+<ul>
+<li>compress the data</li>
+<li>remove redundant features and noise</li>
+<li>increase accuracy of learning methods by avoiding over-fitting and <a href="http://statweb.stanford.edu/~donoho/Lectures/AMS2000/Curses.pdf">the curse of dimensionality</a></li>
+</ul></li>
+<li>Common methods for dimensionality reduction include: PCA, CA, ICA, MDS, Isomaps, Laplacian Eigenmaps, tSNE, Autoencoder.</li>
+</ul>
+</section><section id="principal-component-analysis-pca" class="slide level2">
+<h2>Principal Component Analysis (PCA)</h2>
+<div style="float: left; width: 45%">
+<p><img src="Lecture8-figure/halfSphere.png" /></p>
+</div>
+<div style="float: left; width: 51%">
+<p><img src="Lecture8-figure/pca.png" /></p>
+</div>
+<p>Source: <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">ESL Chapter 14</a></p>
+</section><section id="maximal-variance-projection" class="slide level2">
+<h2>Maximal variance Projection</h2>
+<p></br></p>
+<ul>
+<li>For <span class="math inline">\(X\in \mathbb{R}^{n \times p}\)</span>, <span class="math inline">\(\tilde X = (X - \bar X)\)</span> is a centered data matrix.</li>
+<li>PCA is <strong>an eigenvalue decomposition of the sample covariance matrix</strong>:</li>
+</ul>
+<p><span class="math display">\[C = \frac{1}{n-1} \tilde X ^T \tilde X = \frac{1}{n-1} V \Sigma^2 V^T\]</span></p>
+<ul>
+<li>or (equivalently) <strong>a singular value decomposition (SVD)</strong> of <span class="math inline">\(\tilde X\)</span> itself:</li>
+</ul>
+<p><span class="math display">\[\tilde X = U \Sigma V^T \]</span></p>
+<p>In the above <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are orthogonal matrices and</p>
+<p><span class="math inline">\(\Sigma\)</span> is a diagonal matrix.</p>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<ul>
+<li>The projection of X into the space of principal components is called a <strong>component scores</strong>:</li>
+</ul>
+<p><span class="math display">\[T = \tilde{X} V = U\Sigma V^T V = U\Sigma\]</span></p>
+<p></br></p>
+<ul>
+<li>The weights of the variables in the PCA space, <span class="math inline">\(V\)</span>, are called <strong>loadings</strong>.</li>
+</ul>
+</section><section id="dimensionality-reduction-with-pca" class="slide level2">
+<h2>Dimensionality reduction with PCA</h2>
+<ul>
+<li>PCA finds <strong>a set of <span class="math inline">\(p\)</span> uncorrelated</strong> directions (components) that are <strong>linear combinations of the original <span class="math inline">\(p\)</span> variables</strong>.</li>
+<li>These components sequentially explain most of the variation remaining subsequently in the data.</li>
+<li><p>Reduction occurs when <strong>the top <span class="math inline">\(k &lt; p\)</span> components are kept and used to represent</strong> the original <span class="math inline">\(p\)</span>-dimensional data.</p></li>
+<li><p>The <span class="math inline">\(k\)</span>-dimensional approximation of <span class="math inline">\(X\)</span> is:</p></li>
+</ul>
+<p><span class="math display">\[T_k = U_k D_k\]</span></p>
+<p>where <span class="math inline">\(U_k\)</span> is a matrix with <span class="math inline">\(k\)</span> first columns of <span class="math inline">\(U\)</span> and <span class="math inline">\(D_k\)</span> is the diagonal matrix containing first <span class="math inline">\(q\)</span> diagonal terms of <span class="math inline">\(D\)</span></p>
+</section><section id="the-us-crime-rates-dataset" class="slide level2">
+<h2>The US crime rates dataset</h2>
+<p>The built in dataset includes information on violent crime rates in the US in 1975.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(USArrests)</code></pre></div>
+<pre><code>##            Murder Assault UrbanPop Rape
+## Alabama      13.2     236       58 21.2
+## Alaska       10.0     263       48 44.5
+## Arizona       8.1     294       80 31.0
+## Arkansas      8.8     190       50 19.5
+## California    9.0     276       91 40.6
+## Colorado      7.9     204       78 38.7</code></pre>
+<p>Mean and standard deviation of the crime rates across all states:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(USArrests, <span class="dv">2</span>, mean)</code></pre></div>
+<pre><code>##   Murder  Assault UrbanPop     Rape 
+##    7.788  170.760   65.540   21.232</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apply</span>(USArrests, <span class="dv">2</span>, sd)</code></pre></div>
+<pre><code>##    Murder   Assault  UrbanPop      Rape 
+##  4.355510 83.337661 14.474763  9.366385</code></pre>
+</section><section id="pca-in-r" class="slide level2">
+<h2>PCA in R</h2>
+<ul>
+<li>In R, the function <code>prcomp()</code> can be used to perform PCA.</li>
+<li><code>prcomp()</code> is faster and preferred method over <code>princomp()</code>; it is a PCA implementation based on SVD.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res &lt;-<span class="st"> </span><span class="kw">prcomp</span>(USArrests, <span class="dt">scale =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<ul>
+<li>The output of <code>prcomp()</code> is a list containing:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(pca.res)</code></pre></div>
+<pre><code>## [1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;</code></pre>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<p>The elements of <code>prcomp</code> output are:</p>
+<ul>
+<li>The principal components/scores matrix, <span class="math inline">\(T = U\Sigma\)</span> with projected samples coordinates.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pca.res<span class="op">$</span>x)</code></pre></div>
+<pre><code>##                   PC1        PC2         PC3          PC4
+## Alabama    -0.9756604  1.1220012 -0.43980366  0.154696581
+## Alaska     -1.9305379  1.0624269  2.01950027 -0.434175454
+## Arizona    -1.7454429 -0.7384595  0.05423025 -0.826264240
+## Arkansas    0.1399989  1.1085423  0.11342217 -0.180973554
+## California -2.4986128 -1.5274267  0.59254100 -0.338559240
+## Colorado   -1.4993407 -0.9776297  1.08400162  0.001450164</code></pre>
+<p>These are the sample coordinates in the PCA projection space.</p>
+</section><section id="section-3" class="slide level2">
+<h2></h2>
+<ul>
+<li>The principal axes matrix, <span class="math inline">\(V\)</span>, contains the eigenvectors of the covariance matrix. A related matrix of <strong>loadings</strong> is a matrix of eigenvectors scaled by the square roots of the respective eigenvalues:</li>
+</ul>
+<p><span class="math display">\[L = \frac{V \Sigma}{\sqrt{n-1}}\]</span></p>
+<p>The loadings or principal axes give the weights of the variables in each of the principal components.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
+<pre><code>##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+</section><section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>rotation</code></pre></div>
+<pre><code>##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+<p></br></p>
+<ul>
+<li>PC1 places similar weights on <code>Assault</code>, <code>Murder</code>, and <code>Rape</code> variables, and a much smaller one on <code>UrbanPop</code>. Therefore, <strong>PC1 measures an overall measure of crime</strong>.</li>
+<li>The 2nd loading puts most weight on <code>UrbanPop</code>. Thus, <strong>PC2 measures a level of urbanization</strong>.</li>
+<li>The crime-related variables are <strong>correlated</strong> with each other, and therefore are close to each other on the biplot.</li>
+<li><code>UrbanPop</code> is <strong>independent</strong> of the crime rate, and so it is further away on the plot.</li>
+</ul>
+</section><section id="section-5" class="slide level2">
+<h2></h2>
+<ul>
+<li>The standard deviations of the principal components (<strong>square roots of the eigenvalues</strong> of <span class="math inline">\(\tilde X^T \tilde X\)</span>)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>sdev</code></pre></div>
+<pre><code>## [1] 1.5748783 0.9948694 0.5971291 0.4164494</code></pre>
+<ul>
+<li>The centers of the features, used for shifting:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>center</code></pre></div>
+<pre><code>##   Murder  Assault UrbanPop     Rape 
+##    7.788  170.760   65.540   21.232</code></pre>
+<ul>
+<li>The standard deviations of the features, used for scaling:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.res<span class="op">$</span>scale</code></pre></div>
+<pre><code>##    Murder   Assault  UrbanPop      Rape 
+##  4.355510 83.337661 14.474763  9.366385</code></pre>
+</section><section id="scree-plot" class="slide level2">
+<h2>Scree plot</h2>
+<div class="left" ,="" style="text-align: left; width: 50%">
+<ul>
+<li><p>A scree plot can be used to choose how many components to retain.</p></li>
+<li><p>Look for <strong>“elbows”</strong> in the scree plots</p></li>
+<li><p>Discard the dimensions with corresponding eigenvalues or equivalently <strong>the proportion of variance explained</strong> that drop off significantly.</p></li>
+</ul>
+</div>
+<div class="right" ,="" style="text-align: right; width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># PCA eigenvalues/variances:</span>
+(pr.var &lt;-<span class="st"> </span>pca.res<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 2.4802416 0.9897652 0.3565632 0.1734301</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pca.res)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<ul>
+<li>Percent of variance explained:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages(&quot;factoextra&quot;)</span>
+<span class="kw">library</span>(factoextra)
+
+<span class="co"># Percent of variance explained:</span>
+(pve &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span>pr.var<span class="op">/</span><span class="kw">sum</span>(pr.var))</code></pre></div>
+<pre><code>## [1] 62.006039 24.744129  8.914080  4.335752</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fviz_eig</span>(pca.res) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="samples-plot" class="slide level2">
+<h2>Samples Plot</h2>
+<p>Each principal component loading and score vector is <strong>unique, up to a sign flip</strong>. So another software could return this plot instead:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fviz_pca_ind</span>(pca.res) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="features-plot" class="slide level2">
+<h2>Features Plot</h2>
+<div class="left" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fviz_pca_var</span>(pca.res) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div class="right" ,="" style="width: 50%">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fviz_contrib</span>(pca.res, <span class="dt">choice =</span> <span class="st">&quot;var&quot;</span>, <span class="dt">axes =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</section><section id="biplot" class="slide level2">
+<h2>Biplot</h2>
+<p>A biplot allows information on both samples and variables of a data matrix to be displayed at the same time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fviz_pca_biplot</span>(pca.res) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="exercise" class="slide level2">
+<h2>Exercise</h2>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec8_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 1.</p></li>
+</ul>
+</section></section>
+<section><section id="cluster-analysis" class="titleslide slide level1"><h1>Cluster Analysis</h1></section><section id="cluster-analysis-1" class="slide level2">
+<h2>Cluster Analysis</h2>
+<ul>
+<li><p><strong>Clustering is an exploratory technique</strong> which can <strong>discover hidden groups</strong> that are important for understanding the data.</p></li>
+<li><p>Groupings are determined from the data itself, <strong>without any prior knowledge about labels or classes</strong>.</p></li>
+<li><p>There are the clustering methods available; a lot of them have an R implementation available on <a href="https://cran.r-project.org/web/views/Cluster.html">CRAN</a>.</p></li>
+</ul>
+<div style="text-align: center">
+<p><img src="Lecture8-figure/clusters.png" /></p>
+</div>
+</section><section id="section-7" class="slide level2">
+<h2></h2>
+<ul>
+<li>To cluster the data we need a <strong>measure of similarity</strong> or <strong>dissimilarity</strong> between a pair of observations, e.g. an Euclidean distance.</li>
+</ul>
+<div style="text-align: center; height: 75%">
+<p><img src="Lecture8-figure/birdsOfFeather.png" /></p>
+</div>
+</section><section id="k-means" class="slide level2">
+<h2>k-means</h2>
+<ul>
+<li>k-means is a simple and fast <strong>iterative relocation method</strong> for clustering data into <span class="math inline">\(k\)</span> distinct non-overlapping groups.</li>
+<li>The algorithm minimizes the variation within each cluster.</li>
+</ul>
+<div style="height: 30%; width: 50%">
+<p><img src="Lecture8-figure/right.gif" /> Source: <a href="http://shabal.in/visuals/kmeans/3.html">link</a></p>
+</div>
+</section><section id="k-means-drawbacks" class="slide level2">
+<h2>k-means drawbacks</h2>
+<ul>
+<li><p><strong>The number clusters <span class="math inline">\(k\)</span> must be prespecified</strong> (before clustering).</p></li>
+<li><p>The method is stochastic, and involves <strong>random initialization of cluster centers</strong>.</p></li>
+<li><p>This means that each time the algorithm is run, the results obtained can be different.</p></li>
+</ul>
+<p>The number of clusters, <span class="math inline">\(k\)</span>, should be chosen using statistics such as:</p>
+<ul>
+<li><p>Gap Statistic <a href="http://www.web.stanford.edu/~hastie/Papers/gap.pdf">link</a></p></li>
+<li><p>Silhouette statistic <a href="https://en.wikipedia.org/wiki/Silhouette_(clustering)">link</a></p></li>
+<li><p>Calinski-Harbasz index <a href="http://www.biomedcentral.com/content/supplementary/1477-5956-9-30-S4.PDF">link</a></p></li>
+</ul>
+</section><section id="image-segmentation" class="slide level2">
+<h2>Image segmentation</h2>
+<ul>
+<li><p>One of the application of k-means clustering is <a href="https://www.r-bloggers.com/r-k-means-clustering-on-an-image/"><strong>image segmentation</strong></a>.</p></li>
+<li><p>Here we use a picture of a field of tulips in the Netherlands downloaded from <a href="%22http://www.infohostels.com/immagini/news/2179.jpg%22">here</a>.</p></li>
+</ul>
+<div style="text-align: center; height: 75%">
+<p><img src="Lecture8-figure/Image.jpg" /></p>
+</div>
+</section><section id="importing-image-to-r" class="slide level2">
+<h2>Importing image to R</h2>
+<ul>
+<li>First, we download the image:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(jpeg)
+url &lt;-<span class="st"> &quot;http://www.infohostels.com/immagini/news/2179.jpg&quot;</span>
+dFile &lt;-<span class="st"> </span><span class="kw">download.file</span>(url, <span class="st">&quot;./Lecture8-figure/Image.jpg&quot;</span>)
+img &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(<span class="st">&quot;./Lecture8-figure/Image.jpg&quot;</span>) 
+(imgDm &lt;-<span class="st"> </span><span class="kw">dim</span>(img))</code></pre></div>
+<pre><code>## [1] 480 960   3</code></pre>
+<ul>
+<li><p>The image is a 3D array, so we will convert it to a data frame.</p></li>
+<li><p>Each row of the data frame should correspond a single pixel.</p></li>
+<li><p>The columns should include the pixel location (<code>x</code> and <code>y</code>), and the pixel intensity in red, green, and blue ( <code>R</code>, <code>G</code>, <code>B</code>).</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assign RGB channels to data frame</span>
+imgRGB &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>imgDm[<span class="dv">2</span>], <span class="dt">each =</span> imgDm[<span class="dv">1</span>]),
+  <span class="dt">y =</span> <span class="kw">rep</span>(imgDm[<span class="dv">1</span>]<span class="op">:</span><span class="dv">1</span>, imgDm[<span class="dv">2</span>]),
+  <span class="dt">R =</span> <span class="kw">as.vector</span>(img[,,<span class="dv">1</span>]),
+  <span class="dt">G =</span> <span class="kw">as.vector</span>(img[,,<span class="dv">2</span>]),
+  <span class="dt">B =</span> <span class="kw">as.vector</span>(img[,,<span class="dv">3</span>])
+)</code></pre></div>
+</section><section id="k-means-in-r" class="slide level2">
+<h2>k-means in R</h2>
+<ul>
+<li>Each pixel is a datapoint in 3D specifying the intensity in each of the three “R”, “G”, “B” channels, which determines the pixel’s color.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(imgRGB, <span class="dv">3</span>)</code></pre></div>
+<pre><code>##   x   y R         G         B
+## 1 1 480 0 0.3686275 0.6980392
+## 2 1 479 0 0.3686275 0.6980392
+## 3 1 478 0 0.3725490 0.7019608</code></pre>
+<ul>
+<li>We use k-means to cluster the pixels <span class="math inline">\(k\)</span> into color groups (clusters).</li>
+<li>k-means can be performed in R with <code>kmeans()</code> built-in function.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set seed since k-means involves a random initialization</span>
+<span class="kw">set.seed</span>(<span class="dv">43658</span>)
+k &lt;-<span class="st"> </span><span class="dv">2</span>
+kmeans.2clust &lt;-<span class="st"> </span><span class="kw">kmeans</span>(imgRGB[, <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;B&quot;</span>)], <span class="dt">centers =</span> k)
+<span class="kw">names</span>(kmeans.2clust)</code></pre></div>
+<pre><code>## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
+## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
+## [9] &quot;ifault&quot;</code></pre>
+</section><section id="section-8" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># k cluster centers</span>
+kmeans.2clust<span class="op">$</span>centers</code></pre></div>
+<pre><code>##           R         G         B
+## 1 0.5682233 0.3251528 0.1452832
+## 2 0.6597320 0.6828609 0.7591578</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The centers correspond to the following colors:</span>
+<span class="kw">rgb</span>(kmeans.2clust<span class="op">$</span>centers)</code></pre></div>
+<pre><code>## [1] &quot;#915325&quot; &quot;#A8AEC2&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Cluster assignment of the first 10 pixels</span>
+<span class="kw">head</span>(kmeans.2clust<span class="op">$</span>cluster, <span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1] 2 2 2 2 2 2 2 2 2 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Convert cluster assignment lables to cluster colors</span>
+kmeans.2colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.2clust<span class="op">$</span>centers[kmeans.2clust<span class="op">$</span>cluster, ])
+<span class="kw">head</span>(kmeans.2colors, <span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1] &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot;
+##  [8] &quot;#A8AEC2&quot; &quot;#A8AEC2&quot; &quot;#A8AEC2&quot;</code></pre>
+</section><section id="section-9" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> imgRGB, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> kmeans.2colors) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;k-Means Clustering with&quot;</span>, k, <span class="st">&quot;clusters (colors)&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;y&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="section-10" class="slide level2">
+<h2></h2>
+<p>Now add more colors, by increase the number of clusters to 6:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">348675</span>)
+kmeans.6clust &lt;-<span class="st"> </span><span class="kw">kmeans</span>(imgRGB[, <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>, <span class="st">&quot;G&quot;</span>, <span class="st">&quot;B&quot;</span>)], <span class="dt">centers =</span> <span class="dv">6</span>)
+kmeans.6colors &lt;-<span class="st"> </span><span class="kw">rgb</span>(kmeans.6clust<span class="op">$</span>centers[kmeans.6clust<span class="op">$</span>cluster, ])</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="hierarchical-clustering" class="slide level2">
+<h2>Hierarchical clustering</h2>
+<div style="height:10%; width:100%; float: center">
+<p><img src="Lecture8-figure/calderMobile.jpg" /></p>
+</div>
+<p><small> Alexander Calder’s mobile </small></p>
+<ul>
+<li>If it’s difficult (or if you simply don’t want) to choose the number of clusters ahead, you can do <strong>hierarchical clustering</strong>.<br />
+</li>
+</ul>
+</section><section id="section-11" class="slide level2">
+<h2></h2>
+<ul>
+<li><p>Hierarchical clustering can be performed using agglomerative (bottom-up) or divisive (top-down) approach.</p></li>
+<li><p>The method requires a choice of a pairwise distance metric and a rule of how to merge or divide clusters.</p></li>
+<li><p>The output of the method can be represented as a graphical tree-based representation of the data, called a <strong>dendogram</strong>.</p></li>
+<li><p>The tree allows you to evaluate where the cutoff for grouping should occur.</p></li>
+</ul>
+</section><section id="section-12" class="slide level2">
+<h2></h2>
+<div style="float: left; width: 50%; height: 100%">
+<p><img src="Lecture8-figure/dogDendro.png" /></p>
+</div>
+<div style="float: left; width: 50%; height: 100%">
+<p><img src="Lecture8-figure/hierarchicalCutoff.png" /></p>
+</div>
+</section><section id="hierarchical-clustering-algorithm" class="slide level2">
+<h2>Hierarchical clustering algorithm</h2>
+<p><img src="Lecture8-figure/hierarchicalClusteringAlgorithm.png" /></p>
+<p>Source: <a href="https://www-bcf.usc.edu/~gareth/ISL/">ISL</a></p>
+</section><section id="section-13" class="slide level2">
+<h2></h2>
+<p>Results for hierarchical clustering differ depending on the choice of:</p>
+<ul>
+<li><p>A distance metric used for pairs of observations, e.g. Euclidean (L2), Manhattan (L1), Jaccard (Binary), <a href="http://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/">etc</a></p></li>
+<li><p>The rule used for grouping clusters that are already generated, e.g. single (minimum), completer (maximum), centroid or average cluster linkages.</p></li>
+</ul>
+<p></br></p>
+<div class="center" ,="" style="width: 100%">
+<p><img src="Lecture8-figure/clustering_distances.gif" /></p>
+</div>
+</section><section id="section-14" class="slide level2">
+<h2></h2>
+<p>Different ways to compute dissimilarity between 2 clusters:</p>
+<p><img src="Lecture8-figure/linkages.png" /></p>
+</section><section id="iris-dataset" class="slide level2">
+<h2>Iris dataset</h2>
+<ul>
+<li>We will use the Fisher’s Iris dataset containing measurements on 150 irises.</li>
+<li>Hierarchical clustering will calculate the grouping of the flowers into groups corresponding. We will see that these groups will roughly correspond to the flower species.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(iris)</code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</section><section id="hierarchical-clustering-in-r" class="slide level2">
+<h2>Hierarchical clustering in R</h2>
+<ul>
+<li>Built-in function <code>hclust()</code> performs hierarchical clustering.</li>
+<li>We will use only the petal dimensions (2 columns) to compute the distances between flowers.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the Euclidean distance for the dissimilarities between flowers</span>
+distMat &lt;-<span class="st"> </span><span class="kw">dist</span>(iris[, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>])
+
+
+<span class="co"># We use the &quot;complete&quot; linkage method for computing the cluster distances.</span>
+clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</code></pre></div>
+</section><section id="section-15" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.7</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-27-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</section><section id="section-16" class="slide level2">
+<h2></h2>
+<p>The dendrogram suggests that a reasonable choice of the number of clusters is either 3 or 4.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.7</span>)
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-28-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="section-17" class="slide level2">
+<h2></h2>
+<ul>
+<li>We pick 3 clusters.</li>
+<li>To get the assignments with 3 clusters from the <strong>truncated</strong> tree we can use a <code>cutree()</code> function.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(clusterCut &lt;-<span class="st"> </span><span class="kw">cutree</span>(clusters, <span class="dv">3</span>))</code></pre></div>
+<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 3 2 2 2 3 2 3 3 3 3 2 3 3 2 3 2 3
+##  [71] 2 3 2 2 3 3 2 2 2 3 3 3 3 2 2 2 2 3 3 3 3 2 3 3 3 3 3 3 3 3 2 2 2 2 2
+## [106] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [141] 2 2 2 2 2 2 2 2 2 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(clusterCut, iris<span class="op">$</span>Species)</code></pre></div>
+<pre><code>##           
+## clusterCut setosa versicolor virginica
+##          1     50          0         0
+##          2      0         21        50
+##          3      0         29         0</code></pre>
+</section><section id="section-18" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">labels =</span> clusterCut, <span class="dt">cex =</span> <span class="fl">0.9</span>)
+<span class="kw">rect.hclust</span>(clusters, <span class="dt">k =</span> <span class="dv">3</span>, <span class="dt">border=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-31-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</section><section id="section-19" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(clusterCut, iris<span class="op">$</span>Species)</code></pre></div>
+<pre><code>##           
+## clusterCut setosa versicolor virginica
+##          1     50          0         0
+##          2      0         21        50
+##          3      0         29         0</code></pre>
+<ul>
+<li>From the table we see that the sentosa and virginica were correctly assigned to separate groups.</li>
+<li>However, the method had difficulty grouping the versicolorm flowers into a separate cluster.</li>
+</ul>
+</section><section id="section-20" class="slide level2">
+<h2></h2>
+<p>Try another linkage method like “average” and see if it performs better.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the Euclidean distance for the dissimilarities between flowers</span>
+distMat &lt;-<span class="st"> </span><span class="kw">dist</span>(iris[, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>])
+<span class="co"># We use the &quot;complete&quot; linkage method for computing the cluster distances.</span>
+clusters &lt;-<span class="st"> </span><span class="kw">hclust</span>(distMat, <span class="dt">method =</span> <span class="st">&quot;average&quot;</span>)
+<span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.5</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-33-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="section-21" class="slide level2">
+<h2></h2>
+<p>Here we can choose 3 or 5 clusters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">cex =</span> <span class="fl">0.6</span>)
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="fl">1.35</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">a =</span> <span class="fl">0.9</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-34-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</section><section id="section-22" class="slide level2">
+<h2></h2>
+<p>Again we choose 3 clusters</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clusterCut &lt;-<span class="st"> </span><span class="kw">cutree</span>(clusters, <span class="dv">3</span>)
+<span class="kw">table</span>(clusterCut, iris<span class="op">$</span>Species)</code></pre></div>
+<pre><code>##           
+## clusterCut setosa versicolor virginica
+##          1     50          0         0
+##          2      0         45         1
+##          3      0          5        49</code></pre>
+<p>We see that this time the results are better in terms of the cluster assignment agreement with the flower species classification.</p>
+</section><section id="section-23" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(clusters, <span class="dt">labels =</span> clusterCut, <span class="dt">cex =</span> <span class="fl">0.7</span>)
+<span class="kw">rect.hclust</span>(clusters, <span class="dt">k =</span> <span class="dv">3</span>, <span class="dt">border=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>))</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-36-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</section><section id="section-24" class="slide level2">
+<h2></h2>
+<ul>
+<li>2D plot of the iris dataset using petal dimensions as coordinates.</li>
+<li>The cluster assignments partition the flowers into species with high accuracy.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Petal.Length, Petal.Width)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> clusterCut), <span class="dt">vjust =</span> <span class="op">-</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_fixed</span>(<span class="fl">1.5</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-37-1.png" width="768" style="display: block; margin: auto;" /></p>
+</section><section id="exercise-1" class="slide level2">
+<h2>Exercise</h2>
+<p></br></p>
+<ul>
+<li><p>Go to the “Lec8_Exercises.Rmd” file, which can be downloaded from the class website under the Lecture tab.</p></li>
+<li><p>Complete Exercise 2.</p></li>
+</ul>
+</section></section>
+<section><section id="course-wrap-up" class="titleslide slide level1"><h1>Course wrap-up</h1></section><section id="our-journey" class="slide level2">
+<h2>Our journey</h2>
+<p><img src="Lecture8-figure/tidyverse.png" /></p>
+</section><section id="how-to-learn-more" class="slide level2">
+<h2>How to learn more</h2>
+<p>Where to find out more about the topics of this class:</p>
+<ul>
+<li>R for Data Science, by Hadley Wickham: (<a href="http://r4ds.had.co.nz" class="uri">http://r4ds.had.co.nz</a>)</li>
+<li>The tidyverse: (<a href="https://www.tidyverse.org" class="uri">https://www.tidyverse.org</a>)</li>
+<li>RStudio: (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>)</li>
+<li>R Markdown: (<a href="http://rmarkdown.rstudio.com/" class="uri">http://rmarkdown.rstudio.com/</a>)</li>
+<li>Many online tutorials and forums (e.g. <a href="https://datacarpentry.org/">Data Carpentry</a> and <a href="https://www.datacamp.com/">DataCamp</a>)</li>
+</ul>
+<p>How to learn more advanced topics on R:</p>
+<ul>
+<li>Take “Stat 290: Computing for Data Science”</li>
+<li>Read “Advanced R”, by Hadley Wickham: (<a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a>)</li>
+<li>Read “R packages”, by Hadley Wickham: (<a href="http://rpkgs.had.co.nz/" class="uri">http://rpkgs.had.co.nz/</a>)</li>
+</ul>
+</section></section>
+<section><section id="extra-other-unsupervised-techniques" class="titleslide slide level1"><h1>Extra: Other unsupervised techniques</h1></section><section id="multidimensional-scaling" class="slide level2">
+<h2>Multidimensional Scaling</h2>
+<blockquote>
+<p>MDS algorithm aims to place each object in N-dimensional space such that the between-object distances are preserved as well as possible. Each object is then assigned coordinates in each of the N dimensions. The number of dimensions of an MDS plot N can exceed 2 and is specified a priori. Choosing N=2 optimizes the object locations for a two-dimensional scatterplot.</p>
+</blockquote>
+<p>There are different types of MDS methods including, <strong>Classical MDS</strong>, <strong>Metric MDS</strong> and <strong>Non-metric MDS</strong>. The details on the differences ca be found on:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Multidimensional_scaling">Wiki</a> page on Multidimensional Scaling,</li>
+<li>Chapter 8 of <a href="http://www.springer.com/us/book/9783642318474">Applied Multidimensional Scaling</a> book by Borg, Groenen, and Mair.</li>
+</ul>
+</section><section id="perception-of-colors" class="slide level2">
+<h2>Perception of colors</h2>
+<ul>
+<li>Gosta Ekman studied how people perceive colors in <a href="http://www.tandfonline.com/doi/abs/10.1080/00223980.1954.9712953">his paper from 1954</a>.</li>
+<li>He collected survey data from 31 subjects, which included participants’ rating of the dissimilarity between each pair of 14 colors on a 5-point scale.</li>
+<li>The ratings of all subjects were averaged, and the final mean dissimilarity matrix was used for constructing “map of colors”.</li>
+</ul>
+</section><section id="section-25" class="slide level2">
+<h2></h2>
+<p>14 colors were studied with wavelengths in the range between 434 and 674 nm.</p>
+<div style="text-align: center">
+<p><img src="Lecture8-figure/colors.jpeg" /></p>
+</div>
+</section><section id="section-26" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># color similarity scores </span>
+ekmanSim &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./Lecture8-figure/ekman.rds&quot;</span>)
+<span class="kw">print</span>(ekmanSim)</code></pre></div>
+<pre><code>##      434  445  465  472  490  504  537  555  584  600  610  628  651
+## 445 0.86                                                            
+## 465 0.42 0.50                                                       
+## 472 0.42 0.44 0.81                                                  
+## 490 0.18 0.22 0.47 0.54                                             
+## 504 0.06 0.09 0.17 0.25 0.61                                        
+## 537 0.07 0.07 0.10 0.10 0.31 0.62                                   
+## 555 0.04 0.07 0.08 0.09 0.26 0.45 0.73                              
+## 584 0.02 0.02 0.02 0.02 0.07 0.14 0.22 0.33                         
+## 600 0.07 0.04 0.01 0.01 0.02 0.08 0.14 0.19 0.58                    
+## 610 0.09 0.07 0.02 0.00 0.02 0.02 0.05 0.04 0.37 0.74               
+## 628 0.12 0.11 0.01 0.01 0.01 0.02 0.02 0.03 0.27 0.50 0.76          
+## 651 0.13 0.13 0.05 0.02 0.02 0.02 0.02 0.02 0.20 0.41 0.62 0.85     
+## 674 0.16 0.14 0.03 0.04 0.00 0.01 0.00 0.02 0.23 0.28 0.55 0.68 0.76</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># convert similarities to dissimilarities</span>
+ekmanDist &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>ekmanSim</code></pre></div>
+</section><section id="mds-in-r" class="slide level2">
+<h2>MDS in R</h2>
+<ul>
+<li>Use <code>cmdscale()</code> built-in function for classical MDS.</li>
+<li>Metric iterative MDS and non-metric MDS function are available in a package <code>smacof</code> and other packages are also compared <a href="http://gastonsanchez.com/how-to/2013/01/23/MDS-in-R/">here</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ekmanMDS &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(ekmanDist, <span class="dt">k =</span> <span class="dv">2</span>)
+res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ekmanMDS)
+<span class="kw">head</span>(res)</code></pre></div>
+<pre><code>##             X1          X2
+## 434 -0.2137161 -0.41852576
+## 445 -0.2562012 -0.41065436
+## 465 -0.4119890 -0.30925977
+## 472 -0.4369586 -0.27266935
+## 490 -0.4388604  0.07518594
+## 504 -0.3364868  0.37262279</code></pre>
+</section><section id="section-27" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;ggplot2&quot;</span>)
+wavelengths &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">seq</span>( <span class="dv">434</span>, <span class="dv">674</span>, <span class="dt">length.out =</span> <span class="dv">14</span>))
+res<span class="op">$</span>wavelength &lt;-<span class="st"> </span><span class="kw">factor</span>(wavelengths, <span class="dt">levels =</span>wavelengths)
+<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(X1, X2)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> wavelength), <span class="dt">vjust=</span><span class="op">-</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-40-1.png" width="480" style="display: block; margin: auto;" /></p>
+</section><section id="section-28" class="slide level2">
+<h2></h2>
+<p>The wavelengths were converted to hexadecimal colors using this <a href="https://academo.org/demos/wavelength-to-colour-relationship/">website</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#2800ff&quot;</span>, <span class="st">&quot;#0051ff&quot;</span>, <span class="st">&quot;#00aeff&quot;</span>, <span class="st">&quot;#00fbff&quot;</span>, <span class="st">&quot;#00ff28&quot;</span>, <span class="st">&quot;#4eff00&quot;</span>, <span class="st">&quot;#92ff00&quot;</span>, 
+          <span class="st">&quot;#ccff00&quot;</span>, <span class="st">&quot;#fff900&quot;</span>, <span class="st">&quot;#ffbe00&quot;</span>, <span class="st">&quot;#ff7b00&quot;</span>, <span class="st">&quot;#ff3000&quot;</span>, <span class="st">&quot;#ff0000&quot;</span>, <span class="st">&quot;#ff0000&quot;</span>)
+<span class="kw">ggplot</span>(res, <span class="kw">aes</span>(X1, X2)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> wavelength), <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> wavelength), <span class="dt">vjust=</span><span class="op">-</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> hex)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section><section id="t-distributed-stochastic-neighbor-embedding" class="slide level2">
+<h2>t-Distributed Stochastic Neighbor Embedding</h2>
+<ul>
+<li>t-SNE is a <strong>nonlinear</strong> technique developed by <a href="https://lvdmaaten.github.io/tsne/">van der Maaten and Hinton</a> for dimensionality reduction</li>
+<li>It is particularly well suited for the visualization of high-dimensional datasets.</li>
+<li>The method performs well at visualizing and exposing inherent data clusters</li>
+<li>It has been widely applied in many fields including genomics, where the method is commonly used in single-cell literature for visualizing cell subpopulations.</li>
+</ul>
+</section><section id="tsne-on-mass-cytometry-data" class="slide level2">
+<h2>tSNE on mass cytometry data</h2>
+<p>The following example shows how to calculate and plot a 2D t-SNE projection using the <code>Rtsne</code> package. The example and code was developed by <a href="https://github.com/lmweber/Rtsne-example">Lukas Weber</a>.</p>
+<ul>
+<li>The dataset used is the mass cytometry of healthy human bone marrow dataset from the study conducted by <a href="http://www.ncbi.nlm.nih.gov/pubmed/23685480">Amir et al. (2013)</a>.</li>
+<li>Mass cytometry measures the expression levels of up to 40 proteins per cell and hundreds of cells per second.</li>
+<li>In this example t-SNE is very effective at displaying groups of different cell populations (types).</li>
+</ul>
+</section><section id="section-29" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#  here we use a subset of the data</span>
+path &lt;-<span class="st"> &quot;./Lecture8-figure/healthyHumanBoneMarrow_small.csv&quot;</span>
+dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(path)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We select 13 protein markers to used in Amir et al. 2013</span>
+colnames_proj &lt;-<span class="st"> </span><span class="kw">colnames</span>(dat)[<span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">23</span>, <span class="dv">10</span>, <span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">22</span>, <span class="dv">14</span>, <span class="dv">28</span>, <span class="dv">12</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">13</span>, <span class="dv">30</span>)]
+dat &lt;-<span class="st"> </span>dat[, colnames_proj]      
+<span class="kw">head</span>(dat)</code></pre></div>
+<pre><code>##   X144.CD11b X160.CD123  X142.CD19  X147.CD20 X110.111.112.114.CD3
+## 1   5.967343 14.0255518  0.5294468  5.0397625           149.204117
+## 2  -2.965949 -0.4499034 -0.9504946  3.2883098           102.398453
+## 3  22.475813  7.9440827 -2.5556924 -0.3310032            -9.759324
+## 4  -5.457655 -0.3668855 -0.8048915  1.7649024           146.526154
+## 5 127.534332 13.2033119  0.7140800 -1.0700325             7.266849
+## 6  12.181891  9.0580482  1.9163597  2.1253521           653.283997
+##     X158.CD33  X148.CD34  X167.CD38    X145.CD4 X115.CD45 X139.CD45RA
+## 1   2.4958646  4.3011222  29.566343   0.8041515 606.56268  291.058655
+## 2   0.3570583  1.3665982  26.355003  -0.2354967 192.41901   -1.998943
+## 3 304.6151733  3.0677378 165.949097   0.3407812  98.22443    5.670944
+## 4  -2.2423408 -0.7205721   3.933757  -0.6418993 482.09525   13.697150
+## 5 343.4721985 -0.9823112 193.646225  30.6597385 212.06926    6.608723
+## 6   3.9792464 -1.5659959 163.225845 152.5955353 284.07599   36.927834
+##      X146.CD8 X170.CD90
+## 1 346.5215759 12.444887
+## 2  35.8152542 -0.615051
+## 3   0.8252113 13.740484
+## 4 155.2028503  8.284868
+## 5   2.1295056 10.848905
+## 6  14.1040640  6.430328</code></pre>
+</section><section id="section-30" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># arcsinh transformation </span>
+<span class="co"># (see Amir et al. 2013, Online Methods, &quot;Processing of mass cytometry data&quot;)</span>
+asinh_scale &lt;-<span class="st"> </span><span class="dv">5</span>
+dat &lt;-<span class="st"> </span><span class="kw">asinh</span>(dat <span class="op">/</span><span class="st"> </span>asinh_scale)  
+<span class="co"># prepare data for Rtsne</span>
+dat &lt;-<span class="st"> </span>dat[<span class="op">!</span><span class="kw">duplicated</span>(dat), ]  <span class="co"># remove rows containing duplicate values within rounding</span>
+<span class="kw">dim</span>(dat)</code></pre></div>
+<pre><code>## [1] 999  13</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Rtsne)
+<span class="co"># run Rtsne (Barnes-Hut-SNE algorithm) without PCA step </span>
+<span class="co"># (see Amir et al. 2013, Online Methods, &quot;viSNE analysis&quot;)</span>
+<span class="kw">set.seed</span>(<span class="dv">123</span>)  
+rtsne_out &lt;-<span class="st"> </span><span class="kw">Rtsne</span>(<span class="kw">as.matrix</span>(dat), <span class="dt">perplexity =</span> <span class="dv">20</span>,
+                   <span class="dt">pca =</span> <span class="ot">FALSE</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
+</section><section id="section-31" class="slide level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot 2D t-SNE projection</span>
+<span class="kw">plot</span>(rtsne_out<span class="op">$</span>Y, <span class="dt">asp =</span> <span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">20</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, 
+     <span class="dt">cex =</span> <span class="fl">0.75</span>, <span class="dt">cex.axis =</span> <span class="fl">1.25</span>, <span class="dt">cex.lab =</span> <span class="fl">1.25</span>, <span class="dt">cex.main =</span> <span class="fl">1.5</span>, 
+     <span class="dt">xlab =</span> <span class="st">&quot;t-SNE dimension 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;t-SNE dimension 2&quot;</span>, 
+     <span class="dt">main =</span> <span class="st">&quot;2D t-SNE projection&quot;</span>)</code></pre></div>
+<p><img src="Lecture8_Unsupervised_Learning_files/figure-revealjs/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

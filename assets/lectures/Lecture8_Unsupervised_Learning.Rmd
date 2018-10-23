@@ -24,20 +24,22 @@ rm(list = ls())
 knitr::opts_chunk$set(cache = TRUE, fig.align = 'center')
 .packages <- c("ggplot2", "dplyr")
 sapply(.packages, require, character.only = TRUE)
+theme_set(theme_bw())
+theme_update(text = element_text(size = 30))
 ```
 
 ## Contents
 
-<div class="right", style="width: 50%">
-* Unsupervised learning
-* Dimensionality reduction
-    + Principal Component Analysis (PCA)
+<div class="left", style="width: 50%">
+* What is unsupervised learning?
+
+* Dimensionality reduction with PCA
+    
 * Cluster Analysis:
     + k-means Clustering
     + Hierarchical Clustering
-* Extra: Other unsupervised techniques
-    + Multidimensional Scaling (MDS)
-    + t-Stochastic Neighbor Embedding (tSNE)
+    
+* Course wrap-up
 
 </div>
 
@@ -46,56 +48,63 @@ sapply(.packages, require, character.only = TRUE)
 </div>
 
 
+# Unsupervised Learning
+
 ## Unsupervised Learning
 
-* Unsupervised learning deals with a task of **inferring latent (hidden) 
+* Deals with a task of **inferring latent (hidden) 
 patterns and structures unlabeled data**.
+
 * The goal is to understand the **relationships between
 features or among observations**.
-* There are **no special variables such as response or output variables**,
-which need to be predicted.
-* There are **no prespecified classes or groups of observations**. 
-* Ther is only $X$ and no $Y$.
+
+* There is only $X$ and no $Y$, i.e. there are **no special variables** 
+such as response or output variables, and **no prespecified classes labels** 
+for the observations. 
+
 
 ## 
 
-* Unsupervised learning techniques include:
-    + dimensional reduction, manifold learning e.g. PCA, MDS, SVD, Isomaps
-    + clustering e.g. k-means, hierarchical clustering, mixture models
-    + association rules
+* Unsupervised learning encompasses:
+    + dimensionality reduction, manifold learning \
+    *e.g. PCA, MDS, Isomap, Diffusion Map, t-SNE, Autoencoder*
+    + clustering *e.g. k-means, hierarchical clustering, mixture models*
+    + anomaly detection
+    + latent variable models
 
-* Applications include:
-    + visualization of high dimensional gene expression data,
-    + discovery cell subtypes,
+</br>
+
+* It can handle the tasks such as:
     + image segmentation,
-    + image clustering / automatic labeling
+    + image clustering / automatic labeling,
+    + visualization of high dimensional data *e.g. gene expression*,
+    + finding cell subtypes.
 
 # Dimensionality Reduction
 
 ## Dimensionality Reduction
 
-* Most of **real life datasets are now high-dimensional** e.g. genetic 
-sequencing data, medical records data, user internet activity data etc.
-* D.R. or feature extraction methods **can reduce the number of 
-variables.**
+* Most of **modern datasets are high-dimensional** e.g. genetic 
+sequencing, medical records, user internet activity data etc.
+* DR or feature extraction methods **can reduce the number of variables.**
 * The methods can be used to:
     + compress the data
     + remove redundant features and noise
     + increase accuracy of learning methods by avoiding over-fitting and
     [the curse of dimensionality](http://statweb.stanford.edu/~donoho/Lectures/AMS2000/Curses.pdf) 
 * Common methods for dimensionality reduction include: PCA, CA, ICA, MDS, 
-Isomaps, Laplacian Eigenmaps, tSNE.
+Isomaps, Laplacian Eigenmaps, tSNE, Autoencoder.
 
 
 ## Principal Component Analysis (PCA)
 
-<div style="float: left; width: 45%; height: 70%">
-![](./Lecture8_Unsupervised_Learning_files/halfSphere.png)
+<div style="float: left; width: 45%">
+![](./Lecture8-figure/halfSphere.png)
 
 </div>
 
-<div style="float: left; width: 51%; height: 70%">
-![](./Lecture8_Unsupervised_Learning_files/pca.png)
+<div style="float: left; width: 51%">
+![](./Lecture8-figure/pca.png)
 </div>
 
 Source: [ESL Chapter 14](https://web.stanford.edu/~hastie/ElemStatLearn/)
@@ -114,7 +123,7 @@ $$C = \frac{1}{n-1} \tilde X ^T \tilde X = \frac{1}{n-1} V \Sigma^2 V^T$$
 
 $$\tilde X = U \Sigma V^T $$
 
-In the above $U$ and $V$ are orthodgonal matrices and 
+In the above $U$ and $V$ are orthogonal matrices and 
 
 $\Sigma$ is a diagonal matrix.
 
@@ -193,7 +202,7 @@ These are the sample coordinates in the PCA projection space.
 
 ##
 
-* The principal axes matrix, $V$, contatins the eigenvectors of the covariance
+* The principal axes matrix, $V$, contains the eigenvectors of the covariance
 matrix. A related matrix of **loadings** is a matrix of eigenvectors scaled by 
 the square roots of the respective eigenvalues: 
 
@@ -240,7 +249,7 @@ pca.res$sdev
 pca.res$center
 ```
 
-* The standard devations of the features, used for scaling:
+* The standard deviations of the features, used for scaling:
 
 ```{r}
 pca.res$scale
@@ -250,14 +259,12 @@ pca.res$scale
 ## Scree plot
 
 <div class="left", style = "text-align: left; width: 50%">
-* A scree plot can be used to choose how many components to retain for further
-analysis
+* A scree plot can be used to choose how many components to retain.
 
-* Choose the smallest number of PCs that explain a sizable amount of 
-variation in the data.
+* Look for **"elbows"** in the scree plots 
 
-* Look for **"elbows"** in the scree plots i.e. points at which **the 
-proportion of variance explained** by subsequent PCs drops off. 
+* Discard the dimensions with corresponding eigenvalues or equivalently 
+**the proportion of variance explained** that drop off significantly. 
 
 </div>
 
@@ -274,55 +281,57 @@ plot(pca.res)
 
 * Percent of variance explained:
 
-```{r, fig.width=12, fig.height=5.5}
+```{r}
+# install.packages("factoextra")
+library(factoextra)
+
+# Percent of variance explained:
 (pve <- 100*pr.var/sum(pr.var))
-ggplot(data.frame(pve = pve, pc = 1:length(pve)), aes(x = pc, y = pve)) + 
-  geom_bar(stat = "identity") + ylim(0, 100) + theme_classic() +
-  xlab("Principal Component") + ylab("Percent of Variance Explained") 
+fviz_eig(pca.res) + theme(text = element_text(size = 20))
 ```
 
 
 ## Samples Plot
 
-```{r, fig.height=6.5, fig.width=12}
-df <- data.frame(state = rownames(USArrests), pca.res$x[, 1:2])
-ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = state)) +
-  xlab(paste0("PC1, ", round(pve[1], digits = 2), "%")) +
-  ylab(paste0("PC2, ", round(pve[2], digits = 2), "%")) +
-  theme_classic() + coord_fixed(pve[2]/pve[1])
+Each principal component loading and score vector is **unique, up to a sign 
+flip**. So another software could return this plot instead:
+
+```{r}
+fviz_pca_ind(pca.res) + coord_fixed() + 
+    theme(text = element_text(size = 20))
 ```
+
 
 ## Features Plot
 
-```{r, fig.height=6, fig.width=12}
-L <- sweep(pca.res$rotation, 2, pca.res$sdev, "*")
-df <- data.frame(features = colnames(USArrests), L[, 1:2])
-ggplot(df, aes(x = PC1, y = PC2)) + geom_text(aes(label = features)) +
-  xlab(paste0("PC1, ", round(pve[1], digits = 2), "%")) +
-  ylab(paste0("PC2, ", round(pve[2], digits = 2), "%")) +
-  theme_classic() + coord_fixed(pve[2]/pve[1])
+
+<div class="left", style = "width: 50%">
+
+```{r, message=FALSE}
+fviz_pca_var(pca.res) + coord_fixed() +
+    theme(text = element_text(size = 20))
+```
+</div>
+
+<div class="right", style = "width: 50%">
+
+```{r}
+fviz_contrib(pca.res, choice = "var", axes = 1) +
+    theme(text = element_text(size = 20))
 ```
 
+</div>
 
 ## Biplot
 
 A biplot allows information on both samples and variables of a data matrix to 
 be displayed at the same time.
 
-```{r fig.height=7, fig.width= 7}
-biplot(pca.res, scale=1, cex = 0.8)
+```{r}
+fviz_pca_biplot(pca.res) + coord_fixed() +
+    theme(text = element_text(size = 20))
 ```
 
-##
-
-Each principal component loading and score vector is **unique, up to a sign flip**.
-So another software could return this plot instead:
-
-```{r fig.height=6, fig.width=6}
-pca.res$rotation <- -pca.res$rotation
-pca.res$x <- -pca.res$x
-biplot(pca.res, scale=1, cex = 0.8)
-```
 
 ## Exercise
 
@@ -340,14 +349,16 @@ from the class website under the Lecture tab.
 
 * **Clustering is an exploratory technique** which can 
 **discover hidden groups** that are important for understanding the data.
+
 * Groupings are determined from the data itself, 
 **without any prior knowledge about labels or classes**.
+
 * There are the clustering methods available; a lot of them have an R 
-implementaion available on 
+implementation available on 
 [CRAN](https://cran.r-project.org/web/views/Cluster.html).
 
 <div style="text-align: center">
-![](./Lecture8_Unsupervised_Learning_files/clusters.png)
+![](./Lecture8-figure/clusters.png)
 </div>
 
 ##
@@ -356,7 +367,7 @@ implementaion available on
 **dissimilarity** between a pair of observations, e.g.  an Euclidean distance.
 
 <div style="text-align: center; height: 75%">
-![](./Lecture8_Unsupervised_Learning_files/birdsOfFeather.png)
+![](./Lecture8-figure/birdsOfFeather.png)
 </div>
 
 ## k-means
@@ -366,22 +377,26 @@ for clustering data into $k$ distinct non-overlapping groups.
 * The algorithm minimizes the variation within each cluster.
 
 <div style="height: 30%; width: 50%">
-![](./Lecture8_Unsupervised_Learning_files/right.gif)
+![](./Lecture8-figure/right.gif)
 Source: [link](http://shabal.in/visuals/kmeans/3.html)
 </div>
 
 ## k-means drawbacks
 
 * **The number clusters $k$ must be prespecified** (before clustering).
+
 * The method is stochastic, and involves **random initialization of
 cluster centers**.
+
 * This means that each time the algorithm is run, the results obtained
 can be different.
 
 The number of clusters, $k$, should be chosen using statistics such as:
 
 * Gap Statistic [link](http://www.web.stanford.edu/~hastie/Papers/gap.pdf)
+
 * Silhouette statistic [link](https://en.wikipedia.org/wiki/Silhouette_(clustering))
+
 * Calinski-Harbasz index [link](http://www.biomedcentral.com/content/supplementary/1477-5956-9-30-S4.PDF)
 
 
@@ -394,21 +409,24 @@ The number of clusters, $k$, should be chosen using statistics such as:
 downloaded from [here]("http://www.infohostels.com/immagini/news/2179.jpg").
 
 <div style="text-align: center; height: 75%">
-![](./Lecture8_Unsupervised_Learning_files/Image.jpg)
+![](./Lecture8-figure/Image.jpg)
 </div>
 
 ## Importing image to R
 
-* Firs, we download the image:
+* First, we download the image:
 ```{r}
 library(jpeg)
 url <- "http://www.infohostels.com/immagini/news/2179.jpg"
-dFile <- download.file(url, "./Lecture8_Unsupervised_Learning_files/Image.jpg")
-img <- readJPEG("./Lecture8_Unsupervised_Learning_files/Image.jpg") 
+dFile <- download.file(url, "./Lecture8-figure/Image.jpg")
+img <- readJPEG("./Lecture8-figure/Image.jpg") 
 (imgDm <- dim(img))
 ```
+
 * The image is a 3D array, so we will convert it to a data frame.
+
 * Each row of the data frame should correspond a single pixel. 
+
 * The columns should include the pixel location (`x` and `y`), 
 and the pixel intensity in red, green, and blue ( `R`, `G`, `B`).
 
@@ -491,7 +509,7 @@ ggplot(data = imgRGB, aes(x = x, y = y)) +
 ## Hierarchical clustering
 
 <div style="height:10%; width:100%; float: center">
-![](./Lecture8_Unsupervised_Learning_files/calderMobile.jpg)
+![](./Lecture8-figure/calderMobile.jpg)
 </div>
 <small> Alexander Calder's mobile </small>
 
@@ -515,20 +533,20 @@ representation of the data, called a **dendogram**.
 ##
 
 <div style="float: left; width: 50%; height: 100%">
-![](./Lecture8_Unsupervised_Learning_files/dogDendro.png)
+![](./Lecture8-figure/dogDendro.png)
 
 </div>
 
 <div style="float: left; width: 50%; height: 100%">
-![](./Lecture8_Unsupervised_Learning_files/hierarchicalCutoff.png)
+![](./Lecture8-figure/hierarchicalCutoff.png)
 </div>
 
 
 ## Hierarchical clustering algorithm
 
-![](./Lecture8_Unsupervised_Learning_files/hierarchicalClusteringAlgorithm.png)
+![](./Lecture8-figure/hierarchicalClusteringAlgorithm.png)
 
-Source: ISL
+Source: [ISL](https://www-bcf.usc.edu/~gareth/ISL/)
 
 ## 
 
@@ -539,23 +557,23 @@ Manhattan (L1), Jaccard (Binary),
 [etc](http://dataaspirant.com/2015/04/11/five-most-popular-similarity-measures-implementation-in-python/)
 
 * The rule used for grouping clusters that are already generated, e.g. 
-minimum, maximum, average, or centroid cluster linkages. 
+single (minimum), completer (maximum), centroid or average cluster linkages. 
 
 </br>
 
-<div style="text-align: center; height: 75%">
-![](./Lecture8_Unsupervised_Learning_files/clustering_distances.png)
+<div class="center", style="width: 100%">
+![](./Lecture8-figure/clustering_distances.gif)
 </div>
 
 ##
 Different ways to compute dissimilarity between 2 clusters:
 
-![](./Lecture8_Unsupervised_Learning_files/linkages.png)
+![](./Lecture8-figure/linkages.png)
 
 
 ## Iris dataset
 
-* We will use the Fisher's Iris dataset contatining measurements on 150 irises.
+* We will use the Fisher's Iris dataset containing measurements on 150 irises.
 * Hierarchical clustering will calculate the grouping of 
 the flowers into groups corresponding. We will see that these groups
 will roughly correspond to the flower species.
@@ -660,8 +678,8 @@ clusterCut <- cutree(clusters, 3)
 table(clusterCut, iris$Species)
 ```
 
-We see that this time the results are better in terms of the cluster assignement
-agreement with the flower species classfication.
+We see that this time the results are better in terms of the cluster assignment
+agreement with the flower species classification.
 
 ##
 
@@ -692,6 +710,31 @@ from the class website under the Lecture tab.
 - Complete Exercise 2.
 
 
+# Course wrap-up
+
+## Our journey
+
+
+
+![](./Lecture8-figure/tidyverse.png)
+
+## How to learn more
+
+Where to find out more about the topics of this class:
+
+- R for Data Science, by Hadley Wickham: (http://r4ds.had.co.nz)
+- The tidyverse: (https://www.tidyverse.org)
+- RStudio: (https://www.rstudio.com/)
+- R Markdown: (http://rmarkdown.rstudio.com/)
+- Many online tutorials and forums (e.g.
+[Data Carpentry](https://datacarpentry.org/) and [DataCamp](https://www.datacamp.com/))
+
+How to learn more advanced topics on R:
+
+- Take “Stat 290: Computing for Data Science”
+- Read “Advanced R”, by Hadley Wickham: (http://adv-r.had.co.nz/)
+- Read “R packages”, by Hadley Wickham: (http://rpkgs.had.co.nz/)
+
 
 # Extra: Other unsupervised techniques
 
@@ -718,7 +761,7 @@ book by Borg, Groenen, and Mair.
 * Gosta Ekman studied how people perceive colors in 
 [his paper from 1954](http://www.tandfonline.com/doi/abs/10.1080/00223980.1954.9712953). 
 * He collected survey data from 31 subjects, which included participants' rating
-of the disimilarity between each pair of 14 colors on a 5-point scale. 
+of the dissimilarity between each pair of 14 colors on a 5-point scale. 
 * The ratings of all subjects were averaged, and the final mean dissimilarity 
 matrix was used for constructing "map of colors".
 
@@ -727,7 +770,7 @@ matrix was used for constructing "map of colors".
 14 colors were studied with wavelengths in the range between 434 and 674 nm.
 
 <div style="text-align: center">
-![](./Lecture8_Unsupervised_Learning_files/colors.jpeg)
+![](./Lecture8-figure/colors.jpeg)
 </div>
 
 
@@ -735,10 +778,10 @@ matrix was used for constructing "map of colors".
 
 ```{r}
 # color similarity scores 
-ekmanSim <- readRDS("./Lecture8_Unsupervised_Learning_files/ekman.rds")
+ekmanSim <- readRDS("./Lecture8-figure/ekman.rds")
 print(ekmanSim)
 # convert similarities to dissimilarities
-ekmanDist <- 1- ekmanSim
+ekmanDist <- 1 - ekmanSim
 ```
 
 ## MDS in R
@@ -786,8 +829,8 @@ for dimensionality reduction
 * It is particularly well suited for the visualization of high-dimensional 
 datasets.
 * The method performs well at visualizing and exposing inherent data clusters
-* It has beeen widely applied in many fields including genomics, where
-the method is commonly used in single-cell literature for viusalizing 
+* It has been widely applied in many fields including genomics, where
+the method is commonly used in single-cell literature for visualizing 
 cell subpopulations.
 
 
@@ -798,7 +841,7 @@ using the `Rtsne` package. The example and code was developed by
 [Lukas Weber](https://github.com/lmweber/Rtsne-example).
 
 * The dataset used is the mass cytometry of healthy human bone marrow dataset 
-from the sudy conducted by [Amir et al. (2013)]( http://www.ncbi.nlm.nih.gov/pubmed/23685480). 
+from the study conducted by [Amir et al. (2013)]( http://www.ncbi.nlm.nih.gov/pubmed/23685480). 
 * Mass cytometry measures the expression levels of up to 40 proteins 
 per cell and hundreds of cells per second.
 * In this example t-SNE is very effective at displaying groups
@@ -809,7 +852,7 @@ of different cell populations (types).
 
 ```{r}
 #  here we use a subset of the data
-path <- "./Lecture8_Unsupervised_Learning_files/healthyHumanBoneMarrow_small.csv"
+path <- "./Lecture8-figure/healthyHumanBoneMarrow_small.csv"
 dat <- read.csv(path)
 ```
 
@@ -853,28 +896,6 @@ plot(rtsne_out$Y, asp = 1, pch = 20, col = "blue",
 ```
 
 
-# Conclusion
 
-## Our journey
-
-![](./Lecture2-figure/data-science.png)
-
-![](./01_tidyverse_data_science.png)
-
-## How to learn more
-
-Where to find out more about the topics of this class:
-
-- R for Data Science, by Hadley Wickham: (http://r4ds.had.co.nz)
-- The tidyverse: (https://www.tidyverse.org)
-- RStudio: (https://www.rstudio.com/)
-- R Markdown: (http://rmarkdown.rstudio.com/)
-- Many online tutorials and forums
-
-How to learn more advanced topics on R:
-
-- Take “Stat 290: Computing for Data Science”
-- Read “Advanced R”, by Hadley Wickham: (http://adv-r.had.co.nz/)
-- Read “R packages”, by Hadley Wickham: (http://rpkgs.had.co.nz/)
 
 

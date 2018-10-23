@@ -32,7 +32,9 @@ Modeling data:
 **Lecture 7:** Hypothesis testing and classification.
 [[html](./assets/lectures/Lecture7_Hypothesis_testing_and_classification.html)]
 [[pdf](./assets/lectures/Lecture7_Hypothesis_testing_and_classification.pdf)]  
-**Lecture 8:** Unsupervised techniques in R.    
+**Lecture 8:** Unsupervised techniques in R.
+[[html](./assets/lectures/Lecture8_Unsupervised_Learning.html)]
+[[pdf](./assets/lectures/Lecture8_Unsupervised_Learning.pdf)]  
 
 Disclaimer: these lecture slides are subject to change and can be updated
 any time. Please check regularly.
@@ -64,13 +66,11 @@ any time. Please check regularly.
 **Exercise 7:**
 [[html](./assets/exercises/Lec7_Exercises.nb.html)]
 [[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec7_Exercises.Rmd)]
-<!---
-[[solutions](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]
---->  
+[[solutions](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]  
 **Exercise 8:**
-<!---
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]  
+<!---
 [[solutions](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
 --->  
 

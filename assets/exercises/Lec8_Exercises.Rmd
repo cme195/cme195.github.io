@@ -41,10 +41,6 @@ PC2 correspond to? How are the cars distributed on this representation?
 Does the "car map" make sense?
 
 
-e. You can install the package `ggfortify` and use `autoplot` on `prcomp`
-objects to generate easily ggplots.
-
-
 
 # Exercise 2: Cluster Analysis
 

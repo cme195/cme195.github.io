@@ -30,7 +30,10 @@ mtcars.pca <- prcomp(mtcars, scale=TRUE)
 b. Generate a scree plot and note how many dimensions should you retain.
 
 ```{r}
-plot(mtcars.pca)
+library(factoextra)
+
+# Percent of variance explained:
+fviz_eig(mtcars.pca) 
 ```
 
 c. Compute the percentage of variance explained by each of the principal
@@ -47,42 +50,21 @@ PC2 correspond to? How are the cars distributed on this representation?
 Does the "car map" make sense?
 
 ```{r, fig.width=8, fig.height=6}
-biplot(mtcars.pca, cex = 1.5)
+fviz_pca_biplot(pca.res) + coord_fixed() 
 ```
 
 ```{r}
 mtcars.pca$rotation
 ```
 
-
-e. You can install the package `ggfortify` and use `autoplot` on `prcomp`
-objects to generate easily ggplots.
-
-
 ```{r}
-# install.packages("ggfortify")
-library(ggfortify)
-library(dplyr)
-mtcars <- mtcars %>%
-  mutate(am = factor(am), gear = factor(gear), cyl = factor(cyl))
-autoplot(mtcars.pca, data = mtcars, label = TRUE, label.size = 4, colour = 'cyl')
+fviz_contrib(mtcars.pca, choice = "var", axes = 1) 
 ```
 
 ```{r}
-autoplot(mtcars.pca, data = mtcars, label = TRUE, label.size = 4, colour = 'gear') 
+fviz_contrib(mtcars.pca, choice = "var", axes = 2) 
 ```
 
-```{r}
-autoplot(mtcars.pca, data = mtcars, label = FALSE, colour = 'am',
-         loadings.label = TRUE, loadings.label.size  = 4)
-```
-
-
-```{r}
-autoplot(mtcars.pca, size = 0, label = TRUE, label.size = 4,
-         loadings = TRUE, loadings.label = TRUE, 
-         loadings.label.size  = 5) + theme_classic()
-```
 
 
 # Exercise 2: Cluster Analysis
