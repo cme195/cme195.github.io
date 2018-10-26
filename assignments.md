@@ -5,9 +5,11 @@ layout: cme195
 # [](#homework) Homework
 
 - Homework. Due Frid October 19, 2018 at 11:59pm
-[[html](./assets/assignments/homework.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.rmd)]
-[[pdf](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework.pdf)]  
+[[html](./assets/assignments/homework_FA2018.nb.html)]
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/assignments/homework_FA2018.rmd)]
+[[pdf](./assets/assignments/homework_FA2018.pdf)]  
+Solutions:[[html](./assets/assignments/homework_solutions_FA2018.nb.html)]
+[[pdf](./assets/assignments/homework_solutions_FA2018.pdf)]  
 
 # [](#project) Final Project 
 

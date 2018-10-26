@@ -69,10 +69,8 @@ any time. Please check regularly.
 [[solutions](./assets/exercises/Lec7_Exercises_with_Answers.nb.html)]  
 **Exercise 8:**
 [[html](./assets/exercises/Lec8_Exercises.nb.html)]
-[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]  
-<!---
-[[solutions](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]
---->  
+[[rmd](https://raw.githubusercontent.com/cme195/cme195.github.io/master/assets/exercises/Lec8_Exercises.Rmd)]
+[[solutions](./assets/exercises/Lec8_Exercises_with_Answers.nb.html)]  
 
 ## [](#tut) Introductory Tutorials
 

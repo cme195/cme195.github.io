@@ -50,7 +50,7 @@ PC2 correspond to? How are the cars distributed on this representation?
 Does the "car map" make sense?
 
 ```{r, fig.width=8, fig.height=6}
-fviz_pca_biplot(pca.res) + coord_fixed() 
+fviz_pca_biplot(mtcars.pca) + coord_fixed() 
 ```
 
 ```{r}
